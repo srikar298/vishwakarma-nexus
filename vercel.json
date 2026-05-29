@@ -1,0 +1,6 @@
+{
+  "buildCommand": "nx run @vishwakarma-k-c/web-hub:build",
+  "outputDirectory": "apps/web-hub/dist",
+  "installCommand": "pnpm install",
+  "framework": null
+}
