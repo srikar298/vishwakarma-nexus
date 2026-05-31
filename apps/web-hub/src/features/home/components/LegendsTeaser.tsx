@@ -54,14 +54,14 @@ export const LegendsTeaser = () => {
                     >
                        <img 
                         src={legend.img} 
-                        alt="legend" 
+                        alt={legend.name} 
                         className="w-full h-full object-cover" 
                         onError={(e) => { (e.target as HTMLImageElement).src = `https://images.unsplash.com/photo-${1544005313 + i}-94ddf0286df2?auto=format&fit=crop&q=80&w=100`; }}
                        />
                     </motion.div>
                   ))}
                </div>
-               <p className="text-xs font-black text-stone-400 uppercase tracking-widest">50+ Documented Icons</p>
+               <p className="text-xs font-black text-stone-600 uppercase tracking-widest">50+ Documented Icons</p>
             </div>
 
             <Link to="/legends" className="inline-flex items-center gap-6 bg-stone-900 text-white px-10 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:bg-saffron-600 transition-all shadow-2xl shadow-stone-900/10 active:scale-95">

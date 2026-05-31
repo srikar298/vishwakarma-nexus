@@ -39,7 +39,7 @@ export const FounderPage = () => {
             >
               <div className="aspect-[3/4] rounded-[4rem] overflow-hidden border-8 border-stone-800 shadow-3xl shadow-black/50 rotate-[-2deg] hover:rotate-0 transition-transform duration-700 group">
                 <img 
-                  src="/images/founder/portrait_full.png" 
+                  src="/images/founder/portrait_full.webp" 
                   alt="Founder" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
                 />

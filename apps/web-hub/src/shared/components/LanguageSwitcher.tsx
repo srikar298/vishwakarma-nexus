@@ -19,7 +19,7 @@ export const LanguageSwitcher = () => {
           className={`px-3 py-1.5 rounded-lg text-[10px] font-black tracking-widest transition-all ${
             currentLang === l 
               ? 'bg-vermilion text-white shadow-md' 
-              : 'text-stone-500 hover:bg-stone-200/50 hover:text-stone-800'
+              : 'text-stone-600 hover:bg-stone-200/50 hover:text-stone-900'
           }`}
         >
           {l.toUpperCase()}

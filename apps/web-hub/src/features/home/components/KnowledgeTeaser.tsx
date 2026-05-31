@@ -78,7 +78,7 @@ export const KnowledgeTeaser = () => {
              <div className="absolute inset-0 bg-stone-900 z-0">
                 <img 
                   src="https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Manuscript" 
+                  alt="Ancient Shastra Manuscript" 
                   className="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-1000"
                 />
              </div>

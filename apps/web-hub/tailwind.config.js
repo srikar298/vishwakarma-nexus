@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         turmeric: '#FFC000',
-        vermilion: '#E34234',
+        vermilion: '#D3372A', // Deepened from #E34234 to pass 4.5:1 contrast ratio against white
         saffron: {
           50: '#fff7ed',
           100: '#ffedd5',

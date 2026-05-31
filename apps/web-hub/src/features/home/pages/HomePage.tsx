@@ -85,7 +85,7 @@ export const HomePage = () => {
               <div key={event.id} className="bg-white p-8 rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-saffron-50 -mr-12 -mt-12 rounded-full group-hover:scale-[3] transition-transform duration-700 -z-0" />
                 <div className="relative z-10">
-                  <div className="flex items-center gap-2 text-saffron-600 font-bold mb-6 uppercase tracking-widest text-[10px]">
+                  <div className="flex items-center gap-2 text-saffron-700 font-bold mb-6 uppercase tracking-widest text-[10px]">
                     <Calendar size={14} />
                     {(event.date as Record<string, string>)[i18n.language]}
                   </div>
@@ -95,7 +95,7 @@ export const HomePage = () => {
                   <p className="text-stone-500 mb-8 line-clamp-3 text-sm leading-relaxed">
                     {(event.description as Record<string, string>)[i18n.language]}
                   </p>
-                  <div className="flex items-center gap-2 text-stone-400 text-xs font-bold bg-stone-50 self-start px-3 py-2 rounded-lg">
+                  <div className="flex items-center gap-2 text-stone-600 text-xs font-bold bg-stone-50 self-start px-3 py-2 rounded-lg">
                     <MapPin size={14} className="text-gold-500" />
                     {(event.location as Record<string, string>)[i18n.language]}
                   </div>

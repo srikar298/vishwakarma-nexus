@@ -8,27 +8,27 @@ const SONS_KEYS = ['manu', 'maya', 'thwashta', 'shilpi', 'vishwajna'];
 
 const SONS_METADATA = {
   manu: {
-    image: '/images/hero/manu.png',
+    image: '/images/hero/manu.webp',
     color: 'from-orange-500/20 to-red-500/20',
     borderColor: 'group-hover:border-orange-500/50'
   },
   maya: {
-    image: '/images/hero/maya.png',
+    image: '/images/hero/maya.webp',
     color: 'from-amber-600/20 to-yellow-600/20',
     borderColor: 'group-hover:border-amber-600/50'
   },
   thwashta: {
-    image: '/images/hero/thwashta.png',
+    image: '/images/hero/thwashta.webp',
     color: 'from-blue-500/20 to-indigo-500/20',
     borderColor: 'group-hover:border-blue-500/50'
   },
   shilpi: {
-    image: '/images/hero/shilpi.png',
+    image: '/images/hero/shilpi.webp',
     color: 'from-stone-500/20 to-slate-500/20',
     borderColor: 'group-hover:border-stone-500/50'
   },
   vishwajna: {
-    image: '/images/hero/vishwajna.png',
+    image: '/images/hero/vishwajna.webp',
     color: 'from-yellow-400/20 to-gold-500/20',
     borderColor: 'group-hover:border-yellow-500/50'
   }
@@ -61,7 +61,7 @@ export function HeroFiveSons() {
 
       {/* Decorative Rotating Mandalas */}
       <motion.img
-        src="/images/hero/mandala-motif.png"
+        src="/images/hero/mandala-motif.webp"
         alt="Decorative Mandala Motif"
         initial={{ rotate: 0 }}
         animate={{ rotate: 360 }}
@@ -72,7 +72,7 @@ export function HeroFiveSons() {
         decoding="async"
       />
       <motion.img
-        src="/images/hero/mandala-motif.png"
+        src="/images/hero/mandala-motif.webp"
         alt="Decorative Mandala Motif"
         initial={{ rotate: 0 }}
         animate={{ rotate: -360 }}
@@ -91,7 +91,7 @@ export function HeroFiveSons() {
             animate={{ opacity: 0.1, scale: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-right-top p-20"
-            style={{ backgroundImage: 'url(/images/hero/universal-motif.png)', backgroundSize: '35%' }}
+            style={{ backgroundImage: 'url(/images/hero/universal-motif.webp)', backgroundSize: '35%' }}
           />
         )}
         {i18n.language === 'te' && (
@@ -101,7 +101,7 @@ export function HeroFiveSons() {
             animate={{ opacity: 0.15 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-contain bg-right-bottom"
-            style={{ backgroundImage: 'url(/images/hero/kakatiya-thoranam.png)' }}
+            style={{ backgroundImage: 'url(/images/hero/kakatiya-thoranam.webp)' }}
           />
         )}
         {i18n.language === 'hi' && (
@@ -111,7 +111,7 @@ export function HeroFiveSons() {
             animate={{ opacity: 0.15 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-center"
-            style={{ backgroundImage: 'url(/images/hero/nagara-shikhara.png)' }}
+            style={{ backgroundImage: 'url(/images/hero/nagara-shikhara.webp)' }}
           />
         )}
       </AnimatePresence>
@@ -128,6 +128,8 @@ export function HeroFiveSons() {
         >
           <img 
             src="/images/hero/vishwakarma-bg.webp" 
+            srcSet="/images/hero/vishwakarma-bg-400.webp 400w, /images/hero/vishwakarma-bg-800.webp 800w, /images/hero/vishwakarma-bg-1200.webp 1200w"
+            sizes="(max-width: 768px) 224px, (max-width: 1280px) 40vw, 448px"
             alt="Lord Vishwakarma Emblem"
             className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-[3s] ease-out"
             fetchPriority="high"
@@ -241,7 +243,7 @@ export function HeroFiveSons() {
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                 className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-0 group-hover:opacity-10 transition-opacity duration-1000 pointer-events-none`}
               >
-                <img src="/images/hero/mandala-motif.png" className="w-full h-full object-contain filter invert opacity-50" alt="Decorative Mandala Motif" />
+                <img src="/images/hero/mandala-motif.webp" className="w-full h-full object-contain filter invert opacity-50" alt="Decorative Mandala Motif" />
               </motion.div>
 
               {/* Son Portrait Image with Parallax Depth */}

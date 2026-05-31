@@ -24,12 +24,16 @@ export const FounderSection = () => {
             className="lg:w-2/5 relative"
           >
             <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white group-hover:shadow-vermilion/10 transition-shadow">
-               <img 
-                 src="/images/founder/portrait.png" 
-                 alt="Founder" 
-                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-stone-900/10 to-transparent" />
+                <img
+                  src="/images/founder/portrait.webp"
+                  srcSet="/images/founder/portrait-400.webp 400w, /images/founder/portrait-800.webp 800w"
+                  sizes="(max-width: 768px) 300px, 500px"
+                  alt="Founder"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-stone-900/10 to-transparent" />
             </div>
             
             {/* Trust Badge */}
@@ -38,7 +42,7 @@ export const FounderSection = () => {
                  <ShieldCheck size={28} />
                </div>
                <div>
-                  <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest leading-none">{t('founder.institutional' as any)}</p>
+                  <p className="text-[10px] font-black text-stone-600 uppercase tracking-widest leading-none">{t('founder.institutional' as any)}</p>
                   <p className="text-sm font-black text-stone-900 uppercase tracking-tighter">{t('founder.chairman' as any)}</p>
                </div>
             </div>
@@ -92,11 +96,11 @@ export const FounderSection = () => {
                <div className="flex flex-wrap gap-8 py-4 border-y border-stone-100">
                   <div className="flex items-center gap-3">
                      <Award className="text-vermilion" size={24} />
-                     <p className="text-xs font-black text-stone-400 uppercase tracking-widest">{t('founder.mission')}</p>
+                     <p className="text-xs font-black text-stone-600 uppercase tracking-widest">{t('founder.mission')}</p>
                   </div>
                   <div className="flex items-center gap-3">
                      <div className="w-2 h-2 bg-saffron-500 rounded-full animate-pulse" />
-                     <p className="text-xs font-black text-stone-400 uppercase tracking-widest">{t('founder.visionTitle')}</p>
+                     <p className="text-xs font-black text-stone-600 uppercase tracking-widest">{t('founder.visionTitle')}</p>
                   </div>
                </div>
 

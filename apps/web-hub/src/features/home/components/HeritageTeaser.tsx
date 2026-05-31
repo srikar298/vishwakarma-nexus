@@ -71,7 +71,7 @@ export const HeritageTeaser = () => {
           >
              <img 
                src="/images/heritage/hampi-monolith.jpg" 
-               alt="Heritage" 
+               alt="Hampi Monolithic Architectural Heritage" 
                className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
              />
              <div className="absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur-md p-8 border-t border-stone-100 translate-y-2 group-hover:translate-y-0 transition-transform">

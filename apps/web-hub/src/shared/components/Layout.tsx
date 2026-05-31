@@ -47,7 +47,7 @@ export const Layout = () => {
       <nav className="sticky top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-stone-100">
         <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
-            <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <Link to="/" aria-label="Home" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <div className="bg-vermilion p-2.5 rounded-xl shadow-lg shadow-vermilion/20">
                 <Hammer className="text-white w-6 h-6" />
               </div>
@@ -156,7 +156,7 @@ export const Layout = () => {
             {/* Mobile Nav Toggle */}
             <div className="flex items-center gap-6 md:hidden">
               <LanguageSwitcher />
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-stone-900 group">
+              <button aria-label="Toggle menu" aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-stone-900 group">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} className="group-hover:text-vermilion transition-colors" />}
               </button>
             </div>
@@ -272,22 +272,22 @@ export const Layout = () => {
               <p className="text-turmeric mt-4 font-black text-sm">info@vkc-community.org</p>
             </div>
             <div className="flex flex-col md:items-end justify-center gap-6">
-              <div className="flex gap-8 text-xs font-bold text-stone-500 uppercase tracking-widest">
+              <div className="flex gap-8 text-xs font-bold text-stone-400 uppercase tracking-widest">
                 <Link to="/events" className="hover:text-white transition-colors">Events</Link>
                 <Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link>
                 <a href="#" className="hover:text-white transition-colors">Contact</a>
               </div>
-              <div className="flex gap-6 text-[10px] font-black text-stone-700 uppercase tracking-widest">
-                <a href="#" className="hover:text-stone-500">Privacy Policy</a>
-                <a href="#" className="hover:text-stone-500">Terms of Service</a>
+              <div className="flex gap-6 text-[10px] font-black text-stone-400 uppercase tracking-widest">
+                <a href="#" className="hover:text-stone-300">Privacy Policy</a>
+                <a href="#" className="hover:text-stone-300">Terms of Service</a>
                 <Link to="/admin" className="opacity-0">.</Link>
               </div>
               <div className="flex flex-col items-end gap-2 text-right">
-                <p className="text-[10px] font-black text-stone-700 uppercase tracking-widest">
+                <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest">
                   © 2026 VKC. Designed for the Five Millennia.
                 </p>
-                <p className="text-[10px] font-black text-stone-600 uppercase tracking-widest">
-                  Developed by <a href="https://www.instagram.com/srikar298s/" target="_blank" rel="noreferrer" className="text-saffron-600 hover:text-saffron-400 transition-colors">Srikar</a>
+                <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest">
+                  Developed by <a href="https://www.instagram.com/srikar298s/" target="_blank" rel="noreferrer" className="text-saffron-500 hover:text-saffron-400 transition-colors underline decoration-saffron-500/30 underline-offset-4">Srikar</a>
                 </p>
               </div>
             </div>

@@ -55,7 +55,7 @@ export const PanchaKulaExhibits = () => {
       color: "text-stone-700",
       items: [
         { id: 'kailasa-temple', img: "/images/heritage/exhibits/shilpi-kailasa.jpg" },
-        { id: 'konark-wheel', img: "/images/heritage/exhibits/shilpi-konark.jpg" },
+        { id: 'konark-wheel', img: "/images/heritage/exhibits/shilpi-konark.webp" },
         { id: 'madanikas-belur', img: "/images/heritage/exhibits/shilpi-madanika.jpg" }
       ]
     },

@@ -127,8 +127,8 @@ export const GallerySection = () => {
                 {/* Dynamic Empty Padded Placeholders for Masonry */}
                 {[...Array(Math.max(0, visibleCount - photos.length))].map((_, i) => (
                   <div key={`placeholder-${i}`} className="bg-stone-50 rounded-[1rem] sm:rounded-[1.5rem] border-2 border-dashed border-stone-200 aspect-[4/3] flex items-center justify-center flex-col gap-3 break-inside-avoid w-full inline-block">
-                    <ImageIcon className="text-stone-300" size={32} />
-                    <span className="text-stone-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center px-4 leading-tight">{t('gallery.coming_soon', 'More Coming Soon')}</span>
+                    <ImageIcon className="text-stone-400" size={32} />
+                    <span className="text-stone-600 text-[10px] sm:text-xs font-black uppercase tracking-widest text-center px-4 leading-tight">{t('gallery.coming_soon', 'More Coming Soon')}</span>
                   </div>
                 ))}
               </div>
