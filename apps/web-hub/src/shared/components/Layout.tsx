@@ -288,7 +288,10 @@ export const Layout = () => {
                   © 2026 VKC. Designed for the Five Millennia.
                 </p>
                 <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest">
-                  Developed by <a href="https://www.instagram.com/srikar298s/" target="_blank" rel="noreferrer" className="text-saffron-500 hover:text-saffron-400 transition-colors underline decoration-saffron-500/30 underline-offset-4">Srikar</a>
+                  Developed by <a href="https://www.linkedin.com/in/kudurmallasrikar/" target="_blank" rel="noreferrer" className="text-saffron-500 hover:text-saffron-400 transition-colors underline decoration-saffron-500/30 underline-offset-4">Srikar and Team</a>
+                </p>
+                <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest">
+                  Contributions can be supported at <a href="https://github.com/vishwkarma-k-c-dev/vishwakarma-nexus" target="_blank" rel="noreferrer" className="text-saffron-500 hover:text-saffron-400 transition-colors underline decoration-saffron-500/30 underline-offset-4">GitHub</a>
                 </p>
               </div>
             </div>
