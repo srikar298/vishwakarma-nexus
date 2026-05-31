@@ -14,7 +14,7 @@ interface SEOProps {
 export const SEO = ({ 
   title, 
   description, 
-  image = '/og-image.png', 
+  image = '/og-image.jpg', 
   type = 'website',
   canonical,
   schema
