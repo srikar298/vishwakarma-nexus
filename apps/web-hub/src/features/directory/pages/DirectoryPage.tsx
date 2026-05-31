@@ -228,9 +228,11 @@ export const DirectoryPage = () => {
 
   const filteredArtisans = useMemo(() => {
     return MOCK_ARTISANS.filter(artisan => {
+      const searchTerms = searchQuery.toLowerCase();
       const matchesSearch = 
-        artisan.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        artisan.location.toLowerCase().includes(searchQuery.toLowerCase());
+        artisan.name.toLowerCase().includes(searchTerms) ||
+        artisan.nameRegional.toLowerCase().includes(searchTerms) ||
+        artisan.location.toLowerCase().includes(searchTerms);
       const matchesCategory = activeCategory === 'all' || artisan.craft === activeCategory;
       return matchesSearch && matchesCategory;
     });
@@ -251,33 +253,46 @@ export const DirectoryPage = () => {
         subtitle="Discover the finest Vishwakarma craftsmen. From sacred architecture to intricate jewelry, find the legacy you need."
       >
         {/* Search & Filter Bar */}
-        <div className="bg-white/80 backdrop-blur-xl p-4 rounded-[2.5rem] border border-stone-200/60 shadow-2xl flex flex-col md:flex-row gap-4 items-center mt-8">
+        <div className="bg-white/80 backdrop-blur-xl p-4 rounded-[2.5rem] border border-stone-200/60 shadow-2xl flex flex-col md:flex-row gap-4 items-center mt-8 relative">
           <div className="relative flex-1 w-full group">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-vermilion transition-colors" size={20} />
             <input 
               type="text"
               placeholder="Search by name, location, or skill..."
-              className="w-full h-16 pl-16 pr-8 bg-stone-50 rounded-3xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-stone-800"
+              className="w-full h-16 pl-16 pr-12 bg-stone-50 rounded-3xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-stone-800"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-stone-400 hover:text-stone-900 transition-colors"
+                aria-label="Clear search"
+              >
+                <X size={18} />
+              </button>
+            )}
           </div>
           <div className="hidden md:flex h-12 w-[1px] bg-stone-100" />
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 hide-scrollbar w-full md:w-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all flex items-center gap-2 ${
-                  activeCategory === cat 
-                    ? 'bg-stone-900 text-turmeric shadow-lg' 
-                    : 'bg-stone-50 text-stone-500 hover:bg-stone-100'
-                }`}
-              >
-                {cat === 'all' ? <Filter size={12} /> : null}
-                {cat === 'all' ? 'All Crafts' : CRAFT_LABELS[cat as keyof typeof CRAFT_LABELS][i18n.language as 'en' | 'te' | 'hi']}
-              </button>
-            ))}
+          <div className="relative w-full md:w-auto">
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 hide-scrollbar w-full md:w-auto pr-8 md:pr-0">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all flex items-center gap-2 ${
+                    activeCategory === cat 
+                      ? 'bg-stone-900 text-turmeric shadow-lg' 
+                      : 'bg-stone-50 text-stone-500 hover:bg-stone-100'
+                  }`}
+                >
+                  {cat === 'all' ? <Filter size={12} /> : null}
+                  {cat === 'all' ? 'All Crafts' : CRAFT_LABELS[cat as keyof typeof CRAFT_LABELS][i18n.language as 'en' | 'te' | 'hi']}
+                </button>
+              ))}
+            </div>
+            {/* Mobile Scroll Hint Gradient */}
+            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white/80 to-transparent pointer-events-none md:hidden" />
           </div>
         </div>
       </PageHero>
@@ -465,13 +480,23 @@ export const DirectoryPage = () => {
                   </div>
                 </div>
 
-                <a 
-                  href={`tel:${selectedArtisan.phone}`}
-                  className="w-full bg-stone-900 text-white h-14 rounded-2xl flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest hover:bg-stone-800 transition-all active:scale-95 shadow-lg"
-                >
-                  <Phone size={16} />
-                  Call Now
-                </a>
+                <div className="flex gap-3">
+                  <a 
+                    href={`tel:${selectedArtisan.phone}`}
+                    className="flex-grow bg-stone-900 text-white h-14 rounded-2xl flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest hover:bg-stone-800 transition-all active:scale-95 shadow-lg"
+                  >
+                    <Phone size={16} />
+                    Call Now
+                  </a>
+                  <a 
+                    href={`https://wa.me/${selectedArtisan.phone.replace(/[^0-9]/g, '')}?text=Hello ${selectedArtisan.name}, I found your profile on Vishwakarma Nexus and I am interested in your ${selectedArtisan.craft} work.`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-14 h-14 bg-emerald-600 text-white rounded-2xl flex items-center justify-center hover:bg-emerald-700 transition-all active:scale-95 shadow-lg shadow-emerald-600/20"
+                  >
+                    <MessageSquare size={20} />
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -540,3 +565,4 @@ export const DirectoryPage = () => {
     </div>
   );
 };
+

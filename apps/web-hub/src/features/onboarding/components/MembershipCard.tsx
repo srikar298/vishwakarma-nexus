@@ -25,17 +25,27 @@ export const MembershipCard: React.FC<MembershipCardProps> = ({ memberData }) =>
 
   return (
     <div 
-      className="relative w-full max-w-[450px] aspect-[1.58/1] cursor-pointer group perspective-1000"
+      className="relative w-full max-w-[450px] aspect-[1.58/1] cursor-pointer group perspective-1000 select-none touch-none"
       onClick={() => setIsFlipped(!isFlipped)}
     >
       <motion.div
-        className="relative w-full h-full transition-all duration-500 preserve-3d"
+        className="relative w-full h-full transition-all duration-700 preserve-3d will-change-transform"
         animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        transition={{ type: "spring", stiffness: 150, damping: 20 }}
       >
         {/* FRONT FACE */}
         <div className="absolute inset-0 w-full h-full backface-hidden">
           <div className="w-full h-full rounded-[2rem] overflow-hidden bg-gradient-to-br from-stone-900 via-stone-800 to-black p-1 shadow-2xl relative">
+            {/* Holographic Shimmer Overlay */}
+            <motion.div 
+              animate={{ 
+                backgroundPosition: ['0% 0%', '200% 200%'],
+                opacity: [0.1, 0.3, 0.1]
+              }}
+              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 z-20 pointer-events-none mix-blend-overlay bg-[length:200%_200%] bg-gradient-to-tr from-transparent via-white/20 to-transparent"
+            />
+
             <div className="absolute top-0 right-0 w-40 h-40 bg-vermilion/10 blur-[60px] rounded-full" />
             <div className="absolute bottom-0 left-0 w-40 h-40 bg-saffron-600/10 blur-[60px] rounded-full" />
             
@@ -62,8 +72,8 @@ export const MembershipCard: React.FC<MembershipCardProps> = ({ memberData }) =>
                   <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-black text-white font-display leading-tight mb-1">{data.name}</h3>
-                  <p className="text-saffron-500 text-[10px] font-black uppercase tracking-widest mb-4">{data.category}</p>
+                  <h3 className="text-xl font-black text-white font-display leading-tight mb-1 truncate max-w-[200px]">{data.name}</h3>
+                  <p className="text-saffron-500 text-[10px] font-black uppercase tracking-widest mb-4 truncate">{data.category}</p>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <p className="text-[7px] text-stone-500 uppercase font-black tracking-widest mb-1">Member ID</p>
@@ -71,7 +81,7 @@ export const MembershipCard: React.FC<MembershipCardProps> = ({ memberData }) =>
                     </div>
                     <div>
                       <p className="text-[7px] text-stone-500 uppercase font-black tracking-widest mb-1">Status</p>
-                      <p className="text-[10px] text-emerald-400 font-black tracking-widest flex items-center gap-1 uppercase">Active<div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" /></p>
+                      <p className="text-[10px] text-emerald-400 font-black tracking-widest flex items-center gap-1 uppercase">Active<span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" /></p>
                     </div>
                   </div>
                 </div>

@@ -8,15 +8,26 @@ import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
 export const MembershipPage = () => {
   const [isRegistered, setIsRegistered] = useState(false);
-  const [memberData, setMemberData] = useState<any>(null);
+  const [liveData, setLiveData] = useState({
+    name: '',
+    phone: '',
+    location: '',
+    profession: '',
+    kula: '',
+    experience: '',
+    uid: 'VKC-2026-TEMP',
+    joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  });
 
-  const handleRegistrationComplete = (data: any) => {
-    setMemberData({
-      ...data,
-      uid: `VKC-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-      joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
-      category: data.kula || 'Artisan'
-    });
+  const handleLiveUpdate = (data: any) => {
+    setLiveData(prev => ({ ...prev, ...data }));
+  };
+
+  const handleRegistrationComplete = () => {
+    setLiveData(prev => ({
+      ...prev,
+      uid: `VKC-2026-${Math.floor(1000 + Math.random() * 9000)}`
+    }));
     setIsRegistered(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -32,8 +43,8 @@ export const MembershipPage = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           
-          {/* Left Side: Branding & Info */}
-          <div className="lg:w-1/3 space-y-10 lg:sticky lg:top-40">
+          {/* Left Side: Live Preview & Branding */}
+          <div className="lg:w-1/2 space-y-10 lg:sticky lg:top-40">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -41,38 +52,54 @@ export const MembershipPage = () => {
             >
               <div className="inline-flex items-center gap-3 bg-vermilion/10 px-4 py-1.5 rounded-full text-vermilion">
                  <Shield size={16} />
-                 <span className="text-[10px] font-black uppercase tracking-widest">Institutional Recognition</span>
+                 <span className="text-[10px] font-black uppercase tracking-widest">Digital Registry v2.0</span>
               </div>
-              <h1 className="text-5xl font-black text-stone-900 leading-tight font-display">
-                Digital <span className="text-vermilion underline decoration-vermilion/20 underline-offset-8">Identity</span> for Artisans
+              <h1 className="text-4xl md:text-5xl font-black text-stone-900 leading-tight font-display">
+                {isRegistered ? 'Your Digital' : 'Claim Your'} <span className="text-vermilion underline decoration-vermilion/20 underline-offset-8">Identity</span>
               </h1>
-              <p className="text-stone-600 text-lg font-medium leading-relaxed">
-                Empowering the 5,000-year legacy with modern digital recognition. Your VKC ID is the key to global markets, mentorship, and government benefits.
+              <p className="text-stone-600 text-lg font-medium leading-relaxed max-w-md">
+                {isRegistered 
+                  ? 'Your membership is now active. You can download or share your verified digital ID below.'
+                  : 'Complete the registration to generate your unique Artisan ID card. Watch it update in real-time.'}
               </p>
             </motion.div>
 
-            <div className="space-y-4">
-               <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest">Member Privileges</h4>
-               {[
-                 { title: 'Global Directory Listing', desc: 'Featured among the worlds finest craftsmen.' },
-                 { title: 'Mentorship Access', desc: 'Connect with senior doctors, engineers, and designers.' },
-                 { title: 'Export Support', desc: 'Guidance on shipping your masterpieces globally.' }
-               ].map((benefit, i) => (
-                 <div key={i} className="flex gap-4 p-5 bg-white rounded-2xl border border-stone-100 shadow-sm hover:border-vermilion/20 transition-all cursor-default">
-                    <div className="w-8 h-8 rounded-full bg-stone-50 flex items-center justify-center text-vermilion shrink-0">
-                       <Sparkles size={16} />
-                    </div>
-                    <div>
-                       <h5 className="font-bold text-stone-900 text-sm mb-1">{benefit.title}</h5>
-                       <p className="text-stone-500 text-xs leading-relaxed">{benefit.desc}</p>
-                    </div>
-                 </div>
-               ))}
+            {/* Live ID Preview */}
+            <div className="relative group/card">
+               <div className="absolute -inset-4 bg-gradient-to-tr from-saffron-500/10 to-vermilion/10 blur-3xl rounded-[4rem] opacity-0 group-hover/card:opacity-100 transition-opacity duration-1000" />
+               <MembershipCard memberData={{
+                 name: liveData.name || "Your Name Here",
+                 uid: liveData.uid,
+                 category: liveData.kula ? liveData.kula.split(' (')[0] : "Traditional Trade",
+                 joinDate: liveData.joinDate
+               }} />
+               {!isRegistered && (
+                 <motion.div 
+                  animate={{ opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute -top-6 -right-6 bg-stone-900 text-white px-4 py-2 rounded-2xl text-[9px] font-black uppercase tracking-widest shadow-xl rotate-12"
+                 >
+                   Live Preview
+                 </motion.div>
+               )}
             </div>
+
+            {isRegistered && (
+               <div className="flex flex-wrap gap-6 w-full max-w-md pt-4">
+                  <button className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-stone-900 text-white font-black py-4 rounded-2xl shadow-2xl hover:bg-vermilion transition-all active:scale-95 text-[10px] uppercase tracking-widest cursor-pointer">
+                    <Download size={18} />
+                    Download ID
+                  </button>
+                  <button className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-white text-stone-900 font-black py-4 rounded-2xl border border-stone-200 shadow-sm hover:bg-stone-50 transition-all active:scale-95 text-[10px] uppercase tracking-widest cursor-pointer">
+                    <Share2 size={18} />
+                    Verify Link
+                  </button>
+               </div>
+            )}
           </div>
 
-          {/* Right Side: Interactive Portal */}
-          <div className="lg:w-2/3 w-full">
+          {/* Right Side: Step-by-Step Portal */}
+          <div className="lg:w-1/2 w-full">
             <AnimatePresence mode="wait">
               {!isRegistered ? (
                 <motion.div
@@ -81,7 +108,10 @@ export const MembershipPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                 >
-                  <RegistrationForm onComplete={handleRegistrationComplete} />
+                  <RegistrationForm 
+                    onUpdate={handleLiveUpdate}
+                    onComplete={handleRegistrationComplete} 
+                  />
                 </motion.div>
               ) : (
                 <motion.div
@@ -90,43 +120,37 @@ export const MembershipPage = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   className="space-y-12"
                 >
-                  <div className="text-center space-y-4">
-                     <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", damping: 10 }}
-                        >
-                           <Shield size={40} />
-                        </motion.div>
+                  <div className="bg-emerald-50 rounded-[3rem] p-10 md:p-16 border border-emerald-100 text-center space-y-6">
+                     <div className="w-20 h-20 bg-white text-emerald-600 rounded-3xl flex items-center justify-center mx-auto shadow-xl shadow-emerald-600/10 rotate-3">
+                        <Shield size={40} />
                      </div>
-                     <h2 className="text-4xl font-black text-stone-900">Registration Successful!</h2>
-                     <p className="text-stone-500 font-medium">Your Digital Identity Card is ready for download.</p>
-                  </div>
-
-                  <div className="flex flex-col items-center gap-12">
-                     <MembershipCard memberData={memberData} />
-                     
-                     <div className="flex flex-wrap justify-center gap-6 w-full max-w-md">
-                        <button className="flex-1 min-w-[200px] flex items-center justify-center gap-3 bg-stone-900 text-white font-black py-5 rounded-2xl shadow-2xl hover:bg-vermilion transition-all active:scale-95 text-xs uppercase tracking-widest">
-                          <Download size={20} />
-                          Download Digital ID
-                        </button>
-                        <button className="flex-1 min-w-[200px] flex items-center justify-center gap-3 bg-white text-stone-900 font-black py-5 rounded-2xl border border-stone-200 shadow-sm hover:bg-stone-50 transition-all active:scale-95 text-xs uppercase tracking-widest">
-                          <Share2 size={20} />
-                          Share Verification Link
+                     <div className="space-y-2">
+                        <h2 className="text-3xl font-black text-stone-900 font-display uppercase tracking-tight">Registration Complete</h2>
+                        <p className="text-emerald-700 font-bold text-sm">Jai Vishwakarma! Your identity has been issued.</p>
+                     </div>
+                     <div className="pt-4">
+                        <button className="bg-stone-900 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-3 mx-auto hover:gap-6 transition-all shadow-xl shadow-black/20 cursor-pointer">
+                           Unlock Network Hub <ArrowRight size={16} />
                         </button>
                      </div>
                   </div>
 
-                  <div className="bg-saffron-50 rounded-[3rem] p-12 border border-saffron-100 flex flex-col md:flex-row items-center gap-8">
-                     <div className="flex-1 space-y-4 text-center md:text-left">
-                        <h3 className="text-2xl font-black text-stone-900">Unlock the Professional Network</h3>
-                        <p className="text-stone-600 font-medium">As a registered member, you can now access mentorship from doctors, lawyers, and IT experts in our community.</p>
+                  <div className="grid gap-6">
+                     <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest text-center">Next Strategic Steps</h4>
+                     <div className="grid md:grid-cols-2 gap-4">
+                        {[
+                          { title: 'Global Directory', desc: 'Your profile is being listed for buyers.', icon: <Globe size={18} /> },
+                          { title: 'Skill Training', desc: 'Access advanced 3D & Design courses.', icon: <Sparkles size={18} /> }
+                        ].map((step, i) => (
+                          <div key={i} className="p-6 bg-white rounded-3xl border border-stone-100 shadow-sm hover:border-vermilion/20 transition-all group">
+                             <div className="w-10 h-10 rounded-xl bg-stone-50 flex items-center justify-center text-stone-400 group-hover:text-vermilion transition-colors mb-4">
+                                {step.icon}
+                             </div>
+                             <h5 className="font-black text-stone-900 text-sm mb-1 uppercase tracking-tight">{step.title}</h5>
+                             <p className="text-stone-500 text-[11px] leading-relaxed font-medium">{step.desc}</p>
+                          </div>
+                        ))}
                      </div>
-                     <button className="bg-stone-900 text-white px-8 py-5 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-3 hover:gap-6 transition-all shadow-xl">
-                        Go to Network Hub <ArrowRight size={16} />
-                     </button>
                   </div>
                 </motion.div>
               )}
