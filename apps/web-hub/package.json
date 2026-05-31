@@ -5,10 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node -e \"const fs = require('fs'); fs.rmSync('../../dist', { recursive: true, force: true }); fs.cpSync('dist', '../../dist', { recursive: true })\"",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview"
+  },
+  "nx": {
+    "targets": {
+      "build": {
+        "outputs": [
+          "{projectRoot}/dist",
+          "{workspaceRoot}/dist"
+        ]
+      }
+    }
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.3",
