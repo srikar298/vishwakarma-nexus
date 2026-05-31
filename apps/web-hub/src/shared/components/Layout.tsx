@@ -18,11 +18,21 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
 import { SOCIAL_LINKS } from '@/shared/constants/social-links';
+import { SocialLinks } from '@/shared/ui/SocialLinks';
 
 export const Layout = () => {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = i18n.language;
@@ -45,7 +55,11 @@ export const Layout = () => {
       <AnnouncementTicker />
 
       {/* Navigation */}
-      <nav className="sticky top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-stone-100">
+      <nav className={`sticky top-0 w-full z-50 transition-all duration-500 border-b ${
+        scrolled 
+          ? 'bg-white/95 backdrop-blur-xl border-stone-100 shadow-sm py-0' 
+          : 'bg-white/80 backdrop-blur-md border-transparent py-2'
+      }`}>
         <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <Link to="/" aria-label="Home" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -137,12 +151,10 @@ export const Layout = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="hidden lg:flex items-center gap-3 border-r border-stone-100 pr-4">
-                   <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
-                   <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
-                   <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
-                   <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
-                </div>
+                <SocialLinks 
+                  size={26} 
+                  className="hidden lg:flex items-center gap-3 border-r border-stone-100 pr-4" 
+                />
                 <LanguageSwitcher />
                 <Link to="/donors" className="hidden lg:block text-stone-500 hover:text-vermilion transition-colors font-black uppercase tracking-widest text-xs px-2">{t('donors.page_title' as any, 'Community Donors')}</Link>
                 <button 

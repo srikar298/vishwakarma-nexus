@@ -14,7 +14,7 @@ import { SEO } from '@/shared/components/SEO';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
 // Sub-components
-import { ProfessionalsHub, OfficialsDirectory, MatrimonyPortal, EducationHub } from '../components';
+import { ComingSoonHub } from '../components';
 
 export const NetworkHub = () => {
   const { t } = useTranslation();
@@ -113,10 +113,7 @@ export const NetworkHub = () => {
                 transition={{ duration: 0.3 }}
                 className="w-full"
              >
-                {activeTab === 'professionals' && <ProfessionalsHub />}
-                {activeTab === 'officials' && <OfficialsDirectory />}
-                {activeTab === 'education' && <EducationHub />}
-                {activeTab === 'matrimony' && <MatrimonyPortal />}
+                <ComingSoonHub activeTab={activeTab} />
              </motion.div>
           </AnimatePresence>
         </div>

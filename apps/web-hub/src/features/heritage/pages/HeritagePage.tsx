@@ -6,6 +6,8 @@ import { SEO } from '../../../shared/components/SEO';
 import { EngineeringSecrets } from '../components/EngineeringSecrets';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
+import { PageHero } from '@/shared/ui/PageHero';
+
 export const HeritagePage = () => {
   const { t, i18n } = useTranslation();
   const isTelugu = i18n.language === 'te';
@@ -26,30 +28,11 @@ export const HeritagePage = () => {
       />
       <ScrollToTop />
       
-      {/* Header Splash */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 bg-stone-900 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')]" />
-        <div className="max-w-4xl mx-auto px-6 relative z-10 text-center space-y-6 md:space-y-8">
-           <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-2 rounded-full"
-           >
-             <div className="w-2 h-2 bg-vermilion rounded-full animate-pulse" />
-             <span className="text-[10px] font-black text-stone-400 uppercase tracking-[0.5em]">
-               {t('heritage.hero.badge')}
-             </span>
-           </motion.div>
-           <h1 className={`text-4xl md:text-7xl font-black text-white font-display leading-[1.1]
-             ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-             {t('heritage.hero.title_part1')} <span className="text-vermilion">{t('heritage.hero.title_highlight')}</span> {t('heritage.hero.title_part2')}
-           </h1>
-           <p className={`text-stone-400 text-lg md:text-xl font-medium max-w-2xl mx-auto italic
-             ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-             {t('heritage.hero.subtitle')}
-           </p>
-        </div>
-      </section>
+      <PageHero 
+        badgeLabel={t('heritage.hero.badge')}
+        title={<>{t('heritage.hero.title_part1')} <span className="text-vermilion">{t('heritage.hero.title_highlight')}</span> {t('heritage.hero.title_part2')}</>}
+        subtitle={t('heritage.hero.subtitle')}
+      />
 
       {/* Main Content Layout */}
       <div className="max-w-[1700px] mx-auto px-6 py-12 md:py-32 flex flex-col lg:grid lg:grid-cols-12 gap-12 lg:gap-16 relative overflow-visible">

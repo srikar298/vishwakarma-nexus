@@ -24,7 +24,7 @@ export const SectionBadge = ({
         viewport={{ once: true }}
         className={`inline-flex items-center gap-3 px-6 py-2 rounded-full border backdrop-blur-md ${
           isDark 
-            ? 'bg-white/5 border-white/10 text-white' 
+            ? 'bg-stone-900/40 border-white/20 text-white shadow-lg' 
             : 'bg-stone-100 border-stone-200 text-stone-900'
         } ${className}`}
       >

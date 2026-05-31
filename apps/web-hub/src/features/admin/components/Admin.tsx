@@ -37,6 +37,8 @@ interface InquiryData {
 
 const LANGUAGES = ['en', 'hi', 'te'];
 
+import { BaseModal } from '@/shared/ui/BaseModal';
+
 export function Admin() {
   const [session, setSession] = useState<Session | null>(null);
   const [email, setEmail] = useState('');
@@ -88,27 +90,6 @@ export function Admin() {
       }, 0);
     }
   }, [session, fetchEvents, fetchInquiries]);
-
-  // Lock scroll & handle escape key for the modal overlay
-  useEffect(() => {
-    const isModalOpen = !!editingEvent || isAdding;
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-      const handleEscape = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          setEditingEvent(null);
-          setIsAdding(false);
-        }
-      };
-      window.addEventListener('keydown', handleEscape);
-      return () => {
-        window.removeEventListener('keydown', handleEscape);
-        document.body.style.overflow = 'unset';
-      };
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [editingEvent, isAdding]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -406,111 +387,98 @@ export function Admin() {
         </AnimatePresence>
 
         {/* Event Form Modal */}
-        {(editingEvent || isAdding) && (
-          <div className="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-2 sm:p-4">
-            {/* Backdrop click closer */}
-            <div className="absolute inset-0" onClick={() => { setEditingEvent(null); setIsAdding(false); }} />
-            
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="bg-white w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl p-6 sm:p-8 border border-stone-100 relative z-10"
-            >
-              <button 
-                onClick={() => { setEditingEvent(null); setIsAdding(false); }}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 active:scale-90 active:bg-stone-200 transition-all bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105 z-50 flex items-center justify-center"
-                aria-label="Close"
-              >
-                <X size={20} />
-              </button>
+        <BaseModal
+          isOpen={!!editingEvent || isAdding}
+          onClose={() => { setEditingEvent(null); setIsAdding(false); }}
+          maxW="max-w-3xl"
+        >
+          <div className="p-6 sm:p-8">
+            <h2 className="text-2xl font-black text-stone-900 mb-8 flex items-center gap-3 font-display">
+              {editingEvent?.id ? <Edit2 className="text-saffron-600" /> : <Plus className="text-saffron-600" />}
+              {editingEvent?.id ? 'Edit Event' : 'Create New Event'}
+            </h2>
 
-              <h2 className="text-2xl font-black text-stone-900 mb-8 flex items-center gap-3 font-display">
-                {editingEvent?.id ? <Edit2 className="text-saffron-600" /> : <Plus className="text-saffron-600" />}
-                {editingEvent?.id ? 'Edit Event' : 'Create New Event'}
-              </h2>
-
-              <form onSubmit={handleSaveEvent} className="space-y-6 sm:space-y-8">
-                {LANGUAGES.map(l => (
-                  <div key={l} className="space-y-4 p-4 sm:p-6 bg-stone-50 rounded-2xl sm:rounded-3xl border border-stone-100">
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-[10px] font-black text-saffron-600 border border-saffron-100">
-                        {l.toUpperCase()}
-                      </div>
-                      <span className="text-xs font-black uppercase tracking-widest text-stone-400">{l === 'en' ? 'English' : l === 'hi' ? 'Hindi' : 'Telugu'} Content</span>
+            <form onSubmit={handleSaveEvent} className="space-y-6 sm:space-y-8">
+              {LANGUAGES.map(l => (
+                <div key={l} className="space-y-4 p-4 sm:p-6 bg-stone-50 rounded-2xl sm:rounded-3xl border border-stone-100">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-[10px] font-black text-saffron-600 border border-saffron-100">
+                      {l.toUpperCase()}
                     </div>
+                    <span className="text-xs font-black uppercase tracking-widest text-stone-400">{l === 'en' ? 'English' : l === 'hi' ? 'Hindi' : 'Telugu'} Content</span>
+                  </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Event Title</label>
-                        <input 
-                          type="text" 
-                          placeholder="e.g. Annual Vishwakarma Puja"
-                          className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium"
-                          value={editingEvent?.title[l] || ''}
-                          onChange={(e) => setEditingEvent({...editingEvent!, title: {...editingEvent!.title, [l]: e.target.value}})}
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Event Date</label>
-                        <input 
-                          type="text" 
-                          placeholder="e.g. September 17, 2026"
-                          className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium"
-                          value={editingEvent?.date[l] || ''}
-                          onChange={(e) => setEditingEvent({...editingEvent!, date: {...editingEvent!.date, [l]: e.target.value}})}
-                          required
-                        />
-                      </div>
-                    </div>
-
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Location</label>
+                      <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Event Title</label>
                       <input 
                         type="text" 
-                        placeholder="e.g. Main Temple Hall"
+                        placeholder="e.g. Annual Vishwakarma Puja"
                         className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium"
-                        value={editingEvent?.location[l] || ''}
-                        onChange={(e) => setEditingEvent({...editingEvent!, location: {...editingEvent!.location, [l]: e.target.value}})}
+                        value={editingEvent?.title[l] || ''}
+                        onChange={(e) => setEditingEvent({...editingEvent!, title: {...editingEvent!.title, [l]: e.target.value}})}
                         required
                       />
                     </div>
-
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Description</label>
-                      <textarea 
-                        rows={3}
-                        placeholder="Tell the community about this event..."
-                        className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium resize-none"
-                        value={editingEvent?.description[l] || ''}
-                        onChange={(e) => setEditingEvent({...editingEvent!, description: {...editingEvent!.description, [l]: e.target.value}})}
+                      <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Event Date</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g. September 17, 2026"
+                        className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium"
+                        value={editingEvent?.date[l] || ''}
+                        onChange={(e) => setEditingEvent({...editingEvent!, date: {...editingEvent!.date, [l]: e.target.value}})}
                         required
                       />
                     </div>
                   </div>
-                ))}
 
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 border-t border-stone-100">
-                  <button 
-                    type="submit" 
-                    disabled={loading}
-                    className="w-full bg-saffron-600 text-white py-4 rounded-2xl font-bold hover:bg-saffron-700 transition-all active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-saffron-600/20 order-1 sm:order-none"
-                  >
-                    <Save size={20} />
-                    {loading ? 'Saving...' : 'Save Event'}
-                  </button>
-                  <button 
-                    type="button" 
-                    onClick={() => { setEditingEvent(null); setIsAdding(false); }}
-                    className="w-full sm:w-auto px-8 bg-stone-100 text-stone-500 py-4 rounded-2xl font-bold hover:bg-stone-200 transition-all active:scale-95 order-2 sm:order-none"
-                  >
-                    Cancel
-                  </button>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Location</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g. Main Temple Hall"
+                      className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium"
+                      value={editingEvent?.location[l] || ''}
+                      onChange={(e) => setEditingEvent({...editingEvent!, location: {...editingEvent!.location, [l]: e.target.value}})}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Description</label>
+                    <textarea 
+                      rows={3}
+                      placeholder="Tell the community about this event..."
+                      className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium resize-none"
+                      value={editingEvent?.description[l] || ''}
+                      onChange={(e) => setEditingEvent({...editingEvent!, description: {...editingEvent!.description, [l]: e.target.value}})}
+                      required
+                    />
+                  </div>
                 </div>
-              </form>
-            </motion.div>
+              ))}
+
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 border-t border-stone-100">
+                <button 
+                  type="submit" 
+                  disabled={loading}
+                  className="w-full bg-saffron-600 text-white py-4 rounded-2xl font-bold hover:bg-saffron-700 transition-all active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-saffron-600/20 order-1 sm:order-none"
+                >
+                  <Save size={20} />
+                  {loading ? 'Saving...' : 'Save Event'}
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => { setEditingEvent(null); setIsAdding(false); }}
+                  className="w-full sm:w-auto px-8 bg-stone-100 text-stone-500 py-4 rounded-2xl font-bold hover:bg-stone-200 transition-all active:scale-95 order-2 sm:order-none"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
-        )}
+        </BaseModal>
       </main>
     </div>
   );

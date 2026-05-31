@@ -201,6 +201,8 @@ const MOCK_ARTISANS: Artisan[] = [
   }
 ];
 
+import { PageHero } from '@/shared/ui/PageHero';
+
 export const DirectoryPage = () => {
   const { t, i18n } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
@@ -237,34 +239,19 @@ export const DirectoryPage = () => {
   const categories: ArtisanCategory[] = ['all', 'carpentry', 'metalwork', 'sculpture', 'jewelry', 'architecture'];
 
   return (
-    <div className="pt-32 pb-24 min-h-screen bg-stone-50/30">
+    <div className="min-h-screen bg-stone-50/30">
       <SEO 
         title={t('nav.directory', 'Artisan Directory')} 
         description="Discover the finest Vishwakarma craftsmen. From sacred architecture to intricate jewelry, find the legacy you need in our master artisan directory."
       />
-      {/* Header Section */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center md:text-left mb-12"
-        >
-          <div className="flex items-center justify-center md:justify-start gap-4 mb-4">
-            <span className="w-12 h-[2px] bg-vermilion" />
-            <p className="text-vermilion font-black tracking-[0.3em] uppercase text-xs">
-               The Economic Engine
-            </p>
-          </div>
-          <h1 className="text-5xl md:text-6xl font-black text-stone-900 mb-6 font-display tracking-tight leading-none">
-            Master Artisans <span className="text-vermilion">& Professionals</span>
-          </h1>
-          <p className="text-stone-600 text-lg md:text-xl max-w-3xl leading-relaxed font-medium">
-            Discover the finest Vishwakarma craftsmen. From sacred architecture to intricate jewelry, find the legacy you need.
-          </p>
-        </motion.div>
 
+      <PageHero
+        badgeLabel="The Economic Engine"
+        title={<>Master Artisans <span className="text-vermilion">& Professionals</span></>}
+        subtitle="Discover the finest Vishwakarma craftsmen. From sacred architecture to intricate jewelry, find the legacy you need."
+      >
         {/* Search & Filter Bar */}
-        <div className="bg-white/80 backdrop-blur-xl p-4 rounded-[2.5rem] border border-stone-200/60 shadow-2xl flex flex-col md:flex-row gap-4 items-center">
+        <div className="bg-white/80 backdrop-blur-xl p-4 rounded-[2.5rem] border border-stone-200/60 shadow-2xl flex flex-col md:flex-row gap-4 items-center mt-8">
           <div className="relative flex-1 w-full group">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-vermilion transition-colors" size={20} />
             <input 
@@ -293,7 +280,7 @@ export const DirectoryPage = () => {
             ))}
           </div>
         </div>
-      </div>
+      </PageHero>
 
       {/* Results Grid */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -429,142 +416,127 @@ export const DirectoryPage = () => {
       </div>
 
       {/* Portfolio & Details Modal */}
-      <AnimatePresence>
+      <BaseModal
+        isOpen={!!selectedArtisan}
+        onClose={() => setSelectedArtisan(null)}
+        maxW="max-w-4xl"
+        className="!p-0" // Padding handled by internal columns
+      >
         {selectedArtisan && (
-          <div className="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-            {/* Modal backdrop closer */}
-            <div className="absolute inset-0" onClick={() => setSelectedArtisan(null)} />
-            
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 30 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className="bg-white rounded-[2.5rem] w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl relative p-6 sm:p-10 border border-stone-100 flex flex-col md:flex-row gap-8 z-10 scrollbar-thin"
-            >
-              {/* Close Button */}
-              <button 
-                onClick={() => setSelectedArtisan(null)}
-                className="absolute top-6 right-6 p-2.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 active:scale-90 active:bg-stone-200 transition-all z-50 bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105 flex items-center justify-center"
-                aria-label="Close"
-              >
-                <X size={20} />
-              </button>
-
-              {/* Left Column: Profile Card */}
-              <div className="w-full md:w-1/3 flex flex-col gap-6">
-                <div className="aspect-[4/3] md:aspect-square w-full rounded-3xl overflow-hidden shadow-md">
-                  <img src={selectedArtisan.image} alt={selectedArtisan.name} className="w-full h-full object-cover" />
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <span className="text-vermilion text-[10px] font-black uppercase tracking-[0.2em] mb-1 block">
-                       {CRAFT_LABELS[selectedArtisan.craft][i18n.language as 'en' | 'te' | 'hi']}
-                    </span>
-                    <h2 className={`text-3xl font-black text-stone-900 tracking-tight leading-tight ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
-                       {i18n.language === 'en' ? selectedArtisan.name : selectedArtisan.nameRegional}
-                    </h2>
-                  </div>
-
-                  <div className="space-y-2 border-t border-b border-stone-100 py-4">
-                    <div className="flex items-center gap-3 text-stone-600 font-medium">
-                       <MapPin size={16} className="text-vermilion/60" />
-                       <span className="text-xs">{selectedArtisan.location}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-stone-600 font-medium">
-                       <Briefcase size={16} className="text-vermilion/60" />
-                       <span className="text-xs">{selectedArtisan.experienceYears}+ Years Experience</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-stone-600 font-medium">
-                       <Award size={16} className="text-vermilion/60" />
-                       <span className="text-xs">Certified Master Artisan</span>
-                    </div>
-                    <div className="flex items-center gap-1.5 mt-2">
-                       {[...Array(5)].map((_, i) => (
-                         <Star 
-                           key={i} 
-                           size={14} 
-                           className={i < Math.floor(selectedArtisan.rating) ? "text-turmeric fill-turmeric" : "text-stone-200"}
-                         />
-                       ))}
-                       <span className="ml-1 text-xs font-black text-stone-900">{selectedArtisan.rating}</span>
-                    </div>
-                  </div>
-
-                  <a 
-                    href={`tel:${selectedArtisan.phone}`}
-                    className="w-full bg-stone-900 text-white h-14 rounded-2xl flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest hover:bg-stone-800 transition-all active:scale-95 shadow-lg"
-                  >
-                    <Phone size={16} />
-                    Call Now
-                  </a>
-                </div>
+          <div className="relative w-full p-6 sm:p-10 flex flex-col md:flex-row gap-8 max-h-[90vh] overflow-y-auto">
+            {/* Left Column: Profile Card */}
+            <div className="w-full md:w-1/3 flex flex-col gap-6">
+              <div className="aspect-[4/3] md:aspect-square w-full rounded-3xl overflow-hidden shadow-md">
+                <img src={selectedArtisan.image} alt={selectedArtisan.name} className="w-full h-full object-cover" />
               </div>
 
-              {/* Right Column: Portfolio & Reviews */}
-              <div className="flex-1 flex flex-col gap-8">
-                {/* Section: Portfolio */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-black text-stone-900 uppercase tracking-widest font-display flex items-center gap-2 border-b border-stone-100 pb-2">
-                    Featured Portfolio
-                  </h3>
-                  
-                  <div className="grid gap-6">
-                    {selectedArtisan.portfolio?.map((item) => (
-                      <div key={item.id} className="flex flex-col sm:flex-row gap-4 bg-stone-50/50 p-4 rounded-3xl border border-stone-100/80 hover:shadow-md transition-all group/item">
-                        <div className="w-full sm:w-28 aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden shadow-sm flex-shrink-0">
-                          <img src={item.image} alt={item.title[i18n.language as 'en' | 'te' | 'hi']} className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500" />
-                        </div>
-                        <div className="space-y-1.5">
-                          <h4 className="font-black text-stone-900 text-sm font-display group-hover/item:text-vermilion transition-colors">
-                            {item.title[i18n.language as 'en' | 'te' | 'hi']}
-                          </h4>
-                          <p className="text-stone-500 text-xs leading-relaxed line-clamp-3">
-                            {item.description[i18n.language as 'en' | 'te' | 'hi']}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                    {!selectedArtisan.portfolio && (
-                      <p className="text-stone-400 text-xs italic">No portfolio items uploaded yet.</p>
-                    )}
+              <div className="space-y-4">
+                <div>
+                  <span className="text-vermilion text-[10px] font-black uppercase tracking-[0.2em] mb-1 block">
+                      {CRAFT_LABELS[selectedArtisan.craft][i18n.language as 'en' | 'te' | 'hi']}
+                  </span>
+                  <h2 className={`text-3xl font-black text-stone-900 tracking-tight leading-tight ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
+                      {i18n.language === 'en' ? selectedArtisan.name : selectedArtisan.nameRegional}
+                  </h2>
+                </div>
+
+                <div className="space-y-2 border-t border-b border-stone-100 py-4">
+                  <div className="flex items-center gap-3 text-stone-600 font-medium">
+                      <MapPin size={16} className="text-vermilion/60" />
+                      <span className="text-xs">{selectedArtisan.location}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-stone-600 font-medium">
+                      <Briefcase size={16} className="text-vermilion/60" />
+                      <span className="text-xs">{selectedArtisan.experienceYears}+ Years Experience</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-stone-600 font-medium">
+                      <Award size={16} className="text-vermilion/60" />
+                      <span className="text-xs">Certified Master Artisan</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 mt-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star 
+                          key={i} 
+                          size={14} 
+                          className={i < Math.floor(selectedArtisan.rating) ? "text-turmeric fill-turmeric" : "text-stone-200"}
+                        />
+                      ))}
+                      <span className="ml-1 text-xs font-black text-stone-900">{selectedArtisan.rating}</span>
                   </div>
                 </div>
 
-                {/* Section: Testimonials */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-black text-stone-900 uppercase tracking-widest font-display flex items-center gap-2 border-b border-stone-100 pb-2">
-                    Client Endorsements
-                  </h3>
-                  
-                  <div className="grid gap-4">
-                    {selectedArtisan.testimonials?.map((t) => (
-                      <div key={t.id} className="bg-stone-50/30 p-5 rounded-3xl border border-stone-100/60 relative overflow-hidden">
-                        <MessageSquare className="absolute right-4 bottom-4 w-16 h-16 text-stone-200/20 pointer-events-none" />
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="font-bold text-xs text-stone-800">{t.clientName}</span>
-                          <div className="flex items-center gap-1">
-                            {[...Array(t.rating)].map((_, i) => (
-                              <Star key={i} size={10} className="text-turmeric fill-turmeric" />
-                            ))}
-                          </div>
-                        </div>
-                        <p className="text-stone-500 text-xs italic leading-relaxed relative z-10">
-                          &ldquo;{t.text[i18n.language as 'en' | 'te' | 'hi']}&rdquo;
+                <a 
+                  href={`tel:${selectedArtisan.phone}`}
+                  className="w-full bg-stone-900 text-white h-14 rounded-2xl flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest hover:bg-stone-800 transition-all active:scale-95 shadow-lg"
+                >
+                  <Phone size={16} />
+                  Call Now
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column: Portfolio & Reviews */}
+            <div className="flex-1 flex flex-col gap-8">
+              {/* Section: Portfolio */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-black text-stone-900 uppercase tracking-widest font-display flex items-center gap-2 border-b border-stone-100 pb-2">
+                  Featured Portfolio
+                </h3>
+                
+                <div className="grid gap-6">
+                  {selectedArtisan.portfolio?.map((item) => (
+                    <div key={item.id} className="flex flex-col sm:flex-row gap-4 bg-stone-50/50 p-4 rounded-3xl border border-stone-100/80 hover:shadow-md transition-all group/item">
+                      <div className="w-full sm:w-28 aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden shadow-sm flex-shrink-0">
+                        <img src={item.image} alt={item.title[i18n.language as 'en' | 'te' | 'hi']} className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-500" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <h4 className="font-black text-stone-900 text-sm font-display group-hover/item:text-vermilion transition-colors">
+                          {item.title[i18n.language as 'en' | 'te' | 'hi']}
+                        </h4>
+                        <p className="text-stone-500 text-xs leading-relaxed line-clamp-3">
+                          {item.description[i18n.language as 'en' | 'te' | 'hi']}
                         </p>
                       </div>
-                    ))}
-                    {!selectedArtisan.testimonials && (
-                      <p className="text-stone-400 text-xs italic">No client endorsements yet.</p>
-                    )}
-                  </div>
+                    </div>
+                  ))}
+                  {!selectedArtisan.portfolio && (
+                    <p className="text-stone-400 text-xs italic">No portfolio items uploaded yet.</p>
+                  )}
                 </div>
               </div>
-            </motion.div>
+
+              {/* Section: Testimonials */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-black text-stone-900 uppercase tracking-widest font-display flex items-center gap-2 border-b border-stone-100 pb-2">
+                  Client Endorsements
+                </h3>
+                
+                <div className="grid gap-4">
+                  {selectedArtisan.testimonials?.map((t) => (
+                    <div key={t.id} className="bg-stone-50/30 p-5 rounded-3xl border border-stone-100/60 relative overflow-hidden">
+                      <MessageSquare className="absolute right-4 bottom-4 w-16 h-16 text-stone-200/20 pointer-events-none" />
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="font-bold text-xs text-stone-800">{t.clientName}</span>
+                        <div className="flex items-center gap-1">
+                          {[...Array(t.rating)].map((_, i) => (
+                            <Star key={i} size={10} className="text-turmeric fill-turmeric" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-stone-500 text-xs italic leading-relaxed relative z-10">
+                        &ldquo;{t.text[i18n.language as 'en' | 'te' | 'hi']}&rdquo;
+                      </p>
+                    </div>
+                  ))}
+                  {!selectedArtisan.testimonials && (
+                    <p className="text-stone-400 text-xs italic">No client endorsements yet.</p>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         )}
-      </AnimatePresence>
+      </BaseModal>
     </div>
   );
 };

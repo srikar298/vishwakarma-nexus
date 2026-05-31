@@ -11,6 +11,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { SectionBadge } from '@/shared/ui/SectionBadge';
+import { Link } from 'react-router-dom';
 
 export const AboutSection = () => {
   const { t, i18n } = useTranslation();

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Sparkles, BookOpen, Scroll } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { SocialLinks } from '@/shared/ui/SocialLinks';
 import { SocialIcon } from 'react-social-icons';
 import { SOCIAL_LINKS } from '@/shared/constants/social-links';
 
@@ -54,11 +56,11 @@ export function HeroFiveSons() {
   };
 
   return (
-    <section className="relative min-h-screen w-full bg-cream overflow-hidden flex flex-col pt-20 md:pt-28 lg:pt-32">
+    <header className="relative min-h-screen w-full bg-cream overflow-hidden flex flex-col pt-20 md:pt-28 lg:pt-32">
       
       {/* Background Texture - Subtle Marble/Parchment feel */}
       <div className="absolute inset-0 opacity-40 mix-blend-multiply pointer-events-none" 
-           style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/marble-similar.png")` }} />
+           style={{ backgroundImage: `url("/images/textures/marble-similar.png")` }} />
 
       {/* Decorative Rotating Mandalas */}
       <motion.img
@@ -353,6 +355,6 @@ export function HeroFiveSons() {
           />
         </div>
       </motion.div>
-    </section>
+    </header>
   );
 }
