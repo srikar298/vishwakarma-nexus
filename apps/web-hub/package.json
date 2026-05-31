@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node -e \"const fs = require('fs'); fs.rmSync('../../dist', { recursive: true, force: true }); fs.cpSync('dist', '../../dist', { recursive: true })\"",
+    "build": "vite build && node -e \"const fs = require('fs'); fs.rmSync('../../dist', { recursive: true, force: true }); fs.cpSync('dist', '../../dist', { recursive: true }); console.log('ROOT DIST:', fs.existsSync('../../dist') ? fs.readdirSync('../../dist') : 'NOT FOUND'); console.log('LOCAL DIST:', fs.existsSync('dist') ? fs.readdirSync('dist') : 'NOT FOUND');\"",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview"
