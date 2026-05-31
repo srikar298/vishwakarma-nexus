@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import type { Artisan, ArtisanCategory } from '@/features/directory/contracts/ArtisanSchema';
 import { CRAFT_LABELS } from '@/features/directory/contracts/ArtisanSchema';
+import { SEO } from '@/shared/components/SEO';
+import { BaseModal } from '@/shared/ui/BaseModal';
 
 const MOCK_ARTISANS: Artisan[] = [
   {
