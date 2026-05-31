@@ -60,19 +60,26 @@ export function HeroFiveSons() {
            style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/marble-similar.png")` }} />
 
       {/* Decorative Rotating Mandalas */}
-      <motion.img 
+      <motion.img
         src="/images/hero/mandala-motif.png"
+        alt="Decorative Mandala Motif"
         initial={{ rotate: 0 }}
         animate={{ rotate: 360 }}
         transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
         className="absolute -top-32 -left-32 w-[600px] h-[600px] opacity-[0.15] pointer-events-none mix-blend-multiply z-0"
+        fetchPriority="high"
+        loading="eager"
+        decoding="async"
       />
-      <motion.img 
+      <motion.img
         src="/images/hero/mandala-motif.png"
+        alt="Decorative Mandala Motif"
         initial={{ rotate: 0 }}
         animate={{ rotate: -360 }}
         transition={{ duration: 240, repeat: Infinity, ease: "linear" }}
         className="absolute -bottom-48 -right-48 w-[800px] h-[800px] opacity-[0.12] pointer-events-none mix-blend-multiply z-0"
+        loading="lazy"
+        decoding="async"
       />
 
       {/* Trilingual Regional Motifs Overlay */}
@@ -120,9 +127,12 @@ export function HeroFiveSons() {
           className="w-56 h-72 md:w-[40%] md:h-[80vh] md:max-w-md shrink-0 relative rounded-xl md:rounded-[4rem] overflow-hidden shadow-[0_40px_100px_rgba(227,66,52,0.1)] ring-12 ring-white ring-offset-4 ring-offset-saffron-50 border-1 border-white group"
         >
           <img 
-            src="/images/hero/vishwakarma-bg.png" 
+            src="/images/hero/vishwakarma-bg.webp" 
             alt="Lord Vishwakarma Emblem"
             className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-[3s] ease-out"
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-vermilion/30 via-transparent to-transparent pointer-events-none mix-blend-overlay" />
         </motion.div>
@@ -231,7 +241,7 @@ export function HeroFiveSons() {
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                 className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-0 group-hover:opacity-10 transition-opacity duration-1000 pointer-events-none`}
               >
-                <img src="/images/hero/mandala-motif.png" className="w-full h-full object-contain filter invert opacity-50" alt="" />
+                <img src="/images/hero/mandala-motif.png" className="w-full h-full object-contain filter invert opacity-50" alt="Decorative Mandala Motif" />
               </motion.div>
 
               {/* Son Portrait Image with Parallax Depth */}
