@@ -318,64 +318,78 @@ export const DirectoryPage = () => {
                 transition={{ duration: 0.4, delay: index * 0.05 }}
                 className="group bg-white rounded-[3rem] overflow-hidden border border-stone-100 shadow-xl hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] transition-all duration-500 flex flex-col justify-between"
               >
-                <div className="aspect-[4/3] relative overflow-hidden cursor-pointer" onClick={() => setSelectedArtisan(artisan)}>
-                  <img src={artisan.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={artisan.name} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                  
-                  {artisan.featured && (
-                    <div className="absolute top-6 left-6 bg-turmeric text-stone-900 px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-2">
-                       <Star size={12} fill="currentColor" />
-                       Master Artisan
+                <div 
+                  className="flex-1 flex flex-col justify-between cursor-pointer" 
+                  onClick={() => setSelectedArtisan(artisan)}
+                >
+                  <div className="aspect-[4/3] relative overflow-hidden">
+                    <img src={artisan.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={artisan.name} />
+                    
+                    {/* Hover visual indicator tag */}
+                    <div className="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="bg-white/95 backdrop-blur-sm text-stone-900 px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl scale-90 group-hover:scale-100 transition-all duration-300 flex items-center gap-2">
+                        View Portfolio
+                      </span>
                     </div>
-                  )}
 
-                  <div className="absolute bottom-6 left-8 right-8 text-white">
-                    <span className="text-turmeric text-[10px] font-black uppercase tracking-[0.3em] mb-1 block">
-                       {CRAFT_LABELS[artisan.craft][i18n.language as 'en' | 'te' | 'hi']}
-                    </span>
-                    <h3 className={`text-2xl font-black leading-tight ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
-                       {i18n.language === 'en' ? artisan.name : artisan.nameRegional}
-                    </h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                    
+                    {artisan.featured && (
+                      <div className="absolute top-6 left-6 bg-turmeric text-stone-900 px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg flex items-center gap-2">
+                         <Star size={12} fill="currentColor" />
+                         Master Artisan
+                      </div>
+                    )}
+
+                    <div className="absolute bottom-6 left-8 right-8 text-white">
+                      <span className="text-turmeric text-[10px] font-black uppercase tracking-[0.3em] mb-1 block">
+                         {CRAFT_LABELS[artisan.craft][i18n.language as 'en' | 'te' | 'hi']}
+                      </span>
+                      <h3 className={`text-2xl font-black leading-tight ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
+                         {i18n.language === 'en' ? artisan.name : artisan.nameRegional}
+                      </h3>
+                    </div>
+                  </div>
+
+                  <div className="p-8 space-y-6 flex-grow flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 text-stone-600 font-medium">
+                         <MapPin size={18} className="text-vermilion/50" />
+                         <span className="text-sm">{artisan.location}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-stone-600 font-medium">
+                         <User size={18} className="text-vermilion/50" />
+                         <span className="text-sm">{artisan.experienceYears}+ Years Experience</span>
+                      </div>
+                      <div className="flex items-center gap-1 mt-2">
+                         {[...Array(5)].map((_, i) => (
+                           <Star 
+                             key={i} 
+                             size={14} 
+                             className={i < Math.floor(artisan.rating) ? "text-turmeric fill-turmeric" : "text-stone-200"}
+                           />
+                         ))}
+                         <span className="ml-2 text-xs font-black text-stone-900">{artisan.rating}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="p-8 space-y-6 flex-1 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3 text-stone-600 font-medium">
-                       <MapPin size={18} className="text-vermilion/50" />
-                       <span className="text-sm">{artisan.location}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-stone-600 font-medium">
-                       <User size={18} className="text-vermilion/50" />
-                       <span className="text-sm">{artisan.experienceYears}+ Years Experience</span>
-                    </div>
-                    <div className="flex items-center gap-1 mt-2">
-                       {[...Array(5)].map((_, i) => (
-                         <Star 
-                           key={i} 
-                           size={14} 
-                           className={i < Math.floor(artisan.rating) ? "text-turmeric fill-turmeric" : "text-stone-200"}
-                         />
-                       ))}
-                       <span className="ml-2 text-xs font-black text-stone-900">{artisan.rating}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-3 pt-2">
-                    <a 
-                      href={`tel:${artisan.phone}`}
-                      className="flex-1 bg-stone-900 text-white h-14 rounded-2xl flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest hover:bg-stone-800 transition-all active:scale-95 shadow-lg"
-                    >
-                      <Phone size={16} />
-                      Call Now
-                    </a>
-                    <button 
-                      onClick={() => setSelectedArtisan(artisan)}
-                      className="w-14 h-14 border-2 border-stone-100 rounded-2xl flex items-center justify-center text-stone-400 hover:border-vermilion hover:text-vermilion transition-all active:scale-95 group/btn"
-                    >
-                       <ChevronRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
-                  </div>
+                <div className="px-8 pb-8 pt-0 flex gap-3">
+                  <a 
+                    href={`tel:${artisan.phone}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex-grow bg-stone-900 text-white h-14 rounded-2xl flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest hover:bg-stone-800 transition-all active:scale-95 shadow-lg cursor-pointer"
+                  >
+                    <Phone size={16} />
+                    Call Now
+                  </a>
+                  <button 
+                    onClick={() => setSelectedArtisan(artisan)}
+                    className="w-14 h-14 border-2 border-stone-100 rounded-2xl flex items-center justify-center text-stone-400 hover:border-vermilion hover:text-vermilion transition-all active:scale-95 group/btn cursor-pointer"
+                  >
+                     <ChevronRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </motion.div>
             ))}
