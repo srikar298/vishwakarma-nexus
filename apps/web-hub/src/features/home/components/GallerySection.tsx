@@ -23,13 +23,23 @@ export const GallerySection = () => {
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
-    const loadPhotos = async () => {
-      setLoadingPhotos(true);
-      const albumPhotos = await fetchGooglePhotosAlbum(ALBUM_ID);
-      setPhotos(albumPhotos);
-      setLoadingPhotos(false);
-    };
-    loadPhotos();
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        const loadPhotos = async () => {
+          setLoadingPhotos(true);
+          const albumPhotos = await fetchGooglePhotosAlbum(ALBUM_ID);
+          setPhotos(albumPhotos);
+          setLoadingPhotos(false);
+        };
+        loadPhotos();
+        observer.disconnect();
+      }
+    }, { rootMargin: '200px' });
+
+    const el = document.getElementById('gallery');
+    if (el) observer.observe(el);
+
+    return () => observer.disconnect();
   }, []);
 
   return (

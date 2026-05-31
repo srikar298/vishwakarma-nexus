@@ -221,6 +221,10 @@ export const DirectoryPage = () => {
 
   return (
     <div className="pt-32 pb-24 min-h-screen bg-stone-50/30">
+      <SEO 
+        title={t('nav.directory', 'Artisan Directory')} 
+        description="Discover the finest Vishwakarma craftsmen. From sacred architecture to intricate jewelry, find the legacy you need in our master artisan directory."
+      />
       {/* Header Section */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12">
         <motion.div 

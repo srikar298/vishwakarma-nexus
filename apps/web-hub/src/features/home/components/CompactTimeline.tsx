@@ -1,25 +1,18 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { 
-  Quote, 
-  Award, 
-  Globe, 
-  ShieldCheck, 
-  Mail, 
-  BookOpen, 
+  ArrowRight, 
   Calendar, 
-  Users, 
+  Trophy, 
+  Compass, 
   Flame, 
   Heart, 
-  Megaphone, 
-  Trophy, 
-  Compass
+  Users,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { SEO } from '../../../shared/components/SEO';
-import { ScrollToTop } from '@/shared/components/ScrollToTop';
-
 
 interface TimelineEvent {
   date: string;
@@ -30,11 +23,14 @@ interface TimelineEvent {
   category: 'organization' | 'awards' | 'protest' | 'charity' | 'campaign' | 'movement';
 }
 
-export const FounderPage = () => {
-  const { t, i18n } = useTranslation();
+export const CompactTimeline: React.FC = () => {
+  const { i18n } = useTranslation();
   const isTelugu = i18n.language === 'te';
   const isHindi = i18n.language === 'hi';
-  const [selectedYear, setSelectedYear] = useState<string>('All');
+  const [activeYear, setActiveYear] = useState<string>('2026');
+  const [limit, setLimit] = useState<number>(3);
+
+  const years = ['2017', '2018', '2019', '2020', '2023', '2024', '2025', '2026'];
 
   const timelineEvents: TimelineEvent[] = [
   {
@@ -104,7 +100,7 @@ hi: "टीवी9 द्वारा प्रसारित भ्राम�
 {
       date: "16.08.2017",
       year: "2017",
-      te: "ఈశ్వరిదేవి పై ప్రసారం చేసిన తప్పుడు కథనాన్ని వెనక్కి తీసుకోవాలంటూ వివిధ సంఘాలతో కలిసి tv9 ముట్టడి.",
+      te: "ఈశ్వరిదేవి పై ప్రసారం చేసిన తప్పుడు కథనాన్ని వెనక్కి తీసుకోవాలంటూ tv9 ముట్టడి.",
       en: "Led protests at the TV9 office demanding retraction of the false broadcast on Sri Eshwari Devi.",
 hi: "श्री ईश्वरी देवी पर प्रसारित झूठी खबर को वापस लेने की मांग को लेकर विभिन्न संगठनों के साथ मिलकर टीवी9 कार्यालय का घेराव।",
       category: "movement"
@@ -280,7 +276,7 @@ hi: "महाराष्ट्र के संयोजक ब्रह्म
 {
       date: "23.09.2019",
       year: "2019",
-      te: "గడ్చిరోలి ఎంపీ శ్రీ అశోక్ నేతే గారు విశ్వకర్మలకు 20% రాజకీయ రిజర్వేషన్ అందించాలని కోరుతూ మహారాష్ట్ర ముఖ్యమంత్రి శ్రీ దేވެంద్ర ఫడ్నవీస్ గారికి లేఖ రాయడం జరిగింది (బ్రహ్మశ్రీ కాసర్లవార్ విద్యాసాగర్ గారి కృషిని గౌరవిస్తూ అభినందనలు).",
+      te: "గడ్చిరోలి ఎంపీ శ్రీ అశోక్ నేతే గారు విశ్వకర్మలకు 20% రాజకీయ రిజర్వేషన్ అందించాలని కోరుతూ మహారాష్ట్ర ముఖ్యమంత్రి శ్రీ దేవేంద్ర ఫడ్నవీస్ గారికి లేఖ రాయడం జరిగింది (బ్రహ్మశ్రీ కాసర్లవార్ విద్యాసాగర్ గారి కృషిని గౌరవిస్తూ అభినందనలు).",
       en: "Following efforts by Brahmasri Kasarlawar Vidyasagar, Gadchiroli MP Ashok Nete formally wrote to Maharashtra CM Devendra Fadnavis recommending 20% reservations.",
 hi: "गढ़चिरौली सांसद अशोक नेते ने महाराष्ट्र के मुख्यमंत्री देवेंद्र फडणवीस को 20% आरक्षण देने की सिफारिश का पत्र लिखा (इस प्रयास में कासरलावार विद्यासागर के योगदान की सराहना की गई)।",
       category: "protest"
@@ -304,7 +300,7 @@ hi: "विजयवाड़ा के तुमलापल्ली कला
 {
       date: "05.2024",
       year: "2024",
-      te: "సుందరయ్య విజ్ఞాన కేంద్రంలో విశ్వకర్మ లెజెండరీ అవార్డ్స్ కార్యక్రమం విజయవంతంగా నిర్వహణ.",
+      te: "సుందరయ్య విజ్ఞాన కేంద్రంలో విశ్వకర్మ లెజెండరీ అవార్డ్స్ కార్యక్రమం నిర్వహణ.",
       en: "Hosted the annual Vishwakarma Legendary Awards ceremony at Sundarayya Vignana Kendram, Hyderabad.",
 hi: "हैदराबाद के सुंदरैया विज्ञान केंद्र में वार्षिक विश्वकर्मा लेजेंडरी अवार्ड्स का सफल आयोजन।",
       category: "awards"
@@ -463,368 +459,190 @@ hi: "एलबी स्टेडियम में विश्वकर्म
     }
   ];
 
-  // Distinct Filter Years
-  const yearFilters = ['All', '2026', '2025', '2024', '2023', '2020', '2019', '2018', '2017'];
+  // Filter events of selected activeYear
+  const yearEvents = timelineEvents.filter(e => e.year === activeYear);
+  const visibleEvents = yearEvents.slice(0, limit);
 
-  // Filter events
-  const filteredEvents = selectedYear === 'All' 
-    ? timelineEvents 
-    : timelineEvents.filter(e => e.year === selectedYear);
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+    const scrollBottom = target.scrollHeight - target.scrollTop - target.clientHeight;
+    
+    // If user scrolled near the bottom, load more
+    if (scrollBottom < 40 && limit < yearEvents.length) {
+      setLimit(prev => Math.min(prev + 3, yearEvents.length));
+    }
+  };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'organization':
-        return <Users size={14} className="text-blue-500" />;
+        return <Users size={11} className="text-blue-500" />;
       case 'awards':
-        return <Trophy size={14} className="text-amber-500" />;
-      case 'protest':
-        return <Megaphone size={14} className="text-rose-500" />;
+        return <Trophy size={11} className="text-amber-500" />;
       case 'charity':
-        return <Heart size={14} className="text-emerald-500" />;
+        return <Heart size={11} className="text-emerald-500" />;
       case 'campaign':
-        return <Compass size={14} className="text-violet-500" />;
+        return <Compass size={11} className="text-violet-500" />;
       case 'movement':
-        return <Flame size={14} className="text-saffron-500" />;
+        return <Flame size={11} className="text-saffron-500" />;
       default:
-        return <Calendar size={14} className="text-stone-500" />;
+        return <Calendar size={11} className="text-stone-500" />;
     }
   };
 
   const getCategoryStyle = (category: string) => {
     switch (category) {
       case 'organization':
-        return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
+        return 'bg-blue-500/10 border-blue-500/20 text-blue-500';
       case 'awards':
-        return 'bg-amber-500/10 border-amber-500/20 text-amber-400';
-      case 'protest':
-        return 'bg-rose-500/10 border-rose-500/20 text-rose-400';
+        return 'bg-amber-500/10 border-amber-500/20 text-amber-500';
       case 'charity':
-        return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400';
+        return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500';
       case 'campaign':
-        return 'bg-violet-500/10 border-violet-500/20 text-violet-400';
+        return 'bg-violet-500/10 border-violet-500/20 text-violet-500';
       case 'movement':
-        return 'bg-saffron-500/10 border-saffron-500/20 text-saffron-400';
+        return 'bg-saffron-500/10 border-saffron-500/20 text-saffron-500';
       default:
-        return 'bg-stone-500/10 border-stone-500/20 text-stone-400';
-    }
-  };
-
-    const founderSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Viswanadhula Pushpagiri",
-    "jobTitle": "Founder & Chairman",
-    "affiliation": {
-      "@type": "Organization",
-      "name": "Vishwakarma Knowledge Centre",
-      "foundingDate": "2017-02-25",
-      "description": "A dedicated institution for the holistic support and recognition of traditional artisans."
+        return 'bg-stone-500/10 border-stone-500/20 text-stone-500';
     }
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <SEO 
-        title={t('founder.title', 'Founder & Core Journey')} 
-        description="The philosophical origins, aims, and chronological timeline of Vishwakarma Knowledge Centre led by Viswanadhula Pushpagiri."
-        image="/images/founder/portrait.webp"
-        type="profile"
-        schema={founderSchema}
-      />
-      <ScrollToTop />
-      
-      {/* Hero Header - Dignified & High-Impact */}
-      <section className="relative pt-40 pb-20 bg-stone-900 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')]" />
+    <section className="py-20 bg-stone-50/50 border-b border-stone-100 overflow-hidden relative">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="lg:w-1/3"
-            >
-              <div className="aspect-[3/4] rounded-[4rem] overflow-hidden border-8 border-stone-800 shadow-3xl shadow-black/50 rotate-[-2deg] hover:rotate-0 transition-transform duration-700 group">
-                <img 
-                  src="/images/founder/portrait_full.webp" 
-                  alt="Founder" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-                />
-              </div>
-            </motion.div>
-
-            <div className="lg:w-2/3 space-y-8">
-               <motion.div
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-2 rounded-full"
-               >
-                 <div className="w-2 h-2 bg-vermilion rounded-full animate-pulse" />
-                 <span className="text-[10px] font-black text-stone-400 uppercase tracking-[0.5em]">The Founder's Journey</span>
-               </motion.div>
-               <h1 className={`text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight font-display 
-                 ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-                 {isTelugu ? 'విశ్వనాథుల పుష్పగిరి' : 'Viswanadhula Pushpagiri'}
-               </h1>
-               <div className="flex flex-col md:flex-row gap-8 items-start md:items-center py-8 border-t border-white/5">
-                  <div className="space-y-1">
-                     <p className="text-[10px] font-black text-stone-500 uppercase tracking-widest leading-none">Founder & Chairman</p>
-                     <p className="text-xl font-black text-vermilion uppercase tracking-tighter">VKC Board</p>
-                  </div>
-                  <div className="hidden md:block w-[1px] h-10 bg-white/10" />
-                  <div className="space-y-1">
-                     <p className="text-[10px] font-black text-stone-500 uppercase tracking-widest leading-none">Registration ID</p>
-                     <p className="text-xl font-black text-white uppercase tracking-tighter">VKC ® 336/2018</p>
-                  </div>
-               </div>
-            </div>
-
+        {/* Header Block */}
+        <div className="text-center mb-12 space-y-4">
+          <div className="inline-flex items-center gap-2 bg-vermilion/10 text-vermilion px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+            {isTelugu ? 'ప్రస్థాన మైలురాళ్లు' : isHindi ? 'यात्रा के मील के पत्थर' : 'Journey Milestones'}
           </div>
+          <h2 className="text-3xl md:text-4xl font-black text-stone-900 uppercase tracking-tighter font-display leading-none">
+            {isTelugu ? 'విశ్వకర్మ నాలెడ్జ్ సెంటర్ చరిత్ర' : isHindi ? 'विश्वकर्मा नॉलेज सेंटर का इतिहास' : 'VKC Historic Timeline'}
+          </h2>
+          <p className="text-stone-500 text-xs font-medium leading-relaxed max-w-md mx-auto">
+            {isTelugu 
+              ? '2017 ఆవిర్భావం నుండి నేటి వరకు సమాజ సాధికారత, సాంస్కృతిక పరిరక్షణలో సాధించిన కొన్ని ముఖ్యమైన విజయాలు.'
+              : isHindi
+              ? '2017 में स्थापना से लेकर आज तक समाज के सशक्तिकरण और सांस्कृतिक संरक्षण में हासिल की गई प्रमुख उपलब्धियां।'
+              : 'A curated timeline showcasing VKC\'s key struggles, mobilizations, and achievements from 2017 to 2026.'}
+          </p>
         </div>
-      </section>
 
-      {/* Biography Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 space-y-16">
-           <div className="relative py-12 px-10 md:px-20 bg-stone-50 rounded-[3rem] border border-stone-100 shadow-inner overflow-hidden">
-              <Quote className="absolute -top-6 left-12 text-vermilion/5" size={120} />
-              <p className={`text-2xl md:text-3xl font-black text-stone-800 italic leading-relaxed relative z-10 text-center
-                ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-                "{t('founder.quote')}"
-              </p>
-           </div>
-           
-           <div className="grid md:grid-cols-2 gap-16 items-start">
-              <div className="space-y-6">
-                 <h3 className="text-3xl font-black text-stone-900">The Journey</h3>
-                 <p className="text-stone-600 leading-relaxed font-medium">
-                   {t('founder.bio')}
-                 </p>
-                 <p className="text-stone-600 leading-relaxed font-medium font-bold">
-                   {t('founder.padayatra')}
-                 </p>
-                 <p className="text-stone-600 leading-relaxed font-medium">
-                   His unwavering resolve has redefined empowerment for the community, turning a local mission into a national movement.
-                 </p>
-              </div>
-
-              <div className="space-y-8 bg-stone-50 p-10 rounded-[3rem] border border-stone-100 shadow-xl relative overflow-hidden group">
-                 <div className="absolute top-0 right-0 w-32 h-32 bg-vermilion/5 rounded-full blur-3xl -mr-16 -mt-16" />
-                 <h4 className="text-xl font-black text-stone-900 border-l-4 border-vermilion pl-6">Founder's Impact</h4>
-                 <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                       <ShieldCheck className="text-vermilion mt-1" size={20} />
-                       <p className="text-sm font-bold text-stone-500 uppercase tracking-widest">1,000+ km Walk for Change</p>
-                    </div>
-                    <div className="flex items-start gap-4">
-                       <Globe className="text-vermilion mt-1" size={20} />
-                       <p className="text-sm font-bold text-stone-500 uppercase tracking-widest">Village-to-Delhi Connection</p>
-                    </div>
-                    <div className="flex items-start gap-4">
-                       <Award className="text-vermilion mt-1" size={20} />
-                       <p className="text-sm font-bold text-stone-500 uppercase tracking-widest">National Empowerment Stage</p>
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </div>
-      </section>
-
-      {/* Idea & Aims Section */}
-      <section className="py-24 bg-stone-50 border-t border-b border-stone-100">
-         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-3 gap-16">
-               {/* Left: Idea/ఆలోచన */}
-               <div className="lg:col-span-1 space-y-6">
-                  <div className="inline-flex items-center gap-2 bg-vermilion/10 text-vermilion px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                     {isTelugu ? 'ఆలోచన' : isHindi ? 'विचार' : 'The Origin Idea'}
-                  </div>
-                  <h3 className="text-3xl font-black text-stone-900 leading-tight">
-                     {isTelugu ? 'సమాజ రక్షణే ధ్యేయంగా...' : 'Securing Community Roots'}
-                  </h3>
-                  <p className="text-stone-600 text-sm leading-relaxed font-medium">
-                     {isTelugu ? (
-                        'విశ్వకర్మ తాత్వికత కలిగిన రచయితగా మొదలైన నా ప్రయాణం కేవలం సాహితీ రంగంలోనే కాకుండా పోరాట వ్యూహం తెలిసిన విశ్వకర్మ ఉద్యమ నాయకుడిగా నిలబడితేనే చారిత్రాత్మక విశ్వకర్మ సమాజం యొక్క మూలాల్ని, మనుగడను కాపాడుకోగలను అని నిర్ణయించుకొని "రుంజ" విశ్వకర్మ కవులు రచయితల కళాకారుల వేదికకు రాజీనామా చేసి 25.02.2017 న శ్రీ వీరబ్రహ్మేంద్ర స్వామి నుండి మారోజు వీరన్న వరకు గల తాత్విక భూమికను అనుసరిస్తూ విశ్వకర్మ నాలెడ్జ్ సెంటర్ ప్రారంభించాను.'
-                     ) : (
-                        'My journey began as a writer grounded in Vishwakarma philosophy. However, I realized that to protect the roots and survival of the historical Vishwakarma society, I had to stand as a movement leader who understood strategic struggle. Hence, I resigned from the "Runja" poets, writers, and artists forum, and on 25.02.2017, following the philosophical foundations from Sri Veerabrahmendra Swami to Maroju Veeranna, I established the Vishwakarma Knowledge Centre.'
-                     )}
-                  </p>
-                  <div className="pt-4 text-xs font-bold text-stone-400">
-                     Registered Organization: VKC ® 336/2018
-                  </div>
-               </div>
-
-               {/* Right: Aims/ఆశయాలు */}
-               <div className="lg:col-span-2 space-y-8">
-                  <div className="inline-flex items-center gap-2 bg-saffron-500/10 text-saffron-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                     {isTelugu ? 'ఆశయాలు' : isHindi ? 'उद्देश्य' : 'Our Aims & Mission'}
-                  </div>
-                  <div className="grid md:grid-cols-2 gap-6">
-                     {[
-                        {
-                           num: "1",
-                           te: "ప్రపంచీకరణ మత్తులో మనం మూల సంస్కృతిని కోల్పోతున్న తరుణంలో విశ్వకర్మ సమాజపు సంస్కృతి సంప్రదాయాలు కాపాడేందుకు కృషి చేయడం.",
-                           en: "Striving to protect the culture and traditions of the Vishwakarma community in an era where globalization is causing us to lose our root heritage."
-                        },
-                        {
-                           num: "2",
-                           te: "విశ్వకర్మలు నాగరికతకు వెన్నుముకగా నిలిచారు కానీ వారి కృషి చరిత్రలో నమోదు కాలేదు. అందుబాటులో ఉన్న సమాచారాన్ని డిజిటలైజ్ చేసి రేపటి తరాలకు అందించడం.",
-                           en: "Preserving and digitizing the historical contributions and creative works of Vishwakarmas as creators of civilization for future generations."
-                        },
-                        {
-                           num: "3",
-                           te: "కుటుంబం చేత నిరాదరించబడ్డ లేదా తల్లిదండ్రులను కోల్పోయిన విశ్వకర్మ సమాజపు పిల్లలను చేరదీసి ఉన్నత లక్ష్యాలు గల భావి పౌరులుగా తీర్చిద్దడం.",
-                           en: "Supporting neglected or orphaned children within the community and shaping them into future citizens with high ambitions."
-                        },
-                        {
-                           num: "4",
-                           te: "విశ్వకర్మ విద్యార్థులకు రాష్ట్రస్థాయిలో స్టడీ సర్కిల్లను / పాఠశాలలు ఏర్పాటు చేసి విద్యాసంబంధ సహాయాన్ని అందించడం, పోటీ పరీక్షలకు సమాయత్తం చేయడం.",
-                           en: "Establishing study circles and schools for Vishwakarma students to provide academic support and training for competitive exams."
-                        },
-                        {
-                           num: "5",
-                           te: "విశ్వకర్మల సమగ్ర సాధికారతే లక్ష్యంగా గ్రామస్థాయిలో చైతన్యం చేయడం, నూతన కార్యాచరణతో అభివృద్ధిని సాధించడం.",
-                           en: "Mobilizing and raising awareness among Vishwakarmas at the village level, helping them adapt to modern changes and achieve holistic development."
-                        },
-                        {
-                           num: "6",
-                           te: "రాజ్యాధికారమే లక్ష్యంగా క్షేత్రస్థాయిలో విశ్వకర్మ నెట్వర్క్ని ఏర్పాటు చేసి విశ్వకర్మ ప్రజల్ని రాజకీయ శక్తిగా మార్చేందుకు కృషి చేయడం.",
-                           en: "Building a grassroot political network to raise political awareness, striving to transform the community into an empowered political force."
-                        }
-                     ].map((aim, idx) => (
-                        <div key={idx} className="bg-white p-5 rounded-2xl border border-stone-100 flex gap-4 hover:shadow-md transition-shadow">
-                           <div className="w-8 h-8 rounded-lg bg-stone-900 text-white flex items-center justify-center font-black text-sm shrink-0">
-                              {aim.num}
-                           </div>
-                           <p className="text-stone-600 text-xs font-semibold leading-relaxed">
-                              {isTelugu ? aim.te : aim.en}
-                           </p>
-                        </div>
-                     ))}
-                  </div>
-               </div>
-            </div>
-         </div>
-      </section>
-
-      {/* Timeline Section */}
-      <section className="py-24 bg-white overflow-hidden group">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 space-y-4">
-              <h2 className="text-[10px] font-black text-vermilion uppercase tracking-[0.5em]">{isTelugu ? 'ప్రస్థానం' : isHindi ? 'यात्रा' : 'The Journey'}</h2>
-              <h3 className="text-4xl font-black text-stone-900 uppercase tracking-tighter">
-                {isTelugu ? 'చారిత్రాత్మక ప్రస్థానం' : isHindi ? 'संस्थागत समयरेखा' : 'Institutional Timeline'}
-              </h3>
-              <p className="text-stone-500 text-sm font-medium max-w-lg mx-auto">
-                {isTelugu 
-                  ? '2017 లో స్థాపించినప్పటి నుండి విశ్వకర్మ హక్కుల కోసం, సంస్కృతి పరిరక్షణ కోసం చేపట్టిన ప్రధాన మైలురాళ్ళు.' 
-                  : isHindi
-                  ? '2017 में स्थापना के बाद से विश्वकर्मा अधिकारों और संस्कृति संरक्षण के लिए किए गए प्रमुख प्रयास और मील के पत्थर।'
-                  : 'Key struggles, campaigns, awards, and milestones of VKC from 2017 to 2026.'}
-              </p>
-            </div>
-
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap justify-center gap-2 mb-12 border-b border-stone-100 pb-6">
-              {yearFilters.map((year) => (
+        {/* Horizontal Year Navigation Bar */}
+        <div className="relative mb-12 overflow-x-auto no-scrollbar py-2">
+          <div className="flex gap-4 md:gap-0 justify-between items-center min-w-[540px] max-w-xl mx-auto px-4 relative">
+            {/* Horizontal Line connecting nodes */}
+            <div className="absolute left-4 right-4 h-[2px] bg-stone-250 -z-10 top-1/2 -translate-y-1/2" />
+            
+            {years.map((year) => {
+              const isActive = activeYear === year;
+              return (
                 <button
                   key={year}
-                  onClick={() => setSelectedYear(year)}
-                  className={`px-4 py-2 rounded-full font-bold text-xs uppercase tracking-wider transition-all ${
-                    selectedYear === year 
-                      ? 'bg-stone-900 text-white shadow-md scale-105' 
-                      : 'bg-stone-50 text-stone-500 hover:bg-stone-100 hover:text-stone-900'
+                  onClick={() => {
+                    setActiveYear(year);
+                    setLimit(3); // Reset detail view limit when swapping years
+                  }}
+                  className={`relative w-12 h-12 rounded-full border-2 flex flex-col items-center justify-center font-black text-xs transition-all cursor-pointer ${
+                    isActive 
+                      ? 'bg-stone-900 text-white border-stone-900 shadow-lg scale-110 z-10' 
+                      : 'bg-white text-stone-500 border-stone-200 hover:border-stone-400 hover:text-stone-900 z-10'
                   }`}
                 >
-                  {year}
-                </button>
-              ))}
-            </div>
-
-            <div className="relative border-l-2 border-stone-100 pl-6 ml-4 space-y-8">
-              <AnimatePresence mode="wait">
-                <motion.div 
-                  key={selectedYear}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-8"
-                >
-                  {filteredEvents.map((event, index) => (
-                    <div 
-                      key={index}
-                      className="relative flex flex-col md:flex-row md:items-start gap-4 md:gap-8 group/event"
-                    >
-                      {/* Timeline Dot with Category Icon */}
-                      <div className="absolute -left-[39px] w-6 h-6 rounded-full bg-white border-2 border-stone-200 flex items-center justify-center group-hover/event:border-stone-900 transition-colors z-10 shadow-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-stone-400 group-hover/event:bg-stone-900 transition-colors" />
-                      </div>
-
-                      {/* Left: Date Badge */}
-                      <div className="md:w-28 shrink-0 flex items-center gap-2.5">
-                        <div className="text-[10px] font-black text-stone-400 uppercase tracking-widest leading-none bg-stone-50 px-2.5 py-1 rounded border border-stone-100/50 group-hover/event:bg-stone-900 group-hover/event:text-white transition-all">
-                          {event.date}
-                        </div>
-                      </div>
-
-                      {/* Right: Content details */}
-                      <div className="flex-1 bg-stone-50 hover:bg-stone-100/30 p-5 rounded-2xl border border-stone-100/80 hover:border-stone-200/50 transition-all flex gap-4 items-start shadow-sm">
-                        {/* Category Badge & Icon */}
-                        <div className={`p-2.5 rounded-xl border shrink-0 ${getCategoryStyle(event.category)}`}>
-                          {getCategoryIcon(event.category)}
-                        </div>
-
-                        <div className="space-y-1">
-                          <span className={`text-[8px] font-black uppercase tracking-widest inline-block border-b pb-0.5 mb-1 opacity-70`}>
-                            {event.category}
-                          </span>
-                          <p className={`text-stone-700 text-xs md:text-sm font-semibold leading-relaxed 
-                            ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-                            {isTelugu ? event.te : isHindi ? event.hi : event.en}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  {filteredEvents.length === 0 && (
-                    <div className="text-center py-12 text-stone-400 font-bold text-xs uppercase tracking-widest">
-                      {isTelugu ? 'ఈ కాలానికి ఎటువంటి మైలురాళ్లు లేవు' : isHindi ? 'इस अवधि के लिए कोई मील के पत्थर दर्ज नहीं हैं' : 'No events registered for this phase'}
-                    </div>
+                  <span className="font-mono text-[10px] tracking-tighter leading-none">{year}</span>
+                  {isActive && (
+                    <span className="absolute -bottom-6 text-stone-900 leading-none text-lg">
+                      ▾
+                    </span>
                   )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </section>
 
-      {/* Call to Action */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="bg-stone-900 rounded-[3rem] md:rounded-[4rem] p-8 md:p-20 text-center text-white relative overflow-hidden group">
-              <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/grid-me.png')]" />
-              <div className="relative z-10 space-y-12">
-                 <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-10 py-4 rounded-full">
-                    <Mail className="text-vermilion" size={20} />
-                    <span className="text-xs font-black uppercase tracking-[0.4em]">Get in Touch</span>
-                 </div>
-                 <h3 className="text-4xl md:text-7xl font-black leading-tight max-w-4xl mx-auto tracking-tighter">
-                   For inquiries regarding the Vision 2030 Mandate.
-                 </h3>
-                 <div className="flex flex-wrap justify-center gap-6">
-                    <a href="mailto:founder@vkc-community.org" className="bg-vermilion text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-2xl shadow-vermilion/20 active:scale-95">
-                       Email the Chairman
-                    </a>
-                    <Link to="/vision" className="bg-white/5 border border-white/10 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all backdrop-blur-md">
-                       Read Vision 2030
-                    </Link>
-                 </div>
-              </div>
-           </div>
+        {/* Selected Year Timeline Details */}
+        <div className="bg-white p-6 md:p-8 rounded-3xl border border-stone-150 shadow-sm relative overflow-hidden">
+          <div className="absolute -top-12 -left-12 w-48 h-48 bg-vermilion/5 blur-[100px] rounded-full pointer-events-none" />
+          
+          <div 
+            onScroll={handleScroll}
+            className="relative max-h-[300px] overflow-y-auto pr-2 md:pr-4 space-y-6 scroll-smooth"
+            style={{ scrollbarWidth: 'thin' }}
+          >
+            {/* The vertical timeline line */}
+            <div className="absolute left-[15px] top-2 bottom-8 w-[2px] bg-stone-150" />
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeYear}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-6"
+              >
+                {visibleEvents.map((m, idx) => (
+                  <div
+                    key={idx}
+                    className="relative flex items-start gap-4 md:gap-6 group pl-8"
+                  >
+                    {/* Circle Node Dot */}
+                    <div className="absolute left-[4px] top-1 w-6 h-6 rounded-full bg-white border-2 border-stone-200 flex items-center justify-center group-hover:border-stone-900 transition-colors z-10">
+                      {getCategoryIcon(m.category)}
+                    </div>
+
+                    {/* Content Area */}
+                    <div className="flex-1 pb-5 border-b border-stone-100 last:border-b-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        <span className="text-[9px] font-bold text-stone-850 bg-stone-100 px-1.5 py-0.5 rounded font-mono">
+                          {m.date}
+                        </span>
+                        <span className={`text-[8px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded border ${getCategoryStyle(m.category)}`}>
+                          {m.category}
+                        </span>
+                      </div>
+                      <p className="text-stone-700 text-xs md:text-sm font-semibold leading-relaxed group-hover:text-stone-900 transition-colors">
+                        {isTelugu ? m.te : isHindi ? m.hi : m.en}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+
+                {/* Extra spacer at the bottom so the last item is not covered by the gradient fade */}
+                {limit < yearEvents.length && (
+                  <div className="h-16" />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Bottom fade gradient and show more trigger */}
+          {limit < yearEvents.length && (
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/95 to-transparent pointer-events-none flex items-end justify-center pb-5 z-20">
+              <button
+                onClick={() => setLimit(prev => Math.min(prev + 3, yearEvents.length))}
+                className="pointer-events-auto bg-stone-900 hover:bg-vermilion text-white text-[9px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full shadow-lg hover:shadow-vermilion/20 transition-all active:scale-[0.98] cursor-pointer"
+              >
+                {isTelugu ? 'మరిన్ని చూడండి' : isHindi ? 'और अधिक देखें' : 'Scroll / Load More'} (+{yearEvents.length - limit})
+              </button>
+            </div>
+          )}
         </div>
-      </section>
-    </div>
+
+        {/* Explore Full Journey Button */}
+        <div className="text-center mt-12">
+          <Link
+            to="/founder"
+            className="inline-flex items-center gap-2 bg-stone-900 text-white px-8 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-vermilion hover:shadow-lg hover:shadow-vermilion/15 transition-all active:scale-[0.98] group"
+          >
+            {isTelugu ? 'పూర్తి ప్రస్థాన వివరాలు చూడండి' : isHindi ? 'संपूर्ण 50+ मील के पत्थर देखें' : 'Explore Full 50+ Milestones'}
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+
+      </div>
+    </section>
   );
 };
+

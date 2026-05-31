@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
+import { SOCIAL_LINKS } from '@/shared/constants/social-links';
 
 const SONS_KEYS = ['manu', 'maya', 'thwashta', 'shilpi', 'vishwajna'];
 
@@ -62,6 +63,8 @@ export function HeroFiveSons() {
       {/* Decorative Rotating Mandalas */}
       <motion.img
         src="/images/hero/mandala-motif.webp"
+        srcSet="/images/hero/mandala-motif-400.webp 400w, /images/hero/mandala-motif-800.webp 800w"
+        sizes="(max-width: 768px) 400px, 800px"
         alt="Decorative Mandala Motif"
         initial={{ rotate: 0 }}
         animate={{ rotate: 360 }}
@@ -73,6 +76,8 @@ export function HeroFiveSons() {
       />
       <motion.img
         src="/images/hero/mandala-motif.webp"
+        srcSet="/images/hero/mandala-motif-400.webp 400w, /images/hero/mandala-motif-800.webp 800w"
+        sizes="(max-width: 768px) 400px, 800px"
         alt="Decorative Mandala Motif"
         initial={{ rotate: 0 }}
         animate={{ rotate: -360 }}
@@ -91,7 +96,11 @@ export function HeroFiveSons() {
             animate={{ opacity: 0.1, scale: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-right-top p-20"
-            style={{ backgroundImage: 'url(/images/hero/universal-motif.webp)', backgroundSize: '35%' }}
+            style={{ 
+              backgroundImage: 'url(/images/hero/universal-motif.webp)', 
+              backgroundSize: '35%',
+              // Use responsive background images if needed via complex CSS, but for now stick to main
+            }}
           />
         )}
         {i18n.language === 'te' && (
@@ -198,10 +207,10 @@ export function HeroFiveSons() {
           >
             <div className="flex gap-4 items-center sm:border-r sm:border-white/20 sm:pr-5">
                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-stone-400 mr-2">Follow Us</span>
-               <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
-               <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
-               <SocialIcon url="https://whatsapp.com/channel/0029VbAdkzmHbFVE587hs33I" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
-               <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
+               <SocialIcon url={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
+               <SocialIcon url={SOCIAL_LINKS.x} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
+               <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
+               <SocialIcon url={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
             </div>
             <a 
               href="#gallery" 
@@ -243,7 +252,13 @@ export function HeroFiveSons() {
                 transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
                 className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-0 group-hover:opacity-10 transition-opacity duration-1000 pointer-events-none`}
               >
-                <img src="/images/hero/mandala-motif.webp" className="w-full h-full object-contain filter invert opacity-50" alt="Decorative Mandala Motif" />
+                <img 
+                  src="/images/hero/mandala-motif.webp" 
+                  srcSet="/images/hero/mandala-motif-400.webp 400w, /images/hero/mandala-motif-800.webp 800w"
+                  sizes="400px"
+                  className="w-full h-full object-contain filter invert opacity-50" 
+                  alt="Decorative Mandala Motif" 
+                />
               </motion.div>
 
               {/* Son Portrait Image with Parallax Depth */}

@@ -15,12 +15,17 @@ import { HeritageTeaser } from '@/features/home/components/HeritageTeaser';
 import { KnowledgeTeaser } from '@/features/home/components/KnowledgeTeaser';
 import { LegendsTeaser } from '@/features/home/components/LegendsTeaser';
 import { FounderSection } from '@/features/home/components/FounderSection';
+import { CompactTimeline } from '@/features/home/components/CompactTimeline';
 import { GallerySection } from '@/features/home/components/GallerySection';
+import { AnniversarySection } from '@/features/home/components/AnniversarySection';
+import { MatrimonyModal } from '@/shared/components/MatrimonyModal';
 import { SEO } from '@/shared/components/SEO';
+import { SOCIAL_LINKS_ARRAY } from '@/shared/constants/social-links';
 
 export const HomePage = () => {
   const { t, i18n } = useTranslation();
   const [events, setEvents] = useState<typeof localEvents>(localEvents);
+  const [isMatrimonyModalOpen, setIsMatrimonyModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -37,14 +42,62 @@ export const HomePage = () => {
     fetchEvents();
   }, []);
 
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Vishwakarma Knowledge Centre",
+    "alternateName": "VKC",
+    "url": "https://vishwakarmaknowledgecentre.org",
+    "logo": "https://vishwakarmaknowledgecentre.org/favicon.svg",
+    "description": "A dedicated institution for the holistic support, recognition, and skill upgradation of traditional artisans.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Bagh Lingampally",
+      "addressLocality": "Hyderabad",
+      "addressRegion": "Telangana",
+      "postalCode": "500044",
+      "addressCountry": "IN"
+    },
+    "sameAs": SOCIAL_LINKS_ARRAY
+  };
+
+  const anniversarySchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "VKC 10th Anniversary Decennial Celebration",
+    "description": "Celebrating a decade of excellence, heritage preservation, and community leadership by Vishwakarma Knowledge Centre.",
+    "startDate": "2026-05-31T17:00:00+05:30",
+    "endDate": "2026-05-31T21:30:00+05:30",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Sundarayya Vignana Kendram",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Bagh Lingampally",
+        "addressLocality": "Hyderabad",
+        "addressRegion": "Telangana",
+        "postalCode": "500044",
+        "addressCountry": "IN"
+      }
+    },
+    "organizer": organizationSchema
+  };
+
   return (
     <>
       <SEO 
         title={t('home.title', 'Home')} 
-        description={t('app.description', 'Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana.')}
+        description={t('hero.description', 'Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana. Join the mission to empower the Vishwakarma community.')}
+        image="/og-image.png"
+        schema={anniversarySchema}
       />
       {/* Hero Section */}
       <HeroFiveSons />
+
+      {/* Decennial Anniversary Spotlight */}
+      <AnniversarySection onOpenMatrimony={() => setIsMatrimonyModalOpen(true)} />
 
       {/* About Section - Modern Context (Refactored) */}
       <AboutSection />
@@ -52,8 +105,12 @@ export const HomePage = () => {
       {/* Founder Section */}
       <FounderSection />
 
+      {/* VKC Compact History Timeline */}
+      <CompactTimeline />
+
       {/* Gallery Section */}
       <GallerySection />
+
 
       {/* Mission Layer */}
       <VisionSection />
@@ -105,6 +162,12 @@ export const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Matrimony Coming Soon Modal */}
+      <MatrimonyModal 
+        isOpen={isMatrimonyModalOpen}
+        onClose={() => setIsMatrimonyModalOpen(false)}
+      />
     </>
   );
 };

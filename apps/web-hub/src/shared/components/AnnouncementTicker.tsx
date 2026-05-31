@@ -1,15 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Megaphone, ArrowUpRight, X } from 'lucide-react';
+import { AnniversaryModal } from './AnniversaryModal';
+import { MatrimonyModal } from './MatrimonyModal';
 
 export const AnnouncementTicker = () => {
   const { t, i18n } = useTranslation();
   const [isMatrimonyModalOpen, setIsMatrimonyModalOpen] = useState(false);
-  const [waitlistEmail, setWaitlistEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isAnniversaryModalOpen, setIsAnniversaryModalOpen] = useState(false);
+  const [isListOpen, setIsListOpen] = useState(false);
+
+  useEffect(() => {
+    const shown = sessionStorage.getItem('vkc_anniversary_modal_shown');
+    if (!shown) {
+      setIsAnniversaryModalOpen(true);
+      sessionStorage.setItem('vkc_anniversary_modal_shown', 'true');
+    }
+  }, []);
   
   const announcements = [
+    {
+      id: "anniversary",
+      en: "🎉 VKC 10th Anniversary Decennial Celebrations Today (5:00 PM - 9:30 PM) at Hyderabad. Graced by Hon'ble Minister Smt Seethakka garu, Chief Guest ACP Brahmasri K.M. Kiran Kumar Sir & 20+ State Leaders! Join us!",
+      te: "🎉 VKC 10వ వార్షికోత్సవం: మంత్రి శ్రీమతి సీతక్క గారు, ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్ మరియు 20+ ప్రముఖుల సమక్షంలో. సాయంత్రం 5:00 గంటలకు సుందరయ్య విజ్ఞాన కేంద్రం, హైదరాబాద్‌లో కలుద్దాం! 🙏",
+      hi: "🎉 वीकेसी 10वीं वर्षगांठ दशकीय समारोह आज (शाम 5:00 बजे) हैदराबाद में। माननीय मंत्री श्रीमती सीतक्का गारू, मुख्य अतिथि एसीपी ब्रह्मश्री के.एम. किरण कुमार सर और 20+ गणमान्य व्यक्तियों की गरिमामयी उपस्थिति में!"
+    },
     {
       id: "matrimony",
       en: "💍 Parinaya: Grand Launch of \"Vishwakarma Matrimony\" exclusively for our community. Register interest now!",
@@ -25,7 +41,7 @@ export const AnnouncementTicker = () => {
     {
       id: "summit",
       en: "Upcoming: State-level Artisan Summit in Hyderabad (August 15th). Stay tuned for details.",
-      te: "రాబోయే ఈవెంట్: హైదరాబాద్‌లో రాష్ట్ర స్థాయి కళాకారుల సదస్సు (ఆగస్టు 15). వివరాల కోసం వేచి ఉండండి.",
+      te: "రాబోయే ఈవెంట్: హైదరాబాద్‌లో రాష్ట్ర స్థాయి సదస్సు (ఆగస్టు 15). వివరాల కోసం వేచి ఉండండి.",
       hi: "आगामी: हैदराबाद में राज्य स्तरीय शिल्पकार शिखर सम्मेलन (15 अगस्त)। विवरण के लिए बने रहें।"
     }
   ];
@@ -34,11 +50,17 @@ export const AnnouncementTicker = () => {
     <>
       <div className="bg-vermilion text-white py-2 overflow-hidden border-b border-vermilion-700 relative z-[60]">
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-2 md:gap-4">
-          {/* Static Header */}
-          <div className="flex items-center gap-2 bg-black/20 px-2 md:px-3 py-1 rounded-full border border-white/20 whitespace-nowrap shrink-0">
-            <Megaphone size={12} className="animate-bounce shrink-0 text-white" />
-            <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-white">{t('updates.latest', 'Latest Updates')}</span>
-          </div>
+          {/* Interactive Trigger Button */}
+          <button 
+            onClick={() => setIsListOpen(true)}
+            className="flex items-center gap-2 bg-black/25 hover:bg-black/40 px-2.5 md:px-3 py-1 rounded-full border border-white/20 whitespace-nowrap shrink-0 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+            title="View all updates"
+          >
+            <Megaphone size={12} className="animate-pulse shrink-0 text-white" />
+            <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-white">
+              {t('updates.latest', 'Latest Updates')}
+            </span>
+          </button>
 
           {/* Ticker Animation */}
           <div className="flex-1 overflow-hidden relative h-6">
@@ -46,7 +68,7 @@ export const AnnouncementTicker = () => {
               animate={{ x: ["100%", "-100%"] }}
               transition={{ 
                 repeat: Infinity, 
-                duration: 35, 
+                duration: 60, 
                 ease: "linear" 
               }}
               className="flex items-center gap-20 whitespace-nowrap"
@@ -57,6 +79,8 @@ export const AnnouncementTicker = () => {
                   onClick={() => {
                     if (ann.id === 'matrimony') {
                       setIsMatrimonyModalOpen(true);
+                    } else if (ann.id === 'anniversary') {
+                      setIsAnniversaryModalOpen(true);
                     }
                   }}
                   className="flex items-center gap-4 group cursor-pointer"
@@ -74,119 +98,103 @@ export const AnnouncementTicker = () => {
         </div>
       </div>
 
-      {/* Matrimony Coming Soon Modal */}
+      {/* List Modal */}
       <AnimatePresence>
-        {isMatrimonyModalOpen && (
-          <div className="fixed inset-0 bg-stone-950/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
-            <div className="absolute inset-0" onClick={() => {
-              setIsMatrimonyModalOpen(false);
-              setIsSubmitted(false);
-              setWaitlistEmail("");
-            }} />
+        {isListOpen && (
+          <div className="fixed inset-0 bg-stone-950/85 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+            <div className="absolute inset-0" onClick={() => setIsListOpen(false)} />
             
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-gradient-to-b from-stone-900 to-stone-950 text-white rounded-[2.5rem] w-full max-w-md p-8 md:p-10 border border-stone-850 shadow-2xl relative overflow-hidden z-10"
+              exit={{ opacity: 0, scale: 0.96, y: 12 }}
+              className="bg-gradient-to-b from-stone-900 to-stone-950 text-white rounded-3xl w-full max-w-[440px] p-5 md:p-6 border border-stone-800 shadow-2xl relative overflow-hidden z-10"
             >
-              {/* Pink & Gold Ambient Glows */}
-              <div className="absolute -top-24 -left-24 w-48 h-48 bg-rose-500/10 blur-[100px] rounded-full pointer-events-none" />
+              {/* Decorative Ambient Glows */}
+              <div className="absolute -top-24 -left-24 w-48 h-48 bg-vermilion/10 blur-[100px] rounded-full pointer-events-none" />
               <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
 
               {/* Close Button */}
               <button 
-                onClick={() => {
-                  setIsMatrimonyModalOpen(false);
-                  setIsSubmitted(false);
-                  setWaitlistEmail("");
-                }}
-                className="absolute top-6 right-6 p-2 text-stone-400 hover:text-white transition-colors bg-stone-800/50 rounded-full border border-stone-800/80"
+                onClick={() => setIsListOpen(false)}
+                className="absolute top-4 right-4 p-1.5 text-stone-400 hover:text-white transition-colors bg-stone-850 rounded-full border border-stone-800"
               >
-                <X size={16} />
+                <X size={12} />
               </button>
 
-              <div className="text-center space-y-6 relative z-10">
-                {/* Visual Icon Header */}
-                <div className="mx-auto w-20 h-20 bg-gradient-to-tr from-rose-500 to-rose-600 rounded-full flex items-center justify-center shadow-lg shadow-rose-500/20 ring-4 ring-rose-500/10">
-                  <span className="text-4xl">💍</span>
+              <div className="space-y-4 relative z-10">
+                {/* Header */}
+                <div className="flex items-center gap-2 border-b border-stone-800 pb-3">
+                  <Megaphone size={16} className="text-vermilion shrink-0 animate-pulse" />
+                  <div>
+                    <h3 className="text-xs font-black uppercase tracking-wider text-white">
+                      {i18n.language === 'te' ? 'తాజా సమాచారం & వార్తలు' : i18n.language === 'hi' ? 'ताज़ा समाचार और अपडेट' : 'Latest News & Updates'}
+                    </h3>
+                    <p className="text-[9px] text-stone-400 font-bold uppercase tracking-widest">
+                      {i18n.language === 'te' ? 'విశ్వకర్మ నాలెడ్జ్ సెంటర్' : 'Vishwakarma Knowledge Centre'}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <span className="bg-rose-500/10 text-rose-400 border border-rose-500/20 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest inline-block">
-                    {i18n.language === 'te' ? 'త్వరలో ప్రారంభం' : i18n.language === 'hi' ? 'जल्द ही आ रहा है' : 'Coming Soon'}
-                  </span>
-                  <h3 className="text-2xl font-black tracking-tight leading-tight text-white">
-                    {i18n.language === 'te' 
-                      ? 'పరిణయ: విశ్వకర్మ మ్యాట్రిమోనీ' 
-                      : i18n.language === 'hi' 
-                        ? 'परिणय: विश्वकर्मा मैट्रिमोनी' 
-                        : 'Parinaya: Vishwakarma Matrimony'}
-                  </h3>
-                </div>
-
-                <p className="text-stone-300 text-xs font-medium leading-relaxed max-w-sm mx-auto">
-                  {i18n.language === 'te'
-                    ? 'మన విశ్వకర్మ సంఘం కోసం ప్రత్యేకంగా సురక్షితమైన, ధృవీకరించబడిన మరియు గౌరవప్రదమైన మ్యాట్రిమోనీ పోర్టల్‌ను రూపొందిస్తున్నాము. అతి త్వరలోనే ప్రారంభం కానుంది!'
-                    : i18n.language === 'hi'
-                      ? 'हमारे विश्वकर्मा समाज के लिए विशेष रूप से सुरक्षित, सत्यापित और सम्मानित मैट्रिमोनी पोर्टल तैयार किया जा रहा है। बहुत जल्द लॉन्च होगा!'
-                      : 'We are crafting a highly secure, verified, and premium matchmaking portal tailored exclusively for the Vishwakarma community. Launching very soon!'}
-                </p>
-
-                {/* Interactive Waitlist Form */}
-                <div className="pt-2">
-                  {isSubmitted ? (
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 text-emerald-400 text-xs font-bold"
-                    >
-                      {i18n.language === 'te'
-                        ? '🎉 ధన్యవాదాలు! మీ ఆసక్తి నమోదు చేయబడింది. ప్రారంభించిన వెంటనే మీకు తెలియజేస్తాము.'
-                        : i18n.language === 'hi'
-                          ? '🎉 धन्यवाद! आपकी रुचि दर्ज कर ली गई है। लॉन्च होते ही आपको सूचित किया जाएगा।'
-                          : '🎉 Thank you! Your interest has been registered. We will notify you at launch.'}
-                    </motion.div>
-                  ) : (
-                    <form 
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        if (waitlistEmail.trim()) {
-                          setIsSubmitted(true);
-                        }
-                      }}
-                      className="space-y-3"
-                    >
-                      <input 
-                        type="text"
-                        required
-                        placeholder={i18n.language === 'te' 
-                          ? 'మీ ఫోన్ నంబర్ లేదా ఈమెయిల్' 
-                          : i18n.language === 'hi' 
-                            ? 'आपका फोन नंबर या ईमेल' 
-                            : 'Your Phone Number or Email'}
-                        value={waitlistEmail}
-                        onChange={(e) => setWaitlistEmail(e.target.value)}
-                        className="w-full h-12 px-4 rounded-xl bg-stone-850 border border-stone-800 text-white placeholder-stone-500 text-xs focus:ring-1 focus:ring-rose-500 focus:border-rose-500 transition-all text-center"
-                      />
-                      <button 
-                        type="submit"
-                        className="w-full bg-rose-600 text-white h-12 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-rose-700 transition-all active:scale-98 shadow-lg shadow-rose-600/20"
+                {/* Announcement List */}
+                <div className="space-y-2.5 max-h-[55vh] overflow-y-auto pr-1 no-scrollbar">
+                  {announcements.map((ann) => {
+                    const isClickable = ann.id === 'matrimony' || ann.id === 'anniversary';
+                    const icon = ann.id === 'matrimony' ? '💍' : ann.id === 'anniversary' ? '🎉' : '📢';
+                    
+                    return (
+                      <div 
+                        key={ann.id}
+                        onClick={() => {
+                          if (ann.id === 'matrimony') {
+                            setIsListOpen(false);
+                            setIsMatrimonyModalOpen(true);
+                          } else if (ann.id === 'anniversary') {
+                            setIsListOpen(false);
+                            setIsAnniversaryModalOpen(true);
+                          }
+                        }}
+                        className={`flex gap-3 p-3 rounded-xl border text-left transition-all ${
+                          isClickable 
+                            ? 'bg-stone-850/60 hover:bg-stone-850 border-stone-800 hover:border-vermilion/30 cursor-pointer active:scale-[0.99]' 
+                            : 'bg-stone-900/30 border-stone-850/50'
+                        }`}
                       >
-                        {i18n.language === 'te' 
-                          ? 'త్వరగా అప్‌డేట్స్ పొందండి' 
-                          : i18n.language === 'hi' 
-                            ? 'अपडेट प्राप्त करें' 
-                            : 'Get Notified'}
-                      </button>
-                    </form>
-                  )}
+                        <div className="text-lg shrink-0 select-none">
+                          {icon}
+                        </div>
+                        <div className="flex-1 space-y-1">
+                          <p className="text-[11px] leading-relaxed font-medium text-stone-200">
+                            {(ann as any)[i18n.language] || (ann as any)['en']}
+                          </p>
+                          {isClickable && (
+                            <span className="inline-flex items-center gap-1 text-[8px] font-black uppercase tracking-wider text-vermilion">
+                              {i18n.language === 'te' ? 'మరింత సమాచారం' : i18n.language === 'hi' ? 'अधिक जानकारी' : 'View Details'}
+                              <ArrowUpRight size={8} />
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
+
+      {/* Matrimony Coming Soon Modal */}
+      <MatrimonyModal 
+        isOpen={isMatrimonyModalOpen}
+        onClose={() => setIsMatrimonyModalOpen(false)}
+      />
+
+      {/* Anniversary Modal Integration */}
+      <AnniversaryModal 
+        isOpen={isAnniversaryModalOpen}
+        onClose={() => setIsAnniversaryModalOpen(false)}
+      />
     </>
   );
 };

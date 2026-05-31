@@ -21,7 +21,8 @@ export const HeritagePage = () => {
     <div className="min-h-screen bg-white">
       <SEO 
         title={t('heritage.nav.title', 'Heritage Archive')} 
-        description={t('heritage.roots.description')}
+        description={t('heritage.roots.description', 'Explore 5,000 years of traditional mastery. From Vedic roots to sacred geometry and architectural engineering secrets of the Vishwakarma legacy.')}
+        type="article"
       />
       <ScrollToTop />
       

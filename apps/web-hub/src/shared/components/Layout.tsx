@@ -17,6 +17,7 @@ import { SocialIcon } from 'react-social-icons';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
+import { SOCIAL_LINKS } from '@/shared/constants/social-links';
 
 export const Layout = () => {
   const { t, i18n } = useTranslation();
@@ -139,7 +140,7 @@ export const Layout = () => {
                 <div className="hidden lg:flex items-center gap-3 border-r border-stone-100 pr-4">
                    <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
                    <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
-                   <SocialIcon url="https://whatsapp.com/channel/0029VbAdkzmHbFVE587hs33I" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
+                   <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
                    <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
                 </div>
                 <LanguageSwitcher />
@@ -205,7 +206,7 @@ export const Layout = () => {
               <div className="pt-6 border-t border-stone-100 mt-6 flex justify-center gap-6 pb-4">
                  <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
                  <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
-                 <SocialIcon url="https://whatsapp.com/channel/0029VbAdkzmHbFVE587hs33I" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                 <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
                  <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
               </div>
             </motion.div>
@@ -234,10 +235,10 @@ export const Layout = () => {
                 {t('footer.description')}
               </p>
               <div className="flex gap-4">
-                <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
-                <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
-                <SocialIcon url="https://whatsapp.com/channel/0029VbAdkzmHbFVE587hs33I" target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
-                <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
+                <SocialIcon url={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
+                <SocialIcon url={SOCIAL_LINKS.x} target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
+                <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
+                <SocialIcon url={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
               </div>
             </div>
 
