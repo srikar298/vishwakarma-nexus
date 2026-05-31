@@ -155,7 +155,13 @@ export const Layout = () => {
             </div>
 
             {/* Mobile Nav Toggle */}
-            <div className="flex items-center gap-6 md:hidden">
+            <div className="flex items-center gap-3 sm:gap-4 md:hidden">
+              <button 
+                onClick={() => setIsJoinModalOpen(true)}
+                className="bg-vermilion text-white px-5 py-2 rounded-full font-black hover:bg-vermilion/90 transition-all shadow-md shadow-vermilion/15 active:scale-95 text-[10px] sm:text-xs uppercase tracking-wider"
+              >
+                {t('nav.join')}
+              </button>
               <LanguageSwitcher />
               <button aria-label="Toggle menu" aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-stone-900 group">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} className="group-hover:text-vermilion transition-colors" />}
@@ -195,14 +201,7 @@ export const Layout = () => {
                      </div>
                   </div>
               </div>
-              <div className="pt-4">
-                <button 
-                  onClick={() => setIsJoinModalOpen(true)}
-                  className="w-full bg-vermilion text-white py-5 rounded-2xl font-black shadow-xl shadow-vermilion/20 active:scale-95 transition-all uppercase tracking-[0.2em] text-sm"
-                >
-                  {t("nav.join")}
-                </button>
-              </div>
+
               <div className="pt-6 border-t border-stone-100 mt-6 flex justify-center gap-6 pb-4">
                  <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
                  <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
