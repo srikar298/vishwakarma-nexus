@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Megaphone, ArrowUpRight, X } from 'lucide-react';
 import { AnniversaryModal } from './AnniversaryModal';
+import { SocialLinks } from '@/shared/ui/SocialLinks';
 
 export const AnnouncementTicker = () => {
   const { t, i18n } = useTranslation();
@@ -94,6 +95,12 @@ export const AnnouncementTicker = () => {
                 </div>
               ))}
             </motion.div>
+          </div>
+
+          {/* New Social Utility Nav */}
+          <div className="hidden lg:flex items-center gap-2 pl-4 border-l border-white/20">
+             <span className="text-[8px] font-black uppercase tracking-widest text-white/60 mr-2">Official Handles:</span>
+             <SocialLinks size={18} iconClassName="hover:scale-110 transition-transform text-white opacity-80 hover:opacity-100" />
           </div>
         </div>
       </div>

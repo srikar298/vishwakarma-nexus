@@ -11,7 +11,11 @@ export const LanguageSwitcher = () => {
   };
 
   return (
-    <div className="flex items-center gap-1 bg-stone-100/50 p-1 rounded-xl border border-stone-200/60 backdrop-blur-sm">
+    <div 
+      className="flex items-center gap-1 bg-stone-100/50 p-1 rounded-xl border border-stone-200/60 backdrop-blur-sm"
+      role="group"
+      aria-label="Language Selector"
+    >
       {(['en', 'hi', 'te'] as Language[]).map((l) => (
         <button
           key={l}

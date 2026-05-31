@@ -13,11 +13,9 @@ import {
   Flag,
   Calendar
 } from 'lucide-react';
-import { SocialIcon } from 'react-social-icons';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
-import { SOCIAL_LINKS } from '@/shared/constants/social-links';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
 
 export const Layout = () => {
@@ -151,10 +149,6 @@ export const Layout = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <SocialLinks 
-                  size={26} 
-                  className="hidden lg:flex items-center gap-3 border-r border-stone-100 pr-4" 
-                />
                 <LanguageSwitcher />
                 <Link to="/donors" className="hidden lg:block text-stone-500 hover:text-vermilion transition-colors font-black uppercase tracking-widest text-xs px-2">{t('donors.page_title' as any, 'Community Donors')}</Link>
                 <button 
@@ -218,10 +212,7 @@ export const Layout = () => {
                   {t("nav.join")}
                 </button>
                 <div className="flex justify-center gap-6 pb-2">
-                   <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
-                   <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
-                   <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
-                   <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                   <SocialLinks size={32} />
                 </div>
               </div>
             </motion.div>
@@ -289,7 +280,7 @@ export const Layout = () => {
               <div className="flex gap-8 text-xs font-bold text-stone-400 uppercase tracking-widest">
                 <Link to="/events" className="hover:text-white transition-colors">Events</Link>
                 <Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link>
-                <a href="#" className="hover:text-white transition-colors">Contact</a>
+                <Link to="/network" className="hover:text-white transition-colors">Contact</Link>
               </div>
               <div className="flex gap-6 text-[10px] font-black text-stone-400 uppercase tracking-widest">
                 <a href="#" className="hover:text-stone-300">Privacy Policy</a>
