@@ -89,6 +89,27 @@ export function Admin() {
     }
   }, [session, fetchEvents, fetchInquiries]);
 
+  // Lock scroll & handle escape key for the modal overlay
+  useEffect(() => {
+    const isModalOpen = !!editingEvent || isAdding;
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setEditingEvent(null);
+          setIsAdding(false);
+        }
+      };
+      window.addEventListener('keydown', handleEscape);
+      return () => {
+        window.removeEventListener('keydown', handleEscape);
+        document.body.style.overflow = 'unset';
+      };
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [editingEvent, isAdding]);
+
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -387,14 +408,17 @@ export function Admin() {
         {/* Event Form Modal */}
         {(editingEvent || isAdding) && (
           <div className="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-2 sm:p-4">
+            {/* Backdrop click closer */}
+            <div className="absolute inset-0" onClick={() => { setEditingEvent(null); setIsAdding(false); }} />
+            
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              className="bg-white w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl p-6 sm:p-8 border border-stone-100 relative"
+              className="bg-white w-full max-w-3xl max-h-[95vh] overflow-y-auto rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl p-6 sm:p-8 border border-stone-100 relative z-10"
             >
               <button 
                 onClick={() => { setEditingEvent(null); setIsAdding(false); }}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 active:scale-90 active:bg-stone-200 transition-all bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105 z-50 flex items-center justify-center"
                 aria-label="Close"
               >
                 <X size={20} />

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { 
@@ -202,10 +202,27 @@ const MOCK_ARTISANS: Artisan[] = [
 ];
 
 export const DirectoryPage = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<ArtisanCategory>('all');
   const [selectedArtisan, setSelectedArtisan] = useState<Artisan | null>(null);
+
+  // Lock scroll & handle Escape key for the details modal
+  useEffect(() => {
+    if (selectedArtisan) {
+      document.body.style.overflow = 'hidden';
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setSelectedArtisan(null);
+      };
+      window.addEventListener('keydown', handleEscape);
+      return () => {
+        window.removeEventListener('keydown', handleEscape);
+        document.body.style.overflow = 'unset';
+      };
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedArtisan]);
 
   const filteredArtisans = useMemo(() => {
     return MOCK_ARTISANS.filter(artisan => {
@@ -414,7 +431,7 @@ export const DirectoryPage = () => {
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedArtisan(null)}
-                className="absolute top-6 right-6 p-2.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors z-50 bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105"
+                className="absolute top-6 right-6 p-2.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 active:scale-90 active:bg-stone-200 transition-all z-50 bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105 flex items-center justify-center"
                 aria-label="Close"
               >
                 <X size={20} />

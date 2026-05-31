@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, Clock, MapPin, Share2, Navigation } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -223,6 +224,18 @@ const getInitials = (name: string) => {
 export const AnniversaryModal: React.FC<AnniversaryModalProps> = ({ isOpen, onClose }) => {
   const { i18n } = useTranslation();
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   const handleShare = () => {
     const shareText = i18n.language === 'te'
       ? `విశ్వకర్మ నాలెడ్జ్ సెంటర్ (VKC) 10వ వార్షికోత్సవ దశాబ్ది ఉత్సవాలకు సాదర ఆహ్వానం!🎉\n\n` +
@@ -275,7 +288,7 @@ export const AnniversaryModal: React.FC<AnniversaryModalProps> = ({ isOpen, onCl
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white hover:bg-stone-800 transition-colors bg-stone-900 rounded-full border border-stone-800 shadow-lg cursor-pointer"
+              className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white hover:bg-stone-800 active:scale-90 active:bg-stone-850 transition-all duration-75 bg-stone-900 rounded-full border border-stone-800 shadow-lg cursor-pointer flex items-center justify-center"
               aria-label="Close"
             >
               <X size={18} />

@@ -205,13 +205,10 @@ export function HeroFiveSons() {
              transition={{ delay: 0.6 }}
              className="flex flex-col sm:flex-row gap-6 sm:gap-5 mt-8 md:mt-10 justify-center md:justify-start items-center"
           >
-            <div className="flex gap-4 items-center sm:border-r sm:border-white/20 sm:pr-5">
-               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-stone-400 mr-2">Follow Us</span>
-               <SocialIcon url={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
-               <SocialIcon url={SOCIAL_LINKS.x} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
-               <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
-               <SocialIcon url={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
-            </div>
+            <SocialLinks 
+              showLabel 
+              className="flex gap-4 items-center sm:border-r sm:border-white/20 sm:pr-5" 
+            />
             <a 
               href="#gallery" 
               className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-stone-300 hover:text-white flex items-center gap-2 transition-all hover:translate-x-1 border border-white/10 px-4 py-2 rounded-full hover:bg-white/5"

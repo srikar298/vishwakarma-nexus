@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   ArrowRight
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { SectionBadge } from '@/shared/ui/SectionBadge';
 
 export const AboutSection = () => {
   const { t, i18n } = useTranslation();
@@ -61,12 +61,7 @@ export const AboutSection = () => {
               viewport={{ once: true }}
               className="space-y-6"
             >
-              <div className="flex items-center gap-4">
-                 <div className="h-[2px] w-12 bg-vermilion" />
-                 <span className="text-xs font-black text-vermilion uppercase tracking-[0.4em]">
-                    {t('about.badge')}
-                 </span>
-              </div>
+              <SectionBadge label={t('about.badge')} />
               <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black text-stone-900 leading-tight font-display 
                 ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
                 {t('about.title')}

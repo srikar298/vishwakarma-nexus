@@ -96,6 +96,24 @@
     "mandate_link": "View Full Mandate",
     "authority": "Institutional Authority under VKC Governance Board"
   },
+  "vision": {
+    "badge": "Institutional Mandate 2026-2030",
+    "deepTitle": "Uniting the Precision of Five Millennia.",
+    "quote": "Vishwakarma Knowledge Centre is not just a digital platform; it is a strategic bridge connecting the sacred geometry of our ancestors to the industrial reality of tomorrow.",
+    "pillars": {
+      "pillar": "Strategic Pillar",
+      "whitepaper": "Read Full Whitepaper",
+      "timeline_hint": "Architecting the future since 3,000 BCE",
+      "goals": {
+        "identity": "Verified Digital Identity",
+        "skill": "Global Skill Bridge",
+        "credit": "Institutional Credit Score",
+        "scanning": "3D Heritage Scanning",
+        "digitalization": "Shastra Digitalization",
+        "tracking": "Artisan Lineage Tracking"
+      }
+    }
+  },
   "events": {
     "title": "Upcoming Events",
     "subtitle": "Join us in celebrating our culture and traditions."

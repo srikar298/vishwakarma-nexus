@@ -155,13 +155,7 @@ export const Layout = () => {
             </div>
 
             {/* Mobile Nav Toggle */}
-            <div className="flex items-center gap-3 sm:gap-4 md:hidden">
-              <button 
-                onClick={() => setIsJoinModalOpen(true)}
-                className="bg-vermilion text-white px-5 py-2 rounded-full font-black hover:bg-vermilion/90 transition-all shadow-md shadow-vermilion/15 active:scale-95 text-[10px] sm:text-xs uppercase tracking-wider"
-              >
-                {t('nav.join')}
-              </button>
+            <div className="flex items-center gap-6 md:hidden">
               <LanguageSwitcher />
               <button aria-label="Toggle menu" aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-stone-900 group">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} className="group-hover:text-vermilion transition-colors" />}
@@ -177,9 +171,10 @@ export const Layout = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white/95 backdrop-blur-2xl border-t border-stone-100 p-6 space-y-4 shadow-2xl overflow-y-auto max-h-[calc(100vh-80px)] rounded-b-[2.5rem]"
+              className="md:hidden bg-white/95 backdrop-blur-2xl border-t border-stone-100 p-6 flex flex-col max-h-[calc(100vh-80px)] shadow-2xl rounded-b-[2.5rem]"
             >
-              <div className="space-y-6">
+              {/* Scrollable links */}
+              <div className="flex-1 overflow-y-auto space-y-6 pr-2 mb-4">
                  <div>
                     <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest px-4 mb-2">{t('nav.vision')}</h4>
                     <div className="grid gap-2">
@@ -202,11 +197,20 @@ export const Layout = () => {
                   </div>
               </div>
 
-              <div className="pt-6 border-t border-stone-100 mt-6 flex justify-center gap-6 pb-4">
-                 <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
-                 <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
-                 <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
-                 <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+              {/* Static Footer CTA */}
+              <div className="pt-4 border-t border-stone-100 bg-white/95 space-y-4 shrink-0">
+                <button 
+                  onClick={() => { setIsJoinModalOpen(true); setIsMenuOpen(false); }}
+                  className="w-full bg-vermilion text-white py-4 rounded-2xl font-black shadow-xl shadow-vermilion/20 active:scale-95 transition-all uppercase tracking-[0.2em] text-xs cursor-pointer"
+                >
+                  {t("nav.join")}
+                </button>
+                <div className="flex justify-center gap-6 pb-2">
+                   <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                   <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                   <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                   <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                </div>
               </div>
             </motion.div>
           )}
@@ -233,12 +237,10 @@ export const Layout = () => {
               <p className="text-stone-400 leading-relaxed max-w-sm text-sm">
                 {t('footer.description')}
               </p>
-              <div className="flex gap-4">
-                <SocialIcon url={SOCIAL_LINKS.facebook} target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
-                <SocialIcon url={SOCIAL_LINKS.x} target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
-                <SocialIcon url={SOCIAL_LINKS.whatsapp} target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
-                <SocialIcon url={SOCIAL_LINKS.instagram} target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
-              </div>
+              <SocialLinks 
+                size={36} 
+                iconClassName="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" 
+              />
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-2 gap-8 col-span-1 md:col-span-2">

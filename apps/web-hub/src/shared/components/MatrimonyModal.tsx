@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
@@ -12,6 +12,18 @@ export const MatrimonyModal: React.FC<MatrimonyModalProps> = ({ isOpen, onClose 
   const { i18n } = useTranslation();
   const [waitlistEmail, setWaitlistEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   const handleClose = () => {
     onClose();
@@ -38,7 +50,7 @@ export const MatrimonyModal: React.FC<MatrimonyModalProps> = ({ isOpen, onClose 
             {/* Close Button */}
             <button 
               onClick={handleClose}
-              className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white hover:bg-stone-800 transition-colors bg-stone-900 rounded-full border border-stone-800 shadow-lg cursor-pointer"
+              className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white hover:bg-stone-800 active:scale-90 active:bg-stone-850 transition-all duration-75 bg-stone-900 rounded-full border border-stone-800 shadow-lg cursor-pointer flex items-center justify-center"
               aria-label="Close"
             >
               <X size={18} />

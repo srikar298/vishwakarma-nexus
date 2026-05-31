@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Network, History, Anchor, Globe, Database, ShieldCheck, Cpu, ArrowRight } from 'lucide-react';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { SectionBadge } from '@/shared/ui/SectionBadge';
 
 export const VisionSection = () => {
   const { t, i18n } = useTranslation();
@@ -31,9 +32,9 @@ export const VisionSection = () => {
       desc_te: "మా లక్ష్యం 10 మిలియన్ల విశ్వకర్మ కళాకారులను ఒకే నెట్‌వర్క్‌గా అనుసందానించడం, తద్వారా వారికి రుణ సౌకర్యాలు మరియు అంతర్జాతీయ మార్కెట్ అందుబాటులోకి తీసుకురావడం.",
       desc_hi: "हमारा लक्ष्य 10 मिलियन विश्वकर्मा शिल्पकारों को एक सत्यापित नेटवर्क में जोड़ना है, जिससे उन्हें संस्थागत ऋण और वैश्विक बाजारों तक पहुंच मिल सके।",
       subgoals: [
-        { icon: <Database size={14} />, text: "Verified Digital Identity" },
-        { icon: <Globe size={14} />, text: "Global Skill Bridge" },
-        { icon: <Cpu size={14} />, text: "Institutional Credit Score" }
+        { icon: <Database size={14} />, text: t('vision.pillars.goals.identity') },
+        { icon: <Globe size={14} />, text: t('vision.pillars.goals.skill') },
+        { icon: <Cpu size={14} />, text: t('vision.pillars.goals.credit') }
       ],
       accent: "from-saffron-500/10 via-saffron-500/5 to-transparent"
     },
@@ -47,9 +48,9 @@ export const VisionSection = () => {
       desc_te: "మేము 5,000 సంవత్సరాల 'మౌన భాషా' పరిజ్ఞానాన్ని డిజిటల్ లైబ్రరీగా మరియు 3D నిరమ్మాణ బ్లూప్రింట్లుగా మారుస్తున్నాము.",
       desc_hi: "हम 5,000 वर्षों के 'मौन भाषा' ज्ञान को भविष्य की पीढ़ियों के लिए डिजिटल लाइब्रेरी और 3D ब्लूप्रिंट में बदल रहे हैं।",
       subgoals: [
-        { icon: <ShieldCheck size={14} />, text: "3D Heritage Scanning" },
-        { icon: <Database size={14} />, text: "Shastra Digitalization" },
-        { icon: <Anchor size={14} />, text: "Artisan Lineage Tracking" }
+        { icon: <ShieldCheck size={14} />, text: t('vision.pillars.goals.scanning') },
+        { icon: <Database size={14} />, text: t('vision.pillars.goals.digitalization') },
+        { icon: <Anchor size={14} />, text: t('vision.pillars.goals.tracking') }
       ],
       accent: "from-vermilion/10 via-vermilion/5 to-transparent"
     }
@@ -70,15 +71,12 @@ export const VisionSection = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-32 space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-2 rounded-full backdrop-blur-md"
-          >
-            <div className="w-2 h-2 bg-vermilion rounded-full animate-pulse" />
-            <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Institutional Mandate 2026-2030</span>
-          </motion.div>
+          <SectionBadge 
+            label={t('vision.badge')} 
+            variant="pill" 
+            theme="dark" 
+            className="mx-auto"
+          />
           
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -88,7 +86,7 @@ export const VisionSection = () => {
             className={`text-4xl md:text-7xl font-black text-white leading-tight font-display 
               ${isTelugu ? 'font-telugu leading-relaxed' : isHindi ? 'font-hindi leading-relaxed' : ''}`}
           >
-            {t('vision.deepTitle', 'Uniting the Precision of Five Millennia.')}
+            {t('vision.deepTitle')}
           </motion.h2>
 
           <motion.p 
@@ -98,7 +96,7 @@ export const VisionSection = () => {
             transition={{ delay: 0.2 }}
             className="text-stone-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed italic"
           >
-            "Vishwakarma Knowledge Centre is not just a digital platform; it is a strategic bridge connecting the sacred geometry of our ancestors to the industrial reality of tomorrow."
+            "{t('vision.quote')}"
           </motion.p>
         </div>
 
@@ -121,7 +119,7 @@ export const VisionSection = () => {
                     {pillar.icon}
                   </div>
                   <div className="text-[10px] font-black text-stone-500 uppercase tracking-widest border border-stone-800 px-4 py-2 rounded-full">
-                    Strategic Pillar 0{index + 1}
+                    {t('vision.pillars.pillar')} 0{index + 1}
                   </div>
                 </div>
 
@@ -146,7 +144,7 @@ export const VisionSection = () => {
                 </div>
 
                 <Link to="/vision" className="flex items-center gap-4 text-[10px] font-black text-white uppercase tracking-[0.4em] group-hover:gap-6 transition-all duration-500 cursor-pointer w-fit group/btn">
-                   <span className="group-hover:text-vermilion transition-colors">Read Full Whitepaper</span>
+                   <span className="group-hover:text-vermilion transition-colors">{t('vision.pillars.whitepaper')}</span>
                    <ArrowRight size={16} className="text-vermilion group-hover:translate-x-2 transition-transform" />
                 </Link>
               </div>
@@ -169,7 +167,7 @@ export const VisionSection = () => {
         >
           <div className="inline-block p-1 bg-gradient-to-r from-saffron-500 via-vermilion to-saffron-500 rounded-full">
              <div className="bg-stone-950 px-12 py-6 rounded-full">
-                <p className="text-white font-black uppercase tracking-[0.5em] text-xs">Architecting the future since 3,000 BCE</p>
+                <p className="text-white font-black uppercase tracking-[0.5em] text-xs">{t('vision.pillars.timeline_hint')}</p>
              </div>
           </div>
         </motion.div>

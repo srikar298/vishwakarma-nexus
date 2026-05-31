@@ -21,6 +21,7 @@ import { AnniversarySection } from '@/features/home/components/AnniversarySectio
 import { MatrimonyModal } from '@/shared/components/MatrimonyModal';
 import { SEO } from '@/shared/components/SEO';
 import { SOCIAL_LINKS_ARRAY } from '@/shared/constants/social-links';
+import { GeometryDivider } from '@/shared/ui/GeometryDivider';
 
 export const HomePage = () => {
   const { t, i18n } = useTranslation();

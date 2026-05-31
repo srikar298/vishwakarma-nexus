@@ -59,7 +59,7 @@ export const ExhibitModal = ({ isOpen, onClose, exhibit }: ExhibitModalProps) =>
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 z-20 p-2.5 bg-stone-100/90 hover:bg-stone-200 text-stone-900 hover:text-stone-950 rounded-full transition-all border border-stone-200/50 shadow-md cursor-pointer hover:scale-105"
+              className="absolute top-6 right-6 z-20 p-2.5 bg-stone-100/90 hover:bg-stone-200 active:scale-90 active:bg-stone-300 text-stone-900 hover:text-stone-950 rounded-full transition-all duration-75 border border-stone-200/50 shadow-md cursor-pointer hover:scale-105 flex items-center justify-center"
               aria-label="Close"
             >
               <X size={20} />
