@@ -9,45 +9,15 @@ interface AnniversarySectionProps {
 }
 
 const DIGNITARIES = [
-  {
-    nameEn: "Smt Seethakka garu",
-    nameTe: "శ్రీమతి సీతక్క గారు",
-    nameHi: "श्रीमती सीतक्का गारू",
-    subEn: "Hon'ble Minister",
-    subTe: "గౌరవనీయులైన మంత్రి",
-    subHi: "माननीय मंत्री"
-  },
-  {
-    nameEn: "Sirikonda Madhusudhana Chary garu",
-    nameTe: "సిриకొండ మధుసూదనా చారి గారు",
-    nameHi: "सिरिकोंडा मधुसूदन चारी गारू",
-    subEn: "Senior Leader & Guest",
-    subTe: "సీనియర్ నాయకులు & అతిథి",
-    subHi: "वरिष्ठ नेता एवं अतिथि"
-  },
-  {
-    nameEn: "ACP Brahmasri K.M. Kiran Kumar Sir",
-    nameTe: "ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్",
-    nameHi: "एसीपी ब्रह्मश्री के.एम. किरण कुमार सर",
-    subEn: "Chief Guest, ACP Hyderabad",
-    subTe: "ముఖ్య అతిథి, ACP హైదరాబాద్",
-    subHi: "मुख्य अतिथि, एसीपी हैदराबाद"
-  },
-  {
-    nameEn: "E. Venkatachary garu",
-    nameTe: "ఈ. వెంకటాచారి గారు",
-    nameHi: "ई. वेंकटचारी गारू",
-    subEn: "Additional Collector",
-    subTe: "అడిషనల్ కలెక్టర్",
-    subHi: "अतिरिक्त कलेक्टर"
-  },
+  // Tier 1: VKC Core Leadership
   {
     nameEn: "Brahmasri Kondoju Praveen Kumar Chary garu",
     nameTe: "బ్రహ్మశ్రీ కొండోజు ప్రవీణ్ కుమార్ చారి గారు",
     nameHi: "ब्रह्मश्री कोंडोजु प्रवीण कुमार चारी गारू",
     subEn: "President, VKC Telangana",
     subTe: "అధ్యక్షులు, VKC తెలంగాణ",
-    subHi: "अध्यक्ष, VKC तेलंगाना"
+    subHi: "अध्यक्ष, VKC तेलंगाना",
+    photo: "/images/guests/praveen_kumar.jpg"
   },
   {
     nameEn: "Brahmasri Solleti Prabhakara Chary garu",
@@ -55,137 +25,206 @@ const DIGNITARIES = [
     nameHi: "ब्रह्मश्री सोल्लेटी प्रभाकर चारी गारू",
     subEn: "National Joint Secretary, VKC",
     subTe: "జాతీయ సంయుక్త కార్యదర్శి, VKC",
-    subHi: "राष्ट्रीय संयुक्त सचिव, VKC"
+    subHi: "राष्ट्रीय संयुक्त सचिव, VKC",
+    photo: "/images/guests/solleti_prabhakara.jpg"
   },
+  // Tier 2: State-Level Influencers & Community Icons
   {
     nameEn: "Dr. P. Harikanth Acharya garu",
     nameTe: "డాక్టర్ పి. హరికాంత్ ఆచార్య గారు",
     nameHi: "डॉ. पी. हरिकांत आचार्य गारू",
-    subEn: "Public Doctor & Social Activist",
-    subTe: "వైద్యులు & సామాజిక కార్యకర్త",
-    subHi: "सार्वजनिक चिकित्सक एवं सामाजिक कार्यकर्ता"
+    subEn: "Famous Public Doctor & Social Activist",
+    subTe: "ప్రముఖ వైద్యులు & సామాజిక కార్యకర్త",
+    subHi: "प्रसिद्ध चिकित्सक एवं सामाजिक कार्यकर्ता",
+    photo: "/images/guests/harikanth_acharya.jpg"
   },
   {
-    nameEn: "Brahmasri Puligilla Prakash Achary garu",
-    nameTe: "బ్రహ్మశ్రీ పులిగిల్ల ప్రకాష్ ఆచారి గారు",
-    nameHi: "ब्रह्मश्री पुलिगिल्ला प्रकाश चारी गारू",
-    subEn: "State Vishwakarma Leader",
-    subTe: "రాష్ట్ర విశ్వకర్మ నాయకులు",
-    subHi: "राज्य विश्वकर्मा नेता"
+    nameEn: "Brahmasri Sirikonda Madhusudhana Chary garu",
+    nameTe: "బ్రహ్మశ్రీ సిరికొండ మధుసూదన చారి గారు",
+    nameHi: "ब्रह्मश्री सिरिकोंडा मधुसूदन चारी गारू",
+    subEn: "Leader of the Opposition, TS Legislative Council & 1st Speaker",
+    subTe: "విపక్ష నాయకులు, తెలంగాణ శాసన మండలి & మొదటి స్పీకర్",
+    subHi: "तेलंगाना विधान परिषद के विपक्ष के नेता एवं प्रथम स्पीकर",
+    photo: "/images/guests/sirikonda_madhusudhana.jpg"
+  },
+  // Tier 3: Government Officials
+  {
+    nameEn: "Smt Seethakka garu",
+    nameTe: "శ్రీమతి సీతక్క గారు",
+    nameHi: "श्रीमती सीतक्का गारू",
+    subEn: "Hon'ble Minister for Women & Child Welfare, Telangana",
+    subTe: "మహిళా & శిశు సంక్షేమ మంత్రి, తెలంగాణ",
+    subHi: "माननीय मंत्री, महिला एवं बाल कल्याण, तेलंगाना",
+    photo: "/images/guests/seethakka.jpg"
   },
   {
-    nameEn: "Brahmasri Thalloju Achary garu",
-    nameTe: "బ్రహ్మశ్రీ తాళ్ళోజు ఆచారి గారు",
-    nameHi: "ब्रह्मश्री ताल्लोजु चारी गारू",
-    subEn: "Former BC Commission Member",
-    subTe: "మాజీ బీసీ కమిషన్ సభ్యులు",
-    subHi: "पूर्व पिछड़ा वर्ग आयोग सदस्य"
+    nameEn: "Brahmasri K.M. Kiran Kumar Sir",
+    nameTe: "బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్",
+    nameHi: "ब्रह्मश्री के.एम. किरण कुमार सर",
+    subEn: "Chief Guest — ACP, EOW-CCS Hyderabad",
+    subTe: "ముఖ్య అతిథి — ACP, EOW-CCS హైదరాబాద్",
+    subHi: "मुख्य अतिथि — एसीपी, EOW-CCS हैदराबाद",
+    photo: "/images/guests/km_kiran_kumar.jpg"
   },
   {
-    nameEn: "Brahmasri Ravi Chary garu",
-    nameTe: "బ్రహ్మశ్రీ రవి చారి గారు",
-    nameHi: "ब्रह्मश्री रवि चारी गारू",
-    subEn: "BJP Senior Leader",
-    subTe: "బీజేపీ సీనియర్ నాయకులు",
-    subHi: "भाजपा वरिष्ठ नेता"
-  },
-  {
-    nameEn: "Brahmasri Chandramouli Chary garu",
-    nameTe: "బ్రహ్మశ్రీ చంద్రమౌళి చారి గారు",
-    nameHi: "ब्रह्मश्री चंद्रमौली चारी गारू",
-    subEn: "Sarpanch & Social Activist",
-    subTe: "సర్పంచ్ & సామాజిక కార్యకర్త",
-    subHi: "सरपंच एवं सामाजिक कार्यकर्ता"
-  },
-  {
-    nameEn: "Brahmasri Yemnnagandla Ramesh Chary garu",
-    nameTe: "బ్రహ్మశ్రీ యెమ్నగండ్ల రమేష్ చారి గారు",
-    nameHi: "ब्रह्मश्री येमनागंडला रमेश चारी गारू",
-    subEn: "President, Swarnakara Sangham",
-    subTe: "అధ్యక్షులు, స్వర్ణకార సంఘం",
-    subHi: "अध्यक्ष, स्वर्णकार संघ"
+    nameEn: "Brahmasri E. Venkatachary garu",
+    nameTe: "బ్రహ్మశ్రీ ఈ. వెంకటాచారి గారు",
+    nameHi: "ब्रह्मश्री ई. वेंकटचारी गारू",
+    subEn: "Addl. Collector, Vikarabad District",
+    subTe: "అడిషనల్ కలెక్టర్, వికారాబాద్ జిల్లా",
+    subHi: "अतिरिक्त कलेक्टर, विकाराबाद जिला",
+    photo: "/images/guests/e_venkatachary.jpg"
   },
   {
     nameEn: "Dasoju Sravan garu",
     nameTe: "దాసోజు శ్రవణ్ గారు",
     nameHi: "दासोझु श्रवण गारू",
-    subEn: "MLC & Senior Leader",
-    subTe: "MLC & సీనియర్ నాయకులు",
-    subHi: "एमएलसी एवं वरिष्ठ नेता"
+    subEn: "Member of Legislative Council, Telangana",
+    subTe: "శాసన మండలి సభ్యులు, తెలంగాణ",
+    subHi: "विधान परिषद सदस्य, तेलंगाना",
+    photo: "/images/guests/dasoju_sravan.jpg"
+  },
+  // Tier 4: State Vishwakarma Community Leaders
+  {
+    nameEn: "Brahmasri Puligilla Prakash Achary garu",
+    nameTe: "బ్రహ్మశ్రీ పులిగిల్ల ప్రకాష్ ఆచారి గారు",
+    nameHi: "ब्रह्मश्री पुलिगिल्ला प्रकाश आचारी गारू",
+    subEn: "State Vishwakarma Leader & Senior Politician",
+    subTe: "రాష్ట్ర విశ్వకర్మ నాయకులు & సీనియర్ రాజకీయవేత్త",
+    subHi: "राज्य विश्वकर्मा नेता एवं वरिष्ठ राजनेता",
+    photo: "/images/guests/puligilla_prakash.jpg"
   },
   {
-    nameEn: "Vadla Laxminarayana Chary garu",
-    nameTe: "వడ్ల లక్ష్మీనారాయణ చారి గారు",
-    nameHi: "वडला लक्ष्मीनारायण चारी गारू",
-    subEn: "Community Leader",
-    subTe: "సంఘ నాయకులు",
-    subHi: "सामुदायिक नेता"
+    nameEn: "Brahmasri Thalloju Achary garu",
+    nameTe: "బ్రహ్మశ్రీ తాళ్ళోజు ఆచారి గారు",
+    nameHi: "ब्रह्मश्री ताल्लोजु आचारी गारू",
+    subEn: "Ex-National BC Commission Member",
+    subTe: "మాజీ జాతీయ బీసీ కమిషన్ సభ్యులు",
+    subHi: "पूर्व राष्ट्रीय पिछड़ा वर्ग आयोग सदस्य",
+    photo: "/images/guests/thalloju_achary.jpg"
   },
   {
-    nameEn: "Varnoju Balakrishna Chary garu",
-    nameTe: "వర్ణోజు బాలకృష్ణ చారి గారు",
-    nameHi: "वर्णोजु बालकृष्ण चारी गारू",
-    subEn: "Community Leader",
-    subTe: "సంఘ నాయకులు",
-    subHi: "सामुदायिक नेता"
+    nameEn: "Brahmasri Varnoju Balakrishna Chary garu",
+    nameTe: "బ్రహ్మశ్రీ వర్ణోజు బాలకృష్ణ చారి గారు",
+    nameHi: "ब्रह्मश्री वर्णोजु बालकृष्ण चारी गारू",
+    subEn: "Senior Congress Party Leader",
+    subTe: "సీనియర్ కాంగ్రెస్ పార్టీ నాయకులు",
+    subHi: "वरिष्ठ कांग्रेस पार्टी नेता",
+    photo: "/images/guests/varnoju_balakrishna.jpg"
+  },
+  {
+    nameEn: "Brahmasri Vadla Laxminarayana Chary garu",
+    nameTe: "బ్రహ్మశ్రీ వడ్ల లక్ష్మీనారాయణ చారి గారు",
+    nameHi: "ब्रह्मश्री वडला लक्ष्मीनारायण चारी गारू",
+    subEn: "Senior BJP Leader, Mahabubnagar",
+    subTe: "సీనియర్ బీజేపీ నాయకులు, మహబూబ్‌నగర్",
+    subHi: "वरिष्ठ भाजपा नेता, महबूबनगर",
+    photo: "/images/guests/vadla_laxminarayana.jpg"
+  },
+  {
+    nameEn: "Brahmasri Ravi Chary garu",
+    nameTe: "బ్రహ్మశ్రీ రవి చారి గారు",
+    nameHi: "ब्रह्मश्री रवि चारी गारू",
+    subEn: "Ex-Corporator GHMC & BJP Senior Leader",
+    subTe: "మాజీ కార్పొరేటర్ GHMC & బీజేపీ సీనియర్ నాయకులు",
+    subHi: "पूर्व पार्षद GHMC एवं भाजपा वरिष्ठ नेता",
+    photo: "/images/guests/ravi_chary.jpg"
   },
   {
     nameEn: "Smt Bibinagar Anuradha garu",
     nameTe: "శ్రీమతి బీబినగర్ అనురాధ గారు",
     nameHi: "श्रीमती बीबीनगर अनुराधा गारू",
-    subEn: "Community Leader",
-    subTe: "సంఘ నాయకురాలు",
-    subHi: "सामुदायिक नेता"
+    subEn: "Senior BJP Leader",
+    subTe: "సీనియర్ బీజేపీ నాయకురాలు",
+    subHi: "वरिष्ठ भाजपा नेत्री",
+    photo: "/images/guests/bibinagar_anuradha.jpg"
   },
   {
-    nameEn: "Naveen Achary garu",
-    nameTe: "నవీన్ ఆచారి గారు",
-    nameHi: "नवीन आचार्य गारू",
-    subEn: "Community Leader",
-    subTe: "సంఘ నాయకులు",
-    subHi: "सामुदायिक नेता"
+    nameEn: "Brahmasri Yemnnagandla Ramesh Chary garu",
+    nameTe: "బ్రహ్మశ్రీ యెమ్నగండ్ల రమేష్ చారి గారు",
+    nameHi: "ब्रह्मश्री येमनागंडला रमेश चारी गारू",
+    subEn: "President, Swarnakara Sangham, Mahabubnagar",
+    subTe: "అధ్యక్షులు, స్వర్ణకార సంఘం, మహబూబ్‌నగర్",
+    subHi: "अध्यक्ष, स्वर्णकार संघ, महबूबनगर",
+    photo: "/images/guests/ramesh_chary.jpg"
+  },
+  // Tier 5: Social Activists & Community Contributors
+  {
+    nameEn: "Brahmasri Chandramouli Chary garu",
+    nameTe: "బ్రహ్మశ్రీ చంద్రమౌళి చారి గారు",
+    nameHi: "ब्रह्मश्री चंद्रमौली चारी गारू",
+    subEn: "Sarpanch, Social Activist & Senior Leader",
+    subTe: "సర్పంచ్, సామాజిక కార్యకర్త & సీనియర్ నాయకులు",
+    subHi: "सरपंच, सामाजिक कार्यकर्ता एवं वरिष्ठ नेता",
+    photo: "/images/guests/chandramouli_chary.jpg"
   },
   {
-    nameEn: "Vannoj Sai Prakash Chary garu",
-    nameTe: "వన్నోజు సాయి ప్రకాష్ చారి గారు",
-    nameHi: "वन्नोजु साई प्रकाश चारी गारू",
-    subEn: "Social Contributor",
+    nameEn: "Brahmasri Naveen Achary garu",
+    nameTe: "బ్రహ్మశ్రీ నవీన్ ఆచారి గారు",
+    nameHi: "ब्रह्मश्री नवीन आचारी गारू",
+    subEn: "General Secretary, Telangana Jagruthi",
+    subTe: "సాధారణ కార్యదర్శి, తెలంగాణ జాగృతి",
+    subHi: "महासचिव, तेलंगाना जागृति",
+    photo: "/images/guests/naveen_achary.jpg"
+  },
+  {
+    nameEn: "Brahmasri Vannoj Sai Prakash Chary garu",
+    nameTe: "బ్రహ్మశ్రీ వన్నోజు సాయి ప్రకాష్ చారి గారు",
+    nameHi: "ब्रह्मश्री वन्नोजु साई प्रकाश चारी गारू",
+    subEn: "Vishwakarma Leader & Social Activist",
+    subTe: "విశ్వకర్మ నాయకులు & సామాజిక కార్యకర్త",
+    subHi: "विश्वकर्मा नेता एवं सामाजिक कार्यकर्ता",
+    photo: "/images/guests/sai_prakash.jpg"
+  },
+  {
+    nameEn: "Brahmasri Sada Shiva Chary garu",
+    nameTe: "బ్రహ్మశ్రీ సదాశివ చారి గారు",
+    nameHi: "ब्रह्मश्री सदा शिव चारी गारू",
+    subEn: "Social Activist",
     subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    subHi: "सामाजिक कार्यकर्ता",
+    photo: "/images/guests/sadashiva_chary.jpg"
   },
   {
-    nameEn: "Sada Shiva Chary garu",
-    nameTe: "సదాశివ చారి గారు",
-    nameHi: "सदा शिव चारी गारू",
-    subEn: "Social Contributor",
+    nameEn: "Brahmasri Nallanagula Sriman garu",
+    nameTe: "బ్రహ్మశ్రీ నల్లంగుల శ్రీమన్ గారు",
+    nameHi: "ब्रह्मश्री नल्लानगुला श्रीमन गारू",
+    subEn: "Social Activist",
     subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    subHi: "सामाजिक कार्यकर्ता",
+    photo: "/images/guests/nallanagula_sriman.jpg"
   },
   {
-    nameEn: "Nallanagula Sriman garu",
-    nameTe: "నల్లంగుల శ్రీమన్ గారు",
-    nameHi: "नल्लानगुला श्रीमन गारू",
-    subEn: "Social Contributor",
-    subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    nameEn: "Smt Geetha Rani Sudhakar garu",
+    nameTe: "శ్రీమతి గీతా రాణి సుధాకర్ గారు",
+    nameHi: "श्रीमती गीता रानी सुधाकर गारू",
+    subEn: "Sarpanch, Nawabpet & Social Activist",
+    subTe: "సర్పంచ్, నవాబ్‌పేట & సామాజిక కార్యకర్త",
+    subHi: "सरपंच, नवाबपेट एवं सामाजिक कार्यकर्ता",
+    photo: "/images/guests/geetha_rani.jpg"
   },
   {
-    nameEn: "Geetha Rani Sudhakar garu",
-    nameTe: "గీతా రాణి సుధాకర్ గారు",
-    nameHi: "गीता रानी सुधाकर गारू",
-    subEn: "Social Contributor",
-    subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
-  },
-  {
-    nameEn: "Avusala Bhanu Prakash Avadhani garu",
-    nameTe: "అవుసల భాను ప్రకాష్ అవధాని గారు",
-    nameHi: "अवुसला भानु प्रकाश अवधनी गारू",
-    subEn: "Social Contributor",
-    subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    nameEn: "Brahmasri Avusala Bhanu Prakash Avadhani garu",
+    nameTe: "బ్రహ్మశ్రీ అవుసల భాను ప్రకాష్ అవధాని గారు",
+    nameHi: "ब्रह्मश्री अवुसला भानु प्रकाश अवधनी गारू",
+    subEn: "Adhyakshulu, PadhaSaraswata Peetam, Telangana",
+    subTe: "అధ్యక్షులు, పాదసరస్వత పీఠం, తెలంగాణ",
+    subHi: "अध्यक्ष, पादसरस्वत पीठम, तेलंगाना",
+    photo: "/images/guests/bhanu_prakash.jpg"
   }
 ];
+
+const getInitials = (name: string) => {
+  const cleanName = name
+    .replace(/^(Smt\.?|Smt|Dr\.?|Dr|ACP|Brahmasri|Varnoju|Vannoj|Vadla|Avusala)\s+/i, '')
+    .replace(/\s+garu$/i, '')
+    .trim();
+  const parts = cleanName.split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return parts[0] ? parts[0][0].toUpperCase() : 'V';
+};
 
 export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMatrimony }) => {
   const { t, i18n } = useTranslation();
@@ -329,11 +368,27 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
               </p>
               
               <div className="flex flex-wrap justify-center gap-1.5 max-w-2xl mx-auto pt-1">
-                {DIGNITARIES.slice(0, 4).map((g, idx) => (
-                  <span key={idx} className="bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-full text-[9px] font-bold text-stone-300">
-                    {i18n.language === 'te' ? g.nameTe : i18n.language === 'hi' ? g.nameHi : g.nameEn}
-                  </span>
-                ))}
+                {DIGNITARIES.slice(0, 4).map((g, idx) => {
+                  const initials = getInitials(g.nameEn);
+                  return (
+                    <span key={idx} className="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 pl-1.5 pr-3 py-0.5 rounded-full text-[9px] font-bold text-stone-300">
+                      <div className="w-5 h-5 rounded-full bg-stone-800 text-saffron-400 text-[8px] font-black flex items-center justify-center shrink-0 overflow-hidden relative border border-stone-700">
+                        <span className="absolute inset-0 flex items-center justify-center">{initials}</span>
+                        {g.photo && (
+                          <img
+                            src={g.photo}
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.target as HTMLElement).style.display = 'none';
+                            }}
+                          />
+                        )}
+                      </div>
+                      <span>{i18n.language === 'te' ? g.nameTe : i18n.language === 'hi' ? g.nameHi : g.nameEn}</span>
+                    </span>
+                  );
+                })}
                 <span className="bg-saffron-500/10 border border-saffron-500/20 px-2.5 py-0.5 rounded-full text-[9px] font-black text-saffron-400">
                   + {DIGNITARIES.length - 4} More Dignitaries
                 </span>
@@ -449,6 +504,77 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
           </Link>
         </div>
 
+        {/* Dignitaries Gallery */}
+        <div className="mb-16">
+          <div className="text-center mb-10 space-y-2">
+            <div className="inline-flex items-center gap-2 bg-saffron-550/10 border border-saffron-500/20 px-4 py-1.5 rounded-full text-saffron-700 mb-2">
+              <Users size={13} className="text-saffron-600" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em]">
+                {i18n.language === 'te' ? 'గౌరవనీయ అతిథులు' : i18n.language === 'hi' ? 'माननीय अतिथिगण' : 'Honourable Guests'}
+              </span>
+            </div>
+            <h3 className="text-2xl md:text-3xl font-black text-stone-900 tracking-tight font-display">
+              {i18n.language === 'te'
+                ? '22 మంది ప్రముఖ అతిథులు'
+                : i18n.language === 'hi'
+                ? '22 गणमान्य अतिथिगण'
+                : '22 Distinguished Dignitaries'}
+            </h3>
+            <p className="text-stone-500 text-sm font-medium">
+              {i18n.language === 'te'
+                ? 'దశాబ్ది ఉత్సవాల సందర్భంగా ఆశీర్వదించడానికి విచ్చేస్తున్న మహనీయులు'
+                : i18n.language === 'hi'
+                ? 'दशकीय समारोह को आशीर्वाद देने पधारे महानुभाव'
+                : 'Eminent personalities gracing the decennial celebration'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            {DIGNITARIES.map((g, idx) => {
+              const initials = getInitials(g.nameEn);
+              const name = i18n.language === 'te' ? g.nameTe : i18n.language === 'hi' ? g.nameHi : g.nameEn;
+              const sub = i18n.language === 'te' ? g.subTe : i18n.language === 'hi' ? g.subHi : g.subEn;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.04 }}
+                  className="group flex flex-col items-center text-center gap-3 bg-white border border-stone-100 rounded-3xl p-4 hover:shadow-xl hover:border-saffron-500/20 transition-all duration-300"
+                >
+                  {/* Photo */}
+                  <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-stone-100 border-2 border-stone-200 group-hover:border-saffron-500/40 transition-all duration-300 shrink-0">
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-saffron-100 to-stone-100 text-saffron-700 text-2xl font-black">
+                      {initials}
+                    </div>
+                    {g.photo && (
+                      <img
+                        src={g.photo}
+                        alt={g.nameEn}
+                        className="absolute inset-0 w-full h-full object-cover object-top"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="space-y-0.5 min-w-0 w-full">
+                    <p className="text-[11px] font-black text-stone-900 leading-tight line-clamp-2">
+                      {name}
+                    </p>
+                    <p className="text-[9px] font-semibold text-saffron-600 leading-snug line-clamp-2">
+                      {sub}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Schedule & Specific Highlights */}
         <div className="bg-stone-50 border border-stone-100 p-8 md:p-12 rounded-[2.5rem] grid md:grid-cols-2 gap-10">
           <div className="space-y-6">
@@ -459,7 +585,7 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
               <li className="flex items-center gap-3">
                 <span className="w-1.5 h-1.5 bg-saffron-550 rounded-full shrink-0" />
                 {i18n.language === 'te'
-                  ? '🏛️ विभिन्न రాష్ట్రాల నాయకులతో జాతీయ సదస్సు'
+                  ? '🏛️ వివిధ రాష్ట్రాల నాయకులతో జాతీయ సదస్సు'
                   : i18n.language === 'hi'
                   ? '🏛️ विभिन्न राज्यों के नेताओं के साथ राष्ट्रीय सम्मेलन'
                   : '🏛️ National Conference with state leaders'}

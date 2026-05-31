@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { 
   Users, 
   Briefcase, 
@@ -17,7 +18,24 @@ import { ProfessionalsHub, OfficialsDirectory, MatrimonyPortal, EducationHub } f
 
 export const NetworkHub = () => {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<'professionals' | 'officials' | 'matrimony' | 'education'>('professionals');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tabParam = searchParams.get('tab') as 'professionals' | 'officials' | 'matrimony' | 'education';
+  const initialTab = ['professionals', 'officials', 'matrimony', 'education'].includes(tabParam || '')
+    ? tabParam
+    : 'professionals';
+
+  const [activeTab, setActiveTab] = useState<'professionals' | 'officials' | 'matrimony' | 'education'>(initialTab);
+
+  useEffect(() => {
+    if (tabParam && ['professionals', 'officials', 'matrimony', 'education'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
+
+  const handleTabChange = (tabId: 'professionals' | 'officials' | 'matrimony' | 'education') => {
+    setActiveTab(tabId);
+    setSearchParams({ tab: tabId });
+  };
 
   const tabs = [
     { id: 'professionals', label: t('network.hub.tabs.professionals'), icon: <Briefcase size={18} />, color: 'text-blue-600', bg: 'bg-blue-50' },
@@ -70,7 +88,7 @@ export const NetworkHub = () => {
            {tabs.map((tab) => (
              <button
                key={tab.id}
-               onClick={() => setActiveTab(tab.id as any)}
+               onClick={() => handleTabChange(tab.id as any)}
                className={`flex items-center gap-3 px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap
                  ${activeTab === tab.id 
                    ? `${tab.bg} ${tab.color} shadow-lg shadow-black/5 ring-1 ring-stone-900/5` 

@@ -1,10 +1,14 @@
+import { relative } from 'path';
+
 export default {
-  "*.{js,ts,tsx}": [
-    "pnpm exec nx affected -t lint --files"
-  ],
-  "*.{css,scss}": [
-    "pnpm exec nx affected -t lint --files"
-  ],
+  "*.{js,ts,tsx}": (files) => {
+    const relFiles = files.map(file => relative(process.cwd(), file)).join(',');
+    return `pnpm exec nx affected -t lint --files=${relFiles}`;
+  },
+  "*.{css,scss}": (files) => {
+    const relFiles = files.map(file => relative(process.cwd(), file)).join(',');
+    return `pnpm exec nx affected -t lint --files=${relFiles}`;
+  },
   "*.{md,json}": [
     "prettier --write"
   ]

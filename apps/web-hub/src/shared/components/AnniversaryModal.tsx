@@ -14,7 +14,8 @@ const DIGNITARIES = [
     nameHi: "श्रीमती सीतक्का गारू",
     subEn: "Hon'ble Minister",
     subTe: "గౌరవనీయులైన మంత్రి",
-    subHi: "माननीय मंत्री"
+    subHi: "माननीय मंत्री",
+    photo: "/images/guests/seethakka.jpg"
   },
   {
     nameEn: "Sirikonda Madhusudhana Chary garu",
@@ -22,7 +23,8 @@ const DIGNITARIES = [
     nameHi: "सिरिकोंडा मधुसूदन चारी गारू",
     subEn: "Senior Leader & Guest",
     subTe: "సీనియర్ నాయకులు & అతిథి",
-    subHi: "वरिष्ठ नेता एवं अतिथि"
+    subHi: "वरिष्ठ नेता एवं अतिथि",
+    photo: "/images/guests/sirikonda_madhusudhana.jpg"
   },
   {
     nameEn: "ACP Brahmasri K.M. Kiran Kumar Sir",
@@ -30,7 +32,8 @@ const DIGNITARIES = [
     nameHi: "एसीपी ब्रह्मश्री के.एम. किरण कुमार सर",
     subEn: "Chief Guest, ACP Hyderabad",
     subTe: "ముఖ్య అతిథి, ACP హైదరాబాద్",
-    subHi: "मुख्य अतिथि, एसीपी हैदराबाद"
+    subHi: "मुख्य अतिथि, एसीपी हैदराबाद",
+    photo: "/images/guests/km_kiran_kumar.jpg"
   },
   {
     nameEn: "E. Venkatachary garu",
@@ -38,7 +41,8 @@ const DIGNITARIES = [
     nameHi: "ई. वेंकटचारी गारू",
     subEn: "Additional Collector",
     subTe: "అడిషనల్ కలెక్టర్",
-    subHi: "अतिरिक्त कलेक्टर"
+    subHi: "अतिरिक्त कलेक्टर",
+    photo: "/images/guests/e_venkatachary.jpg"
   },
   {
     nameEn: "Brahmasri Kondoju Praveen Kumar Chary garu",
@@ -46,7 +50,8 @@ const DIGNITARIES = [
     nameHi: "ब्रह्मश्री कोंडोजु प्रवीण कुमार चारी गारू",
     subEn: "President, VKC Telangana",
     subTe: "అధ్యక్షులు, VKC తెలంగాణ",
-    subHi: "अध्यक्ष, VKC तेलंगाना"
+    subHi: "अध्यक्ष, VKC तेलंगाना",
+    photo: "/images/guests/praveen_kumar.jpg"
   },
   {
     nameEn: "Brahmasri Solleti Prabhakara Chary garu",
@@ -54,7 +59,8 @@ const DIGNITARIES = [
     nameHi: "ब्रह्मश्री सोल्लेटी प्रभाकर चारी गारू",
     subEn: "National Joint Secretary, VKC",
     subTe: "జాతీయ సంయుక్త కార్యదర్శి, VKC",
-    subHi: "राष्ट्रीय संयुक्त सचिव, VKC"
+    subHi: "राष्ट्रीय संयुक्त सचिव, VKC",
+    photo: "/images/guests/solleti_prabhakara.jpg"
   },
   {
     nameEn: "Dr. P. Harikanth Acharya garu",
@@ -62,7 +68,8 @@ const DIGNITARIES = [
     nameHi: "डॉ. पी. हरिकांत आचार्य गारू",
     subEn: "Public Doctor & Social Activist",
     subTe: "వైద్యులు & సామాజిక కార్యకర్త",
-    subHi: "सार्वजनिक चिकित्सक एवं सामाजिक कार्यकर्ता"
+    subHi: "सार्वजनिक चिकित्सक एवं सामाजिक कार्यकर्ता",
+    photo: "/images/guests/harikanth_acharya.jpg"
   },
   {
     nameEn: "Brahmasri Puligilla Prakash Achary garu",
@@ -70,7 +77,8 @@ const DIGNITARIES = [
     nameHi: "ब्रह्मश्री पुलिगिल्ला प्रकाश चारी गारू",
     subEn: "State Vishwakarma Leader",
     subTe: "రాష్ట్ర విశ్వకర్మ నాయకులు",
-    subHi: "राज्य विश्वकर्मा नेता"
+    subHi: "राज्य विश्वकर्मा नेता",
+    photo: "/images/guests/puligilla_prakash.jpg"
   },
   {
     nameEn: "Brahmasri Thalloju Achary garu",
@@ -78,7 +86,8 @@ const DIGNITARIES = [
     nameHi: "ब्रह्मश्री ताल्लोजु चारी गारू",
     subEn: "Former BC Commission Member",
     subTe: "మాజీ బీసీ కమిషన్ సభ్యులు",
-    subHi: "पूर्व पिछड़ा वर्ग आयोग सदस्य"
+    subHi: "पूर्व पिछड़ा वर्ग आयोग सदस्य",
+    photo: "/images/guests/thalloju_achary.jpg"
   },
   {
     nameEn: "Brahmasri Ravi Chary garu",
@@ -86,7 +95,8 @@ const DIGNITARIES = [
     nameHi: "ब्रह्मश्री रवि चारी गारू",
     subEn: "BJP Senior Leader",
     subTe: "బీజేపీ సీనియర్ నాయకులు",
-    subHi: "भाजपा वरिष्ठ नेता"
+    subHi: "भाजपा वरिष्ठ नेता",
+    photo: "/images/guests/ravi_chary.jpg"
   },
   {
     nameEn: "Brahmasri Chandramouli Chary garu",
@@ -94,7 +104,8 @@ const DIGNITARIES = [
     nameHi: "ब्रह्मश्री चंद्रमौली चारी गारू",
     subEn: "Sarpanch & Social Activist",
     subTe: "సర్పంచ్ & సామాజిక కార్యకర్త",
-    subHi: "सरपंच एवं सामाजिक कार्यकर्ता"
+    subHi: "सरपंच एवं सामाजिक कार्यकर्ता",
+    photo: "/images/guests/chandramouli_chary.jpg"
   },
   {
     nameEn: "Brahmasri Yemnnagandla Ramesh Chary garu",
@@ -102,7 +113,8 @@ const DIGNITARIES = [
     nameHi: "ब्रह्मश्री येमनागंडला रमेश चारी गारू",
     subEn: "President, Swarnakara Sangham",
     subTe: "అధ్యక్షులు, స్వర్ణకార సంఘం",
-    subHi: "अध्यक्ष, स्वर्णकार संघ"
+    subHi: "अध्यक्ष, स्वर्णकार संघ",
+    photo: "/images/guests/ramesh_chary.jpg"
   },
   {
     nameEn: "Dasoju Sravan garu",
@@ -110,7 +122,8 @@ const DIGNITARIES = [
     nameHi: "दासोझु श्रवण गारू",
     subEn: "MLC & Senior Leader",
     subTe: "MLC & సీనియర్ నాయకులు",
-    subHi: "एमएलसी एवं वरिष्ठ नेता"
+    subHi: "एमएलसी एवं वरिष्ठ नेता",
+    photo: "/images/guests/dasoju_sravan.jpg"
   },
   {
     nameEn: "Vadla Laxminarayana Chary garu",
@@ -118,7 +131,8 @@ const DIGNITARIES = [
     nameHi: "वडला लक्ष्मीनारायण चारी गारू",
     subEn: "Community Leader",
     subTe: "సంఘ నాయకులు",
-    subHi: "सामुदायिक नेता"
+    subHi: "सामुदायिक नेता",
+    photo: "/images/guests/vadla_laxminarayana.jpg"
   },
   {
     nameEn: "Varnoju Balakrishna Chary garu",
@@ -126,7 +140,8 @@ const DIGNITARIES = [
     nameHi: "वर्णोजु बालकृष्ण चारी गारू",
     subEn: "Community Leader",
     subTe: "సంఘ నాయకులు",
-    subHi: "सामुदायिक नेता"
+    subHi: "सामुदायिक नेता",
+    photo: "/images/guests/varnoju_balakrishna.jpg"
   },
   {
     nameEn: "Smt Bibinagar Anuradha garu",
@@ -134,7 +149,8 @@ const DIGNITARIES = [
     nameHi: "श्रीमती बीबीनगर अनुराधा गारू",
     subEn: "Community Leader",
     subTe: "సంఘ నాయకురాలు",
-    subHi: "सामुदायिक नेता"
+    subHi: "सामुदायिक नेता",
+    photo: "/images/guests/bibinagar_anuradha.jpg"
   },
   {
     nameEn: "Naveen Achary garu",
@@ -142,7 +158,8 @@ const DIGNITARIES = [
     nameHi: "नवीन आचार्य गारू",
     subEn: "Community Leader",
     subTe: "సంఘ నాయకులు",
-    subHi: "सामुदायिक नेता"
+    subHi: "सामुदायिक नेता",
+    photo: "/images/guests/naveen_achary.jpg"
   },
   {
     nameEn: "Vannoj Sai Prakash Chary garu",
@@ -150,7 +167,8 @@ const DIGNITARIES = [
     nameHi: "वन्नोजु साई प्रकाश चारी गारू",
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    subHi: "सामाजिक कार्यकर्ता",
+    photo: "/images/guests/sai_prakash.jpg"
   },
   {
     nameEn: "Sada Shiva Chary garu",
@@ -158,7 +176,8 @@ const DIGNITARIES = [
     nameHi: "सदा शिव चारी गारू",
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    subHi: "सामाजिक कार्यकर्ता",
+    photo: "/images/guests/sadashiva_chary.jpg"
   },
   {
     nameEn: "Nallanagula Sriman garu",
@@ -166,7 +185,8 @@ const DIGNITARIES = [
     nameHi: "नल्लानगुला श्रीमन गारू",
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    subHi: "सामाजिक कार्यकर्ता",
+    photo: "/images/guests/nallanagula_sriman.jpg"
   },
   {
     nameEn: "Geetha Rani Sudhakar garu",
@@ -174,7 +194,8 @@ const DIGNITARIES = [
     nameHi: "गीता रानी साक्षी गारू",
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    subHi: "सामाजिक कार्यकर्ता",
+    photo: "/images/guests/geetha_rani.jpg"
   },
   {
     nameEn: "Avusala Bhanu Prakash Avadhani garu",
@@ -182,9 +203,22 @@ const DIGNITARIES = [
     nameHi: "अवुसला भानु प्रकाश अवधनी गारू",
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
-    subHi: "सामाजिक कार्यकर्ता"
+    subHi: "सामाजिक कार्यकर्ता",
+    photo: "/images/guests/bhanu_prakash.jpg"
   }
 ];
+
+const getInitials = (name: string) => {
+  const cleanName = name
+    .replace(/^(Smt\.?|Smt|Dr\.?|Dr|ACP|Brahmasri|Varnoju|Vannoj|Vadla|Avusala)\s+/i, '')
+    .replace(/\s+garu$/i, '')
+    .trim();
+  const parts = cleanName.split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+  return parts[0] ? parts[0][0].toUpperCase() : 'V';
+};
 
 export const AnniversaryModal: React.FC<AnniversaryModalProps> = ({ isOpen, onClose }) => {
   const { i18n } = useTranslation();
@@ -282,16 +316,34 @@ export const AnniversaryModal: React.FC<AnniversaryModalProps> = ({ isOpen, onCl
                 </span>
                 <div className="max-h-[115px] overflow-y-auto pr-1 space-y-1 custom-scrollbar text-[10px]">
                   <div className="grid grid-cols-1 gap-1">
-                    {DIGNITARIES.map((guest, idx) => (
-                      <div key={idx} className="flex justify-between items-center bg-stone-900/50 px-2.5 py-1.5 rounded border border-stone-800/40 text-[10px]">
-                        <span className="font-semibold text-white">
-                          {i18n.language === 'te' ? guest.nameTe : i18n.language === 'hi' ? guest.nameHi : guest.nameEn}
-                        </span>
-                        <span className="text-[8px] text-stone-400 font-bold uppercase tracking-wider text-right max-w-[150px] truncate">
-                          {i18n.language === 'te' ? guest.subTe : i18n.language === 'hi' ? guest.subHi : guest.subEn}
-                        </span>
-                      </div>
-                    ))}
+                    {DIGNITARIES.map((guest, idx) => {
+                      const initials = getInitials(guest.nameEn);
+                      return (
+                        <div key={idx} className="flex justify-between items-center bg-stone-900/50 px-2.5 py-1.5 rounded border border-stone-800/40 text-[10px] gap-3">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-stone-800 text-saffron-400 text-[10px] font-black flex items-center justify-center shrink-0 overflow-hidden relative border border-stone-700">
+                              <span className="absolute inset-0 flex items-center justify-center">{initials}</span>
+                              {guest.photo && (
+                                <img
+                                  src={guest.photo}
+                                  alt=""
+                                  className="absolute inset-0 w-full h-full object-cover"
+                                  onError={(e) => {
+                                    (e.target as HTMLElement).style.display = 'none';
+                                  }}
+                                />
+                              )}
+                            </div>
+                            <span className="font-semibold text-white">
+                              {i18n.language === 'te' ? guest.nameTe : i18n.language === 'hi' ? guest.nameHi : guest.nameEn}
+                            </span>
+                          </div>
+                          <span className="text-[8px] text-stone-400 font-bold uppercase tracking-wider text-right max-w-[150px] truncate">
+                            {i18n.language === 'te' ? guest.subTe : i18n.language === 'hi' ? guest.subHi : guest.subEn}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>

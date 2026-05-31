@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Megaphone, ArrowUpRight, X } from 'lucide-react';
 import { AnniversaryModal } from './AnniversaryModal';
-import { MatrimonyModal } from './MatrimonyModal';
 
 export const AnnouncementTicker = () => {
   const { t, i18n } = useTranslation();
-  const [isMatrimonyModalOpen, setIsMatrimonyModalOpen] = useState(false);
+  const navigate = useNavigate();
   const [isAnniversaryModalOpen, setIsAnniversaryModalOpen] = useState(false);
   const [isListOpen, setIsListOpen] = useState(false);
 
@@ -78,7 +78,7 @@ export const AnnouncementTicker = () => {
                   key={i} 
                   onClick={() => {
                     if (ann.id === 'matrimony') {
-                      setIsMatrimonyModalOpen(true);
+                      navigate('/network?tab=matrimony');
                     } else if (ann.id === 'anniversary') {
                       setIsAnniversaryModalOpen(true);
                     }
@@ -148,7 +148,7 @@ export const AnnouncementTicker = () => {
                         onClick={() => {
                           if (ann.id === 'matrimony') {
                             setIsListOpen(false);
-                            setIsMatrimonyModalOpen(true);
+                            navigate('/network?tab=matrimony');
                           } else if (ann.id === 'anniversary') {
                             setIsListOpen(false);
                             setIsAnniversaryModalOpen(true);
@@ -183,12 +183,6 @@ export const AnnouncementTicker = () => {
           </div>
         )}
       </AnimatePresence>
-
-      {/* Matrimony Coming Soon Modal */}
-      <MatrimonyModal 
-        isOpen={isMatrimonyModalOpen}
-        onClose={() => setIsMatrimonyModalOpen(false)}
-      />
 
       {/* Anniversary Modal Integration */}
       <AnniversaryModal 
