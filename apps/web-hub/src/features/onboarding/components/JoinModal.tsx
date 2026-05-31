@@ -80,9 +80,10 @@ export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
       >
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 text-stone-400 hover:text-stone-900 transition-colors z-10 bg-stone-50 rounded-full border border-stone-100"
+          className="absolute top-4 right-4 p-2 text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors z-10 bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105"
+          aria-label="Close"
         >
-          <X size={16} />
+          <X size={18} />
         </button>
 
         {success ? (

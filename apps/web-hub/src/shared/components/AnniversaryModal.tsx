@@ -275,9 +275,10 @@ export const AnniversaryModal: React.FC<AnniversaryModalProps> = ({ isOpen, onCl
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-1.5 text-stone-400 hover:text-white transition-colors bg-stone-850 rounded-full border border-stone-800"
+              className="absolute top-4 right-4 p-2 text-stone-400 hover:text-white hover:bg-stone-800 transition-colors bg-stone-900 rounded-full border border-stone-800 shadow-lg cursor-pointer"
+              aria-label="Close"
             >
-              <X size={12} />
+              <X size={18} />
             </button>
 
             <div className="text-center space-y-4 relative z-10">

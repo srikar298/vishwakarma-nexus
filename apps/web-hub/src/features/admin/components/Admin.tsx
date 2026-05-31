@@ -394,9 +394,10 @@ export function Admin() {
             >
               <button 
                 onClick={() => { setEditingEvent(null); setIsAdding(false); }}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 text-stone-400 hover:text-stone-900 transition-colors"
+                className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105"
+                aria-label="Close"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
 
               <h2 className="text-2xl font-black text-stone-900 mb-8 flex items-center gap-3 font-display">

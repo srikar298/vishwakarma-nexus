@@ -414,7 +414,8 @@ export const DirectoryPage = () => {
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedArtisan(null)}
-                className="absolute top-6 right-6 p-2 text-stone-400 hover:text-stone-900 transition-colors z-50 bg-stone-50 rounded-full border border-stone-100"
+                className="absolute top-6 right-6 p-2.5 text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors z-50 bg-stone-50 rounded-full border border-stone-100 shadow-md cursor-pointer hover:scale-105"
+                aria-label="Close"
               >
                 <X size={20} />
               </button>

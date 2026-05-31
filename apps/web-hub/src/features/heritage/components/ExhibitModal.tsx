@@ -59,9 +59,10 @@ export const ExhibitModal = ({ isOpen, onClose, exhibit }: ExhibitModalProps) =>
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 z-20 p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors backdrop-blur-md text-stone-800"
+              className="absolute top-6 right-6 z-20 p-2.5 bg-stone-100/90 hover:bg-stone-200 text-stone-900 hover:text-stone-950 rounded-full transition-all border border-stone-200/50 shadow-md cursor-pointer hover:scale-105"
+              aria-label="Close"
             >
-              <X size={24} />
+              <X size={20} />
             </button>
 
             {/* Left Side: Visual / Info Overlay */}
