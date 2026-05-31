@@ -476,15 +476,15 @@ hi: "एलबी स्टेडियम में विश्वकर्म
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'organization':
-        return <Users size={11} className="text-blue-500" />;
+        return <Users size={11} className="text-gold-600" />;
       case 'awards':
-        return <Trophy size={11} className="text-amber-500" />;
+        return <Trophy size={11} className="text-turmeric" />;
       case 'charity':
-        return <Heart size={11} className="text-emerald-500" />;
+        return <Heart size={11} className="text-saffron-400" />;
       case 'campaign':
-        return <Compass size={11} className="text-violet-500" />;
+        return <Compass size={11} className="text-saffron-500" />;
       case 'movement':
-        return <Flame size={11} className="text-saffron-500" />;
+        return <Flame size={11} className="text-vermilion" />;
       default:
         return <Calendar size={11} className="text-stone-500" />;
     }
@@ -493,15 +493,15 @@ hi: "एलबी स्टेडियम में विश्वकर्म
   const getCategoryStyle = (category: string) => {
     switch (category) {
       case 'organization':
-        return 'bg-blue-500/10 border-blue-500/20 text-blue-500';
+        return 'bg-gold-500/10 border-gold-500/20 text-gold-600';
       case 'awards':
-        return 'bg-amber-500/10 border-amber-500/20 text-amber-500';
+        return 'bg-turmeric/10 border-turmeric/20 text-turmeric';
       case 'charity':
-        return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500';
+        return 'bg-saffron-400/10 border-saffron-400/20 text-saffron-400';
       case 'campaign':
-        return 'bg-violet-500/10 border-violet-500/20 text-violet-500';
-      case 'movement':
         return 'bg-saffron-500/10 border-saffron-500/20 text-saffron-500';
+      case 'movement':
+        return 'bg-vermilion/10 border-vermilion/20 text-vermilion';
       default:
         return 'bg-stone-500/10 border-stone-500/20 text-stone-500';
     }

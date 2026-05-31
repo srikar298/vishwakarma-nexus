@@ -10,11 +10,11 @@ interface AnniversarySectionProps {
 
 // ── Tier configuration ──────────────────────────────────────────────────────
 const TIER_CONFIG: Record<string, { en: string; te: string; hi: string; accent: string; border: string; bg: string }> = {
-  chief:     { en: 'Chief Guest',           te: 'ముఖ్య అతిథి',        hi: 'मुख्य अतिथि',         accent: 'text-yellow-400',  border: 'border-yellow-500/25', bg: 'bg-yellow-500/8' },
-  govt:      { en: 'Government Officials',  te: 'ప్రభుత్వ అధికారులు',  hi: 'सरकारी अधिकारी',      accent: 'text-emerald-400', border: 'border-emerald-500/25',bg: 'bg-emerald-500/8' },
-  vkc:       { en: 'VKC Core Leadership',   te: 'VKC నాయకత్వం',        hi: 'VKC नेतृत्व',          accent: 'text-saffron-400', border: 'border-saffron-500/25',bg: 'bg-saffron-500/8' },
-  community: { en: 'Distinguished Guests',  te: 'విశిష్ట అతిథులు',     hi: 'विशिष्ट अतिथिगण',     accent: 'text-sky-400',     border: 'border-sky-500/25',    bg: 'bg-sky-500/8' },
-  social:    { en: 'Social Icons',          te: 'సామాజిక ప్రముఖులు',   hi: 'सामाजिक प्रतिष्ठित',  accent: 'text-rose-400',    border: 'border-rose-500/25',   bg: 'bg-rose-500/8' },
+  chief:     { en: 'Chief Guest',           te: 'ముఖ్య అతిథి',        hi: 'मुख्य अतिथि',         accent: 'text-turmeric',  border: 'border-turmeric/25', bg: 'bg-turmeric/8' },
+  govt:      { en: 'Government Officials',  te: 'ప్రభుత్వ అధికారులు',  hi: 'सरकारी अधिकारी',      accent: 'text-saffron-500', border: 'border-saffron-600/25',bg: 'bg-saffron-600/8' },
+  vkc:       { en: 'VKC Core Leadership',   te: 'VKC నాయకత్వం',        hi: 'VKC नेतृत्व',          accent: 'text-vermilion', border: 'border-vermilion/25',bg: 'bg-vermilion/8' },
+  community: { en: 'Distinguished Guests',  te: 'విశిష్ట అతిథులు',     hi: 'विशिष्ट अतिथिगण',     accent: 'text-gold-500',     border: 'border-gold-600/25',    bg: 'bg-gold-600/8' },
+  social:    { en: 'Social Icons',          te: 'సామాజిక ప్రముఖులు',   hi: 'सामाजिक प्रतिष्ठित',  accent: 'text-saffron-400',    border: 'border-saffron-500/25',   bg: 'bg-saffron-500/8' },
 };
 
 const TIER_ORDER = ['chief', 'govt', 'vkc', 'community', 'social'] as const;
