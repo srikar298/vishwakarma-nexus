@@ -12,20 +12,14 @@ export const AnnouncementTicker = () => {
   const [isAnniversaryModalOpen, setIsAnniversaryModalOpen] = useState(false);
   const [isListOpen, setIsListOpen] = useState(false);
 
-  useEffect(() => {
-    const shown = sessionStorage.getItem('vkc_anniversary_modal_shown');
-    if (!shown) {
-      setIsAnniversaryModalOpen(true);
-      sessionStorage.setItem('vkc_anniversary_modal_shown', 'true');
-    }
-  }, []);
+  // Auto-popup disabled as anniversary has successfully concluded.
   
   const announcements = [
     {
       id: "anniversary",
-      en: "🎉 VKC 10th Anniversary Decennial Celebrations Today (5:00 PM - 9:30 PM) at Hyderabad. Graced by Hon'ble Minister Smt Seethakka garu, Chief Guest ACP Brahmasri K.M. Kiran Kumar Sir & 20+ State Leaders! Join us!",
-      te: "🎉 VKC 10వ వార్షికోత్సవం: మంత్రి శ్రీమతి సీతక్క గారు, ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్ మరియు 20+ ప్రముఖుల సమక్షంలో. సాయంత్రం 5:00 గంటలకు సుందరయ్య విజ్ఞాన కేంద్రం, హైదరాబాద్‌లో కలుద్దాం! 🙏",
-      hi: "🎉 वीकेसी 10वीं वर्षगांठ दशकीय समारोह आज (शाम 5:00 बजे) हैदराबाद में। माननीय मंत्री श्रीमती सीतक्का गारू, मुख्य अतिथि एसीपी ब्रह्मश्री के.एम. किरण कुमार सर और 20+ गणमान्य व्यक्तियों की गरिमामयी उपस्थिति में!"
+      en: "🎉 VKC 10th Anniversary Decennial Celebrations successfully concluded! We express our heartfelt gratitude to Smt Seethakka garu (Minister), ACP Brahmasri K.M. Kiran Kumar Sir, and all community members who made it historic.",
+      te: "🎉 VKC 10వ వార్షికోత్సవ దశాబ్ది ఉత్సవాలు విజయవంతంగా ముగిసాయి! గౌరవనీయులైన మంత్రి శ్రీమతి సీతక్క గారికి, ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ గారికి మరియు సహకరించిన సంఘ సభ్యులందరికీ ధన్యవాదాలు.",
+      hi: "🎉 वीकेसी 10वीं वर्षगांठ दशकीय समारोह सफलतापूर्वक संपन्न हुआ! माननीय मंत्री श्रीमती सीतक्का गारू, मुख्य अतिथि एसीपी ब्रह्मश्री के.एम. किरण कुमार सर और सभी समाज बंधुओं का सहृदय आभार।"
     },
     {
       id: "matrimony",

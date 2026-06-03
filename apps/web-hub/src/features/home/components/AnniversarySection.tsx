@@ -33,26 +33,8 @@ const DIGNITARIES = [
     photo: "/images/guests/km_kiran_kumar.jpg",
   },
   // ── TIER: govt ─ Government Officials ────────────────────────────────────
-  {
-    tier: 'chief',
-    nameEn: "Smt Seethakka garu",
-    nameTe: "శ్రీమతి సీతక్క గారు",
-    nameHi: "श्रीमती सीतक्का गारू",
-    subEn: "Hon'ble Minister, Women & Child Welfare, Telangana",
-    subTe: "మహిళా & శిశు సంక్షేమ మంత్రి, తెలంగాణ",
-    subHi: "माननीय मंत्री, महिला एवं बाल कल्याण, तेलंगाना",
-    photo: "/images/guests/seethakka.jpg",
-  },
-  {
-    tier: 'chief',
-    nameEn: "Brahmasri Sirikonda Madhusudhana Chary garu",
-    nameTe: "బ్రహ్మశ్రీ సిరికొండ మధుసూదన చారి గారు",
-    nameHi: "ब्रह्मश्री सिरिकोंडा मधुसूदन चारी गारू",
-    subEn: "Leader of the Opposition, TS Legislative Council & 1st Speaker",
-    subTe: "విపక్ష నాయకులు, తెలంగాణ శాసన మండలి & మొదటి స్పీకర్",
-    subHi: "तेलंगाना विधान परिषद के विपक्ष के नेता एवं प्रथम स्पीकर",
-    photo: "/images/guests/sirikonda_madhusudhana.jpg",
-  },
+
+
   {
     tier: 'govt',
     nameEn: "Dasoju Sravan garu",
@@ -353,20 +335,30 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
   const lang = i18n.language;
   const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number } | null>(null);
   const [isLive, setIsLive] = useState(false);
+  const [isConcluded, setIsConcluded] = useState(false);
 
   useEffect(() => {
     const targetDate = new Date("2026-05-31T17:00:00+05:30");
+    const endDate = new Date("2026-05-31T21:30:00+05:30");
     const updateTimer = () => {
-      const difference = targetDate.getTime() - new Date().getTime();
-      if (difference <= 0) {
+      const now = new Date().getTime();
+      if (now >= endDate.getTime()) {
+        setIsConcluded(true);
+        setIsLive(false);
+        setTimeLeft(null);
+      } else if (now >= targetDate.getTime()) {
         setIsLive(true);
+        setIsConcluded(false);
         setTimeLeft(null);
       } else {
+        const difference = targetDate.getTime() - now;
         setTimeLeft({
           hours:   Math.floor(difference / (1000 * 60 * 60)),
           minutes: Math.floor((difference / 1000 / 60) % 60),
           seconds: Math.floor((difference / 1000) % 60),
         });
+        setIsLive(false);
+        setIsConcluded(false);
       }
     };
     updateTimer();
@@ -376,16 +368,16 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
 
   const handleShare = () => {
     const shareText = lang === 'te'
-      ? `విశ్వకర్మ నాలెడ్జ్ సెంటర్ (VKC) 10వ వార్షికోత్సవ దశాబ్ది ఉత్సవాలకు సాదర ఆహ్వానం!🎉\n\n` +
+      ? `విశ్వకర్మ నాలెడ్జ్ సెంటర్ (VKC) 10వ వార్షికోత్సవ దశాబ్ది ఉత్సవాల విజయవంతమైన ముగింపు!🎉\n\n` +
         `📅 తేదీ: 31 మే 2026 (ఆదివారం)\n⏰ సమయం: సాయంత్రం 05:00 – రాత్రి 09:30\n` +
         `📍 వేదిక: మెయిన్ హాల్, సుందరయ్య విజ్ఞాన కేంద్రం, బాగ్ లింగంపల్లి, హైదరాబాద్\n` +
         `👑 ముఖ్య అతిథి: ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్ మరియు 22 మంది ప్రముఖులు\n\nదయచేసి షేర్ చేయండి! 🔄`
       : lang === 'hi'
-      ? `विश्वकर्मा नॉलेज सेंटर (VKC) के 10वें वार्षिक दशकीय समारोह में आपका सादर आमंत्रण!🎉\n\n` +
+      ? `विश्वकर्मा नॉलेज सेंटर (VKC) के 10वें वार्षिक दशकीय समारोह का सफल समापन!🎉\n\n` +
         `📅 31 मई 2026 (रविवार) | ⏰ शाम 05:00 – रात 09:30\n` +
         `📍 मुख्य हॉल, सुंदरैया विज्ञान केंद्र, बाग लिंगमपल्ली, हैदराबाद\n` +
         `👑 मुख्य अतिथि: एसीपी ब्रह्मश्री के.एम. किरण कुमार सर एवं 22 गणमान्य अतिथि\n\nसाझा करें! 🔄`
-      : `Cordially inviting you to VKC 10th Anniversary Decennial Celebrations! 🎉\n\n` +
+      : `VKC 10th Anniversary Decennial Celebrations successfully concluded! 🎉\n\n` +
         `📅 May 31, 2026 (Sunday) | ⏰ 05:00 PM – 09:30 PM IST\n` +
         `📍 Main Hall, Sundarayya Vignana Kendram, Bagh Lingampally, Hyderabad\n` +
         `👑 Chief Guest: ACP Brahmasri K.M. Kiran Kumar Sir & 22 Distinguished Dignitaries\n\nPlease share! 🔄`;
@@ -409,10 +401,10 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
           </h2>
           <p className="text-stone-600 text-base md:text-lg font-medium leading-relaxed">
             {lang === 'te'
-              ? 'ఒక దశాబ్దపు ఉత్కృష్టత, వారసత్వ పరిరక్షణ మరియు సంఘ నాయకత్వ ప్రస్థానానికి గుర్తుగా Hyderabad లో నేడు నిర్వహిస్తున్న మహా వేడుక.'
+              ? 'ఒక దశాబ్దపు ఉత్కృష్టత, వారసత్వ పరిరక్షణ మరియు సంఘ నాయకత్వ ప్రస్థానానికి గుర్తుగా Hyderabad లో మే 31, 2026న విజయవంతంగా ముగిసిన మహా వేడుక.'
               : lang === 'hi'
-              ? 'हैदराबाद में आज उत्कृष्टता, विरासत संरक्षण और सामुदायिक नेतृत्व के एक दशक का उत्सव।'
-              : 'Celebrating a decade of excellence, heritage preservation, and community leadership in Hyderabad.'}
+              ? 'हैदराबाद में 31 मई 2026 को उत्कृष्टता, विरासत संरक्षण और सामुदायिक नेतृत्व के एक दशक का ऐतिहासिक समारोह सफलतापूर्वक संपन्न हुआ।'
+              : 'A historic milestone celebrating a decade of excellence, heritage preservation, and community leadership which successfully concluded on May 31, 2026, in Hyderabad.'}
           </p>
         </div>
 
@@ -424,7 +416,21 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
 
           {/* ── Timer ── */}
           <div className="relative z-10 px-8 md:px-12 pt-10 pb-8 text-white text-center space-y-6 border-b border-white/8">
-            {isLive ? (
+            {isConcluded ? (
+              <div className="space-y-3">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-turmeric/10 border border-turmeric/20 text-turmeric rounded-full text-xs font-black uppercase tracking-widest">
+                  <div className="w-2.5 h-2.5 bg-turmeric rounded-full" />
+                  {lang === 'te' ? 'విజయవంతంగా ముగిసాయి' : lang === 'hi' ? 'सफलतापूर्वक संपन्न' : 'Successfully Concluded'}
+                </div>
+                <h3 className="text-xl md:text-2xl font-black tracking-tight text-white">
+                  {lang === 'te'
+                    ? '10వ వార్షికోత్సవ దశాబ్ది ఉత్సవాలు అట్టహాసంగా ముగిసాయి!'
+                    : lang === 'hi'
+                    ? '10वीं वर्षगांठ दशकीय समारोह सफलतापूर्वक संपन्न हुआ!'
+                    : 'The 10th Anniversary Decennial Celebrations successfully concluded!'}
+                </h3>
+              </div>
+            ) : isLive ? (
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full text-xs font-black uppercase tracking-widest animate-pulse">
                   <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full" />
@@ -444,7 +450,7 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
                     {[
                       { label: lang === 'te' ? 'గంటలు'    : lang === 'hi' ? 'घंटे'   : 'Hours',   value: timeLeft.hours   },
                       { label: lang === 'te' ? 'నిమిషాలు' : lang === 'hi' ? 'मिनट'   : 'Minutes', value: timeLeft.minutes },
-                      { label: lang === 'te' ? 'సెకన్లు'  : lang === 'hi' ? 'सेकंड'  : 'Seconds', value: timeLeft.seconds },
+                      { label: lang === 'te' ? 'సెకన్లు'  : lang === 'hi' ? 'సెకండ్'  : 'Seconds', value: timeLeft.seconds },
                     ].map((item, idx) => (
                       <div key={idx} className="flex flex-col items-center">
                         <span className="text-4xl md:text-5xl font-black font-mono text-white bg-white/5 border border-white/10 w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center">
@@ -458,14 +464,20 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
               </div>
             )}
             <p className="text-stone-400 text-xs md:text-sm max-w-xl mx-auto font-medium">
-              {lang === 'te'
-                ? 'ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్, మంత్రి శ్రీమతి సీతక్క గారు మరియు 22 మంది ప్రముఖ అతిథులు.'
-                : lang === 'hi'
-                ? 'एसीपी ब्रह्मश्री के.एम. किरण कुमार सर, माननीय मंत्री श्रीमती सीतक्का गारू एवं 22 विशिष्ट अतिथिगण।'
-                : 'ACP Brahmasri K.M. Kiran Kumar Sir, Hon\'ble Minister Smt Seethakka garu & 22 Distinguished Dignitaries.'}
+              {isConcluded
+                ? (lang === 'te'
+                  ? 'ముఖ్య అతిథి ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ గారికి, అడిషనల్ కలెక్టర్ (వికారాబాద్) శ్రీ E. వెంకటాచారి గారికి, మరియు ఈ దశాబ్ది ఉత్సవాలను జయప్రదం చేసిన సంఘ సభ్యులందరికీ ధన్యవాదాలు.'
+                  : lang === 'hi'
+                  ? 'मुख्य अतिथि एसीपी ब्रह्मश्री के.एम. किरण कुमार सर, अतिरिक्त कलेक्टर (विकाराबाद) श्री ई. वेंकटाचारी गारू और सभी समाज बंधुओं का हार्दिक आभार।'
+                  : "We express our deepest gratitude to Chief Guest ACP Brahmasri K.M. Kiran Kumar Sir, Additional District Collector (Vikarabad) Sri E. Venkatachary garu, and all community leaders and members.")
+                : (lang === 'te'
+                  ? 'ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్, అడిషనల్ కలెక్టర్ శ్రీ E. వెంకటాచారి గారు మరియు 20+ ప్రముఖ అతిథులు.'
+                  : lang === 'hi'
+                  ? 'एसीपी ब्रह्मश्री के.एम. किरण कुमार सर, अतिरिक्त कलेक्टर श्री ई. वेंकटाचारी गारू एवं 20+ विशिष्ट अतिथिगण।'
+                  : "ACP Brahmasri K.M. Kiran Kumar Sir, Additional District Collector (Vikarabad) Sri E. Venkatachary garu & 20+ Distinguished Dignitaries.")}
             </p>
           </div>
-
+          
           {/* ── Dignitaries Carousel ── */}
           <div className="relative z-10 pt-8 pb-6">
 
@@ -602,10 +614,10 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
                 </h3>
                 <p className="text-stone-500 text-xs leading-relaxed font-semibold">
                   {lang === 'te'
-                    ? 'విభిన్న రాష్ట్రాల నుండి వచ్చిన ప్రతినిధులను కలుసుకోవడానికి నేడు సుందరయ్య విజ్ఞాన కేంద్రం, హైదరాబాద్‌లో మాతో చేరండి.'
+                    ? 'వేడుకలలో అధికారిక సంఘ సభ్యత్వ కార్డులు విజయవంతంగా విడుదల చేయబడ్డాయి. మీ డిజిటల్ కార్డు కోసం ఆన్‌లైన్ దరఖాస్తు చేసుకోండి.'
                     : lang === 'hi'
-                    ? 'विभिन्न राज्यों के प्रतिनिधियों से मिलने के लिए आज सुंदरैया विज्ञान केंद्र, हैदराबाद में हमसे जुड़ें।'
-                    : 'Join us today at Sundarayya Vignana Kendram, Hyderabad to meet representatives from various states.'}
+                    ? 'दशकीय समारोह में आधिकारिक सामुदायिक कार्डों का विमोचन किया गया। अपने डिजिटल कार्ड के लिए आज ही ऑनलाइन आवेदन करें।'
+                    : 'Official community cards launched at the event. Apply online to get your verified Digital Member ID!'}
                 </p>
               </div>
             </div>
@@ -717,7 +729,7 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
               <Clock size={16} className="text-saffron-600" /> {lang === 'te' ? 'తేదీ & సమయాలు' : lang === 'hi' ? 'दिनांक और समय' : 'Date & Timings'}
             </h4>
             <p className="text-stone-500 text-xs leading-relaxed font-bold uppercase tracking-widest">
-              {lang === 'te' ? 'నేడు (ఆదివారం, 31 మే 2026)' : lang === 'hi' ? 'आज (रविवार, 31 मई 2026)' : 'Today (Sunday, May 31, 2026)'}
+              {lang === 'te' ? 'మే 31, 2026 (ఆదివారం)' : lang === 'hi' ? '31 मई 2026 (रविवार)' : 'Sunday, May 31, 2026 (Concluded)'}
               <br />
               {lang === 'te' ? 'సాయంత్రం 05:00 నుండి రాత్రి 09:30 వరకు IST' : lang === 'hi' ? 'शाम 05:00 बजे से रात 09:30 बजे IST तक' : '05:00 PM to 09:30 PM IST'}
             </p>

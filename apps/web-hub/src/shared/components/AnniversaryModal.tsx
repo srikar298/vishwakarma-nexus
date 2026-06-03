@@ -10,24 +10,6 @@ interface AnniversaryModalProps {
 
 const DIGNITARIES = [
   {
-    nameEn: "Smt Seethakka garu",
-    nameTe: "శ్రీమతి సీతక్క గారు",
-    nameHi: "श्रीमती सीतक्का गारू",
-    subEn: "Hon'ble Minister",
-    subTe: "గౌరవనీయులైన మంత్రి",
-    subHi: "माननीय मंत्री",
-    photo: "/images/guests/seethakka.jpg"
-  },
-  {
-    nameEn: "Sirikonda Madhusudhana Chary garu",
-    nameTe: "సిరికొండ మధుసూదనా చారి గారు",
-    nameHi: "सिरिकोंडा मधुसूदन चारी गारू",
-    subEn: "Senior Leader & Guest",
-    subTe: "సీనియర్ నాయకులు & అతిథి",
-    subHi: "वरिष्ठ नेता एवं अतिथि",
-    photo: "/images/guests/sirikonda_madhusudhana.jpg"
-  },
-  {
     nameEn: "ACP Brahmasri K.M. Kiran Kumar Sir",
     nameTe: "ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్",
     nameHi: "एसीपी ब्रह्मश्री के.एम. किरण कुमार सर",
@@ -341,7 +323,7 @@ export const AnniversaryModal: React.FC<AnniversaryModalProps> = ({ isOpen, onCl
           <div className="flex items-center gap-2.5 bg-stone-850/20 p-2.5 rounded-lg border border-stone-850/50">
             <Calendar size={14} className="text-saffron-500 shrink-0" />
             <span>
-              {i18n.language === 'te' ? '31 మే 2026 (ఆదివారం - ఈరోజు)' : i18n.language === 'hi' ? '31 मई 2026 (रविवार - आज)' : 'May 31, 2026 (Sunday - Today)'}
+              {i18n.language === 'te' ? '31 మే 2026 (ఆదివారం - విజయవంతంగా ముగిసింది)' : i18n.language === 'hi' ? '31 मई 2026 (रविवार - संपन्न)' : 'May 31, 2026 (Sunday - Concluded)'}
             </span>
           </div>
           <div className="flex items-center gap-2.5 bg-stone-850/20 p-2.5 rounded-lg border border-stone-850/50">
