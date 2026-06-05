@@ -27,8 +27,8 @@ export const DonorsPage = () => {
   return (
     <>
       <SEO 
-        title={t('donors.page_title' as any, 'Community Donors')} 
-        description={t('donors.page_desc' as any, 'Honor roll of our community supporters.')}
+        title={t('donors.page_title' as never, 'Community Donors')} 
+        description={t('donors.page_desc' as never, 'Honor roll of our community supporters.')}
       />
       
       {/* Hero Section */}
@@ -43,7 +43,7 @@ export const DonorsPage = () => {
             className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-2 rounded-full mb-8 backdrop-blur-md"
           >
             <Heart className="text-gold-500" size={18} fill="currentColor" />
-            <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">{t('donors.badge' as any, 'Community Support')}</span>
+            <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">{t('donors.badge' as never, 'Community Support')}</span>
           </motion.div>
           
           <motion.h1 
@@ -51,7 +51,7 @@ export const DonorsPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className={`text-5xl md:text-7xl font-black text-white mb-6 leading-tight font-display ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}
           >
-            {t('donors.title' as any, 'The Pillar of Our Legacy')}
+            {t('donors.title' as never, 'The Pillar of Our Legacy')}
           </motion.h1>
           
           <motion.p 
@@ -60,7 +60,7 @@ export const DonorsPage = () => {
             transition={{ delay: 0.1 }}
             className={`text-xl text-stone-400 max-w-3xl mx-auto leading-relaxed mb-12 ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}
           >
-            {t('donors.subtitle' as any, 'Every contribution builds the foundation for our next five millennia. Join the ranks of visionaries empowering the Vishwakarma community.')}
+            {t('donors.subtitle' as never, 'Every contribution builds the foundation for our next five millennia. Join the ranks of visionaries empowering the Vishwakarma community.')}
           </motion.p>
           
           <motion.button
@@ -69,7 +69,7 @@ export const DonorsPage = () => {
             transition={{ delay: 0.2 }}
             className="bg-gradient-to-r from-gold-400 to-gold-600 text-stone-900 px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:scale-105 transition-all shadow-2xl shadow-gold-500/20"
           >
-            {t('donors.cta_contribute' as any, 'Make a Contribution')}
+            {t('donors.cta_contribute' as never, 'Make a Contribution')}
           </motion.button>
         </div>
       </section>
@@ -79,10 +79,10 @@ export const DonorsPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className={`text-3xl md:text-5xl font-black text-stone-900 mb-4 font-display ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-              {t('donors.wall_title' as any, 'Wall of Honor')}
+              {t('donors.wall_title' as never, 'Wall of Honor')}
             </h2>
             <p className="text-stone-500 uppercase tracking-widest text-xs font-bold">
-              {t('donors.wall_subtitle' as any, 'Recognizing our esteemed sponsors')}
+              {t('donors.wall_subtitle' as never, 'Recognizing our esteemed sponsors')}
             </p>
           </div>
 
@@ -94,8 +94,8 @@ export const DonorsPage = () => {
                       {tier.icon}
                     </div>
                     <div>
-                      <h3 className="text-xl font-black uppercase tracking-widest">{t(`donors.tiers.${tier.id}.name` as any, tier.id)}</h3>
-                      <p className="opacity-80 text-xs font-bold">{t(`donors.tiers.${tier.id}.amount` as any, 'Amount')}</p>
+                      <h3 className="text-xl font-black uppercase tracking-widest">{t(`donors.tiers.${tier.id}.name` as never, tier.id)}</h3>
+                      <p className="opacity-80 text-xs font-bold">{t(`donors.tiers.${tier.id}.amount` as never, 'Amount')}</p>
                     </div>
                  </div>
                  

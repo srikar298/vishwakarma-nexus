@@ -7,7 +7,6 @@ import {
   Trash2, 
   Edit2, 
   Save, 
-  X, 
   LogOut, 
   ShieldCheck,
   Calendar,

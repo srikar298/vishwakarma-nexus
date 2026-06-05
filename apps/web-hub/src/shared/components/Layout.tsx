@@ -148,7 +148,7 @@ export const Layout = () => {
               </div>
               <div className="flex items-center gap-4">
                 <LanguageSwitcher />
-                <Link to="/donors" className="hidden lg:block text-stone-500 hover:text-vermilion transition-colors font-black uppercase tracking-widest text-xs px-2">{t('donors.page_title' as any, 'Community Donors')}</Link>
+                <Link to="/donors" className="hidden lg:block text-stone-500 hover:text-vermilion transition-colors font-black uppercase tracking-widest text-xs px-2">{t('donors.page_title' as never, 'Community Donors')}</Link>
                 <button 
                   onClick={() => setIsJoinModalOpen(true)}
                   className="bg-vermilion text-white px-8 py-2.5 rounded-full font-black hover:bg-vermilion/90 transition-all shadow-xl shadow-vermilion/20 active:scale-95 text-xs uppercase tracking-[0.2em]"
@@ -196,7 +196,7 @@ export const Layout = () => {
                      <div className="grid gap-2">
                        <Link to="/events" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.events')}</Link>
                        <Link to="/gallery" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.gallery')}</Link>
-                       <Link to="/donors" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all text-vermilion">{t('donors.page_title' as any, 'Community Donors')}</Link>
+                       <Link to="/donors" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all text-vermilion">{t('donors.page_title' as never, 'Community Donors')}</Link>
                      </div>
                   </div>
               </div>
@@ -259,7 +259,7 @@ export const Layout = () => {
                   <li><Link to="/network" className="text-stone-500 hover:text-white transition-colors">Network Hub</Link></li>
                   <li><Link to="/empowerment" className="text-stone-500 hover:text-white transition-colors">Empowerment</Link></li>
                   <li><Link to="/founder" className="text-stone-500 hover:text-white transition-colors">The Founder</Link></li>
-                  <li><Link to="/donors" className="text-stone-500 hover:text-white transition-colors">{t('donors.page_title' as any, 'Community Donors')}</Link></li>
+                  <li><Link to="/donors" className="text-stone-500 hover:text-white transition-colors">{t('donors.page_title' as never, 'Community Donors')}</Link></li>
                 </ul>
               </div>
             </div>
