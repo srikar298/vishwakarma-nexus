@@ -92,7 +92,7 @@ export const HomePage = () => {
         title={t('home.title', 'Home')} 
         description={t('hero.description', 'Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana. Join the mission to empower the Vishwakarma community.')}
         image="/og-image.jpg"
-        schema={anniversarySchema}
+        schema={organizationSchema}
       />
       {/* Hero Section */}
       <HeroFiveSons />
