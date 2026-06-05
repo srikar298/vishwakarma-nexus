@@ -24,12 +24,28 @@ export const MembershipPage = () => {
   };
 
   const handleRegistrationComplete = () => {
-    setLiveData(prev => ({
-      ...prev,
-      uid: `VKC-2026-${Math.floor(1000 + Math.random() * 9000)}`
-    }));
+    const generatedUid = `VKC-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+    const finalRecord = {
+      ...liveData,
+      uid: generatedUid
+    };
+
+    setLiveData(finalRecord);
     setIsRegistered(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Seed data to Google Sheets via Apps Script Web App
+    const appsScriptUrl = import.meta.env.VITE_APPS_SCRIPT_URL;
+    if (appsScriptUrl) {
+      fetch(appsScriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(finalRecord),
+      }).catch(err => console.error("Error sending data to Google Sheets:", err));
+    }
   };
 
   return (
