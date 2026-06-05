@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { X, Award, Shield, Users, Zap } from 'lucide-react';
 
@@ -46,19 +45,19 @@ export const ExhibitModal = ({ isOpen, onClose, exhibit }: ExhibitModalProps) =>
 
         {/* Left Side: Visual / Info Overlay */}
         <div className="md:w-2/5 relative h-64 md:h-auto">
-          <img src={exhibit.img} alt={t(`${itemKey}.title` as any)} className="absolute inset-0 w-full h-full object-cover" />
+          <img src={exhibit.img} alt={t(`${itemKey}.title` as never)} className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/20 to-transparent" />
           
           <div className="absolute bottom-8 left-8 right-8 space-y-2">
              <div className="flex items-center gap-2">
                 <Award size={16} className="text-vermilion" />
                 <span className="text-[10px] font-black text-white/70 uppercase tracking-[0.3em]">
-                  {t(`${kulaKey}.name` as any)}
+                  {t(`${kulaKey}.name` as never)}
                 </span>
              </div>
              <h2 className={`text-2xl md:text-3xl font-black text-white leading-tight
                ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-               {t(`${itemKey}.title` as any)}
+               {t(`${itemKey}.title` as never)}
              </h2>
           </div>
         </div>
@@ -71,17 +70,17 @@ export const ExhibitModal = ({ isOpen, onClose, exhibit }: ExhibitModalProps) =>
               <span className="text-[10px] font-black text-vermilion uppercase tracking-[0.5em]">Deep Context Analysis</span>
               <p className={`text-lg md:text-xl text-stone-600 font-medium leading-relaxed italic
                 ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-                {t(`${itemKey}.shortDesc` as any)}
+                {t(`${itemKey}.shortDesc` as never)}
               </p>
             </div>
 
             {/* Dynamic Content Sections */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {[
-                { icon: <Award className="text-vermilion" />, title: t('heritage.exhibits_labels.cultural_pride' as any), content: t(`${itemKey}.deepContext.culturalPride` as any) },
-                { icon: <Shield className="text-blue-600" />, title: t('heritage.exhibits_labels.technical' as any), content: t(`${itemKey}.deepContext.technical` as any) },
-                { icon: <Users className="text-stone-900" />, title: t('heritage.exhibits_labels.inclusivity' as any), content: t(`${itemKey}.deepContext.inclusivity` as any) },
-                { icon: <Zap className="text-amber-500" />, title: t('heritage.exhibits_labels.drive' as any), content: t(`${itemKey}.shortDesc` as any) }
+                { icon: <Award className="text-vermilion" />, title: t('heritage.exhibits_labels.cultural_pride' as never), content: t(`${itemKey}.deepContext.culturalPride` as never) },
+                { icon: <Shield className="text-blue-600" />, title: t('heritage.exhibits_labels.technical' as never), content: t(`${itemKey}.deepContext.technical` as never) },
+                { icon: <Users className="text-stone-900" />, title: t('heritage.exhibits_labels.inclusivity' as never), content: t(`${itemKey}.deepContext.inclusivity` as never) },
+                { icon: <Zap className="text-amber-500" />, title: t('heritage.exhibits_labels.drive' as never), content: t(`${itemKey}.shortDesc` as never) }
               ].map((section, idx) => (
                 <motion.div
                   key={idx}
@@ -111,7 +110,7 @@ export const ExhibitModal = ({ isOpen, onClose, exhibit }: ExhibitModalProps) =>
                <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-stone-900 rounded-full flex items-center justify-center text-white text-[10px] font-black">VKC</div>
                   <div>
-                    <p className="text-[10px] font-black text-stone-900 uppercase tracking-widest">{t('heritage.exhibits_labels.authorized' as any)}</p>
+                    <p className="text-[10px] font-black text-stone-900 uppercase tracking-widest">{t('heritage.exhibits_labels.authorized' as never)}</p>
                     <p className="text-[9px] text-stone-400 font-bold uppercase tracking-widest">Registry ID: {exhibit.id.toUpperCase()}-VH-2026</p>
                   </div>
                </div>
@@ -119,7 +118,7 @@ export const ExhibitModal = ({ isOpen, onClose, exhibit }: ExhibitModalProps) =>
                 onClick={onClose}
                 className="bg-vermilion text-white px-8 py-3 rounded-xl font-black uppercase tracking-widest text-[10px] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-vermilion/20"
                >
-                 {t('heritage.exhibits_labels.collapse' as any)}
+                 {t('heritage.exhibits_labels.collapse' as never)}
                </button>
             </div>
           </div>

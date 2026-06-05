@@ -8,7 +8,8 @@ interface SEOProps {
   image?: string;
   type?: 'website' | 'article' | 'profile';
   canonical?: string;
-  schema?: object; // Add support for JSON-LD schema
+  schema?: object; // Single JSON-LD schema (legacy)
+  schemas?: object[]; // Multiple JSON-LD schemas (preferred)
 }
 
 export const SEO = ({ 
@@ -17,7 +18,8 @@ export const SEO = ({
   image = '/og-image.jpg', 
   type = 'website',
   canonical,
-  schema
+  schema,
+  schemas
 }: SEOProps) => {
   const { t } = useTranslation();
   const location = useLocation();
@@ -57,19 +59,25 @@ export const SEO = ({
     }
     link.setAttribute('href', currentUrl);
 
-    // 5. JSON-LD Schema
-    const existingScript = document.getElementById('json-ld-schema');
-    if (existingScript) existingScript.remove();
+    // 5. JSON-LD Schema(s)
+    // Remove all previously injected schemas
+    document.querySelectorAll('script[data-vkc-schema]').forEach(el => el.remove());
 
-    if (schema) {
+    // Build the list of schemas to inject (support both legacy single & new array)
+    const allSchemas: object[] = [
+      ...(schemas ?? []),
+      ...(schema && !schemas ? [schema] : []),
+    ];
+
+    allSchemas.forEach((schemaObj, idx) => {
       const script = document.createElement('script');
-      script.id = 'json-ld-schema';
+      script.setAttribute('data-vkc-schema', String(idx));
       script.type = 'application/ld+json';
-      script.innerHTML = JSON.stringify(schema);
+      script.innerHTML = JSON.stringify(schemaObj);
       document.head.appendChild(script);
-    }
+    });
 
-  }, [title, description, image, type, canonical, location.pathname, t, schema]);
+  }, [title, description, image, type, canonical, location.pathname, t, schema, schemas]);
 
   return null;
 };

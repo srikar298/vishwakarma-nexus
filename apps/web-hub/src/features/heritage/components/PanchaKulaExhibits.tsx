@@ -85,15 +85,15 @@ export const PanchaKulaExhibits = () => {
                 <span className="text-[10px] font-black font-mono text-stone-200 tracking-widest">{`[ 0${kIdx + 1} ]`}</span>
                 <div className="space-y-1">
                    <h2 className="text-xl md:text-2xl font-black text-stone-900 font-display uppercase tracking-wider">
-                     {t(`heritage.kulas.${kula.id}.name` as any)}
+                     {t(`heritage.kulas.${kula.id}.name` as never)}
                    </h2>
                    <p className={`text-[10px] font-black uppercase tracking-[0.3em] ${kula.color}`}>
-                     {t(`heritage.kulas.${kula.id}.craft` as any)}
+                     {t(`heritage.kulas.${kula.id}.craft` as never)}
                    </p>
                 </div>
              </div>
              <div className="flex items-center justify-center md:justify-end gap-2 text-stone-400 text-[10px] font-black uppercase tracking-widest">
-                <Compass size={12} className="text-stone-300" /> {t('heritage.exhibits_labels.authorized' as any)}
+                <Compass size={12} className="text-stone-300" /> {t('heritage.exhibits_labels.authorized' as never)}
              </div>
           </motion.div>
 
@@ -111,7 +111,7 @@ export const PanchaKulaExhibits = () => {
                 >
                   {/* Image Layer */}
                   <div className="relative aspect-square overflow-hidden">
-                    <img src={item.img} alt={t(`heritage.kulas.${kula.id}.items.${item.id}.title` as any)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                    <img src={item.img} alt={t(`heritage.kulas.${kula.id}.items.${item.id}.title` as never)} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
                     <div className="absolute top-6 left-1/2 -translate-x-1/2 md:left-6 md:translate-x-0 flex gap-2">
                         <div className="bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-lg border border-white/20">
                             <Award size={14} className={kula.color} />
@@ -123,16 +123,16 @@ export const PanchaKulaExhibits = () => {
                   <div className="p-8 md:p-8 space-y-4 bg-white grow flex flex-col justify-between text-center md:text-left">
                     <div className="space-y-4">
                         <h3 className={`text-base md:text-lg font-black text-stone-900 leading-tight group-hover:text-vermilion transition-colors ${isTelugu ? 'font-telugu leading-relaxed' : isHindi ? 'font-hindi leading-relaxed' : ''}`}>
-                          {t(`heritage.kulas.${kula.id}.items.${item.id}.title` as any)}
+                          {t(`heritage.kulas.${kula.id}.items.${item.id}.title` as never)}
                         </h3>
                         <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest leading-none">
-                          {t('heritage.exhibits_labels.technical' as any)}: {t(`heritage.kulas.${kula.id}.items.${item.id}.tech` as any)}
+                          {t('heritage.exhibits_labels.technical' as never)}: {t(`heritage.kulas.${kula.id}.items.${item.id}.tech` as never)}
                         </p>
                     </div>
 
                     <div className="pt-4 flex items-center justify-center md:justify-start gap-3">
                          <div className="text-[10px] font-black text-vermilion uppercase tracking-widest group-hover:gap-4 transition-all">
-                            {t('heritage.exhibits_labels.technical_report' as any)}
+                            {t('heritage.exhibits_labels.technical_report' as never)}
                          </div>
                          <ExternalLink size={12} className="text-vermilion opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>

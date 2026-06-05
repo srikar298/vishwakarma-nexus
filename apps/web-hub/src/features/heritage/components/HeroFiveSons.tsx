@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Sparkles, BookOpen, Scroll } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
-import { SocialIcon } from 'react-social-icons';
-import { SOCIAL_LINKS } from '@/shared/constants/social-links';
 
 const SONS_KEYS = ['manu', 'maya', 'thwashta', 'shilpi', 'vishwajna'];
 
@@ -226,7 +223,7 @@ export function HeroFiveSons() {
            onScroll={isMobile ? handleSnap : undefined}>
         {SONS_KEYS.map((key, index) => {
           const son_meta = SONS_METADATA[key as keyof typeof SONS_METADATA];
-          const heroSons = t('heroSons', { returnObjects: true }) as any;
+          const heroSons = t('heroSons', { returnObjects: true }) as Record<string, { title: string; subtitle: string; desc: string; badge: string }>;
           const son_data = heroSons[key];
           const isActive = hoveredIndex === index;
           

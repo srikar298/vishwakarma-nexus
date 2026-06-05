@@ -19,7 +19,7 @@ export const MembershipPage = () => {
     joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
   });
 
-  const handleLiveUpdate = (data: any) => {
+  const handleLiveUpdate = (data: Record<string, string | number | boolean>) => {
     setLiveData(prev => ({ ...prev, ...data }));
   };
 

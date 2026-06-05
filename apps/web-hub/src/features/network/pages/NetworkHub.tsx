@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -37,7 +37,7 @@ export const NetworkHub = () => {
     setSearchParams({ tab: tabId });
   };
 
-  const tabs = [
+  const tabs: Array<{ id: 'professionals' | 'officials' | 'matrimony' | 'education'; label: string; icon: React.ReactNode; color: string; bg: string }> = [
     { id: 'professionals', label: t('network.hub.tabs.professionals'), icon: <Briefcase size={18} />, color: 'text-blue-600', bg: 'bg-blue-50' },
     { id: 'officials', label: t('network.hub.tabs.officials'), icon: <Gavel size={18} />, color: 'text-saffron-600', bg: 'bg-saffron-50' },
     { id: 'education', label: t('network.hub.tabs.education'), icon: <GraduationCap size={18} />, color: 'text-emerald-600', bg: 'bg-emerald-50' },
@@ -88,7 +88,7 @@ export const NetworkHub = () => {
            {tabs.map((tab) => (
              <button
                key={tab.id}
-               onClick={() => handleTabChange(tab.id as any)}
+               onClick={() => handleTabChange(tab.id)}
                className={`flex items-center gap-3 px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap
                  ${activeTab === tab.id 
                    ? `${tab.bg} ${tab.color} shadow-lg shadow-black/5 ring-1 ring-stone-900/5` 

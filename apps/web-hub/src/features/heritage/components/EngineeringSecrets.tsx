@@ -75,7 +75,7 @@ export const EngineeringSecrets = () => {
                           {t('heritage.secrets_section.technical_analysis')}
                         </h4>
                         <p className="text-vermilion text-[10px] font-black uppercase tracking-[0.5em]">
-                          {t(`${secretKey}.visual_hint` as any)}
+                          {t(`${secretKey}.visual_hint` as never)}
                         </p>
                      </div>
                   </motion.div>
@@ -120,13 +120,13 @@ export const EngineeringSecrets = () => {
                  >
                     <div className="flex justify-between items-center mb-4">
                        <span className="text-[10px] font-black text-stone-500 uppercase tracking-widest">
-                         {t(`heritage.secrets_section.items.${secret.id}.location` as any)}
+                         {t(`heritage.secrets_section.items.${secret.id}.location` as never)}
                        </span>
                        <Info size={14} className={activeSecret === index ? 'text-vermilion' : 'text-stone-600'} />
                     </div>
                     <h4 className={`text-2xl font-black text-white 
                       ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-                      {t(`heritage.secrets_section.items.${secret.id}.title` as any)}
+                      {t(`heritage.secrets_section.items.${secret.id}.title` as never)}
                     </h4>
                     
                     <AnimatePresence>
@@ -139,10 +139,10 @@ export const EngineeringSecrets = () => {
                         >
                            <p className={`text-stone-400 text-sm mt-4 leading-relaxed font-medium
                              ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-                             {t(`heritage.secrets_section.items.${secret.id}.description` as any)}
+                             {t(`heritage.secrets_section.items.${secret.id}.description` as never)}
                            </p>
                            <div className="flex gap-4 mt-8">
-                              {Object.entries((t as any)(`heritage.secrets_section.items.${secret.id}.labels`, { returnObjects: true }) as Record<string, string>).map(([key, label], di) => (
+                              {Object.entries((t as never)(`heritage.secrets_section.items.${secret.id}.labels`, { returnObjects: true }) as Record<string, string>).map(([key, label], di) => (
                                 <div key={di} className="bg-stone-900 border border-white/5 p-3 md:p-4 rounded-xl md:rounded-2xl flex-1">
                                    <p className="text-[10px] font-black text-vermilion uppercase tracking-widest mb-1">{label as string}</p>
                                    <p className="text-xs font-black text-white">

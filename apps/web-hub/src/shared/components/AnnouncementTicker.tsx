@@ -1,10 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Megaphone, ArrowUpRight, X } from 'lucide-react';
 import { AnniversaryModal } from './AnniversaryModal';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
+
+interface Announcement {
+  id: string;
+  en: string;
+  te: string;
+  hi: string;
+}
 
 export const AnnouncementTicker = () => {
   const { t, i18n } = useTranslation();
@@ -81,7 +88,7 @@ export const AnnouncementTicker = () => {
                   className="flex items-center gap-4 group cursor-pointer"
                 >
                   <span className="text-xs font-bold tracking-wide italic opacity-90 group-hover:opacity-100 transition-opacity">
-                    { (ann as any)[i18n.language] || (ann as any)['en'] }
+                    { ann[i18n.language as keyof Announcement] || ann.en }
                   </span>
                   <div className="bg-white/20 p-1 rounded-full group-hover:bg-white group-hover:text-vermilion transition-all">
                     <ArrowUpRight size={10} />
@@ -166,7 +173,7 @@ export const AnnouncementTicker = () => {
                         </div>
                         <div className="flex-1 space-y-1">
                           <p className="text-[11px] leading-relaxed font-medium text-stone-200">
-                            {(ann as any)[i18n.language] || (ann as any)['en']}
+                            {ann[i18n.language as keyof Announcement] || ann.en}
                           </p>
                           {isClickable && (
                             <span className="inline-flex items-center gap-1 text-[8px] font-black uppercase tracking-wider text-vermilion">

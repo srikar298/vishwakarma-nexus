@@ -42,8 +42,8 @@ export const FounderSection = () => {
                  <ShieldCheck size={28} />
                </div>
                <div>
-                  <p className="text-[10px] font-black text-stone-600 uppercase tracking-widest leading-none">{t('founder.institutional' as any)}</p>
-                  <p className="text-sm font-black text-stone-900 uppercase tracking-tighter">{t('founder.chairman' as any)}</p>
+                  <p className="text-[10px] font-black text-stone-600 uppercase tracking-widest leading-none">{t('founder.institutional' as never)}</p>
+                  <p className="text-sm font-black text-stone-900 uppercase tracking-tighter">{t('founder.chairman' as never)}</p>
                </div>
             </div>
           </motion.div>

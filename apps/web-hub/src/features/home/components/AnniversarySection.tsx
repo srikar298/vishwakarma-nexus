@@ -269,7 +269,7 @@ const getInitials = (name: string) => {
   return parts[0] ? parts[0][0].toUpperCase() : 'V';
 };
 
-// Small photo card used inside the dark panel
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for potential re-use
 function GuestCard({
   g,
   lang,
@@ -331,7 +331,7 @@ function GuestCard({
 }
 
 export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMatrimony }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const lang = i18n.language;
   const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number } | null>(null);
   const [isLive, setIsLive] = useState(false);

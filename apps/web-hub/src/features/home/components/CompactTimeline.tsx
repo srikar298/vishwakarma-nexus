@@ -9,9 +9,7 @@ import {
   Compass, 
   Flame, 
   Heart, 
-  Users,
-  ChevronDown,
-  ChevronUp
+  Users
 } from 'lucide-react';
 
 interface TimelineEvent {

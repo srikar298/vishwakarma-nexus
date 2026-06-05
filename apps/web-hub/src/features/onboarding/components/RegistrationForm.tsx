@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { User, MapPin, Briefcase, ArrowRight, ArrowLeft, CheckCircle, CreditCard, ShieldCheck } from 'lucide-react';
 
 interface RegistrationFormProps {
-  onUpdate: (data: any) => void;
+  onUpdate: (data: Record<string, string | number | boolean>) => void;
   onComplete: () => void;
 }
 

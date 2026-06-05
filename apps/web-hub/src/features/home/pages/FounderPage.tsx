@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -7,12 +7,10 @@ import {
   Globe, 
   ShieldCheck, 
   Mail, 
-  BookOpen, 
   Calendar, 
   Target, 
   Scale, 
-  ScrollText,
-  Hammer
+  ScrollText
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SEO } from '../../../shared/components/SEO';
@@ -61,7 +59,6 @@ export const FounderPage = () => {
       case 'movement': return 'bg-rose-500/10 border-rose-500/20 text-rose-400';
       case 'charity': return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400';
       case 'campaign': return 'bg-violet-500/10 border-violet-500/20 text-violet-400';
-      case 'movement': return 'bg-saffron-500/10 border-saffron-500/20 text-saffron-400';
       default: return 'bg-stone-500/10 border-stone-500/20 text-stone-400';
     }
   };

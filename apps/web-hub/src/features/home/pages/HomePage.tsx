@@ -21,7 +21,7 @@ import { AnniversarySection } from '@/features/home/components/AnniversarySectio
 import { MatrimonyModal } from '@/shared/components/MatrimonyModal';
 import { SEO } from '@/shared/components/SEO';
 import { SOCIAL_LINKS_ARRAY } from '@/shared/constants/social-links';
-import { GeometryDivider } from '@/shared/ui/GeometryDivider';
+
 
 export const HomePage = () => {
   const { t, i18n } = useTranslation();
@@ -66,11 +66,15 @@ export const HomePage = () => {
     "@context": "https://schema.org",
     "@type": "Event",
     "name": "VKC 10th Anniversary Decennial Celebration",
-    "description": "Celebrating a decade of excellence, heritage preservation, and community leadership by Vishwakarma Knowledge Centre.",
+    "description": "Celebrating a decade of excellence, heritage preservation, and community leadership by Vishwakarma Knowledge Centre. A grand gathering of artisans, community leaders, and dignitaries at Sundarayya Vignana Kendram, Hyderabad.",
     "startDate": "2026-05-31T17:00:00+05:30",
     "endDate": "2026-05-31T21:30:00+05:30",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
+    "image": [
+      "https://vishwakarmaknowledgecentre.org/images/anniversary-banner.jpg",
+      "https://vishwakarmaknowledgecentre.org/og-image.jpg"
+    ],
     "location": {
       "@type": "Place",
       "name": "Sundarayya Vignana Kendram",
@@ -83,7 +87,30 @@ export const HomePage = () => {
         "addressCountry": "IN"
       }
     },
-    "organizer": organizationSchema
+    "offers": {
+      "@type": "Offer",
+      "name": "General Admission",
+      "price": "0",
+      "priceCurrency": "INR",
+      "availability": "https://schema.org/SoldOut",
+      "validFrom": "2026-05-01T00:00:00+05:30",
+      "url": "https://vishwakarmaknowledgecentre.org"
+    },
+    "performer": [
+      {
+        "@type": "Person",
+        "name": "ACP Brahmasri K.M. Kiran Kumar"
+      },
+      {
+        "@type": "Person",
+        "name": "E. Venkata Chary"
+      }
+    ],
+    "organizer": {
+      "@type": "Organization",
+      "name": "Vishwakarma Knowledge Centre",
+      "url": "https://vishwakarmaknowledgecentre.org"
+    }
   };
 
   return (
@@ -92,7 +119,7 @@ export const HomePage = () => {
         title={t('home.title', 'Home')} 
         description={t('hero.description', 'Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana. Join the mission to empower the Vishwakarma community.')}
         image="/og-image.jpg"
-        schema={organizationSchema}
+        schemas={[organizationSchema, anniversarySchema]}
       />
       {/* Hero Section */}
       <HeroFiveSons />

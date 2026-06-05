@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, Clock, MapPin, Share2, Navigation } from 'lucide-react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Calendar, Clock, MapPin, Share2, Navigation } from 'lucide-react';
 
 interface AnniversaryModalProps {
   isOpen: boolean;
