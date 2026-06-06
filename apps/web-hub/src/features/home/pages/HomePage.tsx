@@ -113,13 +113,51 @@ export const HomePage = () => {
     }
   };
 
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Vishwakarma Knowledge Centre",
+    "url": "https://vishwakarmaknowledgecentre.org"
+  };
+
+  const navigationSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "SiteNavigationElement",
+        "position": 1,
+        "name": "Vision",
+        "url": "https://vishwakarmaknowledgecentre.org/vision"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 2,
+        "name": "Heritage",
+        "url": "https://vishwakarmaknowledgecentre.org/heritage"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 3,
+        "name": "Directory",
+        "url": "https://vishwakarmaknowledgecentre.org/directory"
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "position": 4,
+        "name": "Network",
+        "url": "https://vishwakarmaknowledgecentre.org/network"
+      }
+    ]
+  };
+
   return (
     <>
       <SEO 
         title={t('home.title', 'Home')} 
         description={t('hero.description', 'Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana. Join the mission to empower the Vishwakarma community.')}
         image="/og-image.jpg"
-        schemas={[organizationSchema, anniversarySchema]}
+        schemas={[organizationSchema, anniversarySchema, websiteSchema, navigationSchema]}
       />
       {/* Hero Section */}
       <HeroFiveSons />
