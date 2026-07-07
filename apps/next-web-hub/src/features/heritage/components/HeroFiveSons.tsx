@@ -132,8 +132,7 @@ export function HeroFiveSons() {
         </AnimatePresence>
       )}
 
-      {/* Top Context - Institutional Identity */}
-      <div className="relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center md:items-start justify-center md:justify-start gap-10 md:gap-20 shrink-0 pb-10">
+      <div className="relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col md:flex-row-reverse items-center md:items-start justify-center md:justify-start gap-10 md:gap-20 shrink-0 pb-10">
         
         {/* Left: Lord Vishwakarma Emblem */}
         <motion.div 
@@ -158,7 +157,7 @@ export function HeroFiveSons() {
         {/* Right: Trilingual Typography */}
         <div className="flex flex-col text-center md:text-left flex-1 md:max-w-[65%] pt-6 md:pt-16 relative">
           <motion.div 
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center justify-center md:justify-start gap-4 mb-6"
           >
