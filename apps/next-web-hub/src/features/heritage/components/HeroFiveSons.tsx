@@ -38,12 +38,19 @@ export function HeroFiveSons() {
   const { t, i18n } = useTranslation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    const handle = requestAnimationFrame(() => {
+      setMounted(true);
+    });
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      cancelAnimationFrame(handle);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   const handleSnap = () => {
@@ -87,41 +94,43 @@ export function HeroFiveSons() {
       />
 
       {/* Trilingual Regional Motifs Overlay */}
-      <AnimatePresence mode="wait">
-        {i18n.language === 'en' && (
-          <motion.div
-            key="en-motif"
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 0.1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-right-top p-20"
-            style={{ 
-              backgroundImage: 'url(/images/hero/universal-motif.webp)', 
-              backgroundSize: '35%',
-            }}
-          />
-        )}
-        {i18n.language === 'te' && (
-          <motion.div
-            key="te-motif"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.15 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-contain bg-right-bottom"
-            style={{ backgroundImage: 'url(/images/hero/kakatiya-thoranam.png)' }}
-          />
-        )}
-        {i18n.language === 'hi' && (
-          <motion.div
-            key="hi-motif"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.15 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-center"
-            style={{ backgroundImage: 'url(/images/hero/nagara-shikhara.png)' }}
-          />
-        )}
-      </AnimatePresence>
+      {mounted && (
+        <AnimatePresence mode="wait">
+          {i18n.language === 'en' && (
+            <motion.div
+              key="en-motif"
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 0.1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-right-top p-20"
+              style={{ 
+                backgroundImage: 'url(/images/hero/universal-motif.webp)', 
+                backgroundSize: '35%',
+              }}
+            />
+          )}
+          {i18n.language === 'te' && (
+            <motion.div
+              key="te-motif"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.15 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-contain bg-right-bottom"
+              style={{ backgroundImage: 'url(/images/hero/kakatiya-thoranam.png)' }}
+            />
+          )}
+          {i18n.language === 'hi' && (
+            <motion.div
+              key="hi-motif"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.15 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-center"
+              style={{ backgroundImage: 'url(/images/hero/nagara-shikhara.png)' }}
+            />
+          )}
+        </AnimatePresence>
+      )}
 
       {/* Top Context - Institutional Identity */}
       <div className="relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center md:items-start justify-center md:justify-start gap-10 md:gap-20 shrink-0 pb-10">
