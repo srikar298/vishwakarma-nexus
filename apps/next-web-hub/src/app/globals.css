@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-display: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-ramaraja: var(--font-ramaraja), "Ramaraja", serif;
+  --font-rozha: var(--font-rozha), "Rozha One", serif;
+  --font-ntr: var(--font-ntr), "NTR", sans-serif;
+  --font-sahitya: var(--font-sahitya), "Sahitya", serif;
+  --font-anek: var(--font-anek-telugu), "Anek Telugu", sans-serif;
+
+  --color-turmeric: #FFC000;
+  --color-vermilion: #E34234;
+
+  --color-saffron-50: #fff7ed;
+  --color-saffron-100: #ffedd5;
+  --color-saffron-200: #fed7aa;
+  --color-saffron-300: #fdba74;
+  --color-saffron-400: #fb923c;
+  --color-saffron-500: #f97316;
+  --color-saffron-600: #ea580c;
+  --color-saffron-700: #c2410c;
+  --color-saffron-800: #9a3412;
+  --color-saffron-900: #7c2d12;
+
+  --color-gold-50: #fefce8;
+  --color-gold-100: #fef9c3;
+  --color-gold-200: #fef08a;
+  --color-gold-300: #fde047;
+  --color-gold-400: #facc15;
+  --color-gold-500: #eab308;
+  --color-gold-600: #ca8a04;
+  --color-gold-700: #a16207;
+  --color-gold-800: #854d0e;
+  --color-gold-900: #713f12;
+
+  --color-cream: #fdfaf5;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    line-height: 1.8; /* Enforces multi-script vertical bounds preventing Telugu/Hindi collision */
+  }
+  
+  body {
+    @apply bg-cream text-stone-800 font-sans;
+  }
+
+  /* Trilingual Auto-Switching Typography Engine */
+  :lang(te) {
+    @apply font-ntr;
+  }
+  :lang(te) h1, :lang(te) h2, :lang(te) h3, :lang(te) h4, :lang(te) h5, :lang(te) h6, :lang(te) .font-outfit {
+    @apply font-ramaraja;
+  }
+
+  :lang(hi) {
+    @apply font-sahitya;
+  }
+  :lang(hi) h1, :lang(hi) h2, :lang(hi) h3, :lang(hi) h4, :lang(hi) h5, :lang(hi) h6, :lang(hi) .font-outfit {
+    @apply font-rozha;
+  }
+
+  :lang(en) h1, :lang(en) h2, :lang(en) h3, :lang(en) h4, :lang(en) h5, :lang(en) h6, :lang(en) .font-outfit {
+    @apply font-display;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-stone-100;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-stone-300 rounded-full border-2 border-stone-100 hover:bg-saffron-400;
+  }
+
+  /* Focus States */
+  :focus-visible {
+    @apply outline-none ring-2 ring-saffron-500 ring-offset-2;
+  }
+
+  /* Mobile Touch Refinements */
+  @media (hover: none) {
+    button:active, 
+    a:active,
+    .active-scale:active {
+      @apply scale-95 transition-transform duration-75;
+    }
+  }
+}
+
+.glass {
+  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+}
+
+/* Utility to hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
