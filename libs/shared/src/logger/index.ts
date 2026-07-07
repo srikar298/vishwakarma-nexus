@@ -1,4 +1,4 @@
-import pino from 'pino';
+import { pino } from 'pino';
 import { config } from '../config';
 
 // Best Practice: Centralized logging configuration using validated config
