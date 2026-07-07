@@ -1,0 +1,609 @@
+{
+  "nav": {
+    "about": "About",
+    "events": "Events",
+    "gallery": "Gallery",
+    "join": "Join Community",
+    "vision": "Vision",
+    "vision_path": "Our Path",
+    "vision_mandate": "Mission & Mandate",
+    "heritage": "Heritage",
+    "heritage_legacy": "Legacy & Crafts",
+    "legends": "Legends",
+    "legends_icons": "Icons of Excellence",
+    "knowledge": "Knowledge",
+    "directory": "Directory",
+    "network": "Network",
+    "events_calendar": "Calendar & Meetups",
+    "gallery_archive": "Photographic Archive"
+  },
+  "hero": {
+    "welcome": "PRESERVING LINEAGE • EMPOWERING LIVES",
+    "title": "VISHWAKARMA",
+    "subtitle": "KNOWLEDGE CENTRE",
+    "description": "Preserving our 5,000-year ancestral legacy. Discover verified community matches on Parinaya Matrimony, and support master craftsmen via the Artisan Directory."
+  },
+  "heroSons": {
+    "manu": {
+      "name": "SRI MANU BRAHMA",
+      "craft": "Blacksmith (Iron)",
+      "gotra": "Sanaga Gotra",
+      "veda": "Rig Veda",
+      "desc": "The primordial fire. Manu Brahma bestowed the knowledge of metallurgy, forging the tools of civilization."
+    },
+    "maya": {
+      "name": "SRI MAYA BRAHMA",
+      "craft": "Carpenter (Wood)",
+      "gotra": "Sanatana Gotra",
+      "veda": "Yajur Veda",
+      "desc": "Master of sacred geometry. Maya Brahma crafted the intricate woodworks, chariots, and structures of the epics."
+    },
+    "thwashta": {
+      "name": "SRI TVASHTAR BRAHMA",
+      "craft": "Metal-smith (Brass/Alloys)",
+      "gotra": "Ahabhuna Gotra",
+      "veda": "Sama Veda",
+      "desc": "The master of non-ferrous alloys. Tvashtar Brahma crafted divine vessels, intricate gears, and weapons."
+    },
+    "shilpi": {
+      "name": "SRI SHILPI BRAHMA",
+      "craft": "Sculptor (Stone)",
+      "gotra": "Prathna Gotra",
+      "veda": "Atharva Veda",
+      "desc": "The eternal sculptor. Shilpi Brahma bestowed the science of Vastu and divine stone artistry."
+    },
+    "vishwajna": {
+      "name": "SRI VISHVAJNA BRAHMA",
+      "craft": "Goldsmith (Gold/Jewelry)",
+      "gotra": "Suparna Gotra",
+      "veda": "Pranava Veda",
+      "desc": "The luminous jeweler. Vishvajna Brahma crafts the solar brilliance and divine ornaments."
+    }
+  },
+  "about": {
+    "badge": "Preserving Heritage, Powering Futures",
+    "title": "About Vishwa Karma Knowledge Centre",
+    "heroDesc": "Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans and craftspeople in South India.",
+    "description": "Dedicated to the preservation and promotion of Vishwakarma heritage, craftsmanship, and ancient technical wisdom. Our centre serves as a hub for learning, community gathering, and spiritual growth.",
+    "mission": "Empowering our community through knowledge, education, and the celebration of our diverse traditions and expert skills.",
+    "card1Title": "Divine Architecture",
+    "card1Desc": "Preserving the sacred geometry and technical excellence of the universe's master architect.",
+    "card2Title": "Ancient Wisdom",
+    "card2Desc": "Documenting and sharing the technical knowledge found in the Sthapatya Veda and scriptures.",
+    "card3Title": "Technical Heritage",
+    "card3Desc": "Celebrating generations of precision, craftsmanship, and vocational mastery in our community.",
+    "regionalTitle": "Empowering Andhra Pradesh & Telangana",
+    "telanganaHub": "Telangana Registration Hub",
+    "telanganaDesc": "With over 2.8 lakh registrations and 85+ active training centers across 26 districts, we are leading the transformation of traditional trades in Telangana.",
+    "andhraOutreach": "Andhra Pradesh Outreach",
+    "andhraDesc": "Deeply rooted in districts like Konaseema and Vizianagaram, focusing on specialized training for Malakaar, Washermen, and other essential heritage trades.",
+    "registrations": "Registrations",
+    "certified": "Certified Recognition",
+    "skillUp": "Skill Upgradation",
+    "centers": "Centers",
+    "benefitsTitle": "Mission Benefits",
+    "benefit1Title": "Recognition",
+    "benefit1Desc": "PM Vishwakarma Certificate and ID Card for every artisan.",
+    "benefit2Title": "Training",
+    "benefit2Desc": "Basic and Advanced skill training with ₹500/day stipend.",
+    "benefit3Title": "Toolkit Grant",
+    "benefit3Desc": "₹15,000 grant for purchasing modern toolkits.",
+    "benefit4Title": "Credit Support",
+    "benefit4Desc": "Collateral-free loans up to ₹3 Lakh at 5% interest.",
+    "joinTitle": "Join the Vishwakarma Mission",
+    "joinDesc": "We invite artisans across all 18 traditional trades to join the Knowledge Centre and build a prosperous future together.",
+    "registerNow": "Register Now",
+    "mandate_link": "View Full Mandate",
+    "authority": "Institutional Authority under VKC Governance Board"
+  },
+  "vision": {
+    "badge": "Institutional Mandate 2026-2030",
+    "deepTitle": "Uniting the Precision of Five Millennia.",
+    "quote": "Vishwakarma Knowledge Centre is not just a digital platform; it is a strategic bridge connecting the sacred geometry of our ancestors to the industrial reality of tomorrow.",
+    "pillars": {
+      "pillar": "Strategic Pillar",
+      "whitepaper": "Read Full Whitepaper",
+      "timeline_hint": "Architecting the future since 3,000 BCE",
+      "goals": {
+        "identity": "Verified Digital Identity",
+        "skill": "Global Skill Bridge",
+        "credit": "Institutional Credit Score",
+        "scanning": "3D Heritage Scanning",
+        "digitalization": "Shastra Digitalization",
+        "tracking": "Artisan Lineage Tracking"
+      }
+    }
+  },
+  "events": {
+    "title": "Upcoming Events",
+    "subtitle": "Join us in celebrating our culture and traditions."
+  },
+  "gallery": {
+    "title": "Media Gallery",
+    "heritage": "Vishwa Karma Heritage",
+    "viewGoogle": "View on Google Photos",
+    "expand": "Expand",
+    "noPhotos": "No photos loaded yet"
+  },
+  "footer": {
+    "description": "Empowering the Vishwakarma community through technical excellence and cultural preservation.",
+    "quickLinks": "Quick Links",
+    "history": "Our History",
+    "calendar": "Calendar",
+    "media": "Media Library",
+    "contactUs": "Contact Us",
+    "contact": "Contact",
+    "address": "Main Road, Community Hall Area",
+    "rights": "All rights reserved."
+  },
+  "heritage": {
+    "nav": {
+      "title": "Heritage Archive",
+      "roots": "Vedic Roots",
+      "exhibits": "Gallery of Mastery",
+      "engineering": "Engineering Secrets"
+    },
+    "hero": {
+      "badge": "Heritage Repository",
+      "title_part1": "The",
+      "title_highlight": "Legacy",
+      "title_part2": "of Five Millennia",
+      "subtitle": "\"Documenting the structural, spiritual, and technical mastery of the Vishwakarma lineage.\""
+    },
+    "roots": {
+      "badge": "Ancient Heritage",
+      "title": "The Origins: Roots in the Vedas",
+      "excerpt": "He who is the world-architect, whose eye is everywhere, whose mouth is everywhere, whose arm is everywhere, whose foot is everywhere...",
+      "source": "Rig Veda: Vishwakarma Suktam (10.81)",
+      "description": "For over five millennia, the Vishwabrahmins have served as the architects of civilization, translating spiritual geometry into the physical wonders of our world.",
+      "features": {
+        "lineage": "Vedic Lineage",
+        "lineage_desc": "Pancha Brahma Shastras",
+        "architecture": "Sacred Architecture",
+        "architecture_desc": "Vastu Shastras",
+        "traditions": "Oral Traditions",
+        "traditions_desc": "Artisan Genealogies"
+      }
+    },
+    "kulas": {
+      "manu": {
+        "name": "Manu Kula (Blacksmith)",
+        "craft": "Iron & Steel – Blacksmiths",
+        "items": {
+          "iron-pillar": {
+            "title": "The Iron Pillar of Delhi",
+            "tech": "Phosphorus-Rich Iron Mastery",
+            "shortDesc": "A 1,600-year-old metallurgical wonder that has not rusted despite being exposed to the elements.",
+            "deepContext": {
+              "culturalPride": "The Manu craftsmen forged this pillar as an eternal testament to their metallurgical sovereignty, intended to stand longer than empires.",
+              "technical": "High phosphorus content and the absence of sulfur/manganese created a dynamic protective passive layer (misawite), a feat of ancient material science.",
+              "inclusivity": "Built during the Gupta era, it signifies a transition where artisan knowledge became central to state identity, inviting all lineages to witness technical perfection."
+            }
+          },
+          "wootz-steel": {
+            "title": "Wootz Steel (Damascus Blades)",
+            "tech": "Ancient Carbon-Nanotubes",
+            "shortDesc": "High-carbon steel pioneered in South India, exported globally for its unmatched edge and wave patterns.",
+            "deepContext": {
+              "culturalPride": "The secret of Wootz was the pride of Southern Indian Manu guilds, producing blades that could cut through silk and armor alike.",
+              "technical": "Crucible steel process that naturally formed carbon nanotubes within the steel matrix, providing both flexibility and extreme hardness.",
+              "inclusivity": "These blades were the first global luxury good, exported from the Deccan to the Middle East, symbolizing Indian engineering's global reach."
+            }
+          },
+          "furnaces": {
+            "title": "The Furnaces of Kodumanal",
+            "tech": "Crucible Steel Production",
+            "shortDesc": "Ancient industrial-scale iron production centers that supplied the world during the Sangam era.",
+            "deepContext": {
+              "culturalPride": "Kodumanal represents the industrial discipline of our ancestors, who turned simple earth into the world's finest steel through controlled fire.",
+              "technical": "High-temperature crucible techniques that allowed for precise carbon control, unmatched in the ancient world.",
+              "inclusivity": "These centers were hubs of trade and social interaction, where various communities worked alongside the master blacksmiths."
+            }
+          }
+        }
+      },
+      "maya": {
+        "name": "Maya Kula (Carpenter)",
+        "craft": "Structural Design – Architects",
+        "items": {
+          "ramappa": {
+            "title": "Ramappa: Sandbox Technology",
+            "tech": "Anti-Seismic Infrastructure",
+            "shortDesc": "The structural foundation that uses 'sandbox' technology to absorb seismic tremors.",
+            "deepContext": {
+              "culturalPride": "Maya architects designed Ramappa to be immortal, using engineering to defy the very earth beneath it.",
+              "technical": "The foundation is filled with sand that acts as an earthquake absorber, combined with floating bricks to reduce top-heavy loads.",
+              "inclusivity": "The temple is an 'inclusive miracle', standing firm through centuries of invasions and natural disasters as a symbol of structural unity."
+            }
+          },
+          "puri-rathas": {
+            "title": "The Chariots of Puri",
+            "tech": "Zero-Nail Load Joinery",
+            "shortDesc": "Massive wooden Rathas built every year using zero metal nails, relying entirely on ancient locking joints.",
+            "deepContext": {
+              "culturalPride": "Every year, Maya craftsmen recreate these massive chariots to demonstrate that tradition is a living, breathing science.",
+              "technical": "Complex wood-on-wood tension joints that can support dozens of tons of weight without a single drop of adhesive or metal.",
+              "inclusivity": "The construction involves the entire community in the Rath Yatra, making it the world's most inclusive mobile architectural festival."
+            }
+          },
+          "padmanabhapuram": {
+            "title": "Padmanabhapuram Palace",
+            "tech": "Natural Climate Control",
+            "shortDesc": "Commonly cited as the world's finest wooden architecture, featuring intricate natural temperature regulation.",
+            "deepContext": {
+              "culturalPride": "This palace is the height of Maya domestic architecture, where wood is treated with the same reverence as stone or gold.",
+              "technical": "Strategic ventilation and wood porosity controls that keep the interiors cool even in the peaking tropical heat of Kerala.",
+              "inclusivity": "Designed with large open halls for public assembly, promoting transparency between the ruler and the ruled."
+            }
+          }
+        }
+      },
+      "twashta": {
+        "name": "Twashta Kula (Metallurgists)",
+        "craft": "Metal & Acoustics – Metallurgists",
+        "items": {
+          "hampi-musical": {
+            "title": "Hampi: Musical Pillars",
+            "tech": "Acoustic Resonance Engineering",
+            "shortDesc": "Stone pillars designed to resonate like brass bells when tapped, a pinnacle of sonic architecture.",
+            "deepContext": {
+              "culturalPride": "Twashta craftsmen proved that stone is not silent; it is a musical instrument if understood with geological precision.",
+              "technical": "Selection of 'resonant granite' and hollow-carving to specific geological frequencies that match the Indian classical music scale.",
+              "inclusivity": "These pillars were used for community performances, making the very temple structure a participant in public music and joy."
+            }
+          },
+          "chola-nataraja": {
+            "title": "The Chola Nataraja (Bronze)",
+            "tech": "Lost-Wax Precision Molding",
+            "shortDesc": "Recognized globally as a masterpiece of bronze casting, balancing movement physics with spiritual pose.",
+            "deepContext": {
+              "culturalPride": "The Nataraja is the Twashta signature—a perfect marriage of atomic-level metallurgy and cosmic philosophy.",
+              "technical": "The 'Maduchista Vidhana' (lost wax) process allowed for a single, seamless bronze pour that defies the fragility of its thin limbs.",
+              "inclusivity": "This icon traveled the world, becoming a universal symbol of the cycle of life, transcending all cultural and linguistic barriers."
+            }
+          },
+          "aranmula-mirror": {
+            "title": "The Aranmula Metal Mirror",
+            "tech": "Molecular Reflectivity",
+            "shortDesc": "A secret alloy of copper and tin from Kerala. Unlike glass mirrors, this eliminates secondary reflections.",
+            "deepContext": {
+              "culturalPride": "Hand-polished for months, these mirrors are the only ones in the world that show the 'true' reflection without glass distortion.",
+              "technical": "A precise secret ratio of copper and tin that creates an front-surface reflection at the molecular level.",
+              "inclusivity": "Each mirror is considered a divine heirloom, passed down through generations regardless of wealth or status."
+            }
+          }
+        }
+      },
+      "shilpi": {
+        "name": "Shilpi Kula (Stone Masons)",
+        "craft": "Stone & Sculpture – Stone Masons",
+        "items": {
+          "kailasa-temple": {
+            "title": "Kailasa: Top-Down Monolith",
+            "tech": "Monolithic Excavation Logic",
+            "shortDesc": "The world's largest monolithic structure, carved from the top down out of a single mountain.",
+            "deepContext": {
+              "culturalPride": "Shilpi architects didn't build this temple; they 'released' it from the mountain, proving that faith can move mountains—literally.",
+              "technical": "Removal of over 200,000 tons of rock without a single structural error. Any mistake would have been unfixable as it was a subtraction process.",
+              "inclusivity": "A massive collaboration of Shilpi guilds from across India, blending Northern and Southern styles into a unified masterpiece."
+            }
+          },
+          "konark-wheel": {
+            "title": "Konark: Solar Calibration",
+            "tech": "Astronomical Precision",
+            "shortDesc": "The 24 wheels are hyper-precise sundials that calculate time by observing shadows.",
+            "deepContext": {
+              "culturalPride": "At Konark, the sun itself is the witness to Shilpi precision. The wheels are the 'clocks of the heavens'.",
+              "technical": "The placement of spokes and the central axle allow for time measurement accurate to within 2 minutes by purely geometric means.",
+              "inclusivity": "The Sun Temple was a center for astronomical learning, open to scholars and devotees from every corner of the world."
+            }
+          },
+          "madanikas-belur": {
+            "title": "The Madanikas of Belur",
+            "tech": "Micro-Dimensional Carving",
+            "shortDesc": "Detailed sculptures showing fingernails and moving jewelry chains, sculpted from hard soapstone.",
+            "deepContext": {
+              "culturalPride": "Legend says the sculptor Jakanachari proved that beauty is a mathematical certainty. These are the finest lithic figures ever made.",
+              "technical": "Undercutting techniques in Chloritic Schist (soapstone) that allowed for stone jewelry that actually moves when touched.",
+              "inclusivity": "The Madanikas celebrate the divine feminine in all its forms, representing a period of extreme social and artistic liberation."
+            }
+          }
+        }
+      },
+      "vishvajnya": {
+        "name": "Vishvajnya Kula (Goldsmiths)",
+        "craft": "Gold & Precious Metals – Goldsmiths",
+        "items": {
+          "mangala-sutra": {
+            "title": "The Sacred Mangala Sutra",
+            "tech": "Spiritual Geometry",
+            "shortDesc": "The spiritual bond of marriage, crafted with sacred geometry to protect the union.",
+            "deepContext": {
+              "culturalPride": "The Vishvajnya craftsman infuses every bead of gold with a prayer, turning an ornament into a sacred shield for the family.",
+              "technical": "Use of specific bead weights and gold purity that resonate with bio-energetic principles of the wearer.",
+              "inclusivity": "The Mangala Sutra is the universal thread of the Indian family, binding diverse cultures under a single sign of love and commitment."
+            }
+          },
+          "thanjavur-nakshi": {
+            "title": "Temple Jewellery of Thanjavur",
+            "tech": "Kunda-Nakshi Miniature Sculpture",
+            "shortDesc": "Divine iconography crafted with 'Kunda' (pure gold foil) to create 3D divine figures.",
+            "deepContext": {
+              "culturalPride": "To dorn the gods with gold is the highest form of service for a Vishvajnya, reflecting the inner radiance of the soul.",
+              "technical": "The Nakshi technique involves hammering gold into a three-dimensional form from the reverse, requiring extreme miniature precision.",
+              "inclusivity": "Originally for deities, this art form became the pride of every bride, democratizing the 'divine look' for all."
+            }
+          },
+          "golden-vimana": {
+            "title": "The Golden Vimana of Shrines",
+            "tech": "Sacred Architectural Gilding",
+            "shortDesc": "Gilding the heavens – the massive gold-plated spires that adorn India's most sacred temple sanctums.",
+            "deepContext": {
+              "culturalPride": "The Golden Vimana is a beacon of hope, a Vishvajnya's way of making the divine visible from miles away.",
+              "technical": "Layering of gold foil over copper sheets with such durability that they withstand centuries of weathering.",
+              "inclusivity": "Regardless of who enters the temple, the golden spire (Kalasham) offers a blessing to all who look upon it from afar."
+            }
+          }
+        }
+      }
+    },
+    "secrets_section": {
+      "badge": "Engineering Secrets",
+      "title": "Ancient Science & Material Precision",
+      "subtitle": "Moving beyond aesthetic admiration to understand the structural logic of the Pancha Brahma.",
+      "scan_label": "Scanning Heritage Site...",
+      "technical_analysis": "Technical Analysis",
+      "access_btn": "Access Full Research Library",
+      "items": {
+        "ramappa_science": {
+          "title": "The Floating Brick Technology",
+          "location": "Ramappa Temple",
+          "description": "Vishwabrahmins engineered lightweight bricks that float on water, significantly reducing the load on the foundation and allowing the temple to withstand high-magnitude earthquakes for 800+ years.",
+          "visual_hint": "Acoustic & Structural Physics",
+          "labels": {
+            "density": "Density",
+            "composition": "Composition",
+            "property": "Property"
+          }
+        },
+        "hampi_acoustics": {
+          "title": "Geological Sound Resonance",
+          "location": "Vittala Temple, Hampi",
+          "description": "The 56 musical pillars emit distinct musical notes when tapped. This was achieved by selecting specific granite types and hollow-carving them to precise geological resonant frequencies.",
+          "visual_hint": "Sonic Engineering",
+          "labels": {
+            "material": "Material",
+            "frequency": "Frequency",
+            "engineering": "Engineering"
+          }
+        },
+        "konark_precision": {
+          "title": "Astronomical Time Calibration",
+          "location": "Konark Sun Temple",
+          "description": "The 24 wheels of the chariot are not just decorative; they are hyper-precise sundials that can calculate time down to the minute by observing the shadow of the central axle.",
+          "visual_hint": "Astronomical Logic",
+          "labels": {
+            "accuracy": "Accuracy",
+            "geometry": "Geometry",
+            "feature": "Feature"
+          }
+        },
+        "wootz_metallurgy": {
+          "title": "Crucible Nanotechnology",
+          "location": "Wootz Steel (Deccan)",
+          "description": "Forged at extremely high temperatures in sealed crucibles with organic fluxes, Wootz steel naturally forms carbon nanotubes, achieving unprecedented hardness and flexibility.",
+          "visual_hint": "Ancient Metallurgy",
+          "labels": {
+            "carbon": "Carbon",
+            "process": "Process",
+            "strength": "Flexibility"
+          }
+        },
+        "misawite_passivation": {
+          "title": "Atmospheric Passivation",
+          "location": "Delhi Iron Pillar",
+          "description": "A 1,600-year-old iron pillar that defies rusting. High phosphorus content combined with a lack of sulfur formed a protective 'misawite' passive film, a masterpiece of ancient chemistry.",
+          "visual_hint": "Chemical Passivation",
+          "labels": {
+            "phosphorus": "Phosphorus",
+            "layer": "Passive Film",
+            "resistance": "Durability"
+          }
+        }
+      }
+    },
+    "cta": {
+      "title": "Preserve the Legacy",
+      "description": "Are you a descendant of the Pancha Brahma lineage or a researcher of ancient engineering? Join our digital archive initiative.",
+      "btn_historical": "Submit Historical Data",
+      "btn_volunteer": "Volunteer for Documentation"
+    },
+    "exhibits_labels": {
+      "technical_report": "Read Technical Report",
+      "technical": "Technical",
+      "collapse": "Collapse Details",
+      "cultural_pride": "Cultural Pride",
+      "inclusivity": "Inclusivity & Pride",
+      "drive": "Drive for Perfection",
+      "authorized": "Authorized Exhibit v1.0"
+    }
+  },
+  "founder": {
+    "badge": "Founder & Chief",
+    "title": "Brahmasri Vishwanadhula Pushpagiri",
+    "subtitle": "Founder & Chief, VKC",
+    "quote": "A visionary leader, restoring Vishwakarma's ancient grandeur.",
+    "bio": "From local streets to the national stage in Delhi, Brahmasri Vishwanadhula Pushpagiri's unwavering resolve has redefined empowerment for the community.",
+    "padayatra": "Completed a monumental 1,000+ km Padayatra in two phases, proving a life truly dedicated to the welfare of the Vishwakarma community.",
+    "readMore": "View Journey",
+    "fullBio": "Our Founder's Vision",
+    "mission": "Redefining Empowerment",
+    "visionTitle": "Ancient Grandeur",
+    "visionDesc": "Restoring the legacy and tradition of five millennia.",
+    "institutional": "Institutional",
+    "chairman": "Chairman"
+  },
+  "donors": {
+    "page_title": "Community Donors",
+    "page_desc": "Honor roll of our community supporters.",
+    "badge": "Community Support",
+    "title": "The Pillar of Our Legacy",
+    "subtitle": "Every contribution builds the foundation for our next five millennia. Join the ranks of visionaries empowering the Vishwakarma community.",
+    "cta_contribute": "Make a Contribution",
+    "wall_title": "Wall of Honor",
+    "wall_subtitle": "Recognizing our esteemed sponsors",
+    "tiers": {
+      "patron": { "name": "Patron Level", "amount": "₹5,00,000+" },
+      "gold": { "name": "Gold Level", "amount": "₹1,00,000+" },
+      "silver": { "name": "Silver Level", "amount": "₹50,000+" }
+    }
+  },
+  "network": {
+    "hub": {
+      "seo_title": "Professional Network Hub",
+      "seo_description": "Connect with Vishwakarma professionals, community leaders, and mentors across the globe.",
+      "badge": "Global Community Network",
+      "title": "The Unity Engine",
+      "subtitle": "A strategic ecosystem connecting our master artisans with the modern professional elite—doctors, engineers, and visionary leaders.",
+      "search_placeholder": "Find a mentor or leader...",
+      "tabs": {
+        "professionals": "Professionals Hub",
+        "officials": "Officials Directory",
+        "education": "Education & Career",
+        "matrimony": "Community Matrimony"
+      },
+      "cta": {
+        "title": "Is Your Expertise Missing?",
+        "subtitle": "Whether you are a Doctor, Engineer, or Community Leader, your mentorship can shape the next generation of Vishwakarma talent.",
+        "list_profile": "List Your Profile",
+        "register_mentor": "Register as Mentor"
+      }
+    },
+    "professionals": {
+      "title": "Professional Mentors",
+      "subtitle": "Find experts in your field for career guidance and technical support.",
+      "view_all": "View All Experts",
+      "labels": {
+        "location": "Location",
+        "experience": "Experience",
+        "mentorship": "Mentorship Focus"
+      },
+      "actions": {
+        "request": "Request Mentor"
+      }
+    },
+    "officials": {
+      "title": "Leaders & Representatives",
+      "subtitle": "Honoring those serving in high government and social positions.",
+      "labels": {
+        "department": "Department",
+        "impact": "Core Impact",
+        "region": "Region"
+      },
+      "actions": {
+        "contact": "Contact Office",
+        "advocacy": "Join Advocacy"
+      },
+      "advocacy_title": "Community Advocacy & Rights",
+      "advocacy_subtitle": "Join our legislative support group to track and advocate for Vishwakarma community rights and political representation."
+    },
+    "matrimony": {
+      "badge": "Trust-Based Matching",
+      "title": "Refined Connections for the Vishwakarma Community",
+      "subtitle": "A discreet, membership-only portal designed to connect individuals sharing common heritage, values, and professional aspirations.",
+      "actions": {
+        "create_profile": "Create Profile",
+        "search_criteria": "Search Criteria",
+        "register_membership": "Register for Membership"
+      },
+      "safety": {
+        "privacy": {
+          "title": "Absolute Privacy",
+          "desc": "Photos and personal details are only visible to verified members."
+        },
+        "backgrounds": {
+          "title": "Verified Backgrounds",
+          "desc": "Every profile is cross-referenced with the VKC Membership Registry."
+        },
+        "matches": {
+          "title": "Hand-Picked Matches",
+          "desc": "Strategic matchmaking based on educational and professional compatibility."
+        }
+      },
+      "lock": {
+        "title": "Join to Access Full Profiles",
+        "desc": "For the safety and privacy of our community members, only registered VKC Identity Card holders can view full profiles and initiate contact."
+      }
+    },
+    "education": {
+      "badge": "Empowering the Future",
+      "title": "Scholarships & Career Acceleration",
+      "subtitle": "We bridge the gap between traditional heritage and modern professional success by providing the resources and guidance our students need to excel.",
+      "actions": {
+        "learn_more": "Learn More",
+        "request_guidance": "Request Guidance"
+      },
+      "career_guidance": {
+        "title": "Looking for Career Guidance?",
+        "subtitle": "Connect with our community mentors for one-on-one sessions on engineering, medicine, and administrative services preparation."
+      }
+    }
+  },
+  "onboarding": {
+    "steps": {
+      "personal": "Personal",
+      "trade": "Trade",
+      "address": "Address",
+      "nominee": "Nominee",
+      "fee": "Fee & Payment"
+    },
+    "form_title": "Vishwakarma Knowledge Centre - Membership Registration Form",
+    "personal_details": "Personal Details",
+    "personal_subtitle": "Please fill in your primary details to verify your identity.",
+    "full_name": "Full Name",
+    "placeholder_name": "e.g. Sri Bhaskar Chary",
+    "father_name": "Father's Name",
+    "placeholder_father": "e.g. Sri Chandra Chary",
+    "dob": "Date of Birth",
+    "age": "Age",
+    "blood_group": "Blood Group",
+    "select_blood_group": "Select Blood Group",
+    "aadhaar": "Aadhaar Number",
+    "placeholder_aadhaar": "12-digit Aadhaar Number",
+    "trade_details": "Profession & Kula",
+    "trade_subtitle": "Select your branch of the 5-original clans and your specialization.",
+    "kula_branch": "Pancha-Kula Branch",
+    "select_kula": "Select Branch",
+    "specialization": "Specialization",
+    "placeholder_specialization": "e.g. Traditional Temple Architecture",
+    "address_details": "Address Details",
+    "address_subtitle": "Please provide your residential address and contact number.",
+    "house_street": "House Number/Street",
+    "placeholder_house": "e.g. H.No. 1-23, Temple Street",
+    "constituency": "Constituency",
+    "placeholder_constituency": "e.g. Warangal West",
+    "mandal_district": "Mandal/District",
+    "placeholder_mandal_district": "e.g. Hanamkonda / Warangal",
+    "phone": "Phone Number (Contact)",
+    "placeholder_phone": "e.g. +91 98480 XXXXX",
+    "nominee_details": "Nominee Details",
+    "nominee_subtitle": "Please provide nominee details for your membership card registry.",
+    "nominee_name": "Nominee Name",
+    "placeholder_nominee": "e.g. Lakshmi Chary",
+    "nominee_age": "Age",
+    "relation": "Relation",
+    "placeholder_relation": "e.g. Spouse, Son, Daughter",
+    "payment_step": "Verification Fee",
+    "payment_subtitle": "One-time fee for physical toolkit support and registry maintenance.",
+    "official_fee": "Official Registration Fee",
+    "payment_desc": "Scan the QR code below to make the payment of ₹500.",
+    "upi_id": "UPI ID",
+    "transaction_id": "Transaction ID / Reference Number",
+    "placeholder_transaction": "e.g. TXN123456789",
+    "secure_payment": "Secure 256-bit Encrypted Payment",
+    "processing_payment": "Processing Secure Payment...",
+    "continue": "Continue",
+    "back": "Back",
+    "pay_submit": "Pay & Issue ID"
+  }
+}
