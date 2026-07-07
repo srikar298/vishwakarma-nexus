@@ -125,7 +125,7 @@ export function HeroFiveSons() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.15 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-center"
+              className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-top"
               style={{ backgroundImage: 'url(/images/features/home/hero/nagara-shikhara.png)' }}
             />
           )}
