@@ -30,7 +30,7 @@ const DIGNITARIES = [
     subEn: "ACP, EOW-CCS, Hyderabad",
     subTe: "ACP, EOW-CCS, హైదరాబాద్",
     subHi: "एसीपी, EOW-CCS, हैदराबाद",
-    photo: "/images/guests/km-kiran-kumar.jpg",
+    photo: "/images/features/home/guests/km-kiran-kumar.jpg",
   },
   // ── TIER: govt ─ Government Officials ────────────────────────────────────
 
@@ -43,7 +43,7 @@ const DIGNITARIES = [
     subEn: "Member of Legislative Council, Telangana",
     subTe: "శాసన మండలి సభ్యులు, తెలంగాణ",
     subHi: "विधान परिषद सदस्य, तेलंगाना",
-    photo: "/images/guests/dasoju-sravan.jpg",
+    photo: "/images/features/home/guests/dasoju-sravan.jpg",
   },
   {
     tier: 'govt',
@@ -53,7 +53,7 @@ const DIGNITARIES = [
     subEn: "Addl. Collector, Vikarabad District",
     subTe: "అడిషనల్ కలెక్టర్, వికారాబాద్ జిల్లా",
     subHi: "अतिरिक्त कलेक्टर, विकाराबाद जिला",
-    photo: "/images/guests/e-venkatachary.jpg",
+    photo: "/images/features/home/guests/e-venkatachary.jpg",
   },
   // ── TIER: vkc ─ VKC Core Leadership ─────────────────────────────────────
   {
@@ -64,7 +64,7 @@ const DIGNITARIES = [
     subEn: "President, VKC Telangana",
     subTe: "అధ్యక్షులు, VKC తెలంగాణ",
     subHi: "अध्यक्ष, VKC तेलंगाना",
-    photo: "/images/guests/praveen-kumar.jpg",
+    photo: "/images/features/home/guests/praveen-kumar.jpg",
   },
   {
     tier: 'vkc',
@@ -74,7 +74,7 @@ const DIGNITARIES = [
     subEn: "National Joint Secretary, VKC",
     subTe: "జాతీయ సంయుక్త కార్యదర్శి, VKC",
     subHi: "राष्ट्रीय संयुक्त सचिव, VKC",
-    photo: "/images/guests/solleti-prabhakara.jpg",
+    photo: "/images/features/home/guests/solleti-prabhakara.jpg",
   },
   // ── TIER: community ─ Distinguished Guests ───────────────────────────────
   {
@@ -85,7 +85,7 @@ const DIGNITARIES = [
     subEn: "Famous Public Doctor & Social Activist",
     subTe: "ప్రముఖ వైద్యులు & సామాజిక కార్యకర్త",
     subHi: "प्रसिद्ध चिकित्सक एवं सामाजिक कार्यकर्ता",
-    photo: "/images/guests/harikanth-acharya.jpg",
+    photo: "/images/features/home/guests/harikanth-acharya.jpg",
   },
   {
     tier: 'community',
@@ -95,7 +95,7 @@ const DIGNITARIES = [
     subEn: "State Vishwakarma Leader & Senior Politician",
     subTe: "రాష్ట్ర విశ్వకర్మ నాయకులు & సీనియర్ రాజకీయవేత్త",
     subHi: "राज्य विश्वकर्मा नेता एवं वरिष्ठ राजनेता",
-    photo: "/images/guests/puligilla-prakash.jpg",
+    photo: "/images/features/home/guests/puligilla-prakash.jpg",
   },
   {
     tier: 'community',
@@ -105,7 +105,7 @@ const DIGNITARIES = [
     subEn: "Ex-National BC Commission Member",
     subTe: "మాజీ జాతీయ బీసీ కమిషన్ సభ్యులు",
     subHi: "पूर्व राष्ट्रीय पिछड़ा वर्ग आयोग सदस्य",
-    photo: "/images/guests/thalloju-achary.jpg",
+    photo: "/images/features/home/guests/thalloju-achary.jpg",
   },
   {
     tier: 'community',
@@ -115,7 +115,7 @@ const DIGNITARIES = [
     subEn: "Senior Congress Party Leader",
     subTe: "సీనియర్ కాంగ్రెస్ పార్టీ నాయకులు",
     subHi: "वरिष्ठ कांग्रेस पार्टी नेता",
-    photo: "/images/guests/varnoju-balakrishna.jpg",
+    photo: "/images/features/home/guests/varnoju-balakrishna.jpg",
   },
   {
     tier: 'community',
@@ -125,7 +125,7 @@ const DIGNITARIES = [
     subEn: "Senior BJP Leader, Mahabubnagar",
     subTe: "సీనియర్ బీజేపీ నాయకులు, మహబూబ్‌నగర్",
     subHi: "वरिष्ठ भाजपा नेता, महबूबनगर",
-    photo: "/images/guests/vadla-laxminarayana.jpg",
+    photo: "/images/features/home/guests/vadla-laxminarayana.jpg",
   },
   {
     tier: 'community',
@@ -135,7 +135,7 @@ const DIGNITARIES = [
     subEn: "Ex-Corporator GHMC & BJP Senior Leader",
     subTe: "మాజీ కార్పొరేటర్ GHMC & బీజేపీ సీనియర్ నాయకులు",
     subHi: "पूर्व पार्षद GHMC एवं भाजपा वरिष्ठ नेता",
-    photo: "/images/guests/ravi-chary.jpg",
+    photo: "/images/features/home/guests/ravi-chary.jpg",
   },
   {
     tier: 'community',
@@ -145,7 +145,7 @@ const DIGNITARIES = [
     subEn: "Senior BJP Leader",
     subTe: "సీనియర్ బీజేపీ నాయకురాలు",
     subHi: "वरिष्ठ भाजपा नेत्री",
-    photo: "/images/guests/bibinagar-anuradha.jpg",
+    photo: "/images/features/home/guests/bibinagar-anuradha.jpg",
   },
   {
     tier: 'community',
@@ -155,7 +155,7 @@ const DIGNITARIES = [
     subEn: "President, Swarnakara Sangham, Mahabubnagar",
     subTe: "అధ్యక్షులు, స్వర్ణకార సంఘం, మహబూబ్‌నగర్",
     subHi: "अध्यक्ष, स्वर्णकार संघ, महबूबनगर",
-    photo: "/images/guests/ramesh-chary.jpg",
+    photo: "/images/features/home/guests/ramesh-chary.jpg",
   },
   {
     tier: 'community',
@@ -165,7 +165,7 @@ const DIGNITARIES = [
     subEn: "Sarpanch, Social Activist & Senior Leader",
     subTe: "సర్పంచ్, సామాజిక కార్యకర్త & సీనియర్ నాయకులు",
     subHi: "सरपंच, सामाजिक कार्यकर्ता एवं वरिष्ठ नेता",
-    photo: "/images/guests/chandramouli-chary.jpg",
+    photo: "/images/features/home/guests/chandramouli-chary.jpg",
   },
   {
     tier: 'community',
@@ -175,7 +175,7 @@ const DIGNITARIES = [
     subEn: "General Secretary, Telangana Jagruthi",
     subTe: "సాధారణ కార్యదర్శి, తెలంగాణ జాగృతి",
     subHi: "महासचिव, तेलंगाना जागृति",
-    photo: "/images/guests/naveen-achary.jpg",
+    photo: "/images/features/home/guests/naveen-achary.jpg",
   },
   {
     tier: 'community',
@@ -185,7 +185,7 @@ const DIGNITARIES = [
     subEn: "Vishwakarma Leader & Social Activist",
     subTe: "విశ్వకర్మ నాయకులు & సామాజిక కార్యకర్త",
     subHi: "विश्वकर्मा नेता एवं सामाजिक कार्यकर्ता",
-    photo: "/images/guests/sai-prakash.jpg",
+    photo: "/images/features/home/guests/sai-prakash.jpg",
   },
   {
     tier: 'community',
@@ -195,7 +195,7 @@ const DIGNITARIES = [
     subEn: "Adhyakshulu, PadhaSaraswata Peetam, Telangana",
     subTe: "అధ్యక్షులు, పాదసరస్వత పీఠం, తెలంగాణ",
     subHi: "अध्यक्ष, पादसरस्वत पीठम, तेलंगाना",
-    photo: "/images/guests/bhanu-prakash.jpg",
+    photo: "/images/features/home/guests/bhanu-prakash.jpg",
   },
   // ── TIER: social ─ Social Icons ───────────────────────────────────────────
   {
@@ -206,7 +206,7 @@ const DIGNITARIES = [
     subEn: "Social Activist",
     subTe: "సామాజిక కార్యకర్త",
     subHi: "सामाजिक कार्यकर्ता",
-    photo: "/images/guests/nallanagula-sriman.jpg",
+    photo: "/images/features/home/guests/nallanagula-sriman.jpg",
   },
   {
     tier: 'social',
@@ -216,7 +216,7 @@ const DIGNITARIES = [
     subEn: "Social Activist",
     subTe: "సామాజిక కార్యకర్త",
     subHi: "सामाजिक कार्यकर्ता",
-    photo: "/images/guests/sadashiva-chary.jpg",
+    photo: "/images/features/home/guests/sadashiva-chary.jpg",
   },
   {
     tier: 'social',
@@ -226,7 +226,7 @@ const DIGNITARIES = [
     subEn: "Sarpanch, Nawabpet & Social Activist",
     subTe: "సర్పంచ్, నవాబ్‌పేట & సామాజిక కార్యకర్త",
     subHi: "सरपंच, नवाबपेट एवं सामाजिक कार्यकर्ता",
-    photo: "/images/guests/geetha-rani.jpg",
+    photo: "/images/features/home/guests/geetha-rani.jpg",
   },
 ];
 
@@ -234,28 +234,28 @@ const DIGNITARIES = [
 // objectPosition: where to anchor within the container (CSS object-position)
 // scale: zoom factor applied via transform
 const PHOTO_CONFIG: Record<string, { objectPosition: string; scale: number }> = {
-  '/images/guests/km-kiran-kumar.jpg':        { objectPosition: '75% 8%',  scale: 1.6 },
-  '/images/guests/seethakka.jpg':             { objectPosition: '72% 20%', scale: 1.5 },
-  '/images/guests/sirikonda-madhusudhana.jpg':{ objectPosition: '65% 30%', scale: 1.45 },
-  '/images/guests/dasoju-sravan.jpg':         { objectPosition: '72% 5%',  scale: 1.7 },
-  '/images/guests/e-venkatachary.jpg':        { objectPosition: '72% 28%', scale: 1.5 },
-  '/images/guests/praveen-kumar.jpg':         { objectPosition: '72% 38%', scale: 1.55 },
-  '/images/guests/solleti-prabhakara.jpg':    { objectPosition: '68% 50%', scale: 1.65 },
-  '/images/guests/harikanth-acharya.jpg':     { objectPosition: '72% 25%', scale: 1.5 },
-  '/images/guests/puligilla-prakash.jpg':     { objectPosition: '72% 8%',  scale: 1.65 },
-  '/images/guests/thalloju-achary.jpg':       { objectPosition: '72% 3%',  scale: 1.8 },
-  '/images/guests/varnoju-balakrishna.jpg':   { objectPosition: '28% 22%', scale: 1.6 },
-  '/images/guests/vadla-laxminarayana.jpg':   { objectPosition: '72% 8%',  scale: 1.7 },
-  '/images/guests/ravi-chary.jpg':            { objectPosition: '72% 12%', scale: 1.6 },
-  '/images/guests/bibinagar-anuradha.jpg':    { objectPosition: '72% 12%', scale: 1.55 },
-  '/images/guests/ramesh-chary.jpg':          { objectPosition: '72% 33%', scale: 1.5 },
-  '/images/guests/chandramouli-chary.jpg':    { objectPosition: '72% 28%', scale: 1.6 },
-  '/images/guests/naveen-achary.jpg':         { objectPosition: '68% 28%', scale: 1.5 },
-  '/images/guests/sai-prakash.jpg':           { objectPosition: '72% 8%',  scale: 1.7 },
-  '/images/guests/bhanu-prakash.jpg':         { objectPosition: '68% 25%', scale: 1.5 },
-  '/images/guests/nallanagula-sriman.jpg':    { objectPosition: '65% 52%', scale: 1.65 },
-  '/images/guests/sadashiva-chary.jpg':       { objectPosition: '68% 35%', scale: 1.55 },
-  '/images/guests/geetha-rani.jpg':           { objectPosition: '38% 5%',  scale: 1.75 },
+  '/images/features/home/guests/km-kiran-kumar.jpg':        { objectPosition: '75% 8%',  scale: 1.6 },
+  '/images/features/home/guests/seethakka.jpg':             { objectPosition: '72% 20%', scale: 1.5 },
+  '/images/features/home/guests/sirikonda-madhusudhana.jpg':{ objectPosition: '65% 30%', scale: 1.45 },
+  '/images/features/home/guests/dasoju-sravan.jpg':         { objectPosition: '72% 5%',  scale: 1.7 },
+  '/images/features/home/guests/e-venkatachary.jpg':        { objectPosition: '72% 28%', scale: 1.5 },
+  '/images/features/home/guests/praveen-kumar.jpg':         { objectPosition: '72% 38%', scale: 1.55 },
+  '/images/features/home/guests/solleti-prabhakara.jpg':    { objectPosition: '68% 50%', scale: 1.65 },
+  '/images/features/home/guests/harikanth-acharya.jpg':     { objectPosition: '72% 25%', scale: 1.5 },
+  '/images/features/home/guests/puligilla-prakash.jpg':     { objectPosition: '72% 8%',  scale: 1.65 },
+  '/images/features/home/guests/thalloju-achary.jpg':       { objectPosition: '72% 3%',  scale: 1.8 },
+  '/images/features/home/guests/varnoju-balakrishna.jpg':   { objectPosition: '28% 22%', scale: 1.6 },
+  '/images/features/home/guests/vadla-laxminarayana.jpg':   { objectPosition: '72% 8%',  scale: 1.7 },
+  '/images/features/home/guests/ravi-chary.jpg':            { objectPosition: '72% 12%', scale: 1.6 },
+  '/images/features/home/guests/bibinagar-anuradha.jpg':    { objectPosition: '72% 12%', scale: 1.55 },
+  '/images/features/home/guests/ramesh-chary.jpg':          { objectPosition: '72% 33%', scale: 1.5 },
+  '/images/features/home/guests/chandramouli-chary.jpg':    { objectPosition: '72% 28%', scale: 1.6 },
+  '/images/features/home/guests/naveen-achary.jpg':         { objectPosition: '68% 28%', scale: 1.5 },
+  '/images/features/home/guests/sai-prakash.jpg':           { objectPosition: '72% 8%',  scale: 1.7 },
+  '/images/features/home/guests/bhanu-prakash.jpg':         { objectPosition: '68% 25%', scale: 1.5 },
+  '/images/features/home/guests/nallanagula-sriman.jpg':    { objectPosition: '65% 52%', scale: 1.65 },
+  '/images/features/home/guests/sadashiva-chary.jpg':       { objectPosition: '68% 35%', scale: 1.55 },
+  '/images/features/home/guests/geetha-rani.jpg':           { objectPosition: '38% 5%',  scale: 1.75 },
 };
 
 const getInitials = (name: string) => {

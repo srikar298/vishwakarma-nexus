@@ -46,7 +46,7 @@ export const HomePage = () => {
     "name": "Vishwakarma Knowledge Centre",
     "alternateName": "VKC",
     "url": "https://vishwakarmaknowledgecentre.org",
-    "logo": "https://vishwakarmaknowledgecentre.org/images/emblem.png",
+    "logo": "https://vishwakarmaknowledgecentre.org/images/shared/emblem.png",
     "description": "A dedicated institution for the holistic support, recognition, and skill upgradation of traditional artisans.",
     "address": {
       "@type": "PostalAddress",

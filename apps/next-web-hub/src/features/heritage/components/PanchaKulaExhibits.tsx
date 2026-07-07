@@ -27,45 +27,45 @@ export const PanchaKulaExhibits = () => {
       id: 'manu',
       color: "text-stone-500",
       items: [
-        { id: 'iron-pillar', img: "/images/heritage/exhibits/manu-iron-pillar.jpg" },
-        { id: 'wootz-steel', img: "/images/heritage/exhibits/manu-wootz-steel.jpg" },
-        { id: 'furnaces', img: "/images/heritage/exhibits/manu-furnaces.jpg" }
+        { id: 'iron-pillar', img: "/images/features/heritage/exhibits/manu-iron-pillar.jpg" },
+        { id: 'wootz-steel', img: "/images/features/heritage/exhibits/manu-wootz-steel.jpg" },
+        { id: 'furnaces', img: "/images/features/heritage/exhibits/manu-furnaces.jpg" }
       ]
     },
     {
       id: 'maya',
       color: "text-amber-800",
       items: [
-        { id: 'ramappa', img: "/images/heritage/exhibits/maya-ramappa.jpg" },
-        { id: 'puri-rathas', img: "/images/heritage/exhibits/maya-puri-ratha.jpg" },
-        { id: 'padmanabhapuram', img: "/images/heritage/exhibits/maya-padmanabhapuram.jpg" }
+        { id: 'ramappa', img: "/images/features/heritage/exhibits/maya-ramappa.jpg" },
+        { id: 'puri-rathas', img: "/images/features/heritage/exhibits/maya-puri-ratha.jpg" },
+        { id: 'padmanabhapuram', img: "/images/features/heritage/exhibits/maya-padmanabhapuram.jpg" }
       ]
     },
     {
       id: 'twashta',
       color: "text-orange-600",
       items: [
-        { id: 'hampi-musical', img: "/images/heritage/exhibits/twashta-hampi-pillars.jpg" },
-        { id: 'chola-nataraja', img: "/images/heritage/exhibits/twashta-nataraja.jpg" },
-        { id: 'aranmula-mirror', img: "/images/heritage/exhibits/twashta-mirror.jpg" }
+        { id: 'hampi-musical', img: "/images/features/heritage/exhibits/twashta-hampi-pillars.jpg" },
+        { id: 'chola-nataraja', img: "/images/features/heritage/exhibits/twashta-nataraja.jpg" },
+        { id: 'aranmula-mirror', img: "/images/features/heritage/exhibits/twashta-mirror.jpg" }
       ]
     },
     {
       id: 'shilpi',
       color: "text-stone-700",
       items: [
-        { id: 'kailasa-temple', img: "/images/heritage/exhibits/shilpi-kailasa.jpg" },
-        { id: 'konark-wheel', img: "/images/heritage/exhibits/shilpi-konark.webp" },
-        { id: 'madanikas-belur', img: "/images/heritage/exhibits/shilpi-madanika.jpg" }
+        { id: 'kailasa-temple', img: "/images/features/heritage/exhibits/shilpi-kailasa.jpg" },
+        { id: 'konark-wheel', img: "/images/features/heritage/exhibits/shilpi-konark.webp" },
+        { id: 'madanikas-belur', img: "/images/features/heritage/exhibits/shilpi-madanika.jpg" }
       ]
     },
     {
       id: 'vishvajnya',
       color: "text-yellow-600",
       items: [
-        { id: 'mangala-sutra', img: "/images/heritage/exhibits/vishvajnya-mangalasutra.jpg" },
-        { id: 'thanjavur-nakshi', img: "/images/heritage/exhibits/vishvajnya-jewellery.jpg" },
-        { id: 'golden-vimana', img: "/images/heritage/exhibits/vishvajnya-golden-vimana.jpg" }
+        { id: 'mangala-sutra', img: "/images/features/heritage/exhibits/vishvajnya-mangalasutra.jpg" },
+        { id: 'thanjavur-nakshi', img: "/images/features/heritage/exhibits/vishvajnya-jewellery.jpg" },
+        { id: 'golden-vimana', img: "/images/features/heritage/exhibits/vishvajnya-golden-vimana.jpg" }
       ]
     }
   ];

@@ -25,8 +25,8 @@ export const FounderSection = () => {
           >
             <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white group-hover:shadow-vermilion/10 transition-shadow">
                 <img
-                  src="/images/founder/portrait.webp"
-                  srcSet="/images/founder/portrait-400.webp 400w, /images/founder/portrait-800.webp 800w"
+                  src="/images/features/home/founder/portrait.webp"
+                  srcSet="/images/features/home/founder/portrait-400.webp 400w, /images/features/home/founder/portrait-800.webp 800w"
                   sizes="(max-width: 768px) 300px, 500px"
                   alt="Founder"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"

@@ -412,7 +412,7 @@ export const DirectoryPage = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 mt-24">
         <div className="bg-vermilion rounded-[3rem] p-12 md:p-20 relative overflow-hidden shadow-[0_40px_100px_rgba(227,66,52,0.2)]">
           <motion.img 
-            src="/images/hero/mandala-motif.webp"
+            src="/images/features/home/hero/mandala-motif.webp"
             alt="Decorative Mandala Motif"
             animate={{ rotate: 360 }}
             transition={{ duration: 100, repeat: Infinity, ease: "linear" }}

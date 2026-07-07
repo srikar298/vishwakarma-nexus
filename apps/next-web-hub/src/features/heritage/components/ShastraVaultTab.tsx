@@ -66,7 +66,7 @@ export const ShastraVaultTab = () => {
 
             <div className="lg:w-1/2 relative aspect-video bg-stone-100 rounded-[2.5rem] overflow-hidden border border-stone-200 shadow-lg">
               <img 
-                src="/images/heritage/hampi-monolith.jpg" 
+                src="/images/features/heritage/hampi-monolith.jpg" 
                 alt="Hampi Monolithic Architectural Heritage" 
                 className="w-full h-full object-cover"
                 onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600'; }}
@@ -144,10 +144,10 @@ export const ShastraVaultTab = () => {
 
       case 'legends':
         const legends = [
-          { name: "P. Veerabrahmendra Swamy", title: "Prophet & Reformer", img: "/images/legends/veerabrahma.jpg" },
-          { name: "Amarashilpi Jakanachari", title: "Master Sculptor", img: "/images/legends/jakanachari.jpg" },
-          { name: "Sri Maroju Veeranna", title: "Freedom Fighter", img: "/images/legends/maroju-veeranna.jpg" },
-          { name: "Sri Ganala Rammurthy", title: "Architectural Visionary", img: "/images/legends/ganala-rammurthy.jpg" }
+          { name: "P. Veerabrahmendra Swamy", title: "Prophet & Reformer", img: "/images/features/heritage/legends/veerabrahma.jpg" },
+          { name: "Amarashilpi Jakanachari", title: "Master Sculptor", img: "/images/features/heritage/legends/jakanachari.jpg" },
+          { name: "Sri Maroju Veeranna", title: "Freedom Fighter", img: "/images/features/heritage/legends/maroju-veeranna.jpg" },
+          { name: "Sri Ganala Rammurthy", title: "Architectural Visionary", img: "/images/features/heritage/legends/ganala-rammurthy.jpg" }
         ];
 
         return (

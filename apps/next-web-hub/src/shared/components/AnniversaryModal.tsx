@@ -15,7 +15,7 @@ const DIGNITARIES = [
     subEn: "Chief Guest, ACP Hyderabad",
     subTe: "ముఖ్య అతిథి, ACP హైదరాబాద్",
     subHi: "मुख्य अतिथि, एसीपी हैदराबाद",
-    photo: "/images/guests/km-kiran-kumar.jpg"
+    photo: "/images/features/home/guests/km-kiran-kumar.jpg"
   },
   {
     nameEn: "E. Venkatachary garu",
@@ -24,7 +24,7 @@ const DIGNITARIES = [
     subEn: "Additional Collector",
     subTe: "అడిషనల్ కలెక్టర్",
     subHi: "अतिरिक्त कलेक्टर",
-    photo: "/images/guests/e-venkatachary.jpg"
+    photo: "/images/features/home/guests/e-venkatachary.jpg"
   },
   {
     nameEn: "Brahmasri Kondoju Praveen Kumar Chary garu",
@@ -33,7 +33,7 @@ const DIGNITARIES = [
     subEn: "President, VKC Telangana",
     subTe: "అధ్యక్షులు, VKC తెలంగాణ",
     subHi: "अध्यक्ष, VKC तेलंगाना",
-    photo: "/images/guests/praveen-kumar.jpg"
+    photo: "/images/features/home/guests/praveen-kumar.jpg"
   },
   {
     nameEn: "Brahmasri Solleti Prabhakara Chary garu",
@@ -42,7 +42,7 @@ const DIGNITARIES = [
     subEn: "National Joint Secretary, VKC",
     subTe: "జాతీయ సంయుక్త కార్యదర్శి, VKC",
     subHi: "राष्ट्रीय संयुक्त सचिव, VKC",
-    photo: "/images/guests/solleti-prabhakara.jpg"
+    photo: "/images/features/home/guests/solleti-prabhakara.jpg"
   },
   {
     nameEn: "Dr. P. Harikanth Acharya garu",
@@ -51,7 +51,7 @@ const DIGNITARIES = [
     subEn: "Public Doctor & Social Activist",
     subTe: "వైద్యులు & సామాజిక కార్యకర్త",
     subHi: "सार्वजनिक चिकित्सक एवं सामाजिक कार्यकर्ता",
-    photo: "/images/guests/harikanth-acharya.jpg"
+    photo: "/images/features/home/guests/harikanth-acharya.jpg"
   },
   {
     nameEn: "Brahmasri Puligilla Prakash Achary garu",
@@ -60,7 +60,7 @@ const DIGNITARIES = [
     subEn: "State Vishwakarma Leader",
     subTe: "రాష్ట్ర విశ్వకర్మ నాయకులు",
     subHi: "राज्य विश्वकर्मा नेता",
-    photo: "/images/guests/puligilla-prakash.jpg"
+    photo: "/images/features/home/guests/puligilla-prakash.jpg"
   },
   {
     nameEn: "Brahmasri Thalloju Achary garu",
@@ -69,7 +69,7 @@ const DIGNITARIES = [
     subEn: "Former BC Commission Member",
     subTe: "మాజీ బీసీ కమిషన్ సభ్యులు",
     subHi: "पूर्व पिछड़ा वर्ग आयोग सदस्य",
-    photo: "/images/guests/thalloju-achary.jpg"
+    photo: "/images/features/home/guests/thalloju-achary.jpg"
   },
   {
     nameEn: "Brahmasri Ravi Chary garu",
@@ -78,7 +78,7 @@ const DIGNITARIES = [
     subEn: "BJP Senior Leader",
     subTe: "బీజేపీ సీనియర్ నాయకులు",
     subHi: "भाजपा वरिष्ठ नेता",
-    photo: "/images/guests/ravi-chary.jpg"
+    photo: "/images/features/home/guests/ravi-chary.jpg"
   },
   {
     nameEn: "Brahmasri Chandramouli Chary garu",
@@ -87,7 +87,7 @@ const DIGNITARIES = [
     subEn: "Sarpanch & Social Activist",
     subTe: "సర్పంచ్ & సామాజిక కార్యకర్త",
     subHi: "सरपंच एवं सामाजिक कार्यकर्ता",
-    photo: "/images/guests/chandramouli-chary.jpg"
+    photo: "/images/features/home/guests/chandramouli-chary.jpg"
   },
   {
     nameEn: "Brahmasri Yemnnagandla Ramesh Chary garu",
@@ -96,7 +96,7 @@ const DIGNITARIES = [
     subEn: "President, Swarnakara Sangham",
     subTe: "అధ్యక్షులు, స్వర్ణకార సంఘం",
     subHi: "अध्यक्ष, स्वर्णकार संघ",
-    photo: "/images/guests/ramesh-chary.jpg"
+    photo: "/images/features/home/guests/ramesh-chary.jpg"
   },
   {
     nameEn: "Dasoju Sravan garu",
@@ -105,7 +105,7 @@ const DIGNITARIES = [
     subEn: "MLC & Senior Leader",
     subTe: "MLC & సీనియర్ నాయకులు",
     subHi: "एमएलसी एवं वरिष्ठ नेता",
-    photo: "/images/guests/dasoju-sravan.jpg"
+    photo: "/images/features/home/guests/dasoju-sravan.jpg"
   },
   {
     nameEn: "Vadla Laxminarayana Chary garu",
@@ -114,7 +114,7 @@ const DIGNITARIES = [
     subEn: "Community Leader",
     subTe: "సంఘ నాయకులు",
     subHi: "सामुदायिक नेता",
-    photo: "/images/guests/vadla-laxminarayana.jpg"
+    photo: "/images/features/home/guests/vadla-laxminarayana.jpg"
   },
   {
     nameEn: "Varnoju Balakrishna Chary garu",
@@ -123,7 +123,7 @@ const DIGNITARIES = [
     subEn: "Community Leader",
     subTe: "సంఘ నాయకులు",
     subHi: "सामुदायिक नेता",
-    photo: "/images/guests/varnoju-balakrishna.jpg"
+    photo: "/images/features/home/guests/varnoju-balakrishna.jpg"
   },
   {
     nameEn: "Smt Bibinagar Anuradha garu",
@@ -132,7 +132,7 @@ const DIGNITARIES = [
     subEn: "Community Leader",
     subTe: "సంఘ నాయకురాలు",
     subHi: "सामुदायिक नेता",
-    photo: "/images/guests/bibinagar-anuradha.jpg"
+    photo: "/images/features/home/guests/bibinagar-anuradha.jpg"
   },
   {
     nameEn: "Naveen Achary garu",
@@ -141,7 +141,7 @@ const DIGNITARIES = [
     subEn: "Community Leader",
     subTe: "సంఘ నాయకులు",
     subHi: "सामुदायिक नेता",
-    photo: "/images/guests/naveen-achary.jpg"
+    photo: "/images/features/home/guests/naveen-achary.jpg"
   },
   {
     nameEn: "Vannoj Sai Prakash Chary garu",
@@ -150,7 +150,7 @@ const DIGNITARIES = [
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
     subHi: "सामाजिक कार्यकर्ता",
-    photo: "/images/guests/sai-prakash.jpg"
+    photo: "/images/features/home/guests/sai-prakash.jpg"
   },
   {
     nameEn: "Sada Shiva Chary garu",
@@ -159,7 +159,7 @@ const DIGNITARIES = [
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
     subHi: "सामाजिक कार्यकर्ता",
-    photo: "/images/guests/sadashiva-chary.jpg"
+    photo: "/images/features/home/guests/sadashiva-chary.jpg"
   },
   {
     nameEn: "Nallanagula Sriman garu",
@@ -168,7 +168,7 @@ const DIGNITARIES = [
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
     subHi: "सामाजिक कार्यकर्ता",
-    photo: "/images/guests/nallanagula-sriman.jpg"
+    photo: "/images/features/home/guests/nallanagula-sriman.jpg"
   },
   {
     nameEn: "Geetha Rani Sudhakar garu",
@@ -177,7 +177,7 @@ const DIGNITARIES = [
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
     subHi: "सामाजिक कार्यकर्ता",
-    photo: "/images/guests/geetha-rani.jpg"
+    photo: "/images/features/home/guests/geetha-rani.jpg"
   },
   {
     nameEn: "Avusala Bhanu Prakash Avadhani garu",
@@ -186,7 +186,7 @@ const DIGNITARIES = [
     subEn: "Social Contributor",
     subTe: "సామాజిక కార్యకర్త",
     subHi: "सामाजिक कार्यकर्ता",
-    photo: "/images/guests/bhanu-prakash.jpg"
+    photo: "/images/features/home/guests/bhanu-prakash.jpg"
   }
 ];
 

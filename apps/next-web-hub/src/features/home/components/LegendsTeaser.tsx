@@ -9,10 +9,10 @@ export const LegendsTeaser = () => {
   const isHindi = i18n.language === 'hi';
 
   const legends = [
-    { name: "P. Veerabrahmendra Swamy", title: "Prophet & Reformer", img: "/images/legends/veerabrahma.jpg" },
-    { name: "Amarashilpi Jakanachari", title: "Master Sculptor", img: "/images/legends/jakanachari.jpg" },
-    { name: "Sri Maroju Veeranna", title: "Freedom Fighter", img: "/images/legends/maroju-veeranna.jpg" },
-    { name: "Sri Ganala Rammurthy", title: "Architectural Visionary", img: "/images/legends/ganala-rammurthy.jpg" }
+    { name: "P. Veerabrahmendra Swamy", title: "Prophet & Reformer", img: "/images/features/heritage/legends/veerabrahma.jpg" },
+    { name: "Amarashilpi Jakanachari", title: "Master Sculptor", img: "/images/features/heritage/legends/jakanachari.jpg" },
+    { name: "Sri Maroju Veeranna", title: "Freedom Fighter", img: "/images/features/heritage/legends/maroju-veeranna.jpg" },
+    { name: "Sri Ganala Rammurthy", title: "Architectural Visionary", img: "/images/features/heritage/legends/ganala-rammurthy.jpg" }
   ];
 
   return (

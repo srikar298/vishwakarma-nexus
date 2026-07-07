@@ -70,7 +70,7 @@ export const HeritageTeaser = () => {
             className="lg:w-1/2 relative aspect-video bg-stone-100 rounded-[3rem] overflow-hidden border border-stone-200 group-hover:border-vermilion/30 transition-all duration-700 shadow-xl"
           >
              <img 
-               src="/images/heritage/hampi-monolith.jpg" 
+               src="/images/features/heritage/hampi-monolith.jpg" 
                alt="Hampi Monolithic Architectural Heritage" 
                className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
              />

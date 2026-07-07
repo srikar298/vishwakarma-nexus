@@ -81,7 +81,7 @@ export const FounderPage = () => {
       <SEO 
         title={t('founder.title', 'Founder & Core Journey')} 
         description="The philosophical origins, aims, and chronological timeline of Vishwakarma Knowledge Centre led by Viswanadhula Pushpagiri."
-        image="/images/founder/portrait.webp"
+        image="/images/features/home/founder/portrait.webp"
         type="profile"
         schema={founderSchema}
       />
@@ -102,7 +102,7 @@ export const FounderPage = () => {
           >
             <div className="aspect-[3/4] rounded-[4rem] overflow-hidden border-8 border-stone-800 shadow-3xl shadow-black/50 rotate-[-2deg] hover:rotate-0 transition-transform duration-700 group">
               <img 
-                src="/images/founder/portrait-full.webp" 
+                src="/images/features/home/founder/portrait-full.webp" 
                 alt="Founder" 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
               />

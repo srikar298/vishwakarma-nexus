@@ -372,7 +372,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                  
                  <div className="flex flex-col items-center space-y-3 relative z-10 bg-white/5 p-4 rounded-3xl border border-white/10">
                     <img 
-                      src="/images/qr-payment.jpg" 
+                      src="/images/shared/qr-payment.jpg" 
                       alt="Payment QR Code" 
                       className="w-40 h-auto rounded-2xl shadow-xl object-contain border border-stone-800"
                     />

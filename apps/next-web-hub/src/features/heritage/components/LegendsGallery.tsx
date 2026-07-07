@@ -19,7 +19,7 @@ export const LegendsGallery = () => {
       field_en: "Spirituality & Reform",
       field_te: "ఆధ్యాత్మికత & సంస్కరణ",
       field_hi: "अध्यात्म और सुधार",
-      image: "/images/legends/veerabrahma.jpg"
+      image: "/images/features/heritage/legends/veerabrahma.jpg"
     },
     {
       id: 'jakanachari',
@@ -32,7 +32,7 @@ export const LegendsGallery = () => {
       field_en: "Architecture & Sculpture",
       field_te: "నిర్మాణం & శిల్పకళ",
       field_hi: "वास्तुकला और मूर्तिकला",
-      image: "/images/legends/jakanachari.jpg"
+      image: "/images/features/heritage/legends/jakanachari.jpg"
     },
     {
       id: 'maroju',
@@ -45,7 +45,7 @@ export const LegendsGallery = () => {
       field_en: "Politics & Reform",
       field_te: "రాజకీయాలు & సంస్కరణ",
       field_hi: "राजनीति और सुधार",
-      image: "/images/legends/maroju-veeranna.jpg"
+      image: "/images/features/heritage/legends/maroju-veeranna.jpg"
     },
     {
       id: 'rammurthy',
@@ -58,7 +58,7 @@ export const LegendsGallery = () => {
       field_en: "Architecture & Shastras",
       field_te: "నిర్మాణం & శాస్త్రాలు",
       field_hi: "वास्तुकला और शास्त्र",
-      image: "/images/legends/ganala-rammurthy.jpg"
+      image: "/images/features/heritage/legends/ganala-rammurthy.jpg"
     },
     {
       id: 'modern_achiever',
@@ -71,15 +71,15 @@ export const LegendsGallery = () => {
       field_en: "Science & Engineering",
       field_te: "సైన్స్ & ఇంజనీరింగ్",
       field_hi: "विज्ञान और इंजीनियरिंग",
-      image: "/images/legends/modern-achiever.png"
+      image: "/images/features/heritage/legends/modern-achiever.png"
     }
   ];
 
   const mentions = [
-    { name_en: "Smt. Tarigonda Vengamamba", title_en: "Saint & Poetess", img: "/images/legends/vengamamba.jpg" },
-    { name_en: "Sri K.S. Brahmarshi", title_en: "Social Reformer", img: "/images/legends/brahmarshi.jpg" },
-    { name_en: "Modern Visionaries", title_en: "Local Leadership", img: "/images/legends/visionaries.jpg" },
-    { name_en: "Historical Craftsmen", title_en: "Anonymous Masters", img: "/images/legends/craftsmen.jpg" }
+    { name_en: "Smt. Tarigonda Vengamamba", title_en: "Saint & Poetess", img: "/images/features/heritage/legends/vengamamba.jpg" },
+    { name_en: "Sri K.S. Brahmarshi", title_en: "Social Reformer", img: "/images/features/heritage/legends/brahmarshi.jpg" },
+    { name_en: "Modern Visionaries", title_en: "Local Leadership", img: "/images/features/heritage/legends/visionaries.jpg" },
+    { name_en: "Historical Craftsmen", title_en: "Anonymous Masters", img: "/images/features/heritage/legends/craftsmen.jpg" }
   ];
 
   return (

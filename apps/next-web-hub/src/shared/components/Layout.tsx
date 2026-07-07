@@ -61,7 +61,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <Link href="/" aria-label="Home" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-              <img src="/images/emblem.png" alt="VKC Emblem" className="w-11 h-11 object-contain drop-shadow-md" />
+              <img src="/images/shared/emblem.png" alt="VKC Emblem" className="w-11 h-11 object-contain drop-shadow-md" />
               <span className="text-2xl font-black tracking-tighter text-stone-900 hidden sm:block">
                 VKC
               </span>
@@ -230,7 +230,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="grid md:grid-cols-4 gap-12 mb-16">
             <div className="col-span-1 md:col-span-2 space-y-8">
               <div className="flex items-center gap-3">
-                <img src="/images/emblem.png" alt="VKC Emblem" className="w-11 h-11 object-contain drop-shadow-md" />
+                <img src="/images/shared/emblem.png" alt="VKC Emblem" className="w-11 h-11 object-contain drop-shadow-md" />
                 <span className="text-2xl font-black tracking-tighter text-white">VKC</span>
               </div>
               <p className="text-stone-400 leading-relaxed max-w-sm text-sm">

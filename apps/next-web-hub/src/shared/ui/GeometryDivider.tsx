@@ -40,7 +40,7 @@ export const GeometryDivider = ({
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 md:w-96 md:h-96 pointer-events-none"
       >
         <img 
-          src="/images/hero/mandala-motif.webp" 
+          src="/images/features/home/hero/mandala-motif.webp" 
           alt="" 
           className={`w-full h-full object-contain ${isLightToDark ? 'invert' : ''}`}
         />

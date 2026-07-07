@@ -31,8 +31,8 @@ export const PageHero = ({
   const isHindi = i18n.language === 'hi';
 
   const textureUrls = {
-    grid: "/images/textures/grid-me.png",
-    marble: "/images/textures/marble-similar.png",
+    grid: "/images/shared/textures/grid-me.png",
+    marble: "/images/shared/textures/marble-similar.png",
     none: ""
   };
 
