@@ -132,7 +132,7 @@ export const ProfessionalsHub = () => {
                     <GraduationCap size={12} /> {t('network.professionals.labels.mentorship')}
                  </p>
                  <p className="text-sm text-stone-600 font-medium leading-relaxed italic border-l-2 border-stone-100 pl-4">
-                    "{prof.mentorship}"
+                    &quot;{prof.mentorship}&quot;
                  </p>
               </div>
 

@@ -30,7 +30,7 @@ export const KnowledgeTeaser = () => {
                   The <span className="text-vermilion underline decoration-vermilion/30 underline-offset-8">Shastra</span> Vault
                </h3>
                <p className="text-stone-600 text-lg leading-relaxed max-w-xl font-medium">
-                  Unlocking the secrets of the ancient treatises. From Mayamata's sacred geometry to the architectural logic of the Manasara.
+                  Unlocking the secrets of the ancient treatises. From Mayamata&apos;s sacred geometry to the architectural logic of the Manasara.
                </p>
             </div>
 

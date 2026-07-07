@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+
 import { useTranslation } from 'react-i18next';
 import { ShieldCheck, ArrowRight, UserPlus, Sparkles } from 'lucide-react';
 import { MembershipCard } from './MembershipCard';
 import { JoinModal } from './JoinModal';
 
 export const DigitalIDWidget = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const lang = i18n.language;
 

@@ -35,7 +35,7 @@ export const KnowledgePage = () => {
              The <span className="text-vermilion">Vault</span> of Knowledge
            </h1>
            <p className="text-stone-400 text-xl font-medium max-w-2xl mx-auto italic">
-             "Translating 5,000 years of 'Mouna Bhasha' (silent knowledge) into digital architectural intelligence."
+             &quot;Translating 5,000 years of &apos;Mouna Bhasha&apos; (silent knowledge) into digital architectural intelligence.&quot;
            </p>
         </div>
       </section>
@@ -64,7 +64,7 @@ export const KnowledgePage = () => {
             <div className="md:w-1/2 space-y-8">
                <h3 className="text-4xl font-black text-stone-900 font-display">The Pancha Brahma Framework</h3>
                <p className="text-stone-600 text-lg leading-relaxed font-medium">
-                  Ancient engineering wasn't siloed. The VKC knowledge engine explores how Manu (Iron), Maya (Wood), Thwashta (Metal), Shilpi (Stone), and Vishwajna (Gold/Theory) collaborative to create unified masterpieces like the Jagannath Puri temple.
+                  Ancient engineering wasn&apos;t siloed. The VKC knowledge engine explores how Manu (Iron), Maya (Wood), Thwashta (Metal), Shilpi (Stone), and Vishwajna (Gold/Theory) collaborative to create unified masterpieces like the Jagannath Puri temple.
                </p>
                <button className="flex items-center gap-4 text-xs font-black text-vermilion uppercase tracking-[0.3em] hover:gap-8 transition-all">
                   Read Theoretical Whitepaper <Search size={16} />

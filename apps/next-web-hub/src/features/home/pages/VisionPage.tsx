@@ -83,7 +83,7 @@ export const VisionPage = () => {
              The Full Vision: <span className="text-vermilion">2026—2030</span>
            </h1>
            <p className="text-stone-400 text-xl font-medium max-w-2xl mx-auto italic">
-             "From Sacred Geometry to Digital Sovereignty: The roadmap to institutionalizing the Pancha Brahma mastery."
+             &quot;From Sacred Geometry to Digital Sovereignty: The roadmap to institutionalizing the Pancha Brahma mastery.&quot;
            </p>
         </div>
       </section>

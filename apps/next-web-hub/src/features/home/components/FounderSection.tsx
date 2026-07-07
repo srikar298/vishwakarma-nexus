@@ -81,7 +81,7 @@ export const FounderSection = () => {
                <Quote className="absolute -top-6 left-12 text-vermilion/20" size={64} />
                <p className={`text-xl md:text-2xl font-black text-stone-800 italic leading-relaxed relative z-10
                  ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-                 "{t('founder.quote')}"
+                 &quot;{t('founder.quote')}&quot;
                </p>
             </motion.div>
 

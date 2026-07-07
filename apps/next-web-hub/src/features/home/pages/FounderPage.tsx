@@ -134,7 +134,7 @@ export const FounderPage = () => {
               <Quote className="absolute -top-6 left-12 text-vermilion/5" size={120} />
               <p className={`text-2xl md:text-3xl font-black text-stone-800 italic leading-relaxed relative z-10 text-center
                 ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
-                "{t('founder.quote')}"
+                 &quot;{t('founder.quote')}&quot;
               </p>
            </div>
            
@@ -154,7 +154,7 @@ export const FounderPage = () => {
 
               <div className="space-y-8 bg-stone-50 p-10 rounded-[3rem] border border-stone-100 shadow-xl relative overflow-hidden group">
                  <div className="absolute top-0 right-0 w-32 h-32 bg-vermilion/5 rounded-full blur-3xl -mr-16 -mt-16" />
-                 <h4 className="text-xl font-black text-stone-900 border-l-4 border-vermilion pl-6">Founder's Impact</h4>
+                 <h4 className="text-xl font-black text-stone-900 border-l-4 border-vermilion pl-6">Founder&apos;s Impact</h4>
                  <div className="space-y-6">
                     <div className="flex items-start gap-4">
                        <ShieldCheck className="text-vermilion mt-1" size={20} />

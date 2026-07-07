@@ -74,7 +74,7 @@ export const GallerySection = () => {
             <div className="w-full h-[40vh] sm:h-[60vh] max-h-[600px] bg-stone-50 rounded-[1.5rem] sm:rounded-[2.5rem] animate-pulse" />
             <div className="columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6">
               {[...Array(12)].map((_, i) => (
-                <div key={i} className="bg-stone-50 rounded-[1rem] sm:rounded-[1.5rem] break-inside-avoid animate-pulse" style={{ height: `${Math.floor(Math.random() * (400 - 200 + 1) + 200)}px` }} />
+                <div key={i} className="bg-stone-50 rounded-[1rem] sm:rounded-[1.5rem] break-inside-avoid animate-pulse" style={{ height: `${[280, 320, 240, 360, 300, 260, 340, 220, 380, 250, 310, 270][i % 12]}px` }} />
               ))}
             </div>
           </div>

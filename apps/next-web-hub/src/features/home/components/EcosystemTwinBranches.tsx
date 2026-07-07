@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Heart, Search, Users, ShieldAlert, ArrowRight } from 'lucide-react';
+import { Heart, Search, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface EcosystemTwinBranchesProps {
@@ -11,7 +11,7 @@ interface EcosystemTwinBranchesProps {
 }
 
 export const EcosystemTwinBranches: React.FC<EcosystemTwinBranchesProps> = ({ onOpenMatrimony }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const lang = i18n.language;
 
   return (

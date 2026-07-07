@@ -9,7 +9,7 @@ import Link from 'next/link';
 type TabId = 'heritage' | 'shastra' | 'legends';
 
 export const ShastraVaultTab = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState<TabId>('heritage');
   const lang = i18n.language;
 

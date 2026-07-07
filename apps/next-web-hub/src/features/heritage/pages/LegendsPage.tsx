@@ -35,7 +35,7 @@ export const LegendsPage = () => {
              The <span className="text-saffron-500">Icons</span> of Our Community
            </h1>
            <p className="text-stone-400 text-xl font-medium max-w-2xl mx-auto italic">
-             "Honoring the visionaries, reformers, and masters who shaped the Vishwakarma identity."
+             &quot;Honoring the visionaries, reformers, and masters who shaped the Vishwakarma identity.&quot;
            </p>
         </div>
       </section>

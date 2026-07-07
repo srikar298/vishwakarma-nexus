@@ -98,7 +98,7 @@ export const AboutSection = () => {
                 transition={{ delay: 0.3 }}
                 className="p-8 bg-stone-900 rounded-[2rem] text-white flex flex-col justify-center relative overflow-hidden"
               >
-                <div className="absolute -top-4 -right-4 text-white/5 text-9xl font-serif">"</div>
+                <div className="absolute -top-4 -right-4 text-white/5 text-9xl font-serif">&quot;</div>
                 <p className="text-lg font-bold italic leading-relaxed relative z-10">
                   {t('about.mission')}
                 </p>

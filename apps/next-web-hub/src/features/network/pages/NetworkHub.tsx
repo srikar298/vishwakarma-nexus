@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
@@ -24,20 +24,11 @@ export const NetworkHub = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const tabParam = searchParams.get('tab') as 'professionals' | 'officials' | 'matrimony' | 'education';
-  const initialTab = ['professionals', 'officials', 'matrimony', 'education'].includes(tabParam || '')
+  const activeTab = ['professionals', 'officials', 'matrimony', 'education'].includes(tabParam || '')
     ? tabParam
     : 'professionals';
 
-  const [activeTab, setActiveTab] = useState<'professionals' | 'officials' | 'matrimony' | 'education'>(initialTab);
-
-  useEffect(() => {
-    if (tabParam && ['professionals', 'officials', 'matrimony', 'education'].includes(tabParam)) {
-      setActiveTab(tabParam);
-    }
-  }, [tabParam]);
-
   const handleTabChange = (tabId: 'professionals' | 'officials' | 'matrimony' | 'education') => {
-    setActiveTab(tabId);
     const params = new URLSearchParams(searchParams.toString());
     params.set('tab', tabId);
     router.push(pathname + '?' + params.toString(), { scroll: false });

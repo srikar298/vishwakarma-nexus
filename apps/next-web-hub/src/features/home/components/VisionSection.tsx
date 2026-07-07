@@ -96,7 +96,7 @@ export const VisionSection = () => {
             transition={{ delay: 0.2 }}
             className="text-stone-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed italic"
           >
-            "{t('vision.quote')}"
+            &quot;{t('vision.quote')}&quot;
           </motion.p>
         </div>
 

@@ -49,7 +49,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
         });
       }
     }
-  }, [formData.dob]);
+  }, [formData.dob, onUpdate]);
 
   const nextStep = () => setStep(s => s + 1);
   const prevStep = () => setStep(s => s - 1);

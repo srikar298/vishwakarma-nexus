@@ -322,7 +322,7 @@ export function HeroFiveSons() {
                         </div>
                         
                         <p className="text-stone-300 font-medium text-sm md:text-base leading-relaxed text-pretty italic border-l-2 border-vermilion/30 pl-4">
-                          "{son_data.desc}"
+                          &quot;{son_data.desc}&quot;
                         </p>
                       </div>
                     </motion.div>
