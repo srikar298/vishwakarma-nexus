@@ -11,8 +11,8 @@ export const LegendsTeaser = () => {
   const legends = [
     { name: "P. Veerabrahmendra Swamy", title: "Prophet & Reformer", img: "/images/legends/veerabrahma.jpg" },
     { name: "Amarashilpi Jakanachari", title: "Master Sculptor", img: "/images/legends/jakanachari.jpg" },
-    { name: "Sri Maroju Veeranna", title: "Freedom Fighter", img: "/images/legends/maroju_veeranna.jpg" },
-    { name: "Sri Ganala Rammurthy", title: "Architectural Visionary", img: "/images/legends/ganala_rammurthy.jpg" }
+    { name: "Sri Maroju Veeranna", title: "Freedom Fighter", img: "/images/legends/maroju-veeranna.jpg" },
+    { name: "Sri Ganala Rammurthy", title: "Architectural Visionary", img: "/images/legends/ganala-rammurthy.jpg" }
   ];
 
   return (

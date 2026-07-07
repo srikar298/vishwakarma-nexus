@@ -45,7 +45,7 @@ export const LegendsGallery = () => {
       field_en: "Politics & Reform",
       field_te: "రాజకీయాలు & సంస్కరణ",
       field_hi: "राजनीति और सुधार",
-      image: "/images/legends/maroju_veeranna.jpg"
+      image: "/images/legends/maroju-veeranna.jpg"
     },
     {
       id: 'rammurthy',
@@ -58,7 +58,7 @@ export const LegendsGallery = () => {
       field_en: "Architecture & Shastras",
       field_te: "నిర్మాణం & శాస్త్రాలు",
       field_hi: "वास्तुकला और शास्त्र",
-      image: "/images/legends/ganala_rammurthy.jpg"
+      image: "/images/legends/ganala-rammurthy.jpg"
     },
     {
       id: 'modern_achiever',
@@ -71,7 +71,7 @@ export const LegendsGallery = () => {
       field_en: "Science & Engineering",
       field_te: "సైన్స్ & ఇంజనీరింగ్",
       field_hi: "विज्ञान और इंजीनियरिंग",
-      image: "/images/legends/modern_achiever.jpg"
+      image: "/images/legends/modern-achiever.png"
     }
   ];
 
