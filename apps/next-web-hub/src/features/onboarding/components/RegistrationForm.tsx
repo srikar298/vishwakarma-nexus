@@ -105,7 +105,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
       {/* Step Indicator Labels */}
       <div className="flex justify-between items-center mb-8 px-2">
          <span className="text-[10px] font-black text-stone-400 uppercase tracking-widest">
-           {t('onboarding.step_indicator', { step, total: steps.length })}
+           {t('onboarding.step_indicator', { step: String(step), total: String(steps.length) })}
          </span>
          <span className="text-[10px] font-black text-vermilion uppercase tracking-widest">
            {steps[step - 1].title}

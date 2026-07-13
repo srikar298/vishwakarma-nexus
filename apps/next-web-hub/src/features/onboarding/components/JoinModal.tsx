@@ -10,7 +10,7 @@ import {
   CheckCircle2,
   Hammer
 } from 'lucide-react';
-import { supabase } from '@/infrastructure/config/supabaseClient';
+import { api } from '@/infrastructure/http/apiClient';
 
 const TRADES = [
   "Carpenter (Suthar)", "Boat Maker", "Armourer", "Blacksmith (Lohar)", 
@@ -39,13 +39,11 @@ export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
-    const { error } = await supabase
-      .from('inquiries')
-      .insert([formData]);
+
+    const { error } = await api.post('members/inquiries', formData);
 
     if (error) {
-      alert("Error submitting registration: " + error.message);
+      alert(`Registration failed: ${error.message}. Please try WhatsApp or call us directly.`);
     } else {
       setSuccess(true);
     }

@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 import { eventsData as localEvents } from '../../../shared/constants/mock-data';
-import { supabase } from '@/infrastructure/config/supabaseClient';
+import { api } from '@/infrastructure/http/apiClient';
 import { HeroFiveSons } from '@/features/heritage/components/HeroFiveSons';
 import { EcosystemTwinBranches } from '@/features/home/components/EcosystemTwinBranches';
 import { ShastraVaultTab } from '@/features/heritage/components/ShastraVaultTab';
@@ -27,14 +27,11 @@ export const HomePage = () => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const { data, error } = await supabase
-        .from('events')
-        .select('*')
-        .order('id', { ascending: true });
-      
+      const { data, error } = await api.get<typeof localEvents>('community/events');
       if (!error && data && data.length > 0) {
         setEvents(data);
       }
+      // Falls back to localEvents (already set as default state) on error or empty response
     };
 
     fetchEvents();

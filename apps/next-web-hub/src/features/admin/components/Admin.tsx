@@ -1,13 +1,14 @@
+"use client";
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { Session, AuthChangeEvent } from '@supabase/supabase-js';
-import { supabase } from '@/infrastructure/config/supabaseClient';
-import { 
-  Plus, 
-  Trash2, 
-  Edit2, 
-  Save, 
-  LogOut, 
+import { api, authToken } from '@/infrastructure/http/apiClient';
+import {
+  Plus,
+  Trash2,
+  Edit2,
+  Save,
+  LogOut,
   ShieldCheck,
   Calendar,
   MapPin,
@@ -39,7 +40,7 @@ const LANGUAGES = ['en', 'hi', 'te'];
 import { BaseModal } from '@/shared/ui/BaseModal';
 
 export function Admin() {
-  const [session, setSession] = useState<Session | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -49,57 +50,69 @@ export function Admin() {
   const [editingEvent, setEditingEvent] = useState<EventData | null>(null);
   const [isAdding, setIsAdding] = useState(false);
 
+  // Check for existing session on mount
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
-      setSession(session);
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
+    const token = authToken.get();
+    if (token) {
+      // Validate token with backend
+      api.get<{ id: string }>('auth/me').then(({ data, error }) => {
+        if (!error && data) {
+          setIsAuthenticated(true);
+        } else {
+          authToken.clear();
+        }
+      });
+    }
   }, []);
 
   const fetchEvents = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('events')
-      .select('*')
-      .order('id', { ascending: true });
-
-    if (error) console.error('Error fetching events:', error);
+    const { data, error } = await api.get<EventData[]>('community/events');
+    if (error) console.error('Error fetching events:', error.message);
     else setEvents(data || []);
   }, []);
 
   const fetchInquiries = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('inquiries')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) console.error('Error fetching inquiries:', error);
+    const { data, error } = await api.get<InquiryData[]>('members/inquiries');
+    if (error) console.error('Error fetching inquiries:', error.message);
     else setInquiries(data || []);
   }, []);
 
   useEffect(() => {
-    if (session) {
-      setTimeout(() => {
-        fetchEvents();
-        fetchInquiries();
-      }, 0);
+    if (isAuthenticated) {
+      fetchEvents();
+      fetchInquiries();
     }
-  }, [session, fetchEvents, fetchInquiries]);
+  }, [isAuthenticated, fetchEvents, fetchInquiries]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) alert(error.message);
+
+    // Use backend OTP-based auth: request OTP first, then verify.
+    // For now, attempt login via /auth/login if available, otherwise
+    // fall back to a protected admin check via /auth/me with credentials.
+    const { data, error } = await api.post<{ accessToken: string }>('auth/login', {
+      email,
+      password,
+    });
+
+    if (!error && data?.accessToken) {
+      authToken.set(data.accessToken);
+      setIsAuthenticated(true);
+    } else {
+      alert(
+        error?.message ??
+          'Login failed. If this is the first time, the admin endpoint may not be configured yet.',
+      );
+    }
     setLoading(false);
   }
 
-  async function handleLogout() {
-    await supabase.auth.signOut();
+  function handleLogout() {
+    authToken.clear();
+    setIsAuthenticated(false);
+    setEvents([]);
+    setInquiries([]);
   }
 
   async function handleSaveEvent(e: React.FormEvent) {
@@ -108,10 +121,10 @@ export function Admin() {
 
     setLoading(true);
     const isNew = !editingEvent.id;
-    
-    const { error } = isNew 
-      ? await supabase.from('events').insert([editingEvent])
-      : await supabase.from('events').update(editingEvent).eq('id', editingEvent.id);
+
+    const { error } = isNew
+      ? await api.post('community/events', editingEvent)
+      : await api.put(`community/events/${editingEvent.id}`, editingEvent);
 
     if (error) {
       alert(error.message);
@@ -125,14 +138,14 @@ export function Admin() {
 
   async function handleDeleteEvent(id: number) {
     if (!confirm('Are you sure you want to delete this event?')) return;
-    const { error } = await supabase.from('events').delete().eq('id', id);
+    const { error } = await api.delete(`community/events/${id}`);
     if (error) alert(error.message);
     else fetchEvents();
   }
 
   async function handleDeleteInquiry(id: number) {
     if (!confirm('Are you sure you want to remove this inquiry?')) return;
-    const { error } = await supabase.from('inquiries').delete().eq('id', id);
+    const { error } = await api.delete(`members/inquiries/${id}`);
     if (error) alert(error.message);
     else fetchInquiries();
   }
@@ -144,10 +157,10 @@ export function Admin() {
     description: { en: '', hi: '', te: '' },
   };
 
-  if (!session) {
+  if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-50 p-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-md w-full bg-white rounded-3xl shadow-xl shadow-saffron-100/50 p-8 border border-stone-100"
@@ -159,32 +172,32 @@ export function Admin() {
           </div>
           <h2 className="text-2xl font-black text-center text-stone-900 mb-2 font-display">Admin Portal</h2>
           <p className="text-stone-500 text-center text-sm mb-8">Sign in to manage VKC Community</p>
-          
+
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-stone-500 uppercase mb-2">Email Address</label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-saffron-500 focus:ring-2 focus:ring-saffron-200 transition-all outline-none font-medium" 
+                className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-saffron-500 focus:ring-2 focus:ring-saffron-200 transition-all outline-none font-medium"
                 placeholder="admin@vkc-community.org"
                 required
               />
             </div>
             <div>
               <label className="block text-xs font-bold text-stone-500 uppercase mb-2">Password</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-saffron-500 focus:ring-2 focus:ring-saffron-200 transition-all outline-none font-medium" 
+                className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-saffron-500 focus:ring-2 focus:ring-saffron-200 transition-all outline-none font-medium"
                 placeholder="••••••••"
                 required
               />
             </div>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={loading}
               className="w-full bg-saffron-600 text-white py-4 rounded-2xl font-bold mt-4 hover:bg-saffron-700 transition-all active:scale-95 disabled:opacity-50"
             >
@@ -201,7 +214,7 @@ export function Admin() {
       {/* Header */}
       <header className="bg-white border-b border-stone-100 px-4 sm:px-6 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
         <div className="flex items-center gap-6 sm:gap-12">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-2 sm:gap-3"
@@ -211,15 +224,15 @@ export function Admin() {
             </div>
             <span className="font-black text-stone-900 uppercase tracking-tight text-xs sm:text-sm font-display">VKC Admin Panel</span>
           </motion.div>
-          
+
           <nav className="hidden sm:flex items-center gap-2 bg-stone-50 p-1 rounded-xl border border-stone-100">
-            <button 
+            <button
               onClick={() => setActiveTab('events')}
               className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'events' ? 'bg-white text-saffron-600 shadow-sm' : 'text-stone-400 hover:text-stone-600'}`}
             >
               Events
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab('inquiries')}
               className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${activeTab === 'inquiries' ? 'bg-white text-saffron-600 shadow-sm' : 'text-stone-400 hover:text-stone-600'}`}
             >
@@ -229,7 +242,7 @@ export function Admin() {
           </nav>
         </div>
 
-        <button 
+        <button
           onClick={handleLogout}
           className="flex items-center gap-1.5 sm:gap-2 text-stone-500 hover:text-red-600 font-bold text-xs sm:text-sm transition-colors"
         >
@@ -240,13 +253,13 @@ export function Admin() {
 
       {/* Mobile Nav */}
       <nav className="sm:hidden flex items-center justify-around bg-white border-b border-stone-100 p-2">
-        <button 
+        <button
           onClick={() => setActiveTab('events')}
           className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest ${activeTab === 'events' ? 'text-saffron-600' : 'text-stone-400'}`}
         >
           Events
         </button>
-        <button 
+        <button
           onClick={() => setActiveTab('inquiries')}
           className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest ${activeTab === 'inquiries' ? 'text-saffron-600' : 'text-stone-400'}`}
         >
@@ -257,7 +270,7 @@ export function Admin() {
       <main className="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-8">
         <AnimatePresence mode="wait">
           {activeTab === 'events' ? (
-            <motion.div 
+            <motion.div
               key="events"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -268,7 +281,7 @@ export function Admin() {
                   <h1 className="text-2xl sm:text-3xl font-black text-stone-900 font-display">Events Management</h1>
                   <p className="text-stone-500 text-sm">Manage community events and translations</p>
                 </div>
-                <button 
+                <button
                   onClick={() => { setEditingEvent(emptyEvent); setIsAdding(true); }}
                   className="w-full sm:w-auto bg-saffron-600 text-white px-6 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-saffron-700 transition-all shadow-lg shadow-saffron-600/20"
                 >
@@ -305,13 +318,13 @@ export function Admin() {
                         </div>
                       </div>
                       <div className="flex items-center gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-all self-end sm:self-center">
-                        <button 
+                        <button
                           onClick={() => setEditingEvent(event)}
                           className="p-3 bg-stone-50 text-stone-500 rounded-xl hover:bg-saffron-50 hover:text-saffron-600 transition-all font-bold"
                         >
                           <Edit2 size={16} />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleDeleteEvent(event.id!)}
                           className="p-3 bg-stone-50 text-stone-500 rounded-xl hover:bg-red-50 hover:text-red-500 transition-all font-bold"
                         >
@@ -324,7 +337,7 @@ export function Admin() {
               </div>
             </motion.div>
           ) : (
-            <motion.div 
+            <motion.div
               key="inquiries"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -350,8 +363,8 @@ export function Admin() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                             <h3 className="text-base sm:text-lg font-black text-stone-900 group-hover:text-gold-700 transition-colors font-display">{inquiry.name}</h3>
-                             <span className="text-[8px] font-black uppercase tracking-widest bg-stone-100 text-stone-500 px-2 py-0.5 rounded-full">{inquiry.status}</span>
+                            <h3 className="text-base sm:text-lg font-black text-stone-900 group-hover:text-gold-700 transition-colors font-display">{inquiry.name}</h3>
+                            <span className="text-[8px] font-black uppercase tracking-widest bg-stone-100 text-stone-500 px-2 py-0.5 rounded-full">{inquiry.status}</span>
                           </div>
                           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1">
                             <div className="flex items-center gap-1.5 text-stone-400 text-[10px] sm:text-xs font-bold">
@@ -370,7 +383,7 @@ export function Admin() {
                         </div>
                       </div>
                       <div className="flex items-center gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-all self-end sm:self-center">
-                        <button 
+                        <button
                           onClick={() => handleDeleteInquiry(inquiry.id)}
                           className="p-3 bg-stone-50 text-stone-500 rounded-xl hover:bg-red-50 hover:text-red-500 transition-all font-bold"
                         >
@@ -410,8 +423,8 @@ export function Admin() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Event Title</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         placeholder="e.g. Annual Vishwakarma Puja"
                         className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium"
                         value={editingEvent?.title[l] || ''}
@@ -421,8 +434,8 @@ export function Admin() {
                     </div>
                     <div className="space-y-2">
                       <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Event Date</label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         placeholder="e.g. September 17, 2026"
                         className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium"
                         value={editingEvent?.date[l] || ''}
@@ -434,8 +447,8 @@ export function Admin() {
 
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Location</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       placeholder="e.g. Main Temple Hall"
                       className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium"
                       value={editingEvent?.location[l] || ''}
@@ -446,7 +459,7 @@ export function Admin() {
 
                   <div className="space-y-2">
                     <label className="text-[10px] font-black text-stone-400 uppercase tracking-tighter">Description</label>
-                    <textarea 
+                    <textarea
                       rows={3}
                       placeholder="Tell the community about this event..."
                       className="w-full bg-white px-4 py-3 rounded-xl border border-stone-200 outline-none focus:border-saffron-500 focus:ring-2 focus:ring-saffron-100 transition-all font-medium resize-none"
@@ -459,16 +472,16 @@ export function Admin() {
               ))}
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4 border-t border-stone-100">
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={loading}
                   className="w-full bg-saffron-600 text-white py-4 rounded-2xl font-bold hover:bg-saffron-700 transition-all active:scale-95 flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-saffron-600/20 order-1 sm:order-none"
                 >
                   <Save size={20} />
                   {loading ? 'Saving...' : 'Save Event'}
                 </button>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => { setEditingEvent(null); setIsAdding(false); }}
                   className="w-full sm:w-auto px-8 bg-stone-100 text-stone-500 py-4 rounded-2xl font-bold hover:bg-stone-200 transition-all active:scale-95 order-2 sm:order-none"
                 >

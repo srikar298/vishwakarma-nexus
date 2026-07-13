@@ -47,6 +47,11 @@ export const metadata: Metadata = {
   description: "Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana. Join the mission to empower the Vishwakarma community.",
   keywords: ["Vishwakarma", "PM Vishwakarma", "Artisans", "Andhra Pradesh", "Telangana", "Traditional Crafts", "Heritage", "Skill Development", "Knowledge Centre", "Vishwakarma Nexus"],
   authors: [{ name: "Vishwakarma Knowledge Centre" }],
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   verification: {
     google: "google831f8179f7bf3287",
   },

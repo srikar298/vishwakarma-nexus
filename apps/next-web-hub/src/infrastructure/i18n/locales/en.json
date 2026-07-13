@@ -453,7 +453,7 @@
     "wall_title": "Wall of Honor",
     "wall_subtitle": "Recognizing our esteemed sponsors",
     "tiers": {
-      "patron": { "name": "Patron Level", "amount": "₹5,00,000+" },
+      "patron": { "name": "Patron Level", "amount": "₹3,00,000+" },
       "gold": { "name": "Gold Level", "amount": "₹1,00,000+" },
       "silver": { "name": "Silver Level", "amount": "₹50,000+" }
     }
@@ -550,6 +550,7 @@
     }
   },
   "onboarding": {
+    "step_indicator": "Step {{step}} of {{total}}",
     "steps": {
       "personal": "Personal",
       "trade": "Trade",

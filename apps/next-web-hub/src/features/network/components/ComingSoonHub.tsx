@@ -11,7 +11,7 @@ import {
   Lock,
   ArrowRight
 } from 'lucide-react';
-import { supabase } from '@/infrastructure/config/supabaseClient';
+import { api } from '@/infrastructure/http/apiClient';
 
 interface ComingSoonHubProps {
   activeTab: 'professionals' | 'officials' | 'matrimony' | 'education';
@@ -155,19 +155,15 @@ export const ComingSoonHub = ({ activeTab }: ComingSoonHubProps) => {
     if (!name || !phone) return;
 
     setLoading(true);
-    const { error } = await supabase
-      .from('inquiries')
-      .insert([
-        {
-          name,
-          phone,
-          trade: `Waitlist: ${cfg.titleEn}`,
-          state: 'Waitlist Registration'
-        }
-      ]);
+    const { error } = await api.post('community/waitlist', {
+      name,
+      phone,
+      category: activeTab,
+      label: cfg.titleEn,
+    });
 
     if (error) {
-      alert("Registration failed: " + error.message);
+      alert(`Registration failed: ${error.message}. Please try again later.`);
     } else {
       setSuccess(true);
     }

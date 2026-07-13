@@ -35,7 +35,7 @@ export const MembershipPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     // Seed data to Google Sheets via Apps Script Web App
-    const appsScriptUrl = process.env.VITE_APPS_SCRIPT_URL;
+    const appsScriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
     if (appsScriptUrl) {
       fetch(appsScriptUrl, {
         method: 'POST',

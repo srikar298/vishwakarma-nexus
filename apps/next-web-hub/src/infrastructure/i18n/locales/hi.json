@@ -453,7 +453,7 @@
      "wall_title": "सम्मान की दीवार",
      "wall_subtitle": "हमारे सम्मानित प्रायोजकों को मान्यता",
      "tiers": {
-       "patron": { "name": "संरक्षक स्तर", "amount": "₹5,00,000+" },
+       "patron": { "name": "संरक्षक स्तर", "amount": "₹3,00,000+" },
        "gold": { "name": "स्वर्ण स्तर", "amount": "₹1,00,000+" },
        "silver": { "name": "रजत स्तर", "amount": "₹50,000+" }
      }
@@ -550,6 +550,7 @@
     }
   },
   "onboarding": {
+    "step_indicator": "चरण {{step}} / {{total}}",
     "steps": {
       "personal": "व्यक्तिगत विवरण",
       "trade": "व्यवसाय",
