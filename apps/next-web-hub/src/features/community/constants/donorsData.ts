@@ -20,7 +20,7 @@ export const mockDonors: Donor[] = [
     amount: 300000,
     formattedAmount: '₹3,00,000',
     location: 'Hyderabad, Telangana',
-    role: 'Chief Neurosurgeon & Legacy Patron',
+    role: 'Doctor & Legacy Patron',
     joinDate: 'July 2026',
     quote: {
       en: 'Supporting traditional artisans is the most sustainable way to keep our legacy alive. Digital mapping is a massive step forward.',
