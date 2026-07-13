@@ -1,6 +1,5 @@
 {
-  "buildCommand": "nx run @vishwakarma-k-c/web-hub:build",
-  "outputDirectory": "apps/web-hub/dist",
-  "installCommand": "pnpm install",
-  "framework": null
+  "buildCommand": "npx nx build @vishwakarma-k-c/next-web-hub",
+  "outputDirectory": "apps/next-web-hub/.next",
+  "framework": "nextjs"
 }
