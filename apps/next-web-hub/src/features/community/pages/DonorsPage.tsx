@@ -171,74 +171,8 @@ export const DonorsPage = () => {
 
         </div>
       </section>
-
-      {/* 2. INTERACTIVE IMPACT CALCULATOR */}
-      <section className="py-20 bg-cream/30 border-y border-stone-200/50">
-        <div className="max-w-4xl mx-auto px-6 space-y-12">
-          
-          <div className="text-center space-y-3">
-            <div className="inline-flex items-center gap-2 bg-vermilion/5 text-vermilion px-4.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-              <TrendingUp size={12} /> Live Impact Splitter
-            </div>
-            <h2 className="text-3xl font-black text-stone-900 font-display">See Your Contribution In Action</h2>
-            <p className="text-stone-500 text-sm max-w-lg mx-auto leading-relaxed">
-              Drag the slider below to see exactly how your donation amount is distributed across our active foundation programs.
-            </p>
-          </div>
-
-          <div className="bg-white border border-stone-200/60 rounded-[2.5rem] p-8 md:p-12 shadow-xl space-y-10">
-            {/* Slider Widget */}
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black uppercase tracking-widest text-stone-400">Contribution Amount</span>
-                <span className="text-2xl font-black text-vermilion font-display">{formatCurrency(sliderAmount)}</span>
-              </div>
-              <input 
-                type="range" 
-                min={1000} 
-                max={50000} 
-                step={1000}
-                value={sliderAmount} 
-                onChange={(e) => setSliderAmount(parseInt(e.target.value))}
-                className="w-full h-2 bg-stone-100 rounded-lg appearance-none cursor-pointer accent-vermilion"
-              />
-              <div className="flex justify-between text-[10px] font-black text-stone-400">
-                <span>Min: ₹1,000</span>
-                <span>Max: ₹50,000</span>
-              </div>
-            </div>
-
-            {/* Split Visualization */}
-            <div className="grid md:grid-cols-3 gap-6 pt-4">
-              {/* Allocation Card 1 */}
-              <div className="bg-stone-50 p-6 rounded-2xl border border-stone-100 space-y-3 relative overflow-hidden">
-                <div className="absolute right-2 top-2 opacity-5 text-stone-900"><Percent size={48} /></div>
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-stone-400">Heritage Digitization (40%)</h4>
-                <div className="text-xl font-black text-stone-900">{formatCurrency(allocation.heritage)}</div>
-                <p className="text-[10px] text-stone-500 leading-relaxed font-medium">Sponsors high-resolution camera gear and scanning teams for ancient scriptures.</p>
-              </div>
-              {/* Allocation Card 2 */}
-              <div className="bg-stone-50 p-6 rounded-2xl border border-stone-100 space-y-3 relative overflow-hidden">
-                <div className="absolute right-2 top-2 opacity-5 text-stone-900"><Percent size={48} /></div>
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-stone-400">Artisan Directory (35%)</h4>
-                <div className="text-xl font-black text-stone-900">{formatCurrency(allocation.directory)}</div>
-                <p className="text-[10px] text-stone-500 leading-relaxed font-medium">Funds verification visits, photography, and creating digital portfolio links for artisans.</p>
-              </div>
-              {/* Allocation Card 3 */}
-              <div className="bg-stone-50 p-6 rounded-2xl border border-stone-100 space-y-3 relative overflow-hidden">
-                <div className="absolute right-2 top-2 opacity-5 text-stone-900"><Percent size={48} /></div>
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-stone-400">Welfare & Legal (25%)</h4>
-                <div className="text-xl font-black text-stone-900">{formatCurrency(allocation.advocacy)}</div>
-                <p className="text-[10px] text-stone-500 leading-relaxed font-medium">Supplements advocacy efforts for OBC reservation rights and education support funds.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 3. GAMIFIED LEADERBOARD SECTION */}
-      <section className="py-24 bg-stone-50">
+      {/* 2. GAMIFIED LEADERBOARD SECTION */}
+      <section className="py-24 bg-stone-50 border-y border-stone-200/50">
         <div className="max-w-5xl mx-auto px-6 space-y-12">
           
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -355,6 +289,71 @@ export const DonorsPage = () => {
                   ))
                 )}
               </AnimatePresence>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. INTERACTIVE IMPACT CALCULATOR */}
+      <section className="py-20 bg-cream/30">
+        <div className="max-w-4xl mx-auto px-6 space-y-12">
+          
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center gap-2 bg-vermilion/5 text-vermilion px-4.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+              <TrendingUp size={12} /> Live Impact Splitter
+            </div>
+            <h2 className="text-3xl font-black text-stone-900 font-display">See Your Contribution In Action</h2>
+            <p className="text-stone-500 text-sm max-w-lg mx-auto leading-relaxed">
+              Drag the slider below to see exactly how your donation amount is distributed across our active foundation programs.
+            </p>
+          </div>
+
+          <div className="bg-white border border-stone-200/60 rounded-[2.5rem] p-8 md:p-12 shadow-xl space-y-10">
+            {/* Slider Widget */}
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-black uppercase tracking-widest text-stone-400">Contribution Amount</span>
+                <span className="text-2xl font-black text-vermilion font-display">{formatCurrency(sliderAmount)}</span>
+              </div>
+              <input 
+                type="range" 
+                min={1000} 
+                max={50000} 
+                step={1000}
+                value={sliderAmount} 
+                onChange={(e) => setSliderAmount(parseInt(e.target.value))}
+                className="w-full h-2 bg-stone-100 rounded-lg appearance-none cursor-pointer accent-vermilion"
+              />
+              <div className="flex justify-between text-[10px] font-black text-stone-400">
+                <span>Min: ₹1,000</span>
+                <span>Max: ₹50,000</span>
+              </div>
+            </div>
+
+            {/* Split Visualization */}
+            <div className="grid md:grid-cols-3 gap-6 pt-4">
+              {/* Allocation Card 1 */}
+              <div className="bg-stone-50 p-6 rounded-2xl border border-stone-100 space-y-3 relative overflow-hidden">
+                <div className="absolute right-2 top-2 opacity-5 text-stone-900"><Percent size={48} /></div>
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-stone-400">Heritage Digitization (40%)</h4>
+                <div className="text-xl font-black text-stone-900">{formatCurrency(allocation.heritage)}</div>
+                <p className="text-[10px] text-stone-500 leading-relaxed font-medium">Sponsors high-resolution camera gear and scanning teams for ancient scriptures.</p>
+              </div>
+              {/* Allocation Card 2 */}
+              <div className="bg-stone-50 p-6 rounded-2xl border border-stone-100 space-y-3 relative overflow-hidden">
+                <div className="absolute right-2 top-2 opacity-5 text-stone-900"><Percent size={48} /></div>
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-stone-400">Artisan Directory (35%)</h4>
+                <div className="text-xl font-black text-stone-900">{formatCurrency(allocation.directory)}</div>
+                <p className="text-[10px] text-stone-500 leading-relaxed font-medium">Funds verification visits, photography, and creating digital portfolio links for artisans.</p>
+              </div>
+              {/* Allocation Card 3 */}
+              <div className="bg-stone-50 p-6 rounded-2xl border border-stone-100 space-y-3 relative overflow-hidden">
+                <div className="absolute right-2 top-2 opacity-5 text-stone-900"><Percent size={48} /></div>
+                <h4 className="text-[10px] font-black uppercase tracking-widest text-stone-400">Welfare & Legal (25%)</h4>
+                <div className="text-xl font-black text-stone-900">{formatCurrency(allocation.advocacy)}</div>
+                <p className="text-[10px] text-stone-500 leading-relaxed font-medium">Supplements advocacy efforts for OBC reservation rights and education support funds.</p>
+              </div>
             </div>
           </div>
 
