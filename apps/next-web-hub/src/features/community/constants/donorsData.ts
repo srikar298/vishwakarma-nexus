@@ -93,19 +93,19 @@ export const mockDonors: Donor[] = [
     }
   },
   {
-    id: 'sub-collector-supporter',
-    name: 'Smt. K. Shailaja, IAS',
-    avatar: '/images/donors/sub-collector-supporter.jpg',
+    id: 'e-venkatachary',
+    name: 'Brahmasri E. Venkatachary',
+    avatar: '/images/donors/e-venkatachary-collector.jpg',
     tier: 'honorary',
     amount: 0,
     formattedAmount: 'Patronage',
     location: 'Vikarabad, Telangana',
-    role: 'Sub-Collector & Civil Servant',
+    role: 'Addl. Collector, Vikarabad District',
     joinDate: 'September 2026',
     quote: {
-      en: 'Ensuring government welfare reach and digital empowerment for our traditional heritage artisans is our administrative commitment.',
-      te: 'మన సాంప్రదాయ వారసత్వ కళాకారులకు ప్రభుత్వ సంక్షేమ పథకాలను మరియు డిజిటల్ సాధికారతను చేరవేయడం మా పరిపాలనా నిబద్ధత.',
-      hi: 'हमारे पारंपरिक विरासत शिल्पकारों के लिए सरकारी कल्याणकारी पहुंच और डिजिटल सशक्तिकरण सुनिश्चित करना हमारी प्रशासनिक प्रतिबद्धता है।'
+      en: 'Promoting digital equity and welfare programs for our traditional artisan communities is a vital step toward sustainable rural development.',
+      te: 'మన సాంప్రదాయ కళాకారుల కమ్యూనిటీల కోసం డిజిటల్ ఈక్విటీని మరియు సంక్షేమ పథకాలను పెంపొందించడం స్థిరమైన గ్రామీణాభివృద్ధికి ఒక ముఖ్యమైన అడుగు.',
+      hi: 'हमारे पारंपरिक शिल्पकार समुदायों के लिए डिजिटल समानता और कल्याणकारी कार्यक्रमों को बढ़ावा देना सतत ग्रामीण विकास की दिशा में एक महत्वपूर्ण कदम है।'
     }
   }
 ];
