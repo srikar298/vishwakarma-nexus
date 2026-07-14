@@ -354,7 +354,13 @@ export const DonorsPage = () => {
                                 {donor.id === 'dr-harikanth'
                                   ? `Contributed ${donor.formattedAmount} to support conducting community events, cultural celebrations, and heritage workshops.`
                                   : donor.tier === 'honorary'
-                                    ? `Providing honorary patronage and guidance to support the preservation of Vishwakarma heritage.`
+                                    ? donor.id === 'sirikonda-madhusudhana' || donor.id === 'dasoju-sravan' || donor.id === 'talloju-achary' || donor.id === 'bibinagar-anuradha'
+                                      ? `Providing governance advocacy, legislative guidance, and leadership to support traditional artisan welfare.`
+                                      : donor.id === 'e-venkatachary'
+                                        ? `Providing administrative expertise, public policy guidance, and executive support for community development.`
+                                        : donor.id === 'brahmasri-kammaripalli-mallikharjuna-kiran-kumar'
+                                          ? `Providing executive leadership, civic security guidance, and community safety advice to empower the youth.`
+                                          : `Providing honorary patronage and guidance to support the preservation of Vishwakarma heritage.`
                                     : `Donated ${donor.formattedAmount} to empower traditional master craftsmen and fund skill development.`
                                 }
                               </p>
