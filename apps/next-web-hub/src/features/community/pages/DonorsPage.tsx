@@ -22,7 +22,7 @@ const GOAL_AMOUNT = 2000000; // ₹20 Lakhs
 
 export const DonorsPage = () => {
   const { t, i18n } = useTranslation();
-  const [activeTab, setActiveTab] = useState<'generous' | 'recent'>('generous');
+  const [activeTab, setActiveTab] = useState<'generous' | 'recent' | 'honorary'>('generous');
   const [sliderAmount, setSliderAmount] = useState<number>(5000);
   const [raisedAmount, setRaisedAmount] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -38,12 +38,13 @@ export const DonorsPage = () => {
   useEffect(() => {
     let start = 0;
     const end = totalRaised;
-    if (start === end) return;
-
-    const totalDuration = 1500; // ms
+    if (end === 0) return;
+    
+    const duration = 1.5; // seconds
+    const totalMiliseconds = duration * 1000;
     const incrementTime = 30; // ms
-    const step = (end - start) / (totalDuration / incrementTime);
-
+    const step = (end / totalMiliseconds) * incrementTime;
+    
     const timer = setInterval(() => {
       start += step;
       if (start >= end) {
@@ -58,21 +59,32 @@ export const DonorsPage = () => {
   }, [totalRaised]);
 
   // Sort logic for Leaderboard
-  const sortedDonors = [...mockDonors].sort((a, b) => {
-    if (activeTab === 'generous') {
-      return b.amount - a.amount; // highest amount first
-    } else {
-      // Recent logic: parse custom joinDate strings to sort (or use hardcoded index order)
-      const months = { 'January': 1, 'March': 3, 'June': 6, 'August': 8, 'September': 9, 'October': 10, 'November': 11 };
-      const getScore = (d: Donor) => {
-        const parts = d.joinDate.split(' ');
-        const monthNum = months[parts[0] as keyof typeof months] || 1;
-        const yearNum = parseInt(parts[1]) || 2026;
-        return yearNum * 12 + monthNum;
-      };
-      return getScore(b) - getScore(a); // latest date first
-    }
-  });
+  const sortedDonors = [...mockDonors]
+    .filter(donor => {
+      if (activeTab === 'honorary') {
+        return donor.tier === 'honorary';
+      } else {
+        return donor.tier !== 'honorary';
+      }
+    })
+    .sort((a, b) => {
+      if (activeTab === 'generous') {
+        return b.amount - a.amount; // highest amount first
+      } else if (activeTab === 'recent') {
+        // Recent logic: parse custom joinDate strings to sort (or use hardcoded index order)
+        const months = { 'January': 1, 'March': 3, 'June': 6, 'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11 };
+        const getScore = (d: Donor) => {
+          const parts = d.joinDate.split(' ');
+          const monthNum = months[parts[0] as keyof typeof months] || 1;
+          const yearNum = parseInt(parts[1]) || 2026;
+          return yearNum * 12 + monthNum;
+        };
+        return getScore(b) - getScore(a); // latest date first
+      } else {
+        // Honorary supporters keep default order (custom ranking)
+        return 0;
+      }
+    });
 
   // Filter list based on search queries
   const filteredDonors = sortedDonors.filter(donor => 
@@ -102,6 +114,8 @@ export const DonorsPage = () => {
         return <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase bg-gold-100 text-gold-700 px-2.5 py-0.5 rounded-full border border-gold-200"><Crown size={10} /> Patron</span>;
       case 'gold':
         return <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase bg-stone-900 text-white px-2.5 py-0.5 rounded-full"><Star size={10} fill="currentColor" /> Gold</span>;
+      case 'honorary':
+        return <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase bg-purple-100 text-purple-700 px-2.5 py-0.5 rounded-full border border-purple-200"><Heart size={10} fill="currentColor" /> Honorary</span>;
       default:
         return <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase bg-stone-100 text-stone-600 px-2.5 py-0.5 rounded-full border border-stone-200"><Shield size={10} fill="currentColor" /> Silver</span>;
     }
@@ -207,7 +221,7 @@ export const DonorsPage = () => {
                   }
                 `}
               >
-                🏆 Most Generous
+                🏆 Sponsors
               </button>
               <button 
                 onClick={() => setActiveTab('recent')}
@@ -218,7 +232,18 @@ export const DonorsPage = () => {
                   }
                 `}
               >
-                ⚡ Recent Sponsors
+                ⚡ Recent
+              </button>
+              <button 
+                onClick={() => setActiveTab('honorary')}
+                className={`flex-1 py-4 text-center rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all
+                  ${activeTab === 'honorary' 
+                    ? 'bg-white text-stone-900 shadow-sm ring-1 ring-stone-900/5' 
+                    : 'text-stone-400 hover:text-stone-600'
+                  }
+                `}
+              >
+                🤝 Honorary
               </button>
             </div>
 

@@ -20,7 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const title = `${donor.name} | VKC Community Sponsor`;
-  const description = `${donor.name} contributed ${donor.formattedAmount} to the Vishwakarma Knowledge Centre. Read their dedication to preserving the traditional artisan legacy.`;
+  const description = donor.tier === 'honorary'
+    ? `${donor.name} is providing ${donor.formattedAmount} to the Vishwakarma Knowledge Centre. Read their dedication to preserving the traditional artisan legacy.`
+    : `${donor.name} contributed ${donor.formattedAmount} to the Vishwakarma Knowledge Centre. Read their dedication to preserving the traditional artisan legacy.`;
 
   return {
     title,

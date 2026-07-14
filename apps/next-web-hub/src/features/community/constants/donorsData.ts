@@ -2,7 +2,7 @@ export interface Donor {
   id: string; // URL slug, e.g. "dr-harikanth"
   name: string;
   avatar: string; // Saved headshot/couple/group portrait path
-  tier: 'patron' | 'gold' | 'silver';
+  tier: 'patron' | 'gold' | 'silver' | 'honorary';
   amount: number;
   formattedAmount: string;
   location: string;
@@ -74,6 +74,38 @@ export const mockDonors: Donor[] = [
       en: 'Serving the community and supporting the digital sovereignty of our traditional artisan clans is the greatest form of public service.',
       te: 'కమ్యూనిటీకి సేవ చేయడం మరియు మన సాంప్రదాయ కళాకారుల డిజిటల్ సార్వభౌమత్వానికి మద్దతు ఇవ్వడం అత్యంత గొప్ప ప్రజా సేవ.',
       hi: 'समाज की सेवा करना और हमारे पारंपरिक शिल्पकार परिवारों की डिजिटल संप्रभुता का समर्थन करना सार्वजनिक सेवा का सबसे बड़ा रूप है।'
+    }
+  },
+  {
+    id: 'acp-supporter',
+    name: 'Sri M. Ravi Kumar (ACP)',
+    avatar: '/images/donors/acp-supporter.jpg',
+    tier: 'honorary',
+    amount: 0,
+    formattedAmount: 'Patronage',
+    location: 'Nawabpet, Telangana',
+    role: 'Assistant Commissioner of Police (ACP)',
+    joinDate: 'August 2026',
+    quote: {
+      en: 'Law enforcement and public administration are proud to support the preservation of our cultural roots and digital artisan directories.',
+      te: 'మన సాంస్కృతిక మూలాలను మరియు డిజిటల్ కళాకారుల డైరెక్టరీలను పరిరక్షించడంలో శాంతిభద్రతల విభాగం మరియు ప్రజా పరిపాలన గర్వంగా భాగస్వామ్యం వహిస్తున్నాయి.',
+      hi: 'कानून प्रवर्तन और सार्वजनिक प्रशासन हमारे सांस्कृतिक मूल और डिजिटल शिल्पकार निर्देशिकाओं के संरक्षण का समर्थन करने में गर्व महसूस करते हैं।'
+    }
+  },
+  {
+    id: 'sub-collector-supporter',
+    name: 'Smt. K. Shailaja, IAS',
+    avatar: '/images/donors/sub-collector-supporter.jpg',
+    tier: 'honorary',
+    amount: 0,
+    formattedAmount: 'Patronage',
+    location: 'Vikarabad, Telangana',
+    role: 'Sub-Collector & Civil Servant',
+    joinDate: 'September 2026',
+    quote: {
+      en: 'Ensuring government welfare reach and digital empowerment for our traditional heritage artisans is our administrative commitment.',
+      te: 'మన సాంప్రదాయ వారసత్వ కళాకారులకు ప్రభుత్వ సంక్షేమ పథకాలను మరియు డిజిటల్ సాధికారతను చేరవేయడం మా పరిపాలనా నిబద్ధత.',
+      hi: 'हमारे पारंपरिक विरासत शिल्पकारों के लिए सरकारी कल्याणकारी पहुंच और डिजिटल सशक्तिकरण सुनिश्चित करना हमारी प्रशासनिक प्रतिबद्धता है।'
     }
   }
 ];

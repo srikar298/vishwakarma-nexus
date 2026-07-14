@@ -48,6 +48,14 @@ const TIER_CONFIGS = {
     glow: "shadow-stone-400/20",
     bg: "bg-gradient-to-br from-stone-50 via-white to-stone-50",
     badgeBg: "bg-gradient-to-r from-stone-200 to-stone-400 text-stone-900"
+  },
+  honorary: {
+    badge: "Honorary Supporter",
+    icon: <Heart size={18} className="text-purple-600" fill="currentColor" />,
+    color: "from-purple-500 via-indigo-500 to-purple-600",
+    glow: "shadow-purple-500/20",
+    bg: "bg-gradient-to-br from-purple-50/40 via-white to-indigo-50/20",
+    badgeBg: "bg-gradient-to-r from-purple-500 to-indigo-500 text-white"
   }
 };
 
@@ -60,7 +68,9 @@ export const DonorProfilePage = ({ donor }: DonorProfilePageProps) => {
   const donorQuote = donor.quote[currentLang] || donor.quote.en;
 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-  const shareText = `Check out ${donor.name}'s profile! They contributed ${donor.formattedAmount} to the Vishwakarma Knowledge Centre to support traditional artisans.`;
+  const shareText = donor.tier === 'honorary'
+    ? `Check out ${donor.name}'s profile! They are providing ${donor.formattedAmount} to the Vishwakarma Knowledge Centre to support traditional artisans.`
+    : `Check out ${donor.name}'s profile! They contributed ${donor.formattedAmount} to the Vishwakarma Knowledge Centre to support traditional artisans.`;
 
   const shareLinks = {
     whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`,
