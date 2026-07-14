@@ -77,35 +77,19 @@ export const mockDonors: Donor[] = [
     }
   },
   {
-    id: 'sirikonda-madhusudhana',
-    name: 'Brahmasri Sirikonda Madhusudhana Chary',
-    avatar: '/images/donors/sirikonda-madhusudhana-supporter.jpg',
+    id: 'brahmasri-kammaripalli-mallikharjuna-kiran-kumar',
+    name: 'Brahmasri Kammaripalli Mallikharjuna Kiran Kumar',
+    avatar: '/images/donors/brahmasri-kammaripalli-mallikharjuna-kiran-kumar.jpg',
     tier: 'honorary',
     amount: 0,
     formattedAmount: 'Patronage',
-    location: 'Warangal, Telangana',
-    role: 'Former Speaker of Legislative Assembly & MLC',
-    joinDate: 'July 2026',
-    quote: {
-      en: 'Preserving our cultural roots and enabling digital transformation for our traditional artisan clans is key to achieving social and economic justice.',
-      te: 'మన సాంస్కృతిక మూలాలను పరిరక్షించడం మరియు మన సాంప్రదాయ కళాకారుల కమ్యూనిటీల కోసం డిజిటల్ పరివర్తనను సాధించడం సామాజిక, ఆర్థిక న్యాయానికి కీలకం.',
-      hi: 'हमारी सांस्कृतिक जड़ों को संरक्षित करना और हमारे पारंपरिक शिल्पकार परिवारों के लिए डिजिटल परिवर्तन को सक्षम करना सामाजिक और आर्थिक न्याय प्राप्त करने की कुंजी है।'
-    }
-  },
-  {
-    id: 'dasoju-sravan',
-    name: 'Dr. Dasoju Sravan',
-    avatar: '/images/donors/dasoju-sravan-supporter.jpg',
-    tier: 'honorary',
-    amount: 0,
-    formattedAmount: 'Patronage',
-    location: 'Hyderabad, Telangana',
-    role: 'Member of Legislative Council (MLC), Telangana',
+    location: 'CCS, Hyderabad, Telangana',
+    role: 'Asst Commissioner of Police, Economical offences wing',
     joinDate: 'August 2026',
     quote: {
-      en: 'Vedic architectural knowledge and structural sciences must be archived and promoted globally to empower the modern generation of artisans.',
-      te: 'ఆధునిక శిల్పకారుల తరానికి ప్రాతినిధ్యం వహించడానికి వైదిక వాస్తుశాస్త్ర జ్ఞానాన్ని మరియు నిర్మాణ శాస్త్రాలను భద్రపరిచి, ప్రపంచవ్యాప్తంగా ప్రచారం చేయాలి.',
-      hi: 'शिल्पकारों की आधुनिक पीढ़ी को सशक्त बनाने के लिए वैदिक वास्तुकला ज्ञान और संरचनात्मक विज्ञान को दुनिया भर में संग्रहीत और बढ़ावा दिया जाना चाहिए।'
+      en: 'Preserving our community’s traditional engineering and craft legacies is key to securing our economic and cultural future.',
+      te: 'మన సాంప్రదాయ ఇంజనీరింగ్ మరియు శిల్పకళా వారసత్వాలను పరిరక్షించడం మన ఆర్థిక మరియు సాంస్కృతిక భవిష్యత్తుకు భద్రత చేకూరుస్తుంది.',
+      hi: 'हमारे समुदाय के पारंपरिक इंजीनियरिंग और शिल्प कौशल की विरासत को संरक्षित करना हमारे आर्थिक और सांस्कृतिक भविष्य को सुरक्षित करने की कुंजी है।'
     }
   },
   {
@@ -125,19 +109,35 @@ export const mockDonors: Donor[] = [
     }
   },
   {
-    id: 'brahmasri-kammaripalli-mallikharjuna-kiran-kumar',
-    name: 'Brahmasri Kammaripalli Mallikharjuna Kiran Kumar',
-    avatar: '/images/donors/brahmasri-kammaripalli-mallikharjuna-kiran-kumar.jpg',
+    id: 'sirikonda-madhusudhana',
+    name: 'Brahmasri Sirikonda Madhusudhana Chary',
+    avatar: '/images/donors/sirikonda-madhusudhana-supporter.jpg',
     tier: 'honorary',
     amount: 0,
     formattedAmount: 'Patronage',
-    location: 'CCS, Hyderabad, Telangana',
-    role: 'Asst Commissioner of Police, Economical offences wing',
+    location: 'Warangal, Telangana',
+    role: 'Former Speaker of Legislative Assembly & MLC',
     joinDate: 'October 2026',
     quote: {
-      en: 'Preserving our community’s traditional engineering and craft legacies is key to securing our economic and cultural future.',
-      te: 'మన సాంప్రదాయ ఇంజనీరింగ్ మరియు శిల్పకళా వారసత్వాలను పరిరక్షించడం మన ఆర్థిక మరియు సాంస్కృతిక భవిష్యత్తుకు భద్రత చేకూరుస్తుంది.',
-      hi: 'हमारे समुदाय के पारंपरिक इंजीनियरिंग और शिल्प कौशल की विरासत को संरक्षित करना हमारे आर्थिक और सांस्कृतिक भविष्य को सुरक्षित करने की कुंजी है।'
+      en: 'Preserving our cultural roots and enabling digital transformation for our traditional artisan clans is key to achieving social and economic justice.',
+      te: 'మన సాంస్కృతిక మూలాలను పరిరక్షించడం మరియు మన సాంప్రదాయ కళాకారుల కమ్యూనిటీల కోసం డిజిటల్ పరివర్తనను సాధించడం సామాజిక, ఆర్థిక న్యాయానికి కీలకం.',
+      hi: 'हमारी सांस्कृतिक जड़ों को संरक्षित करना और हमारे पारंपरिक शिल्पकार परिवारों के लिए डिजिटल परिवर्तन को सक्षम करना सामाजिक और आर्थिक न्याय प्राप्त करने की कुंजी है।'
+    }
+  },
+  {
+    id: 'dasoju-sravan',
+    name: 'Dr. Dasoju Sravan',
+    avatar: '/images/donors/dasoju-sravan-supporter.jpg',
+    tier: 'honorary',
+    amount: 0,
+    formattedAmount: 'Patronage',
+    location: 'Hyderabad, Telangana',
+    role: 'Member of Legislative Council (MLC), Telangana',
+    joinDate: 'November 2026',
+    quote: {
+      en: 'Vedic architectural knowledge and structural sciences must be archived and promoted globally to empower the modern generation of artisans.',
+      te: 'ఆధునిక శిల్పకారుల తరానికి ప్రాతినిధ్యం వహించడానికి వైదిక వాస్తుశాస్త్ర జ్ఞానాన్ని మరియు నిర్మాణ శాస్త్రాలను భద్రపరిచి, ప్రపంచవ్యాప్తంగా ప్రచారం చేయాలి.',
+      hi: 'शिल्पकारों की आधुनिक पीढ़ी को सशक्त बनाने के लिए वैदिक वास्तुकला ज्ञान और संरचनात्मक विज्ञान को दुनिया भर में संग्रहीत और बढ़ावा दिया जाना चाहिए।'
     }
   },
   {
@@ -149,7 +149,7 @@ export const mockDonors: Donor[] = [
     formattedAmount: 'Patronage',
     location: 'Bibinagar, Telangana',
     role: 'Senior BJP Leader & Social Activist',
-    joinDate: 'November 2026',
+    joinDate: 'December 2026',
     quote: {
       en: 'Supporting the listing of rural women artisans in the digital directory is critical to achieving grass-root financial independence.',
       te: 'గ్రామీణ మహిళా కళాకారులను డిజిటల్ డైరెక్టరీలో నమోదు చేయడం ద్వారా వారి గ్రామీణ ఆర్థిక స్వాతంత్ర్యానికి బలమైన పునాది లభిస్తుంది.',
