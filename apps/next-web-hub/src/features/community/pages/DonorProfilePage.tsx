@@ -226,9 +226,11 @@ export const DonorProfilePage = ({ donor }: DonorProfilePageProps) => {
                   <div className="absolute right-3 bottom-3 opacity-10 text-white pointer-events-none">
                     <Heart size={80} fill="currentColor" />
                   </div>
-                  <span className="text-[9px] font-black uppercase tracking-[0.25em] text-stone-400">Total VKC Contribution</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.25em] text-stone-400">
+                    {donor.tier === 'honorary' ? 'VKC Support Type' : 'Total VKC Contribution'}
+                  </span>
                   <span className="text-3xl md:text-4xl font-black text-turmeric mt-1 font-display tracking-tight">
-                    {donor.formattedAmount}
+                    {donor.tier === 'honorary' ? 'Community Patronage' : donor.formattedAmount}
                   </span>
                 </div>
 
