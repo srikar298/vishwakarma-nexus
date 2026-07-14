@@ -77,19 +77,19 @@ export const mockDonors: Donor[] = [
     }
   },
   {
-    id: 'acp-supporter',
-    name: 'Sri M. Ravi Kumar (ACP)',
-    avatar: '/images/donors/acp-supporter.jpg',
+    id: 'brahmasri-kammaripalli-mallikharjuna-kiran-kumar',
+    name: 'Brahmasri Kammaripalli Mallikharjuna Kiran Kumar',
+    avatar: '/images/donors/brahmasri-kammaripalli-mallikharjuna-kiran-kumar.jpg',
     tier: 'honorary',
     amount: 0,
     formattedAmount: 'Patronage',
-    location: 'Nawabpet, Telangana',
-    role: 'Assistant Commissioner of Police (ACP)',
+    location: 'CCS, Hyderabad, Telangana',
+    role: 'Asst Commissioner of Police, Economical offences wing',
     joinDate: 'August 2026',
     quote: {
-      en: 'Law enforcement and public administration are proud to support the preservation of our cultural roots and digital artisan directories.',
-      te: 'మన సాంస్కృతిక మూలాలను మరియు డిజిటల్ కళాకారుల డైరెక్టరీలను పరిరక్షించడంలో శాంతిభద్రతల విభాగం మరియు ప్రజా పరిపాలన గర్వంగా భాగస్వామ్యం వహిస్తున్నాయి.',
-      hi: 'कानून प्रवर्तन और सार्वजनिक प्रशासन हमारे सांस्कृतिक मूल और डिजिटल शिल्पकार निर्देशिकाओं के संरक्षण का समर्थन करने में गर्व महसूस करते हैं।'
+      en: 'Preserving our community’s traditional engineering and craft legacies is key to securing our economic and cultural future.',
+      te: 'మన సాంప్రదాయ ఇంజనీరింగ్ మరియు శిల్పకళా వారసత్వాలను పరిరక్షించడం మన ఆర్థిక మరియు సాంస్కృతిక భవిష్యత్తుకు భద్రత చేకూరుస్తుంది.',
+      hi: 'हमारे समुदाय के पारंपरिक इंजीनियरिंग और शिल्प कौशल की विरासत को संरक्षित करना हमारे आर्थिक और सांस्कृतिक भविष्य को सुरक्षित करने की कुंजी है।'
     }
   },
   {
