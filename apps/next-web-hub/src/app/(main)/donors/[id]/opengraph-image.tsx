@@ -15,6 +15,16 @@ export default async function Image({ params }: { params: Promise<{ id: string }
   const resolvedParams = await params;
   const donor = mockDonors.find((d) => d.id === resolvedParams.id);
 
+  // Fetch fonts from jsDelivr CDN
+  const [fontRegular, fontBold] = await Promise.all([
+    fetch(
+      'https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-400-normal.woff'
+    ).then((res) => res.arrayBuffer()),
+    fetch(
+      'https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-700-normal.woff'
+    ).then((res) => res.arrayBuffer()),
+  ]);
+
   if (!donor) {
     return new ImageResponse(
       (
@@ -28,13 +38,24 @@ export default async function Image({ params }: { params: Promise<{ id: string }
             backgroundColor: '#1c1917',
             color: '#fff',
             fontSize: 40,
-            fontWeight: 'bold',
+            fontWeight: 700,
+            fontFamily: 'Inter',
           }}
         >
           VKC Sponsor Profile
         </div>
       ),
-      { ...size }
+      {
+        ...size,
+        fonts: [
+          {
+            name: 'Inter',
+            data: fontRegular,
+            style: 'normal',
+            weight: 400,
+          },
+        ],
+      }
     );
   }
 
@@ -57,14 +78,13 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           boxSizing: 'border-box',
           position: 'relative',
           border: '8px solid #78350f', // warm amber-900 border
+          fontFamily: 'Inter',
         }}
       >
         {/* Left side: Avatar */}
         <div
           style={{
             display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             width: '380px',
             height: '380px',
             borderRadius: '24px',
@@ -78,8 +98,8 @@ export default async function Image({ params }: { params: Promise<{ id: string }
             src={avatarUrl}
             alt={donor.name}
             style={{
-              width: '100%',
-              height: '100%',
+              width: '380px',
+              height: '380px',
               objectFit: 'cover',
             }}
           />
@@ -115,7 +135,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
               <span
                 style={{
                   fontSize: '14px',
-                  fontWeight: 900,
+                  fontWeight: 700,
                   color: '#f59e0b', // amber-500
                   textTransform: 'uppercase',
                   letterSpacing: '3px',
@@ -126,7 +146,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
               <span
                 style={{
                   fontSize: '12px',
-                  fontWeight: 500,
+                  fontWeight: 400,
                   color: '#a8a29e', // stone-400
                   marginTop: '4px',
                 }}
@@ -157,7 +177,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
             <span
               style={{
                 fontSize: '44px',
-                fontWeight: 'bold',
+                fontWeight: 700,
                 color: '#fafaf9', // stone-50
                 lineHeight: 1.2,
               }}
@@ -170,6 +190,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
                 color: '#d6d3d1', // stone-300
                 marginTop: '12px',
                 lineHeight: 1.4,
+                fontWeight: 400,
               }}
             >
               {donor.role}
@@ -192,6 +213,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
               style={{
                 fontSize: '14px',
                 color: '#a8a29e', // stone-400
+                fontWeight: 400,
               }}
             >
               vishwakarmaknowledgecentre.org
@@ -200,6 +222,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
               style={{
                 fontSize: '13px',
                 color: '#78716c', // stone-500
+                fontWeight: 400,
               }}
             >
               Preserving Heritage • Empowering Artisans
@@ -208,6 +231,22 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         </div>
       </div>
     ),
-    { ...size }
+    {
+      ...size,
+      fonts: [
+        {
+          name: 'Inter',
+          data: fontRegular,
+          style: 'normal',
+          weight: 400,
+        },
+        {
+          name: 'Inter',
+          data: fontBold,
+          style: 'normal',
+          weight: 700,
+        },
+      ],
+    }
   );
 }
