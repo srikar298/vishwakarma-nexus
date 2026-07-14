@@ -50,11 +50,11 @@ const TIER_CONFIGS = {
   },
   honorary: {
     badge: "Honorary Supporter",
-    icon: <Heart size={18} className="text-purple-600" fill="currentColor" />,
-    color: "from-purple-500 via-indigo-500 to-purple-600",
-    glow: "shadow-purple-500/20",
-    bg: "bg-gradient-to-br from-purple-50/40 via-white to-indigo-50/20",
-    badgeBg: "bg-gradient-to-r from-purple-500 to-indigo-500 text-white"
+    icon: <Heart size={18} className="text-orange-500" fill="currentColor" />,
+    color: "from-orange-500 via-amber-500 to-amber-700",
+    glow: "shadow-orange-500/20",
+    bg: "bg-gradient-to-br from-orange-50/40 via-white to-amber-50/20",
+    badgeBg: "bg-gradient-to-r from-orange-500 to-amber-600 text-white"
   }
 };
 
