@@ -66,11 +66,85 @@
     <priority>0.7</priority>
   </url>
 
-  <!-- Community -->
+  <!-- Community & Donors -->
   <url>
     <loc>https://vishwakarmaknowledgecentre.org/donors</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors?tab=honorary</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors?tab=sponsors</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors?tab=recents</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Individual Sponsor & Supporter Pages -->
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/dr-harikanth</loc>
+    <lastmod>2026-07-14</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/smt-geetha-rani-sudhakar-chary</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/smt-vishwaika-vishwaroopachary</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/sriramoju-chandramouli-chary</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/brahmasri-kammaripalli-mallikharjuna-kiran-kumar</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/e-venkatachary</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/sirikonda-madhusudhana</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/dasoju-sravan</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vishwakarmaknowledgecentre.org/donors/bibinagar-anuradha</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

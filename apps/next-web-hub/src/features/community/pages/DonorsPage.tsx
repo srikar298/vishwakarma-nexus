@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { 
   Heart, 
   Crown, 
@@ -22,10 +23,35 @@ const GOAL_AMOUNT = 2000000; // ₹20 Lakhs
 
 export const DonorsPage = () => {
   const { t, i18n } = useTranslation();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [activeTab, setActiveTab] = useState<'generous' | 'recent' | 'honorary'>('honorary');
   const [sliderAmount, setSliderAmount] = useState<number>(5000);
   const [raisedAmount, setRaisedAmount] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Sync tab state from URL parameter if available
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam === 'sponsors') {
+      setActiveTab('generous');
+    } else if (tabParam === 'recents') {
+      setActiveTab('recent');
+    } else if (tabParam === 'honorary') {
+      setActiveTab('honorary');
+    }
+  }, [searchParams]);
+
+  // Handler for changing tabs that updates URL
+  const handleTabChange = (tab: 'generous' | 'recent' | 'honorary') => {
+    setActiveTab(tab);
+    const params = new URLSearchParams(searchParams.toString());
+    const tabUrlValue = tab === 'generous' ? 'sponsors' : tab === 'recent' ? 'recents' : 'honorary';
+    params.set('tab', tabUrlValue);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   const isTelugu = i18n.language === 'te';
   const isHindi = i18n.language === 'hi';
@@ -213,7 +239,7 @@ export const DonorsPage = () => {
             {/* Tabs Header */}
             <div className="flex border-b border-stone-100 bg-stone-50/50 p-2 gap-2">
               <button 
-                onClick={() => setActiveTab('honorary')}
+                onClick={() => handleTabChange('honorary')}
                 className={`flex-1 py-4 text-center rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all
                   ${activeTab === 'honorary' 
                     ? 'bg-white text-stone-900 shadow-sm ring-1 ring-stone-900/5' 
@@ -224,7 +250,7 @@ export const DonorsPage = () => {
                 🤝 Honorary
               </button>
               <button 
-                onClick={() => setActiveTab('generous')}
+                onClick={() => handleTabChange('generous')}
                 className={`flex-1 py-4 text-center rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all
                   ${activeTab === 'generous' 
                     ? 'bg-white text-stone-900 shadow-sm ring-1 ring-stone-900/5' 
@@ -235,7 +261,7 @@ export const DonorsPage = () => {
                 🏆 Sponsors
               </button>
               <button 
-                onClick={() => setActiveTab('recent')}
+                onClick={() => handleTabChange('recent')}
                 className={`flex-1 py-4 text-center rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all
                   ${activeTab === 'recent' 
                     ? 'bg-white text-stone-900 shadow-sm ring-1 ring-stone-900/5' 
