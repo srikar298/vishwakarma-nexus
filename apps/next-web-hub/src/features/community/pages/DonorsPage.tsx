@@ -222,7 +222,7 @@ export const DonorsPage = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-vermilion transition-colors" size={16} />
               <input 
                 type="text" 
-                placeholder="Search sponsors..."
+                placeholder="Search donors..."
                 className="w-full h-11 pl-11 pr-4 bg-white border border-stone-200 rounded-xl focus:ring-2 focus:ring-vermilion transition-all text-xs font-medium text-stone-700 shadow-sm"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -254,7 +254,7 @@ export const DonorsPage = () => {
                   }
                 `}
               >
-                🏆 Sponsors
+                🏆 Donors
               </button>
               <button 
                 onClick={() => handleTabChange('recent')}
@@ -274,99 +274,118 @@ export const DonorsPage = () => {
               <AnimatePresence mode="popLayout">
                 {filteredDonors.length === 0 ? (
                   <div className="p-16 text-center text-stone-400 space-y-2">
-                    <p className="text-xs font-black uppercase tracking-widest">No Sponsors Found</p>
+                    <p className="text-xs font-black uppercase tracking-widest">No Donors Found</p>
                     <p className="text-[10px]">Try typing a different name or location query.</p>
                   </div>
                 ) : (
-                  filteredDonors.map((donor, index) => (
-                    <Link href={`/donors/${donor.id}`} key={donor.id} className="block">
-                      <motion.div 
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="
-                          p-4 flex flex-col gap-3 bg-white rounded-2xl border border-stone-150 shadow-sm relative my-3 mx-1
-                          sm:p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:bg-transparent sm:border-0 sm:border-b sm:border-stone-100 sm:rounded-none sm:shadow-none sm:my-0 sm:mx-0
-                          hover:bg-stone-50/60 transition-colors group cursor-pointer
-                        "
-                      >
-                        <div className="flex sm:items-center gap-3 sm:gap-6 flex-1 min-w-0 flex-col sm:flex-row">
-                          
-                          {/* Top line on Mobile: Avatar & Rank & Mobile Chevron */}
-                          <div className="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
-                            <div className="flex items-center gap-3">
-                              {/* Rank indicator (only on Most Generous) */}
-                              {activeTab === 'generous' && (
-                                <span className={`px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black font-display text-center flex-shrink-0
-                                  ${index === 0 ? 'bg-amber-100 text-amber-800' : index === 1 ? 'bg-stone-200 text-stone-850' : index === 2 ? 'bg-stone-100 text-stone-600' : 'bg-stone-50 text-stone-400'}
-                                `}>
-                                  #{index + 1}
-                                </span>
-                              )}
+                  filteredDonors.map((donor, index) => {
+                    const isGenerousTab = activeTab === 'generous';
+                    const isTopThree = isGenerousTab && index < 3;
 
-                              {/* Avatar */}
-                              <div className="relative flex-shrink-0">
-                                <img 
-                                  src={donor.avatar} 
-                                  alt={donor.name} 
-                                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border border-stone-200 shadow-sm"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Chevron on Mobile (top-right of card) */}
-                            <ChevronRight size={16} className="text-stone-355 group-hover:text-vermilion group-hover:translate-x-1 transition-all sm:hidden" />
-                          </div>
-
-                          {/* Details */}
-                          <div className="min-w-0 flex-1 w-full">
-                            <h3 className="font-black text-stone-900 text-sm sm:text-base leading-snug group-hover:text-vermilion transition-colors break-words">
-                              {donor.name}
-                            </h3>
+                    return (
+                      <Link href={`/donors/${donor.id}`} key={donor.id} className="block">
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className={`
+                            p-4 flex flex-col gap-3 rounded-2xl border shadow-sm relative my-3 mx-1 transition-all group cursor-pointer
+                            ${isGenerousTab && index === 0 ? 'bg-amber-50/25 border-amber-300 shadow-md ring-1 ring-amber-100/30' : ''}
+                            ${isGenerousTab && index === 1 ? 'bg-stone-50/45 border-stone-300 shadow-sm' : ''}
+                            ${isGenerousTab && index === 2 ? 'bg-orange-50/15 border-orange-200' : ''}
+                            ${!isGenerousTab || index > 2 ? 'bg-white border-stone-200/60' : ''}
+                            sm:p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:bg-transparent sm:border-0 sm:border-b sm:border-stone-100 sm:rounded-none sm:shadow-none sm:my-0 sm:mx-0 sm:ring-0
+                            hover:bg-stone-50/60
+                          `}
+                        >
+                          <div className="flex sm:items-center gap-3 sm:gap-6 flex-1 min-w-0 flex-col sm:flex-row">
                             
-                            {/* Mobile Designation and Location */}
-                            <div className="sm:hidden flex flex-col gap-1 mt-1 text-[11px] leading-relaxed">
-                              <span className="text-stone-500 font-medium break-words">{donor.role}</span>
-                              <div className="flex items-center gap-1 text-[10px] text-stone-400 font-bold mt-0.5">
-                                <MapPin size={10} className="text-stone-300" />
-                                <span>{donor.location}</span>
+                            {/* Top line on Mobile: Avatar & Rank & Mobile Chevron */}
+                            <div className="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
+                              <div className="flex items-center gap-3">
+                                {/* Rank indicator (only on Most Generous) */}
+                                {activeTab === 'generous' && (
+                                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black font-display text-center flex-shrink-0
+                                    ${index === 0 ? 'bg-amber-100 text-amber-800' : index === 1 ? 'bg-stone-200 text-stone-850' : index === 2 ? 'bg-stone-100 text-stone-600' : 'bg-stone-50 text-stone-400'}
+                                  `}>
+                                    #{index + 1}
+                                  </span>
+                                )}
+
+                                {/* Avatar */}
+                                <div className="relative flex-shrink-0">
+                                  <img 
+                                    src={donor.avatar} 
+                                    alt={donor.name} 
+                                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border border-stone-200 shadow-sm"
+                                  />
+                                </div>
                               </div>
+
+                              {/* Chevron on Mobile (top-right of card) */}
+                              <ChevronRight size={16} className="text-stone-355 group-hover:text-vermilion group-hover:translate-x-1 transition-all sm:hidden" />
                             </div>
 
-                            {/* Desktop Designation and Location */}
-                            <div className="hidden sm:flex sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 mt-1 text-[10px] text-stone-400 font-bold leading-normal">
-                              <span className="text-stone-500">{donor.role}</span>
-                              <span className="w-1.5 h-1.5 rounded-full bg-stone-200" />
-                              <span className="text-stone-350">{donor.location}</span>
-                            </div>
+                            {/* Details */}
+                            <div className="min-w-0 flex-1 w-full">
+                              <h3 className="font-black text-stone-900 text-sm sm:text-base leading-snug group-hover:text-vermilion transition-colors break-words">
+                                {donor.name}
+                              </h3>
+                              
+                              {/* Mobile Designation and Location */}
+                              <div className="sm:hidden flex flex-col gap-1 mt-1 text-[11px] leading-relaxed">
+                                <span className="text-stone-500 font-medium break-words">{donor.role}</span>
+                                <div className="flex items-center gap-1 text-[10px] text-stone-400 font-bold mt-0.5">
+                                  <MapPin size={10} className="text-stone-300" />
+                                  <span>{donor.location}</span>
+                                </div>
+                              </div>
 
-                            {/* Auto-generated Description */}
-                            <p className="text-[10.5px] sm:text-xs text-stone-500 font-medium mt-2 leading-relaxed italic">
-                              {donor.tier === 'honorary'
-                                ? `Providing honorary patronage and guidance to support the preservation of Vishwakarma heritage.`
-                                : `Donated ${donor.formattedAmount} to empower traditional master craftsmen and fund skill development.`
-                              }
-                            </p>
+                              {/* Desktop Designation and Location */}
+                              <div className="hidden sm:flex sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 mt-1 text-[10px] text-stone-400 font-bold leading-normal">
+                                <span className="text-stone-500">{donor.role}</span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-stone-200" />
+                                <span className="text-stone-350">{donor.location}</span>
+                              </div>
+
+                              {/* Auto-generated Description */}
+                              <p className="text-[10.5px] sm:text-xs text-stone-550 mt-2 leading-relaxed font-medium italic">
+                                {donor.id === 'dr-harikanth'
+                                  ? `Contributed ${donor.formattedAmount} to support conducting community events, cultural celebrations, and heritage workshops.`
+                                  : donor.tier === 'honorary'
+                                    ? `Providing honorary patronage and guidance to support the preservation of Vishwakarma heritage.`
+                                    : `Donated ${donor.formattedAmount} to empower traditional master craftsmen and fund skill development.`
+                                }
+                              </p>
+                            </div>
                           </div>
-                        </div>
 
-                        {/* Amount & Nav Action */}
-                        <div className="flex items-center justify-end flex-shrink-0 sm:mt-0 mt-1 w-full sm:w-auto">
-                          <span className={`text-xs sm:text-sm font-black px-3.5 py-2.5 sm:py-2 rounded-xl border transition-all w-full sm:w-auto text-center sm:text-left
-                            ${donor.tier === 'honorary'
-                              ? 'text-amber-800 bg-amber-50/70 border-amber-100 group-hover:bg-amber-100 group-hover:border-amber-200'
-                              : 'text-vermilion bg-vermilion/[0.03] border-vermilion/10 group-hover:bg-vermilion/[0.06] group-hover:border-vermilion/20'
-                            }
-                          `}>
-                            {donor.formattedAmount}
-                          </span>
-                          <ChevronRight size={16} className="text-stone-300 group-hover:text-vermilion group-hover:translate-x-1 transition-all hidden sm:block ml-4" />
-                        </div>
+                          {/* Amount & Nav Action */}
+                          <div className="flex items-center justify-end flex-shrink-0 sm:mt-0 mt-1 w-full sm:w-auto">
+                            <span className={`text-xs sm:text-sm font-black px-3.5 py-2.5 sm:py-2 rounded-xl border transition-all w-full sm:w-auto text-center sm:text-left shadow-sm
+                              ${donor.tier === 'honorary'
+                                ? 'text-amber-800 bg-amber-50/70 border-amber-100 group-hover:bg-amber-100 group-hover:border-amber-200'
+                                : isTopThree
+                                  ? index === 0
+                                    ? 'bg-amber-500 text-white border-amber-600 group-hover:bg-amber-600 group-hover:border-amber-700'
+                                    : index === 1
+                                      ? 'bg-stone-600 text-white border-stone-700 group-hover:bg-stone-700 group-hover:border-stone-800'
+                                      : 'bg-orange-500 text-white border-orange-600 group-hover:bg-orange-600 group-hover:border-orange-700'
+                                  : 'text-vermilion bg-vermilion/[0.03] border-vermilion/10 group-hover:bg-vermilion/[0.06] group-hover:border-vermilion/20'
+                              }
+                            `}>
+                              {donor.formattedAmount}
+                            </span>
+                            <ChevronRight size={16} className={`group-hover:text-vermilion group-hover:translate-x-1 transition-all hidden sm:block ml-4
+                              ${isTopThree ? 'text-stone-400' : 'text-stone-300'}
+                            `} />
+                          </div>
 
-                      </motion.div>
-                    </Link>
-                  ))
+                        </motion.div>
+                      </Link>
+                    );
+                  })
                 )}
               </AnimatePresence>
             </div>
