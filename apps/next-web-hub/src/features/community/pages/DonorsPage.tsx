@@ -284,51 +284,46 @@ export const DonorsPage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-stone-50/60 transition-colors group cursor-pointer"
+                        className="p-3 sm:p-6 flex items-center justify-between gap-2 sm:gap-4 hover:bg-stone-50/60 transition-colors group cursor-pointer"
                       >
-                        <div className="flex items-start sm:items-center gap-4 sm:gap-6 flex-1 min-w-0">
+                        <div className="flex items-center gap-2 sm:gap-6 flex-1 min-w-0">
                           {/* Rank indicator (only on Most Generous) */}
                           {activeTab === 'generous' && (
-                            <span className={`w-8 text-center text-sm font-black font-display mt-2 sm:mt-0
-                              ${index === 0 ? 'text-gold-500 text-lg' : index === 1 ? 'text-stone-600' : index === 2 ? 'text-stone-400' : 'text-stone-300'}
+                            <span className={`w-6 sm:w-8 text-center text-xs sm:text-sm font-black font-display
+                              ${index === 0 ? 'text-gold-500 text-sm sm:text-lg' : index === 1 ? 'text-stone-600' : index === 2 ? 'text-stone-400' : 'text-stone-300'}
                             `}>
                               #{index + 1}
                             </span>
                           )}
 
                           {/* Avatar */}
-                          <div className="relative flex-shrink-0 mt-1.5 sm:mt-0">
+                          <div className="relative flex-shrink-0">
                             <img 
                               src={donor.avatar} 
                               alt={donor.name} 
-                              className="w-12 h-12 rounded-full object-cover border border-stone-200 shadow-sm"
+                              className="w-8 h-8 sm:w-12 sm:h-12 rounded-full object-cover border border-stone-200 shadow-sm"
                             />
                           </div>
 
                           {/* Details */}
                           <div className="min-w-0 flex-1">
-                            <h3 className="font-black text-stone-900 text-sm sm:text-base leading-snug group-hover:text-vermilion transition-colors break-words">
+                            <h3 className="font-black text-stone-900 text-xs sm:text-base leading-snug group-hover:text-vermilion transition-colors break-words">
                               {donor.name}
                             </h3>
-                            <div className="flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 mt-1.5 text-[10px] text-stone-400 font-bold leading-relaxed">
-                              <span className="break-words text-stone-500">{donor.role}</span>
-                              <span className="w-1.5 h-1.5 rounded-full bg-stone-200 hidden sm:inline" />
+                            <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-[8px] sm:text-[10px] text-stone-450 font-bold leading-normal">
+                              <span className="text-stone-500">{donor.role}</span>
+                              <span className="w-1 h-1 rounded-full bg-stone-200" />
                               <span className="text-stone-350">{donor.location}</span>
                             </div>
                           </div>
                         </div>
 
                         {/* Amount & Nav Action */}
-                        <div className="flex items-center justify-between sm:justify-end gap-4 sm:mt-0 mt-1 border-t sm:border-t-0 border-stone-100 pt-3.5 sm:pt-0">
-                          <span className="sm:hidden text-[9px] text-stone-400 font-bold uppercase tracking-widest">
-                            {activeTab === 'honorary' ? 'Honorary Support' : 'Sponsorship'}
+                        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+                          <span className="text-[10px] sm:text-sm font-black text-stone-900 bg-stone-50 px-2 py-1 sm:px-3.5 sm:py-2 rounded-lg sm:rounded-xl border border-stone-100 group-hover:border-vermilion/20 group-hover:bg-vermilion/[0.02] group-hover:text-vermilion transition-all">
+                            {donor.formattedAmount}
                           </span>
-                          <div className="flex items-center gap-3">
-                            <span className="text-xs sm:text-sm font-black text-stone-900 bg-stone-50 px-3.5 py-2 rounded-xl border border-stone-100 group-hover:border-vermilion/20 group-hover:bg-vermilion/[0.02] group-hover:text-vermilion transition-all">
-                              {donor.formattedAmount}
-                            </span>
-                            <ChevronRight size={16} className="text-stone-300 group-hover:text-vermilion group-hover:translate-x-1 transition-all" />
-                          </div>
+                          <ChevronRight size={14} className="text-stone-300 group-hover:text-vermilion group-hover:translate-x-1 transition-all" />
                         </div>
 
                       </motion.div>
