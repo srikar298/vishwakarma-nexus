@@ -14,7 +14,8 @@ import {
   TrendingUp,
   Percent,
   Search,
-  ChevronRight
+  ChevronRight,
+  MapPin
 } from 'lucide-react';
 import { mockDonors, Donor } from '../constants/donorsData';
 
@@ -269,7 +270,7 @@ export const DonorsPage = () => {
             </div>
 
             {/* List Body */}
-            <div className="divide-y divide-stone-100">
+            <div className="sm:divide-y sm:divide-stone-100 bg-stone-50/40 sm:bg-transparent p-2 sm:p-0">
               <AnimatePresence mode="popLayout">
                 {filteredDonors.length === 0 ? (
                   <div className="p-16 text-center text-stone-400 space-y-2">
@@ -284,46 +285,70 @@ export const DonorsPage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="p-3 sm:p-6 flex items-center justify-between gap-2 sm:gap-4 hover:bg-stone-50/60 transition-colors group cursor-pointer"
+                        className="
+                          p-4 flex flex-col gap-3 bg-white rounded-2xl border border-stone-150 shadow-sm relative my-3 mx-1
+                          sm:p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:bg-transparent sm:border-0 sm:border-b sm:border-stone-100 sm:rounded-none sm:shadow-none sm:my-0 sm:mx-0
+                          hover:bg-stone-50/60 transition-colors group cursor-pointer
+                        "
                       >
-                        <div className="flex items-center gap-2 sm:gap-6 flex-1 min-w-0">
-                          {/* Rank indicator (only on Most Generous) */}
-                          {activeTab === 'generous' && (
-                            <span className={`w-6 sm:w-8 text-center text-xs sm:text-sm font-black font-display
-                              ${index === 0 ? 'text-gold-500 text-sm sm:text-lg' : index === 1 ? 'text-stone-600' : index === 2 ? 'text-stone-400' : 'text-stone-300'}
-                            `}>
-                              #{index + 1}
-                            </span>
-                          )}
+                        <div className="flex sm:items-center gap-3 sm:gap-6 flex-1 min-w-0 flex-col sm:flex-row">
+                          
+                          {/* Top line on Mobile: Avatar & Rank & Mobile Chevron */}
+                          <div className="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
+                            <div className="flex items-center gap-3">
+                              {/* Rank indicator (only on Most Generous) */}
+                              {activeTab === 'generous' && (
+                                <span className={`w-6 sm:w-8 text-center text-xs sm:text-sm font-black font-display
+                                  ${index === 0 ? 'text-gold-500 text-sm sm:text-lg' : index === 1 ? 'text-stone-600' : index === 2 ? 'text-stone-400' : 'text-stone-300'}
+                                `}>
+                                  #{index + 1}
+                                </span>
+                              )}
 
-                          {/* Avatar */}
-                          <div className="relative flex-shrink-0">
-                            <img 
-                              src={donor.avatar} 
-                              alt={donor.name} 
-                              className="w-8 h-8 sm:w-12 sm:h-12 rounded-full object-cover border border-stone-200 shadow-sm"
-                            />
+                              {/* Avatar */}
+                              <div className="relative flex-shrink-0">
+                                <img 
+                                  src={donor.avatar} 
+                                  alt={donor.name} 
+                                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-stone-200 shadow-sm"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Chevron on Mobile (top-right of card) */}
+                            <ChevronRight size={16} className="text-stone-350 group-hover:text-vermilion group-hover:translate-x-1 transition-all sm:hidden" />
                           </div>
 
                           {/* Details */}
-                          <div className="min-w-0 flex-1">
-                            <h3 className="font-black text-stone-900 text-xs sm:text-base leading-snug group-hover:text-vermilion transition-colors break-words">
+                          <div className="min-w-0 flex-1 w-full">
+                            <h3 className="font-black text-stone-900 text-sm sm:text-base leading-snug group-hover:text-vermilion transition-colors break-words">
                               {donor.name}
                             </h3>
-                            <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 text-[8px] sm:text-[10px] text-stone-450 font-bold leading-normal">
+                            
+                            {/* Mobile Designation and Location */}
+                            <div className="sm:hidden flex flex-col gap-1 mt-1 text-[11px] leading-relaxed">
+                              <span className="text-stone-500 font-medium break-words">{donor.role}</span>
+                              <div className="flex items-center gap-1 text-[10px] text-stone-400 font-bold mt-0.5">
+                                <MapPin size={10} className="text-stone-300" />
+                                <span>{donor.location}</span>
+                              </div>
+                            </div>
+
+                            {/* Desktop Designation and Location */}
+                            <div className="hidden sm:flex sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 mt-1 text-[10px] text-stone-400 font-bold leading-normal">
                               <span className="text-stone-500">{donor.role}</span>
-                              <span className="w-1 h-1 rounded-full bg-stone-200" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-stone-200" />
                               <span className="text-stone-350">{donor.location}</span>
                             </div>
                           </div>
                         </div>
 
                         {/* Amount & Nav Action */}
-                        <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
-                          <span className="text-[10px] sm:text-sm font-black text-stone-900 bg-stone-50 px-2 py-1 sm:px-3.5 sm:py-2 rounded-lg sm:rounded-xl border border-stone-100 group-hover:border-vermilion/20 group-hover:bg-vermilion/[0.02] group-hover:text-vermilion transition-all">
+                        <div className="flex items-center justify-end flex-shrink-0 sm:mt-0 mt-1 w-full sm:w-auto">
+                          <span className="text-xs sm:text-sm font-black text-stone-900 bg-stone-50 px-3.5 py-2.5 sm:py-2 rounded-xl border border-stone-100 group-hover:border-vermilion/20 group-hover:bg-vermilion/[0.02] group-hover:text-vermilion transition-all w-full sm:w-auto text-center sm:text-left">
                             {donor.formattedAmount}
                           </span>
-                          <ChevronRight size={14} className="text-stone-300 group-hover:text-vermilion group-hover:translate-x-1 transition-all" />
+                          <ChevronRight size={16} className="text-stone-300 group-hover:text-vermilion group-hover:translate-x-1 transition-all hidden sm:block ml-4" />
                         </div>
 
                       </motion.div>
