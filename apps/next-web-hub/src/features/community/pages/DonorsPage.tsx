@@ -298,8 +298,8 @@ export const DonorsPage = () => {
                             <div className="flex items-center gap-3">
                               {/* Rank indicator (only on Most Generous) */}
                               {activeTab === 'generous' && (
-                                <span className={`w-6 sm:w-8 text-center text-xs sm:text-sm font-black font-display
-                                  ${index === 0 ? 'text-gold-500 text-sm sm:text-lg' : index === 1 ? 'text-stone-600' : index === 2 ? 'text-stone-400' : 'text-stone-300'}
+                                <span className={`px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-black font-display text-center flex-shrink-0
+                                  ${index === 0 ? 'bg-amber-100 text-amber-800' : index === 1 ? 'bg-stone-200 text-stone-850' : index === 2 ? 'bg-stone-100 text-stone-600' : 'bg-stone-50 text-stone-400'}
                                 `}>
                                   #{index + 1}
                                 </span>
@@ -310,13 +310,13 @@ export const DonorsPage = () => {
                                 <img 
                                   src={donor.avatar} 
                                   alt={donor.name} 
-                                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border border-stone-200 shadow-sm"
+                                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover border border-stone-200 shadow-sm"
                                 />
                               </div>
                             </div>
 
                             {/* Chevron on Mobile (top-right of card) */}
-                            <ChevronRight size={16} className="text-stone-350 group-hover:text-vermilion group-hover:translate-x-1 transition-all sm:hidden" />
+                            <ChevronRight size={16} className="text-stone-355 group-hover:text-vermilion group-hover:translate-x-1 transition-all sm:hidden" />
                           </div>
 
                           {/* Details */}
@@ -340,12 +340,25 @@ export const DonorsPage = () => {
                               <span className="w-1.5 h-1.5 rounded-full bg-stone-200" />
                               <span className="text-stone-350">{donor.location}</span>
                             </div>
+
+                            {/* Auto-generated Description */}
+                            <p className="text-[10.5px] sm:text-xs text-stone-500 font-medium mt-2 leading-relaxed italic">
+                              {donor.tier === 'honorary'
+                                ? `Providing honorary patronage and guidance to support the preservation of Vishwakarma heritage.`
+                                : `Donated ${donor.formattedAmount} to empower traditional master craftsmen and fund skill development.`
+                              }
+                            </p>
                           </div>
                         </div>
 
                         {/* Amount & Nav Action */}
                         <div className="flex items-center justify-end flex-shrink-0 sm:mt-0 mt-1 w-full sm:w-auto">
-                          <span className="text-xs sm:text-sm font-black text-stone-900 bg-stone-50 px-3.5 py-2.5 sm:py-2 rounded-xl border border-stone-100 group-hover:border-vermilion/20 group-hover:bg-vermilion/[0.02] group-hover:text-vermilion transition-all w-full sm:w-auto text-center sm:text-left">
+                          <span className={`text-xs sm:text-sm font-black px-3.5 py-2.5 sm:py-2 rounded-xl border transition-all w-full sm:w-auto text-center sm:text-left
+                            ${donor.tier === 'honorary'
+                              ? 'text-amber-800 bg-amber-50/70 border-amber-100 group-hover:bg-amber-100 group-hover:border-amber-200'
+                              : 'text-vermilion bg-vermilion/[0.03] border-vermilion/10 group-hover:bg-vermilion/[0.06] group-hover:border-vermilion/20'
+                            }
+                          `}>
                             {donor.formattedAmount}
                           </span>
                           <ChevronRight size={16} className="text-stone-300 group-hover:text-vermilion group-hover:translate-x-1 transition-all hidden sm:block ml-4" />
