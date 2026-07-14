@@ -308,16 +308,12 @@ export const DonorsPage = () => {
                               alt={donor.name} 
                               className="w-12 h-12 rounded-full object-cover border border-stone-200 shadow-sm"
                             />
-                            <div className="absolute -bottom-1 -right-1 bg-white p-0.5 rounded-full shadow-sm">
-                              {donor.tier === 'patron' ? <Crown size={12} className="text-gold-500" /> : donor.tier === 'gold' ? <Star size={12} className="text-stone-700" fill="currentColor" /> : <Shield size={12} className="text-stone-400" />}
-                            </div>
                           </div>
 
                           {/* Details */}
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                               <h3 className="font-black text-stone-900 text-sm sm:text-base truncate leading-snug group-hover:text-vermilion transition-colors">{donor.name}</h3>
-                              {getTierBadge(donor.tier)}
                             </div>
                             <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 mt-1 text-[10px] text-stone-400 font-bold">
                               <span>{donor.role}</span>

@@ -211,10 +211,6 @@ export const DonorProfilePage = ({ donor }: DonorProfilePageProps) => {
               {/* Donor Core Info */}
               <div className="flex-1 text-center md:text-left space-y-6">
                 <div className="space-y-3">
-                  <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-black text-[9px] uppercase tracking-widest ${cfg.badgeBg} shadow-sm`}>
-                    {cfg.icon}
-                    {cfg.badge}
-                  </div>
                   <h1 className="text-3xl md:text-5xl font-black text-stone-900 leading-none font-display tracking-tight">
                     {donor.name}
                   </h1>
