@@ -307,10 +307,10 @@ export const DonorsPage = () => {
 
                           {/* Details */}
                           <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-                              <h3 className="font-black text-stone-900 text-sm sm:text-base truncate leading-snug group-hover:text-vermilion transition-colors">{donor.name}</h3>
-                            </div>
-                            <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 mt-1 text-[10px] text-stone-400 font-bold">
+                            <h3 className="font-black text-stone-900 text-sm sm:text-base leading-snug group-hover:text-vermilion transition-colors break-words">
+                              {donor.name}
+                            </h3>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-y-1 sm:gap-x-4 mt-1 text-[10px] text-stone-400 font-bold leading-normal">
                               <span>{donor.role}</span>
                               <span className="w-1.5 h-1.5 rounded-full bg-stone-200 hidden sm:inline" />
                               <span>{donor.location}</span>
