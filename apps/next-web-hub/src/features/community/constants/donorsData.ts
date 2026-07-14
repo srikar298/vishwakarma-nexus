@@ -8,6 +8,7 @@ export interface Donor {
   location: string;
   role: string;
   joinDate: string;
+  description: string; // Custom description detailing their role/contribution
   quote: Record<string, string>; // Multilingual quote (en, te, hi)
 }
 
@@ -22,6 +23,7 @@ export const mockDonors: Donor[] = [
     location: 'Hyderabad, Telangana',
     role: 'Doctor & Legacy Patron',
     joinDate: 'July 2026',
+    description: 'Contributed ₹3,00,000 to support conducting community events, cultural celebrations, and heritage workshops.',
     quote: {
       en: 'Supporting traditional artisans is the most sustainable way to keep our legacy alive. Digital mapping is a massive step forward.',
       te: 'సాంప్రదాయ కళాకారులకు మద్దతు ఇవ్వడం మన వారసత్వాన్ని కాపాడటానికి అత్యంత ప్రభావవంతమైన మార్గం. డిజిటల్ మ్యాపింగ్ దీనికి ఒక పెద్ద ముందడుగు.',
@@ -38,6 +40,7 @@ export const mockDonors: Donor[] = [
     location: 'Nawabpet, Telangana',
     role: 'Sarpanch of Nawabpet',
     joinDate: 'August 2026',
+    description: 'Donated ₹1,00,000 to empower traditional master craftsmen and fund skill development.',
     quote: {
       en: 'Empowering our local village craftsmen and promoting rural heritage is our core mission as community leaders.',
       te: 'గ్రామీణ ప్రాంతాల కళాకారులను ప్రోత్సహించడం మరియు గ్రామీణ వారసత్వాన్ని కాపాడటం ప్రజా ప్రతినిధులుగా మా ప్రధాన లక్ష్యం.',
@@ -54,6 +57,7 @@ export const mockDonors: Donor[] = [
     location: 'Hyderabad, Telangana',
     role: 'Poet, Writer & Anchor',
     joinDate: 'September 2026',
+    description: 'Donated ₹50,000 to empower traditional master craftsmen and fund skill development.',
     quote: {
       en: 'Art, literature, and sculpture are the threads that bind the history of our great community together. VKC is building the digital bridge.',
       te: 'కళ, సాహిత్యం మరియు శిల్పకళ మన గొప్ప కమ్యూనిటీ చరిత్రను ఒకదానితో ఒకటి బంధించే దారాలు. VKC దీనికి ఒక డిజిటల్ వంతెనను నిర్మిస్తోంది.',
@@ -70,6 +74,7 @@ export const mockDonors: Donor[] = [
     location: 'Telangana',
     role: 'Sarpanch & Social Activist',
     joinDate: 'October 2026',
+    description: 'Donated ₹50,000 to empower traditional master craftsmen and fund skill development.',
     quote: {
       en: 'Serving the community and supporting the digital sovereignty of our traditional artisan clans is the greatest form of public service.',
       te: 'కమ్యూనిటీకి సేవ చేయడం మరియు మన సాంప్రదాయ కళాకారుల డిజిటల్ సార్వభౌమత్వానికి మద్దతు ఇవ్వడం అత్యంత గొప్ప ప్రజా సేవ.',
@@ -86,6 +91,7 @@ export const mockDonors: Donor[] = [
     location: 'Warangal, Telangana',
     role: '1st Speaker of Telangana Legislative Assembly, Member of Legislative Council & Leader of the Opposition, Telangana',
     joinDate: 'October 2026',
+    description: 'Offering governance leadership, legislative guidance, and advocacy to support traditional artisan socio-economic welfare.',
     quote: {
       en: 'Preserving our cultural roots and enabling digital transformation for our traditional artisan clans is key to achieving social and economic justice.',
       te: 'మన సాంస్కృతిక మూలాలను పరిరక్షించడం మరియు మన సాంప్రదాయ కళాకారుల కమ్యూనిటీల కోసం డిజిటల్ పరివర్తనను సాధించడం సామాజిక, ఆర్థిక న్యాయానికి కీలకం.',
@@ -102,6 +108,7 @@ export const mockDonors: Donor[] = [
     location: 'Hyderabad, Telangana',
     role: 'Member of Legislative Council (MLC), Telangana',
     joinDate: 'November 2026',
+    description: 'Providing strategic community advocacy, educational policy advice, and legislative leadership for artisan empowerment.',
     quote: {
       en: 'Vedic architectural knowledge and structural sciences must be archived and promoted globally to empower the modern generation of artisans.',
       te: 'ఆధునిక శిల్పకారుల తరానికి ప్రాతినిధ్యం వహించడానికి వైదిక వాస్తుశాస్త్ర జ్ఞానాన్ని మరియు నిర్మాణ శాస్త్రాలను భద్రపరిచి, ప్రపంచవ్యాప్తంగా ప్రచారం చేయాలి.',
@@ -118,6 +125,7 @@ export const mockDonors: Donor[] = [
     location: 'Hyderabad, Telangana',
     role: 'Ex-Member of National BC Commission',
     joinDate: 'October 2026',
+    description: 'Providing commission advocacy, welfare guidance, and social justice leadership for backward classes and artisan clans.',
     quote: {
       en: 'Empowering backward classes and traditional artisans with modern education and digital skills is crucial for true social equity.',
       te: 'వెనుకబడిన తరగతులు మరియు సాంప్రదాయ కళాకారులను ఆధునిక విద్య, డిజిటల్ నైపుణ్యాలతో బలోపేతం చేయడం నిజమైన సామాజిక సమానత్వానికి కీలకం.',
@@ -134,6 +142,7 @@ export const mockDonors: Donor[] = [
     location: 'Vikarabad, Telangana',
     role: 'Addl. Collector, Vikarabad District',
     joinDate: 'September 2026',
+    description: 'Offering administrative expertise, public policy guidance, and district welfare coordination to empower local artisans.',
     quote: {
       en: 'Promoting digital equity and welfare programs for our traditional artisan communities is a vital step toward sustainable rural development.',
       te: 'మన సాంప్రదాయ కళాకారుల కమ్యూనిటీల కోసం డిజిటల్ ఈక్విటీని మరియు సంక్షేమ పథకాలను పెంపొందించడం స్థిరమైన గ్రామీణాభివృద్ధికి ఒక ముఖ్యమైన అడుగు.',
@@ -150,6 +159,7 @@ export const mockDonors: Donor[] = [
     location: 'CCS, Hyderabad, Telangana',
     role: 'Asst Commissioner of Police, Economical offences wing',
     joinDate: 'August 2026',
+    description: 'Providing executive police leadership, economic security advice, and youth community development guidance.',
     quote: {
       en: 'Preserving our community’s traditional engineering and craft legacies is key to securing our economic and cultural future.',
       te: 'మన సాంప్రదాయ ఇంజనీరింగ్ మరియు శిల్పకళా వారసత్వాలను పరిరక్షించడం మన ఆర్థిక మరియు సాంస్కృతిక భవిష్యత్తుకు భద్రత చేకూరుస్తుంది.',
@@ -166,6 +176,7 @@ export const mockDonors: Donor[] = [
     location: 'Bibinagar, Telangana',
     role: 'Senior BJP Leader & Social Activist',
     joinDate: 'December 2026',
+    description: 'Providing grass-root political leadership, social empowerment coordination, and advocacy for rural women artisans.',
     quote: {
       en: 'Supporting the listing of rural women artisans in the digital directory is critical to achieving grass-root financial independence.',
       te: 'గ్రామీణ మహిళా కళాకారులను డిజిటల్ డైరెక్టరీలో నమోదు చేయడం ద్వారా వారి గ్రామీణ ఆర్థిక స్వాతంత్ర్యానికి బలమైన పునాది లభిస్తుంది.',
