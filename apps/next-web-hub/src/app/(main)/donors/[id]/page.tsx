@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { DonorProfilePage } from '@/features/community/pages/DonorProfilePage';
 
 interface Props {
-  params: Promise<{ id: string }> | { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -40,6 +40,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [donor.avatar],
     },
   };
+}
+
+export async function generateStaticParams() {
+  return mockDonors.map((donor) => ({
+    id: donor.id,
+  }));
 }
 
 export default async function Page({ params }: Props) {
