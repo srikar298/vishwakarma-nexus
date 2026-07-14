@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   title: "Supporters Registry & Sponsor Leaderboard | VKC",
   description: "View the leaderboard of sponsors, honorary patrons, and community members supporting the digital transformation and preservation of traditional artisan legacy.",
   keywords: ["Sponsors", "Donor Registry", "Honorary Patrons", "Leaderboard", "Artisan Fund", "VKC Supporters"],
+  openGraph: {
+    title: "Supporters Registry & Sponsor Leaderboard | VKC",
+    description: "View the leaderboard of sponsors, honorary patrons, and community members supporting the digital transformation and preservation of traditional artisan legacy.",
+  },
 };
 
 export default function Page() {
