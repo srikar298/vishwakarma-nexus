@@ -1,14 +1,22 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from './locales/en.json';
 import hi from './locales/hi.json';
 import te from './locales/te.json';
 
-// Initialize i18next engine globally
-i18n
-  .use(LanguageDetector)
+const isClient = typeof window !== 'undefined';
+
+// Configure i18n instance
+const i18nInstance = i18n.createInstance();
+
+if (isClient) {
+  // Use require for browser language detector to prevent loading it on server
+  const LanguageDetector = require('i18next-browser-languagedetector').default;
+  i18nInstance.use(LanguageDetector);
+}
+
+i18nInstance
   .use(initReactI18next)
   .init({
     resources: {
@@ -21,19 +29,22 @@ i18n
     interpolation: {
       escapeValue: false,
     },
-    detection: {
+    react: {
+      useSuspense: false, // Prevents promise suspension during server pre-rendering
+    },
+    detection: isClient ? {
       order: ['htmlTag', 'cookie', 'localStorage', 'navigator'],
       caches: ['localStorage', 'cookie']
-    }
+    } : undefined
   });
 
-if (typeof window !== 'undefined') {
+if (isClient) {
   const rawOverrides = localStorage.getItem('vkc_overrides');
   if (rawOverrides) {
     try {
       const overrides = JSON.parse(rawOverrides);
       Object.keys(overrides).forEach(lng => {
-        i18n.addResourceBundle(lng, 'translation', overrides[lng].translation, true, true);
+        i18nInstance.addResourceBundle(lng, 'translation', overrides[lng].translation, true, true);
       });
     } catch (e) {
       console.warn('Failed to parse translation overrides:', e);
@@ -41,4 +52,4 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export default i18n;
+export default i18nInstance;
