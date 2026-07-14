@@ -22,7 +22,7 @@ const GOAL_AMOUNT = 2000000; // ₹20 Lakhs
 
 export const DonorsPage = () => {
   const { t, i18n } = useTranslation();
-  const [activeTab, setActiveTab] = useState<'generous' | 'recent' | 'honorary'>('generous');
+  const [activeTab, setActiveTab] = useState<'generous' | 'recent' | 'honorary'>('honorary');
   const [sliderAmount, setSliderAmount] = useState<number>(5000);
   const [raisedAmount, setRaisedAmount] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -213,6 +213,17 @@ export const DonorsPage = () => {
             {/* Tabs Header */}
             <div className="flex border-b border-stone-100 bg-stone-50/50 p-2 gap-2">
               <button 
+                onClick={() => setActiveTab('honorary')}
+                className={`flex-1 py-4 text-center rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all
+                  ${activeTab === 'honorary' 
+                    ? 'bg-white text-stone-900 shadow-sm ring-1 ring-stone-900/5' 
+                    : 'text-stone-400 hover:text-stone-600'
+                  }
+                `}
+              >
+                🤝 Honorary
+              </button>
+              <button 
                 onClick={() => setActiveTab('generous')}
                 className={`flex-1 py-4 text-center rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all
                   ${activeTab === 'generous' 
@@ -232,18 +243,7 @@ export const DonorsPage = () => {
                   }
                 `}
               >
-                ⚡ Recent
-              </button>
-              <button 
-                onClick={() => setActiveTab('honorary')}
-                className={`flex-1 py-4 text-center rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all
-                  ${activeTab === 'honorary' 
-                    ? 'bg-white text-stone-900 shadow-sm ring-1 ring-stone-900/5' 
-                    : 'text-stone-400 hover:text-stone-600'
-                  }
-                `}
-              >
-                🤝 Honorary
+                ⚡ Recents
               </button>
             </div>
 
