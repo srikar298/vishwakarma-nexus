@@ -47,9 +47,9 @@ const DIGNITARIES = [
   },
   {
     tier: 'govt',
-    nameEn: "Brahmasri E. Venkatachary garu",
-    nameTe: "బ్రహ్మశ్రీ ఈ. వెంకటాచారి గారు",
-    nameHi: "ब्रह्मश्री ई. वेंकटचारी गारू",
+    nameEn: "Brahmasri Edukoju VenkataChary garu",
+    nameTe: "బ్రహ్మశ్రీ ఎడుకోజు వెంకటాచారి గారు",
+    nameHi: "ब्रह्मश्री एडुकोजु वेंकटचारी गारू",
     subEn: "Addl. Collector, Vikarabad District",
     subTe: "అడిషనల్ కలెక్టర్, వికారాబాద్ జిల్లా",
     subHi: "अतिरिक्त कलेक्टर, विकाराबाद जिला",
@@ -466,15 +466,15 @@ export const AnniversarySection: React.FC<AnniversarySectionProps> = ({ onOpenMa
             <p className="text-stone-400 text-xs md:text-sm max-w-xl mx-auto font-medium">
               {isConcluded
                 ? (lang === 'te'
-                  ? 'ముఖ్య అతిథి ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ గారికి, అడిషనల్ కలెక్టర్ (వికారాబాద్) శ్రీ E. వెంకటాచారి గారికి, మరియు ఈ దశాబ్ది ఉత్సవాలను జయప్రదం చేసిన సంఘ సభ్యులందరికీ ధన్యవాదాలు.'
+                  ? 'ముఖ్య అతిథి ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ గారికి, అడిషనల్ కలెక్టర్ (వికారాబాద్) శ్రీ ఎడుకోజు వెంకటాచారి గారికి, మరియు ఈ దశాబ్ది ఉత్సవాలను జయప్రదం చేసిన సంఘ సభ్యులందరికీ ధన్యవాదాలు.'
                   : lang === 'hi'
-                  ? 'मुख्य अतिथि एसीपी ब्रह्मश्री के.एम. किरण कुमार सर, अतिरिक्त कलेक्टर (विकाराबाद) श्री ई. वेंकटाचारी गारू और सभी समाज बंधुओं का हार्दिक आभार।'
-                  : "We express our deepest gratitude to Chief Guest ACP Brahmasri K.M. Kiran Kumar Sir, Additional District Collector (Vikarabad) Sri E. Venkatachary garu, and all community leaders and members.")
+                  ? 'मुख्य अतिथि एसीपी ब्रह्मश्री के.एम. किरण कुमार सर, अतिरिक्त कलेक्टर (विकाराबाद) श्री एडुकोजु वेंकटचारी गारू और सभी समाज बंधुओं का हार्दिक आभार।'
+                  : "We express our deepest gratitude to Chief Guest ACP Brahmasri K.M. Kiran Kumar Sir, Additional District Collector (Vikarabad) Sri Edukoju VenkataChary garu, and all community leaders and members.")
                 : (lang === 'te'
-                  ? 'ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్, అడిషనల్ కలెక్టర్ శ్రీ E. వెంకటాచారి గారు మరియు 20+ ప్రముఖ అతిథులు.'
+                  ? 'ACP బ్రహ్మశ్రీ K.M కిరణ్ కుమార్ సర్, అడిషనల్ కలెక్టర్ శ్రీ ఎడుకోజు వెంకటాచారి గారు మరియు 20+ ప్రముఖ అతిథులు.'
                   : lang === 'hi'
-                  ? 'एसीपी ब्रह्मश्री के.एम. किरण कुमार सर, अतिरिक्त कलेक्टर श्री ई. वेंकटाचारी गारू एवं 20+ विशिष्ट अतिथिगण।'
-                  : "ACP Brahmasri K.M. Kiran Kumar Sir, Additional District Collector (Vikarabad) Sri E. Venkatachary garu & 20+ Distinguished Dignitaries.")}
+                  ? 'एसीपी ब्रह्मश्री के.एम. किरण कुमार सर, अतिरिक्त कलेक्टर श्री एडुकोजु वेंकटचारी गारू एवं 20+ विशिष्ट अतिथिगण।'
+                  : "ACP Brahmasri K.M. Kiran Kumar Sir, Additional District Collector (Vikarabad) Sri Edukoju VenkataChary garu & 20+ Distinguished Dignitaries.")}
             </p>
           </div>
           

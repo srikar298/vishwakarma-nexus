@@ -20,9 +20,9 @@ const DIGNITARIES = [
     photo: "/images/features/home/guests/km-kiran-kumar.jpg"
   },
   {
-    nameEn: "E. Venkatachary garu",
-    nameTe: "ఈ. వెంకటాచారి గారు",
-    nameHi: "ई. वेंकटचारी गारू",
+    nameEn: "Edukoju VenkataChary garu",
+    nameTe: "ఎడుకోజు వెంకటాచారి గారు",
+    nameHi: "एडुकोजु वेंकटचारी गारू",
     subEn: "Additional Collector",
     subTe: "అడిషనల్ కలెక్టర్",
     subHi: "अतिरिक्त कलेक्टर",

@@ -84,7 +84,7 @@ export const mockDonors: Donor[] = [
     amount: 0,
     formattedAmount: 'Patronage',
     location: 'Warangal, Telangana',
-    role: 'Former Speaker of Legislative Assembly & MLC',
+    role: '1st Speaker of Telangana Legislative Assembly, Member of Legislative Council & Leader of the Opposition, Telangana',
     joinDate: 'October 2026',
     quote: {
       en: 'Preserving our cultural roots and enabling digital transformation for our traditional artisan clans is key to achieving social and economic justice.',
@@ -109,24 +109,24 @@ export const mockDonors: Donor[] = [
     }
   },
   {
-    id: 'bibinagar-anuradha',
-    name: 'Smt. Bibinagar Anuradha',
-    avatar: '/images/donors/bibinagar-anuradha-supporter.jpg',
+    id: 'talloju-achary',
+    name: 'Brahmasri Talloju Achary',
+    avatar: '/images/donors/talloju-achary-supporter.jpg',
     tier: 'honorary',
     amount: 0,
     formattedAmount: 'Patronage',
-    location: 'Bibinagar, Telangana',
-    role: 'Senior BJP Leader & Social Activist',
-    joinDate: 'December 2026',
+    location: 'Hyderabad, Telangana',
+    role: 'Ex-Member of National BC Commission',
+    joinDate: 'October 2026',
     quote: {
-      en: 'Supporting the listing of rural women artisans in the digital directory is critical to achieving grass-root financial independence.',
-      te: 'గ్రామీణ మహిళా కళాకారులను డిజిటల్ డైరెక్టరీలో నమోదు చేయడం ద్వారా వారి గ్రామీణ ఆర్థిక స్వాతంత్ర్యానికి బలమైన పునాది లభిస్తుంది.',
-      hi: 'डिजिटल निर्देशिका में ग्रामीण महिला शिल्पकारों को सूचीबद्ध करने का समर्थन करना जमीनी स्तर पर वित्तीय स्वतंत्रता प्राप्त करने के लिए महत्वपूर्ण है।'
+      en: 'Empowering backward classes and traditional artisans with modern education and digital skills is crucial for true social equity.',
+      te: 'వెనుకబడిన తరగతులు మరియు సాంప్రదాయ కళాకారులను ఆధునిక విద్య, డిజిటల్ నైపుణ్యాలతో బలోపేతం చేయడం నిజమైన సామాజిక సమానత్వానికి కీలకం.',
+      hi: 'पिछड़े वर्गों और पारंपरिक शिल्पकारों को आधुनिक शिक्षा और डिजिटल कौशल से सशक्त बनाना वास्तविक सामाजिक समानता के लिए महत्वपूर्ण है।'
     }
   },
   {
     id: 'e-venkatachary',
-    name: 'Brahmasri E. Venkatachary',
+    name: 'Brahmasri Edukoju VenkataChary',
     avatar: '/images/donors/e-venkatachary-collector.jpg',
     tier: 'honorary',
     amount: 0,
@@ -154,6 +154,22 @@ export const mockDonors: Donor[] = [
       en: 'Preserving our community’s traditional engineering and craft legacies is key to securing our economic and cultural future.',
       te: 'మన సాంప్రదాయ ఇంజనీరింగ్ మరియు శిల్పకళా వారసత్వాలను పరిరక్షించడం మన ఆర్థిక మరియు సాంస్కృతిక భవిష్యత్తుకు భద్రత చేకూరుస్తుంది.',
       hi: 'हमारे समुदाय के पारंपरिक इंजीनियरिंग और शिल्प कौशल की विरासत को संरक्षित करना हमारे आर्थिक और सांस्कृतिक भविष्य को सुरक्षित करने की कुंजी है।'
+    }
+  },
+  {
+    id: 'bibinagar-anuradha',
+    name: 'Smt. Bibinagar Anuradha',
+    avatar: '/images/donors/bibinagar-anuradha-supporter.jpg',
+    tier: 'honorary',
+    amount: 0,
+    formattedAmount: 'Patronage',
+    location: 'Bibinagar, Telangana',
+    role: 'Senior BJP Leader & Social Activist',
+    joinDate: 'December 2026',
+    quote: {
+      en: 'Supporting the listing of rural women artisans in the digital directory is critical to achieving grass-root financial independence.',
+      te: 'గ్రామీణ మహిళా కళాకారులను డిజిటల్ డైరెక్టరీలో నమోదు చేయడం ద్వారా వారి గ్రామీణ ఆర్థిక స్వాతంత్ర్యానికి బలమైన పునాది లభిస్తుంది.',
+      hi: 'डिजिटल निर्देशिका में ग्रामीण महिला शिल्पकारों को सूचीबद्ध करने का समर्थन करना जमीनी स्तर पर वित्तीय स्वतंत्रता प्राप्त करने के लिए महत्वपूर्ण है।'
     }
   }
 ];
