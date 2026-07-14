@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +18,6 @@ import { FounderSection } from '@/features/home/components/FounderSection';
 import { CompactTimeline } from '@/features/home/components/CompactTimeline';
 import { GallerySection } from '@/features/home/components/GallerySection';
 import { MatrimonyModal } from '@/shared/components/MatrimonyModal';
-import { SEO } from '@/shared/components/SEO';
 import { SOCIAL_LINKS_ARRAY } from '@/shared/constants/social-links';
 
 
@@ -147,12 +148,6 @@ export const HomePage = () => {
 
   return (
     <>
-      <SEO 
-        title={t('home.title', 'Home')} 
-        description={t('hero.description', 'Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana. Join the mission to empower the Vishwakarma community.')}
-        image="/og-image.jpg"
-        schemas={[organizationSchema, anniversarySchema, websiteSchema, navigationSchema]}
-      />
       {/* LAYER 1: DIVINE IDENTITY & HERO */}
       <HeroFiveSons />
 

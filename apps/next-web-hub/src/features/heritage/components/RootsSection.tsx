@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Book, Bird, Sun } from 'lucide-react';

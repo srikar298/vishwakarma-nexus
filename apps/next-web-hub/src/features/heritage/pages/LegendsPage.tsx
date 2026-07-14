@@ -1,9 +1,10 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { LegendsGallery } from '../components/LegendsGallery';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 import { Award, Users, Star, ArrowRight } from 'lucide-react';
-import { SEO } from '../../../shared/components/SEO';
 
 export const LegendsPage = () => {
   const { i18n, t } = useTranslation();
@@ -12,10 +13,6 @@ export const LegendsPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
-        title={t('legends.nav', 'Hall of Legends')} 
-        description="Honoring the visionaries, reformers, and masters who shaped the Vishwakarma identity."
-      />
       <ScrollToTop />
       
       {/* Header Splash */}

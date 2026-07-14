@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +18,6 @@ import {
 } from 'lucide-react';
 import type { Artisan, ArtisanCategory } from '@/features/directory/contracts/ArtisanSchema';
 import { CRAFT_LABELS } from '@/features/directory/contracts/ArtisanSchema';
-import { SEO } from '@/shared/components/SEO';
 import { BaseModal } from '@/shared/ui/BaseModal';
 
 const MOCK_ARTISANS: Artisan[] = [
@@ -244,11 +245,6 @@ export const DirectoryPage = () => {
 
   return (
     <div className="min-h-screen bg-stone-50/30">
-      <SEO 
-        title={t('nav.directory', 'Artisan Directory')} 
-        description="Discover the finest Vishwakarma craftsmen. From sacred architecture to intricate jewelry, find the legacy you need in our master artisan directory."
-      />
-
       <PageHero
         badgeLabel="The Economic Engine"
         title={<>Master Artisans <span className="text-vermilion">& Professionals</span></>}

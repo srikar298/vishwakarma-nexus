@@ -16,7 +16,6 @@ import {
   Search,
   ChevronRight
 } from 'lucide-react';
-import { SEO } from '@/shared/components/SEO';
 import { mockDonors, Donor } from '../constants/donorsData';
 
 const GOAL_AMOUNT = 2000000; // ₹20 Lakhs
@@ -149,10 +148,6 @@ export const DonorsPage = () => {
 
   return (
     <>
-      <SEO 
-        title={t('donors.page_title' as never, 'Community Donors')} 
-        description={t('donors.page_desc' as never, 'Honor roll of our community supporters.')}
-      />
       
       {/* 1. HERO SECTION & LIVE TICKER */}
       <section className="bg-stone-950 pt-36 pb-24 relative overflow-hidden">

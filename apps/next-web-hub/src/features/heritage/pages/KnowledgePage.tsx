@@ -1,9 +1,10 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ShastraVaultPreview } from '../components/ShastraVaultPreview';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 import { BookOpen, Search, Shield, Info } from 'lucide-react';
-import { SEO } from '../../../shared/components/SEO';
 
 export const KnowledgePage = () => {
   const { i18n, t } = useTranslation();
@@ -12,10 +13,6 @@ export const KnowledgePage = () => {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <SEO 
-        title={t('knowledge.nav', 'Knowledge Hub')} 
-        description="A digital archive of Vishwakarma technical reports, architectural blueprints, and heritage documentation."
-      />
       <ScrollToTop />
       
       {/* Header Splash */}

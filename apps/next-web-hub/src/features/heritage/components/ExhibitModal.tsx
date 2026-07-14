@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { X, Award, Shield, Users, Zap } from 'lucide-react';

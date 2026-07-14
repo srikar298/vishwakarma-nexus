@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,7 +15,6 @@ import {
   ScrollText
 } from 'lucide-react';
 import Link from 'next/link';
-import { SEO } from '../../../shared/components/SEO';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 import { PageHero } from '@/shared/ui/PageHero';
 
@@ -78,13 +79,6 @@ export const FounderPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
-        title={t('founder.title', 'Founder & Core Journey')} 
-        description="The philosophical origins, aims, and chronological timeline of Vishwakarma Knowledge Centre led by Viswanadhula Pushpagiri."
-        image="/images/features/home/founder/portrait.webp"
-        type="profile"
-        schema={founderSchema}
-      />
       <ScrollToTop />
       
       <PageHero

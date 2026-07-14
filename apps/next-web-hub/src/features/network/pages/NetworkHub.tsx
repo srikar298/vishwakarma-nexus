@@ -12,7 +12,6 @@ import {
   Search, 
   GraduationCap
 } from 'lucide-react';
-import { SEO } from '@/shared/components/SEO';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
 // Sub-components
@@ -43,10 +42,6 @@ export const NetworkHub = () => {
 
   return (
     <div className="min-h-screen bg-stone-50 pt-32 pb-24 group">
-      <SEO 
-        title={t('network.hub.seo_title')} 
-        description={t('network.hub.seo_description')} 
-      />
       <ScrollToTop />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12">

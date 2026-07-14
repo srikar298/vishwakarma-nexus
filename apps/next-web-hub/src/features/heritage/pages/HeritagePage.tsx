@@ -1,8 +1,9 @@
+"use client";
+
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { RootsSection } from '../components/RootsSection';
 import { PanchaKulaExhibits } from '../components/PanchaKulaExhibits';
-import { SEO } from '../../../shared/components/SEO';
 import { EngineeringSecrets } from '../components/EngineeringSecrets';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
@@ -21,11 +22,6 @@ export const HeritagePage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <SEO 
-        title={t('heritage.nav.title', 'Heritage Archive')} 
-        description={t('heritage.roots.description', 'Explore 5,000 years of traditional mastery. From Vedic roots to sacred geometry and architectural engineering secrets of the Vishwakarma legacy.')}
-        type="article"
-      />
       <ScrollToTop />
       
       <PageHero 

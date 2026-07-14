@@ -1,3 +1,5 @@
+"use client";
+
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Scroll, Shield } from 'lucide-react';

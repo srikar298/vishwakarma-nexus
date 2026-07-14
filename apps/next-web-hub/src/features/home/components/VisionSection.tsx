@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Network, History, Anchor, Globe, Database, ShieldCheck, Cpu, ArrowRight } from 'lucide-react';

@@ -7,7 +7,6 @@ import {
   ExternalLink,
   Info
 } from 'lucide-react';
-import { SEO } from '@/shared/components/SEO';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
 const ADVOCACY_DATA = [
@@ -20,10 +19,6 @@ export const EmpowermentPage = () => {
 
   return (
     <div className="min-h-screen bg-stone-50 pt-24 md:pt-32 pb-24 group">
-      <SEO 
-        title="Political Empowerment & Rights" 
-        description="Data and discussions regarding Vishwakarma community reservations, rights, and political representation."
-      />
       <ScrollToTop />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12">

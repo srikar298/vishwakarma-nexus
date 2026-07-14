@@ -77,38 +77,6 @@ export const mockDonors: Donor[] = [
     }
   },
   {
-    id: 'brahmasri-kammaripalli-mallikharjuna-kiran-kumar',
-    name: 'Brahmasri Kammaripalli Mallikharjuna Kiran Kumar',
-    avatar: '/images/donors/brahmasri-kammaripalli-mallikharjuna-kiran-kumar.jpg',
-    tier: 'honorary',
-    amount: 0,
-    formattedAmount: 'Patronage',
-    location: 'CCS, Hyderabad, Telangana',
-    role: 'Asst Commissioner of Police, Economical offences wing',
-    joinDate: 'August 2026',
-    quote: {
-      en: 'Preserving our community’s traditional engineering and craft legacies is key to securing our economic and cultural future.',
-      te: 'మన సాంప్రదాయ ఇంజనీరింగ్ మరియు శిల్పకళా వారసత్వాలను పరిరక్షించడం మన ఆర్థిక మరియు సాంస్కృతిక భవిష్యత్తుకు భద్రత చేకూరుస్తుంది.',
-      hi: 'हमारे समुदाय के पारंपरिक इंजीनियरिंग और शिल्प कौशल की विरासत को संरक्षित करना हमारे आर्थिक और सांस्कृतिक भविष्य को सुरक्षित करने की कुंजी है।'
-    }
-  },
-  {
-    id: 'e-venkatachary',
-    name: 'Brahmasri E. Venkatachary',
-    avatar: '/images/donors/e-venkatachary-collector.jpg',
-    tier: 'honorary',
-    amount: 0,
-    formattedAmount: 'Patronage',
-    location: 'Vikarabad, Telangana',
-    role: 'Addl. Collector, Vikarabad District',
-    joinDate: 'September 2026',
-    quote: {
-      en: 'Promoting digital equity and welfare programs for our traditional artisan communities is a vital step toward sustainable rural development.',
-      te: 'మన సాంప్రదాయ కళాకారుల కమ్యూనిటీల కోసం డిజిటల్ ఈక్విటీని మరియు సంక్షేమ పథకాలను పెంపొందించడం స్థిరమైన గ్రామీణాభివృద్ధికి ఒక ముఖ్యమైన అడుగు.',
-      hi: 'हमारे पारंपरिक शिल्पकार समुदायों के लिए डिजिटल समानता और कल्याणकारी कार्यक्रमों को बढ़ावा देना सतत ग्रामीण विकास की दिशा में एक महत्वपूर्ण कदम है।'
-    }
-  },
-  {
     id: 'sirikonda-madhusudhana',
     name: 'Brahmasri Sirikonda Madhusudhana Chary',
     avatar: '/images/donors/sirikonda-madhusudhana-supporter.jpg',
@@ -154,6 +122,38 @@ export const mockDonors: Donor[] = [
       en: 'Supporting the listing of rural women artisans in the digital directory is critical to achieving grass-root financial independence.',
       te: 'గ్రామీణ మహిళా కళాకారులను డిజిటల్ డైరెక్టరీలో నమోదు చేయడం ద్వారా వారి గ్రామీణ ఆర్థిక స్వాతంత్ర్యానికి బలమైన పునాది లభిస్తుంది.',
       hi: 'डिजिटल निर्देशिका में ग्रामीण महिला शिल्पकारों को सूचीबद्ध करने का समर्थन करना जमीनी स्तर पर वित्तीय स्वतंत्रता प्राप्त करने के लिए महत्वपूर्ण है।'
+    }
+  },
+  {
+    id: 'e-venkatachary',
+    name: 'Brahmasri E. Venkatachary',
+    avatar: '/images/donors/e-venkatachary-collector.jpg',
+    tier: 'honorary',
+    amount: 0,
+    formattedAmount: 'Patronage',
+    location: 'Vikarabad, Telangana',
+    role: 'Addl. Collector, Vikarabad District',
+    joinDate: 'September 2026',
+    quote: {
+      en: 'Promoting digital equity and welfare programs for our traditional artisan communities is a vital step toward sustainable rural development.',
+      te: 'మన సాంప్రదాయ కళాకారుల కమ్యూనిటీల కోసం డిజిటల్ ఈక్విటీని మరియు సంక్షేమ పథకాలను పెంపొందించడం స్థిరమైన గ్రామీణాభివృద్ధికి ఒక ముఖ్యమైన అడుగు.',
+      hi: 'हमारे पारंपरिक शिल्पकार समुदायों के लिए डिजिटल समानता और कल्याणकारी कार्यक्रमों को बढ़ावा देना सतत ग्रामीण विकास की दिशा में एक महत्वपूर्ण कदम है।'
+    }
+  },
+  {
+    id: 'brahmasri-kammaripalli-mallikharjuna-kiran-kumar',
+    name: 'Brahmasri Kammaripalli Mallikharjuna Kiran Kumar',
+    avatar: '/images/donors/brahmasri-kammaripalli-mallikharjuna-kiran-kumar.jpg',
+    tier: 'honorary',
+    amount: 0,
+    formattedAmount: 'Patronage',
+    location: 'CCS, Hyderabad, Telangana',
+    role: 'Asst Commissioner of Police, Economical offences wing',
+    joinDate: 'August 2026',
+    quote: {
+      en: 'Preserving our community’s traditional engineering and craft legacies is key to securing our economic and cultural future.',
+      te: 'మన సాంప్రదాయ ఇంజనీరింగ్ మరియు శిల్పకళా వారసత్వాలను పరిరక్షించడం మన ఆర్థిక మరియు సాంస్కృతిక భవిష్యత్తుకు భద్రత చేకూరుస్తుంది.',
+      hi: 'हमारे समुदाय के पारंपरिक इंजीनियरिंग और शिल्प कौशल की विरासत को संरक्षित करना हमारे आर्थिक और सांस्कृतिक भविष्य को सुरक्षित करने की कुंजी है।'
     }
   }
 ];

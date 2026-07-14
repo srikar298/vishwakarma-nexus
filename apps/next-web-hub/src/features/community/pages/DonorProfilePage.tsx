@@ -18,7 +18,6 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { Donor } from '../constants/donorsData';
-import { SEO } from '@/shared/components/SEO';
 
 interface DonorProfilePageProps {
   donor: Donor;
@@ -67,7 +66,11 @@ export const DonorProfilePage = ({ donor }: DonorProfilePageProps) => {
   const currentLang = i18n.language as 'en' | 'te' | 'hi';
   const donorQuote = donor.quote[currentLang] || donor.quote.en;
 
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const [shareUrl, setShareUrl] = useState('');
+  React.useEffect(() => {
+    setShareUrl(window.location.href);
+  }, []);
+
   const shareText = donor.tier === 'honorary'
     ? `Check out ${donor.name}'s profile! They are providing ${donor.formattedAmount} to the Vishwakarma Knowledge Centre to support traditional artisans.`
     : `Check out ${donor.name}'s profile! They contributed ${donor.formattedAmount} to the Vishwakarma Knowledge Centre to support traditional artisans.`;
@@ -104,14 +107,7 @@ export const DonorProfilePage = ({ donor }: DonorProfilePageProps) => {
   };
 
   return (
-    <>
-      <SEO 
-        title={`${donor.name} | Donor Profile`} 
-        description={`${donor.name} contributed ${donor.formattedAmount} to support the traditional artisan community. Read their bio and join the legacy.`}
-        image={donor.avatar}
-      />
-
-      <div className="min-h-screen bg-stone-50 pt-32 pb-24 group relative overflow-hidden">
+    <div className="min-h-screen bg-stone-50 pt-32 pb-24 group relative overflow-hidden">
         {/* Animated Background Textures */}
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none" />
         <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-saffron-500/5 blur-[120px] rounded-full pointer-events-none`} />
@@ -286,6 +282,5 @@ export const DonorProfilePage = ({ donor }: DonorProfilePageProps) => {
 
         </div>
       </div>
-    </>
   );
 };

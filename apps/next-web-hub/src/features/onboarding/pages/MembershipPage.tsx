@@ -1,9 +1,10 @@
+"use client";
+
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Download, Share2, Sparkles, ArrowRight, Globe } from 'lucide-react';
 import { MembershipCard } from '../components/MembershipCard';
 import { RegistrationForm } from '../components/RegistrationForm';
-import { SEO } from '@/shared/components/SEO';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
 export const MembershipPage = () => {
@@ -50,10 +51,6 @@ export const MembershipPage = () => {
 
   return (
     <div className="min-h-screen bg-stone-50 pt-32 pb-24 group">
-      <SEO 
-        title="Membership Portal" 
-        description="Join the VKC global network and claim your Digital Artisan Identity card."
-      />
       <ScrollToTop />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
