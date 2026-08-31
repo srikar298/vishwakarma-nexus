@@ -111,9 +111,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
     onClose();
   };
 
-  const flagEmoji = '\uD83D\uDEA9'; // 🚩 safe unicode escape
-
-  const shareText = `${flagEmoji} *జై విశ్వకర్మ! విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర & VKC నెట్‌వర్క్*\n\nనేను అధికారిక నెట్‌వర్క్‌లో నమోదు చేసుకున్నాను.\n*నా డిజిటల్ ఐడీ:* ${memberId}\n\n*మీరూ ఇప్పుడే మొబైల్ నంబర్‌తో నమోదు చేసుకొని డిజిటల్ పాస్ పొందండి:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra?ref=ekta-yatra`;
+  const shareText = `*|| జై విశ్వకర్మ ||*\n*విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర & VKC నెట్‌వర్క్*\n\nనేను అధికారిక నెట్‌వర్క్‌లో నమోదు చేసుకున్నాను.\n*నా డిజిటల్ ఐడీ:* ${memberId}\n\n*మీరూ ఇప్పుడే మొబైల్ నంబర్‌తో నమోదు చేసుకొని డిజిటల్ పాస్ పొందండి:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra?ref=ekta-yatra`;
 
   const handleWhatsAppShare = () => {
     const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;

@@ -36,13 +36,11 @@ export const EktaYatraPage = () => {
 
   const demandsCount = [0, 1, 2, 3, 4, 5];
 
-  const flagEmoji = '\uD83D\uDEA9'; // 🚩 safe unicode escape
-
   const shareText = lang === 'te' 
-    ? `${flagEmoji} *జై విశ్వకర్మ! విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర (1,700 కి.మీ.)*\n\nహైదరాబాద్ నుండి ఢిల్లీ పార్లమెంట్ వరకు మన హక్కులు & అస్తిత్వం కోసం సాగే చారిత్రక పాదయాత్ర.\n\n*మీరూ మొబైల్ నంబర్‌తో నమోదు చేసుకొని డిజిటల్ పాస్ పొందండి:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`
+    ? `*|| జై విశ్వకర్మ ||*\n*విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర (1,700 కి.మీ.)*\n\nహైదరాబాద్ నుండి ఢిల్లీ పార్లమెంట్ వరకు మన హక్కులు & అస్తిత్వం కోసం సాగే చారిత్రక పాదయాత్ర.\n\n*మీరూ మొబైల్ నంబర్‌తో నమోదు చేసుకొని డిజిటల్ పాస్ పొందండి:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`
     : lang === 'hi'
-      ? `${flagEmoji} *जय विश्वकर्मा! विश्वकर्मा वंशज एकता महापदयात्रा (1,700 किमी)*\n\nहैदराबाद से दिल्ली तक हमारे हक और वजूद के लिए ऐतिहासिक पदयात्रा।\n\n*आप भी मोबाइल नंबर से रजिस्टर कर डिजिटल पास प्राप्त करें:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`
-      : `${flagEmoji} *Jai Vishwakarma! Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM)*\n\nHistoric foot march from Hyderabad to Parliament in New Delhi for community rights and recognition.\n\n*Register your mobile number to get an official Digital Yatra Pass:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`;
+      ? `*|| जय विश्वकर्मा ||*\n*विश्वकर्मा वंशज एकता महापदयात्रा (1,700 किमी)*\n\nहैदराबाद से दिल्ली तक हमारे हक और वजूद के लिए ऐतिहासिक पदयात्रा।\n\n*आप भी मोबाइल नंबर से रजिस्टर कर डिजिटल पास प्राप्त करें:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`
+      : `*|| JAI VISHWAKARMA ||*\n*Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM)*\n\nHistoric foot march from Hyderabad to Parliament in New Delhi for community rights and recognition.\n\n*Register your mobile number to get an official Digital Yatra Pass:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`;
 
   const handleWhatsAppShare = () => {
     window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
