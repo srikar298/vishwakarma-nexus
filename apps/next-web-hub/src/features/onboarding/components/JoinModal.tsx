@@ -44,7 +44,7 @@ const STATES_AND_DISTRICTS = [
 ];
 
 const TRACKS = [
-  { id: 'yatra', label: 'Pushpagiri Chalo Delhi Yatra', sub: 'పుష్పగిరి చలో ఢిల్లీ పాదయాత్ర', icon: Flag, color: 'text-amber-600', bg: 'bg-amber-100/70', badge: '🚩 Paadha Yathra' },
+  { id: 'yatra', label: 'Vishwakarma Ekta Maha Padayatra', sub: 'విశ్వకర్మ ఏకతా మహా పాదయాత్ర', icon: Flag, color: 'text-amber-600', bg: 'bg-amber-100/70', badge: '🚩 Ekta Yatra' },
   { id: 'artisan', label: 'Master Artisan & Digital ID', sub: 'కళాకారుల డిజిటల్ ఐడీ కార్డ్', icon: Hammer, color: 'text-vermilion', bg: 'bg-vermilion/10', badge: '🛠️ Economic ID' },
   { id: 'matrimony', label: 'Parinaya Matrimony', sub: 'పరిణయ మ్యాట్రిమోనీ పోర్టల్', icon: Heart, color: 'text-rose-600', bg: 'bg-rose-100/70', badge: '💍 100% Verified' },
   { id: 'professional', label: 'Professional Network', sub: 'వృత్తి నిపుణుల నెట్‌వర్క్', icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-100/70', badge: '💼 B2B & Jobs' },
@@ -87,9 +87,9 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
     const payload = {
       name: formData.name,
       phone: formData.phone,
-      trade: formData.track === 'yatra' ? `Pushpagiri Yatra - ${formData.tradeOrDetail || 'Yatri'}` : formData.tradeOrDetail,
+      trade: formData.track === 'yatra' ? `Ekta Padayatra - ${formData.tradeOrDetail || 'Yatri'}` : formData.tradeOrDetail,
       state: formData.location,
-      notes: `Track: ${formData.track} | Ref: Chalo-Delhi | GeneratedID: ${generatedId}`
+      notes: `Track: ${formData.track} | Ref: Ekta-Yatra | GeneratedID: ${generatedId}`
     };
 
     const { error } = await api.post('members/inquiries', payload);
@@ -111,7 +111,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
     onClose();
   };
 
-  const shareText = `🚩 జై విశ్వకర్మ! నేను పుష్పగిరి చలో ఢిల్లీ పాదయాత్ర & విశ్వకర్మ నాలెడ్జ్ సెంటర్ (VKC) అధికారిక నెట్‌వర్క్‌లో నమోదు చేసుకున్నాను.\n\nనా డిజిటల్ ఐడీ: ${memberId}\n\nమన విశ్వకర్మ సమాజం కోసం మీరూ ఇప్పుడే మొబైల్ నంబర్‌తో నమోదు చేసుకోండి:\nhttps://vishwakarmaknowledgecentre.org?ref=chalo-delhi`;
+  const shareText = `🚩 జై విశ్వకర్మ! నేను విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర & విశ్వకర్మ నాలెడ్జ్ సెంటర్ (VKC) అధికారిక నెట్‌వర్క్‌లో నమోదు చేసుకున్నాను.\n\nనా డిజిటల్ ఐడీ: ${memberId}\n\nమన విశ్వకర్మ సమాజం కోసం మీరూ ఇప్పుడే మొబైల్ నంబర్‌తో నమోదు చేసుకోండి:\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra?ref=ekta-yatra`;
 
   const handleWhatsAppShare = () => {
     const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
@@ -148,7 +148,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
               నమోదు పూర్తయింది! (Registration Confirmed)
             </h2>
             <p className="text-stone-500 text-xs mt-1">
-              Welcome to Vishwakarma Knowledge Centre & Pushpagiri Chalo Delhi Network.
+              Welcome to Vishwakarma Knowledge Centre & Ekta Maha Padayatra Network.
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                 <img src="/images/shared/emblem.png" alt="VKC" className="w-8 h-8 object-contain" />
                 <div>
                   <p className="text-xs font-black text-white leading-none">VISHWAKARMA NEXUS</p>
-                  <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest mt-0.5">Pushpagiri Chalo Delhi Yatra</p>
+                  <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest mt-0.5">Ekta Maha Padayatra (1,700 KM)</p>
                 </div>
               </div>
               <span className="bg-amber-500/20 text-amber-400 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded border border-amber-500/30">
@@ -228,7 +228,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                   10-Second Express Registration
                 </span>
                 <span className="text-[10px] text-amber-700 font-bold block">
-                  పుష్పగిరి చలో ఢిల్లీ పాదయాత్ర & VKC నెట్‌వర్క్
+                  విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర & VKC నెట్‌వర్క్
                 </span>
               </div>
             </div>

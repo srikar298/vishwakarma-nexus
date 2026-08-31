@@ -58,7 +58,7 @@ export const EventsPage = () => {
 
               <div className="flex flex-wrap gap-4 pt-2">
                 <Link
-                  href="/events/chalo-delhi-yatra"
+                  href="/events/ekta-yatra"
                   className="bg-vermilion hover:bg-vermilion-600 text-white px-7 py-3.5 rounded-2xl font-black text-xs uppercase tracking-wider shadow-lg shadow-vermilion/20 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
                 >
                   <span>{t('eventsPage.exploreRoute', 'Explore Route & 15 Demands')}</span>

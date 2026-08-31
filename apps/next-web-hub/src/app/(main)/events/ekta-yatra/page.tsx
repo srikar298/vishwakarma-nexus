@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ChaloDelhiYatraPage } from "@/features/events/pages/ChaloDelhiYatraPage";
+import { EktaYatraPage } from "@/features/events/pages/EktaYatraPage";
 import { generateBreadcrumbsSchema, generateWebPageSchema } from "@/shared/lib/seo-helpers";
 
 export const metadata: Metadata = {
@@ -19,12 +19,12 @@ export const metadata: Metadata = {
     "Maru Parikrama Ekta Yatra"
   ],
   alternates: {
-    canonical: 'https://vishwakarmaknowledgecentre.org/events/chalo-delhi-yatra',
+    canonical: 'https://vishwakarmaknowledgecentre.org/events/ekta-yatra',
   },
   openGraph: {
     title: "Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM) | VKC",
     description: "Historic 1,700 KM Vishwakarma Vanshaj Ekta Maha Padayatra from Hyderabad to New Delhi along NH-44 across 68+ waypoint stations. Sep 17 to Nov 29, 2026.",
-    url: "https://vishwakarmaknowledgecentre.org/events/chalo-delhi-yatra",
+    url: "https://vishwakarmaknowledgecentre.org/events/ekta-yatra",
     siteName: "Vishwakarma Knowledge Centre",
     images: [
       {
@@ -40,13 +40,13 @@ export const metadata: Metadata = {
 export default function Page() {
   const breadcrumbsSchema = generateBreadcrumbsSchema([
     { name: "Events & Summits", url: "/events" },
-    { name: "Vishwakarma Vanshaj Ekta Maha Padayatra", url: "/events/chalo-delhi-yatra" }
+    { name: "Vishwakarma Vanshaj Ekta Maha Padayatra", url: "/events/ekta-yatra" }
   ]);
 
   const webPageSchema = generateWebPageSchema({
     title: "Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM)",
     description: "Historic 1,700 KM foot march from Hyderabad to Delhi along NH-44 traversing 68+ waypoint stations across 6 states for Vishwakarma community rights and recognition.",
-    url: "/events/chalo-delhi-yatra"
+    url: "/events/ekta-yatra"
   });
 
   // Schema.org Event structured data
@@ -80,7 +80,7 @@ export default function Page() {
       "price": "0",
       "priceCurrency": "INR",
       "availability": "https://schema.org/InStock",
-      "url": "https://vishwakarmaknowledgecentre.org/events/chalo-delhi-yatra"
+      "url": "https://vishwakarmaknowledgecentre.org/events/ekta-yatra"
     },
     "image": [
       "https://vishwakarmaknowledgecentre.org/og-image.jpg"
@@ -101,7 +101,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
       />
-      <ChaloDelhiYatraPage />
+      <EktaYatraPage />
     </>
   );
 }

@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 
-export const ChaloDelhiYatraPage = () => {
+export const EktaYatraPage = () => {
   const { t, i18n } = useTranslation();
   const lang = (['en', 'te', 'hi'].includes(i18n.language) ? i18n.language : 'en') as 'en' | 'te' | 'hi';
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,10 +37,10 @@ export const ChaloDelhiYatraPage = () => {
   const demandsCount = [0, 1, 2, 3, 4, 5];
 
   const shareText = lang === 'te' 
-    ? `🚩 జై విశ్వకర్మ! విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర (1,700 కి.మీ, హైదరాబాద్ నుండి ఢిల్లీ) ప్రారంభం కానుంది.\n\nమన హక్కులు & అస్తిత్వం కోసం మీరూ మొబైల్ నంబర్‌తో నమోదు చేసుకోండి — డిజిటల్ పాస్ పొందండి:\nhttps://vishwakarmaknowledgecentre.org/events/chalo-delhi-yatra`
+    ? `🚩 జై విశ్వకర్మ! విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర (1,700 కి.మీ, హైదరాబాద్ నుండి ఢిల్లీ) ప్రారంభం కానుంది.\n\nమన హక్కులు & అస్తిత్వం కోసం మీరూ మొబైల్ నంబర్‌తో నమోదు చేసుకోండి — డిజిటల్ పాస్ పొందండి:\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`
     : lang === 'hi'
-      ? `🚩 जय विश्वकर्मा! विश्वकर्मा वंशज एकता महापदयात्रा (1,700 किमी, हैदराबाद से दिल्ली) शुरू होने जा रही है।\n\nहमारे हक और वजूद के लिए आप भी मोबाइल नंबर से रजिस्टर करें — डिजिटल पास प्राप्त करें:\nhttps://vishwakarmaknowledgecentre.org/events/chalo-delhi-yatra`
-      : `🚩 Jai Vishwakarma! Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM, Hyderabad to Delhi) is commencing.\n\nRegister your mobile number to get an official Digital Yatra Pass:\nhttps://vishwakarmaknowledgecentre.org/events/chalo-delhi-yatra`;
+      ? `🚩 जय विश्वकर्मा! विश्वकर्मा वंशज एकता महापदयात्रा (1,700 किमी, हैदराबाद से दिल्ली) शुरू होने जा रही है।\n\nहमारे हक और वजूद के लिए आप भी मोबाइल नंबर से रजिस्टर करें — डिजिटल पास प्राप्त करें:\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`
+      : `🚩 Jai Vishwakarma! Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM, Hyderabad to Delhi) is commencing.\n\nRegister your mobile number to get an official Digital Yatra Pass:\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra`;
 
   const handleWhatsAppShare = () => {
     window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');

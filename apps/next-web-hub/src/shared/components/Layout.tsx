@@ -41,7 +41,7 @@ function QueryParamsListener({
   useEffect(() => {
     const ref = searchParams.get('ref');
     const join = searchParams.get('join');
-    if (ref === 'chalo-delhi' || ref === 'yatra' || join === 'yatra') {
+    if (ref === 'ekta-yatra' || ref === 'chalo-delhi' || ref === 'yatra' || join === 'yatra') {
       onOpenTrack('yatra');
     } else if (join === 'artisan' || join === 'membership') {
       onOpenTrack('artisan');
