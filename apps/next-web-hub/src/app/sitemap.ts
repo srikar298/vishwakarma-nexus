@@ -19,12 +19,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/donors',
     '/legends',
     '/events',
+    '/events/chalo-delhi-yatra',
     '/gallery',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
-    priority: route === '' ? 1.0 : 0.8,
+    priority: route === '' ? 1.0 : route === '/events/chalo-delhi-yatra' ? 0.9 : 0.8,
   }));
 
   // Dynamic routes (donors)
