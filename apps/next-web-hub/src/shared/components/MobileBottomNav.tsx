@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { 
   Home, 
@@ -18,13 +18,12 @@ interface MobileBottomNavProps {
 
 export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenJoinModal }) => {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { i18n } = useTranslation();
   const lang = (['en', 'te', 'hi'].includes(i18n.language) ? i18n.language : 'en') as 'en' | 'te' | 'hi';
 
   const isHomeActive = pathname === '/';
   const isDirectoryActive = pathname === '/directory';
-  const isMatrimonyActive = pathname === '/network' && searchParams.get('tab') === 'matrimony';
+  const isMatrimonyActive = pathname === '/network';
   const isKnowledgeActive = pathname === '/knowledge' || pathname === '/legends' || pathname === '/heritage';
 
   return (
@@ -56,7 +55,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenJoinModa
         >
           <Search size={20} className={isDirectoryActive ? 'stroke-[2.5]' : 'stroke-2'} />
           <span className="text-[10px] tracking-tight mt-1">
-            {lang === 'te' ? 'డైరెక్టరీ' : lang === 'hi' ? 'शिल्पकार' : 'Directory'}
+            {lang === 'te' ? 'డైరెక్టరీ' : lang === 'hi' ? 'శिल्పకార' : 'Directory'}
           </span>
         </Link>
 

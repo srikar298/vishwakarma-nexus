@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
@@ -31,30 +31,40 @@ import { AnnouncementTicker } from './AnnouncementTicker';
 import { MobileBottomNav } from './MobileBottomNav';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
 
+function QueryParamsListener({ 
+  onOpenTrack 
+}: { 
+  onOpenTrack: (track: 'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron') => void 
+}) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    const join = searchParams.get('join');
+    if (ref === 'chalo-delhi' || ref === 'yatra' || join === 'yatra') {
+      onOpenTrack('yatra');
+    } else if (join === 'artisan' || join === 'membership') {
+      onOpenTrack('artisan');
+    } else if (join === 'matrimony') {
+      onOpenTrack('matrimony');
+    }
+  }, [searchParams, onOpenTrack]);
+
+  return null;
+}
+
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const { t, i18n } = useTranslation();
-  const searchParams = useSearchParams();
   const lang = (['en', 'te', 'hi'].includes(i18n.language) ? i18n.language : 'en') as 'en' | 'te' | 'hi';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [selectedTrack, setSelectedTrack] = useState<'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron'>('yatra');
   const [scrolled, setScrolled] = useState(false);
 
-  // Auto-open Yatra / Join modal if URL has ?ref=chalo-delhi or ?join=...
-  useEffect(() => {
-    const ref = searchParams.get('ref');
-    const join = searchParams.get('join');
-    if (ref === 'chalo-delhi' || ref === 'yatra' || join === 'yatra') {
-      setSelectedTrack('yatra');
-      setIsJoinModalOpen(true);
-    } else if (join === 'artisan' || join === 'membership') {
-      setSelectedTrack('artisan');
-      setIsJoinModalOpen(true);
-    } else if (join === 'matrimony') {
-      setSelectedTrack('matrimony');
-      setIsJoinModalOpen(true);
-    }
-  }, [searchParams]);
+  const handleOpenTrack = useCallback((track: 'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron') => {
+    setSelectedTrack(track);
+    setIsJoinModalOpen(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,6 +95,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="min-h-screen font-sans selection:bg-saffron-200 bg-white flex flex-col">
+      {/* Search Param Listener wrapped in Suspense to prevent SSG deopt */}
+      <Suspense fallback={null}>
+        <QueryParamsListener onOpenTrack={handleOpenTrack} />
+      </Suspense>
+
       {/* Top Activity / Announcement Bar */}
       <AnnouncementTicker onOpenJoinModal={(track) => { setSelectedTrack(track || 'yatra'); setIsJoinModalOpen(true); }} />
 
