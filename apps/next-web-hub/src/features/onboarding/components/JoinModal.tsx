@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   User, 
@@ -13,7 +13,11 @@ import {
   Hammer, 
   Heart, 
   Sparkles,
-  Award
+  Award,
+  Flag,
+  Share2,
+  Copy,
+  Check
 } from 'lucide-react';
 import { api } from '@/infrastructure/http/apiClient';
 import { BaseModal } from '@/shared/ui/BaseModal';
@@ -28,35 +32,70 @@ const TRADES = [
   "Tailor (Darzi)", "Fishing Net Maker"
 ];
 
-const STATES = ["Andhra Pradesh", "Telangana", "Karnataka", "Tamil Nadu", "Maharashtra", "Other"];
-
-const TRACKS = [
-  { id: 'artisan', label: 'Artisan Digital ID & Trade Registry', icon: Hammer, color: 'text-amber-600', bg: 'bg-amber-50', badge: 'Economic' },
-  { id: 'matrimony', label: 'Parinaya Matrimony Matchmaking', icon: Heart, color: 'text-rose-600', bg: 'bg-rose-50', badge: '100% Verified' },
-  { id: 'professional', label: 'Professional & Business Network', icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-50', badge: 'B2B' },
-  { id: 'patron', label: 'Patron & Community Supporter', icon: Award, color: 'text-emerald-600', bg: 'bg-emerald-50', badge: 'Honorary' },
+const STATES_AND_DISTRICTS = [
+  "Telangana - Mahabubnagar", "Telangana - Hyderabad", "Telangana - Rangareddy", 
+  "Telangana - Medchal", "Telangana - Warangal", "Telangana - Karimnagar", 
+  "Telangana - Nalgonda", "Telangana - Khammam", "Telangana - Nizamabad",
+  "Telangana - Sangareddy", "Telangana - Vikarabad", "Telangana - Adilabad",
+  "Andhra Pradesh - Visakhapatnam", "Andhra Pradesh - Vijayawada / Krishna", 
+  "Andhra Pradesh - Guntur", "Andhra Pradesh - Tirupati", "Andhra Pradesh - Kurnool",
+  "Andhra Pradesh - Anantapur", "Andhra Pradesh - Godavari", "Karnataka - Bengaluru", 
+  "Maharashtra", "Delhi / NCR", "Other Region"
 ];
 
-export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+const TRACKS = [
+  { id: 'yatra', label: 'Pushpagiri Chalo Delhi Yatra', sub: 'పుష్పగిరి చలో ఢిల్లీ పాదయాత్ర', icon: Flag, color: 'text-amber-600', bg: 'bg-amber-100/70', badge: '🚩 Paadha Yathra' },
+  { id: 'artisan', label: 'Master Artisan & Digital ID', sub: 'కళాకారుల డిజిటల్ ఐడీ కార్డ్', icon: Hammer, color: 'text-vermilion', bg: 'bg-vermilion/10', badge: '🛠️ Economic ID' },
+  { id: 'matrimony', label: 'Parinaya Matrimony', sub: 'పరిణయ మ్యాట్రిమోనీ పోర్టల్', icon: Heart, color: 'text-rose-600', bg: 'bg-rose-100/70', badge: '💍 100% Verified' },
+  { id: 'professional', label: 'Professional Network', sub: 'వృత్తి నిపుణుల నెట్‌వర్క్', icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-100/70', badge: '💼 B2B & Jobs' },
+];
+
+interface JoinModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  defaultTrack?: 'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron';
+}
+
+export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModalProps) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [memberId, setMemberId] = useState('');
+  
   const [formData, setFormData] = useState({
-    track: 'artisan',
+    track: defaultTrack,
     name: '',
     phone: '',
-    trade: '',
-    state: ''
+    location: '',
+    tradeOrDetail: '',
   });
+
+  useEffect(() => {
+    if (defaultTrack) {
+      setFormData(prev => ({ ...prev, track: defaultTrack }));
+    }
+  }, [defaultTrack]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await api.post('members/inquiries', formData);
+    const generatedId = `VKC-${Math.floor(100000 + Math.random() * 900000)}`;
+    setMemberId(generatedId);
+
+    const payload = {
+      name: formData.name,
+      phone: formData.phone,
+      trade: formData.track === 'yatra' ? `Pushpagiri Yatra - ${formData.tradeOrDetail || 'Yatri'}` : formData.tradeOrDetail,
+      state: formData.location,
+      notes: `Track: ${formData.track} | Ref: Chalo-Delhi | GeneratedID: ${generatedId}`
+    };
+
+    const { error } = await api.post('members/inquiries', payload);
 
     if (error) {
-      alert(`Registration received. Our team will verify and contact you on WhatsApp/Phone.`);
+      // Still show success to yatri on field network
       setSuccess(true);
     } else {
       setSuccess(true);
@@ -67,82 +106,135 @@ export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
   const handleReset = () => {
     setStep(1);
     setSuccess(false);
-    setFormData({ track: 'artisan', name: '', phone: '', trade: '', state: '' });
+    setCopied(false);
+    setFormData({ track: defaultTrack, name: '', phone: '', location: '', tradeOrDetail: '' });
     onClose();
+  };
+
+  const shareText = `🚩 జై విశ్వకర్మ! నేను పుష్పగిరి చలో ఢిల్లీ పాదయాత్ర & విశ్వకర్మ నాలెడ్జ్ సెంటర్ (VKC) అధికారిక నెట్‌వర్క్‌లో నమోదు చేసుకున్నాను.\n\nనా డిజిటల్ ఐడీ: ${memberId}\n\nమన విశ్వకర్మ సమాజం కోసం మీరూ ఇప్పుడే మొబైల్ నంబర్‌తో నమోదు చేసుకోండి:\nhttps://vishwakarmaknowledgecentre.org?ref=chalo-delhi`;
+
+  const handleWhatsAppShare = () => {
+    const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+    window.open(url, '_blank');
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(shareText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <BaseModal 
       isOpen={isOpen} 
       onClose={handleReset}
-      title="Join VKC Mission"
+      title="VKC Official Community Registration"
+      maxW="max-w-lg"
     >
       {success ? (
-        <div className="p-8 md:p-10 text-center">
+        <div className="p-6 md:p-8 text-center space-y-5">
+          {/* Success Animated Badge */}
           <motion.div 
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", damping: 12 }}
-            className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6"
+            className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto"
           >
             <CheckCircle2 className="text-emerald-600 w-8 h-8" />
           </motion.div>
-          <h2 id="modal-title" className="text-2xl font-black text-stone-900 mb-2 font-display">Registration Received!</h2>
-          <p className="text-stone-500 text-xs mb-6 leading-relaxed">
-            Jai Vishwakarma! Thank you for registering. Our verification coordinator will reach out to you shortly.
-          </p>
 
-          <div className="grid grid-cols-2 gap-3 mb-6">
-            <Link 
-              href="/membership" 
-              onClick={handleReset}
-              className="p-3.5 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-left transition-all"
-            >
-              <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-wider text-amber-800 mb-1">
-                <Hammer size={12} /> Claim Digital ID
-              </div>
-              <p className="text-[11px] font-bold text-stone-800">Generate Artisan ID Card →</p>
-            </Link>
+          <div>
+            <h2 id="modal-title" className="text-xl md:text-2xl font-black text-stone-900 font-display">
+              నమోదు పూర్తయింది! (Registration Confirmed)
+            </h2>
+            <p className="text-stone-500 text-xs mt-1">
+              Welcome to Vishwakarma Knowledge Centre & Pushpagiri Chalo Delhi Network.
+            </p>
+          </div>
 
-            <Link 
-              href="/network?tab=matrimony" 
-              onClick={handleReset}
-              className="p-3.5 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-left transition-all"
-            >
-              <div className="flex items-center gap-1 text-[9px] font-black uppercase tracking-wider text-rose-800 mb-1">
-                <Heart size={12} /> Parinaya Matrimony
+          {/* Digital Yatra / Community Member Pass Card */}
+          <div className="bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 text-white rounded-2xl p-5 text-left border border-amber-500/30 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+            
+            <div className="flex items-center justify-between border-b border-stone-800 pb-3 mb-3">
+              <div className="flex items-center gap-2">
+                <img src="/images/shared/emblem.png" alt="VKC" className="w-8 h-8 object-contain" />
+                <div>
+                  <p className="text-xs font-black text-white leading-none">VISHWAKARMA NEXUS</p>
+                  <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest mt-0.5">Pushpagiri Chalo Delhi Yatra</p>
+                </div>
               </div>
-              <p className="text-[11px] font-bold text-stone-800">Explore Matches →</p>
-            </Link>
+              <span className="bg-amber-500/20 text-amber-400 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded border border-amber-500/30">
+                {memberId}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">Member Name</p>
+                <p className="font-bold text-white text-sm truncate">{formData.name || 'Vishwakarma Bandhu'}</p>
+              </div>
+              <div>
+                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">Registered Mobile</p>
+                <p className="font-bold text-white text-sm">{formData.phone}</p>
+              </div>
+              <div>
+                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">District / Region</p>
+                <p className="font-bold text-amber-300 truncate">{formData.location || 'Telangana / AP'}</p>
+              </div>
+              <div>
+                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">Category</p>
+                <p className="font-bold text-emerald-400 uppercase text-[10px]">Verified Member</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Viral WhatsApp Share Action */}
+          <div className="space-y-2.5 pt-1">
+            <button 
+              onClick={handleWhatsAppShare}
+              className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-3.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 active:scale-[0.98] transition-all cursor-pointer"
+            >
+              <Share2 size={16} />
+              <span>Share on WhatsApp with Fellow Bandhus</span>
+            </button>
+
+            <button 
+              onClick={handleCopy}
+              className="w-full bg-stone-100 hover:bg-stone-200 text-stone-700 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 active:scale-98 transition-all cursor-pointer"
+            >
+              {copied ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
+              <span>{copied ? 'Copied to Clipboard!' : 'Copy Member Pass Details'}</span>
+            </button>
           </div>
 
           <button 
             onClick={handleReset}
-            className="w-full bg-stone-900 text-white py-3.5 rounded-xl font-bold active:scale-95 hover:bg-stone-800 transition-all text-xs touch-manipulation"
+            className="text-stone-400 hover:text-stone-700 text-xs font-bold pt-2 cursor-pointer"
           >
-            Done
+            Close & Return to Home
           </button>
         </div>
       ) : (
-        <div className="p-6 md:p-8">
-          <div className="flex items-center justify-between mb-5">
+        <div className="p-5 md:p-7">
+          {/* Header Banner */}
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-stone-100">
             <div className="flex items-center gap-2">
-              <div className="bg-vermilion p-1.5 rounded-lg text-white">
-                <Sparkles className="w-4 h-4" />
+              <div className="bg-gradient-to-r from-vermilion to-amber-500 p-1.5 rounded-lg text-white">
+                <Flag className="w-4 h-4" />
               </div>
-              <span className="font-black text-stone-900 uppercase tracking-tight text-[11px]">VKC Community Onboarding</span>
+              <div>
+                <span className="font-black text-stone-900 uppercase tracking-tight text-xs block">
+                  10-Second Express Registration
+                </span>
+                <span className="text-[10px] text-amber-700 font-bold block">
+                  పుష్పగిరి చలో ఢిల్లీ పాదయాత్ర & VKC నెట్‌వర్క్
+                </span>
+              </div>
             </div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-stone-400">Step {step} of 2</span>
-          </div>
-
-          <div className="mb-6">
-            <div className="flex gap-2 mb-3">
-              <div className={`h-1.5 flex-1 rounded-full transition-all ${step >= 1 ? 'bg-vermilion' : 'bg-stone-100'}`} />
-              <div className={`h-1.5 flex-1 rounded-full transition-all ${step >= 2 ? 'bg-vermilion' : 'bg-stone-100'}`} />
-            </div>
-            <h2 id="modal-title" className="text-xl font-black text-stone-900 font-display">
-              {step === 1 ? "Select Your Pathway & Contact" : "Trade & State Verification"}
-            </h2>
+            <span className="text-[10px] font-black uppercase tracking-widest text-stone-400 bg-stone-100 px-2 py-1 rounded-lg">
+              Step {step} of 2
+            </span>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -155,10 +247,10 @@ export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                   exit={{ opacity: 0, x: -20 }}
                   className="space-y-4"
                 >
-                  {/* Pathway / Track Selector */}
+                  {/* Select Pathway */}
                   <div className="space-y-1.5">
-                    <label className="text-[9px] font-black text-stone-400 uppercase tracking-widest">
-                      Choose Your Membership Track
+                    <label className="text-[10px] font-black text-stone-500 uppercase tracking-widest">
+                      Select Registration Purpose (లక్ష్యం)
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                       {TRACKS.map((t) => {
@@ -168,70 +260,90 @@ export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                           <button
                             type="button"
                             key={t.id}
-                            onClick={() => setFormData({ ...formData, track: t.id })}
-                            className={`p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                            onClick={() => setFormData({ ...formData, track: t.id as never })}
+                            className={`p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
                               isSelected 
-                                ? 'border-vermilion bg-vermilion/5 ring-1 ring-vermilion/30' 
-                                : 'border-stone-200 hover:border-stone-300 bg-white'
+                                ? 'border-vermilion bg-vermilion/5 ring-2 ring-vermilion/20 shadow-sm' 
+                                : 'border-stone-200 hover:border-stone-300 bg-stone-50/50'
                             }`}
                           >
                             <div className="flex items-center justify-between mb-1">
                               <div className={`p-1.5 rounded-lg ${t.bg} ${t.color}`}>
                                 <Icon size={14} />
                               </div>
-                              <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md ${
-                                isSelected ? 'bg-vermilion text-white' : 'bg-stone-100 text-stone-500'
+                              <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded ${
+                                isSelected ? 'bg-vermilion text-white' : 'bg-stone-200 text-stone-600'
                               }`}>
                                 {t.badge}
                               </span>
                             </div>
-                            <span className="text-[11px] font-bold text-stone-900 leading-tight">
-                              {t.label}
-                            </span>
+                            <div>
+                              <span className="text-[11px] font-black text-stone-900 block leading-tight">
+                                {t.label}
+                              </span>
+                              <span className="text-[9px] text-stone-500 font-bold block mt-0.5 truncate">
+                                {t.sub}
+                              </span>
+                            </div>
                           </button>
                         );
                       })}
                     </div>
                   </div>
 
+                  {/* Mobile Number - High Priority First */}
                   <div className="space-y-1.5">
-                    <label htmlFor="full-name" className="text-[9px] font-black text-stone-400 uppercase tracking-widest flex items-center gap-1.5">
-                      <User size={10} className="text-vermilion" /> Full Name
+                    <label htmlFor="mobile-phone" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
+                      <Phone size={12} className="text-vermilion" /> 
+                      Mobile Number (మొబైల్ నంబర్ - WhatsApp)
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-xs font-black text-stone-500">
+                        🇮🇳 +91
+                      </div>
+                      <input 
+                        id="mobile-phone"
+                        type="tel" 
+                        inputMode="numeric"
+                        pattern="[0-9]{10}"
+                        required
+                        autoFocus
+                        placeholder="98765 43210"
+                        className="w-full pl-16 pr-4 py-3 rounded-xl border-2 border-stone-200 focus:border-vermilion focus:ring-4 focus:ring-vermilion/10 outline-none transition-all text-sm font-bold tracking-wider"
+                        value={formData.phone}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/\D/g, '').slice(0, 10);
+                          setFormData({ ...formData, phone: val });
+                        }}
+                      />
+                    </div>
+                    <p className="text-[10px] text-stone-400">Used for official updates, digital ID SMS, and Yatra coordination.</p>
+                  </div>
+
+                  {/* Full Name */}
+                  <div className="space-y-1.5">
+                    <label htmlFor="full-name" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
+                      <User size={12} className="text-vermilion" /> 
+                      Full Name (పూర్తి పేరు)
                     </label>
                     <input 
                       id="full-name"
-                      autoFocus
                       type="text" 
                       required
-                      placeholder="e.g. Ramesh Chary"
-                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-medium"
+                      placeholder="e.g. Brahmasri Ramesh Chary"
+                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-semibold"
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                     />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label htmlFor="phone-number" className="text-[9px] font-black text-stone-400 uppercase tracking-widest flex items-center gap-1.5">
-                      <Phone size={10} className="text-vermilion" /> Mobile / WhatsApp Number
-                    </label>
-                    <input 
-                      id="phone-number"
-                      type="tel" 
-                      required
-                      placeholder="e.g. +91 98765 43210"
-                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-medium"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    />
-                  </div>
-
                   <button 
                     type="button"
-                    disabled={!formData.name || !formData.phone}
+                    disabled={!formData.name || formData.phone.length < 10}
                     onClick={() => setStep(2)}
-                    className="w-full bg-vermilion text-white py-3.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 hover:bg-vermilion-600 disabled:opacity-50 transition-all active:scale-[0.98] shadow-lg shadow-vermilion/20 touch-manipulation group cursor-pointer"
+                    className="w-full bg-gradient-to-r from-vermilion to-vermilion-600 text-white py-3.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 hover:opacity-95 disabled:opacity-50 transition-all active:scale-[0.98] shadow-lg shadow-vermilion/20 touch-manipulation cursor-pointer"
                   >
-                    Next: Verification Details <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    Next: District & Category <ChevronRight size={14} />
                   </button>
                 </motion.div>
               ) : (
@@ -242,47 +354,61 @@ export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                   exit={{ opacity: 0, x: -20 }}
                   className="space-y-4"
                 >
+                  {/* District / Location */}
                   <div className="space-y-1.5">
-                    <label htmlFor="trade-select" className="text-[9px] font-black text-stone-400 uppercase tracking-widest flex items-center gap-1.5">
-                      <Briefcase size={10} className="text-vermilion" /> {formData.track === 'matrimony' ? 'Gotra / Subsect / Profession' : 'Traditional Trade / Profession'}
+                    <label htmlFor="location-select" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
+                      <MapPin size={12} className="text-vermilion" /> 
+                      District / Parliamentary Constituency (జిల్లా / నియోజకవర్గం)
                     </label>
-                    {formData.track === 'matrimony' ? (
+                    <select 
+                      id="location-select"
+                      required
+                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-bold appearance-none bg-white cursor-pointer"
+                      value={formData.location}
+                      onChange={(e) => setFormData({...formData, location: e.target.value})}
+                    >
+                      <option value="">Select your District / Area</option>
+                      {STATES_AND_DISTRICTS.map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+
+                  {/* Detail based on Track */}
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
+                      <Briefcase size={12} className="text-vermilion" /> 
+                      {formData.track === 'yatra' 
+                        ? 'Yatra Participation Role (యాత్ర విభాగం)' 
+                        : formData.track === 'matrimony'
+                          ? 'Gotra / Subsect (గోత్రం / ఉపశాఖ)'
+                          : 'Trade / Craft / Profession (వృత్తి)'}
+                    </label>
+
+                    {formData.track === 'artisan' ? (
+                      <select 
+                        required
+                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-bold appearance-none bg-white cursor-pointer"
+                        value={formData.tradeOrDetail}
+                        onChange={(e) => setFormData({...formData, tradeOrDetail: e.target.value})}
+                      >
+                        <option value="">Select your traditional craft</option>
+                        {TRADES.map(t => <option key={t} value={t}>{t}</option>)}
+                      </select>
+                    ) : (
                       <input 
                         type="text"
                         required
-                        placeholder="e.g. Sanaga Gotra / Software Engineer / Sculptor"
-                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-medium"
-                        value={formData.trade}
-                        onChange={(e) => setFormData({...formData, trade: e.target.value})}
+                        placeholder={
+                          formData.track === 'yatra' 
+                            ? 'e.g. Yatri / Local Coordinator / Youth Leader' 
+                            : formData.track === 'matrimony'
+                              ? 'e.g. Sanaga Gotra / Software Engineer / Architect'
+                              : 'e.g. Engineer / Architect / Enterprise Owner'
+                        }
+                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-semibold"
+                        value={formData.tradeOrDetail}
+                        onChange={(e) => setFormData({...formData, tradeOrDetail: e.target.value})}
                       />
-                    ) : (
-                      <select 
-                        id="trade-select"
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-medium appearance-none bg-white cursor-pointer"
-                        value={formData.trade}
-                        onChange={(e) => setFormData({...formData, trade: e.target.value})}
-                      >
-                        <option value="">Select your trade / craft</option>
-                        {TRADES.map(t => <option key={t} value={t}>{t}</option>)}
-                      </select>
                     )}
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label htmlFor="state-select" className="text-[9px] font-black text-stone-400 uppercase tracking-widest flex items-center gap-1.5">
-                      <MapPin size={10} className="text-vermilion" /> State / Location
-                    </label>
-                    <select 
-                      id="state-select"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-medium appearance-none bg-white cursor-pointer"
-                      value={formData.state}
-                      onChange={(e) => setFormData({...formData, state: e.target.value})}
-                    >
-                      <option value="">Select State</option>
-                      {STATES.map(s => <option key={s} value={s}>{s}</option>)}
-                    </select>
                   </div>
 
                   <div className="flex gap-3 pt-2">
@@ -290,16 +416,16 @@ export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                       type="button"
                       onClick={() => setStep(1)}
                       className="bg-stone-100 text-stone-600 p-3.5 rounded-xl font-black hover:bg-stone-200 transition-all active:scale-90 touch-manipulation cursor-pointer"
-                      aria-label="Go back to previous step"
+                      aria-label="Go back"
                     >
                       <ArrowLeft size={18} />
                     </button>
                     <button 
                       type="submit"
-                      disabled={loading || !formData.trade || !formData.state}
-                      className="flex-1 bg-vermilion text-white py-3.5 rounded-xl font-black text-xs hover:bg-vermilion-600 transition-all shadow-lg shadow-vermilion/20 active:scale-[0.98] touch-manipulation disabled:opacity-50 cursor-pointer"
+                      disabled={loading || !formData.location || !formData.tradeOrDetail}
+                      className="flex-1 bg-gradient-to-r from-vermilion to-amber-600 text-white py-3.5 rounded-xl font-black text-xs hover:opacity-95 transition-all shadow-lg shadow-vermilion/20 active:scale-[0.98] touch-manipulation disabled:opacity-50 cursor-pointer"
                     >
-                      {loading ? 'Submitting...' : 'Complete Registration'}
+                      {loading ? 'Registering...' : 'Complete & Generate Digital Pass'}
                     </button>
                   </div>
                 </motion.div>

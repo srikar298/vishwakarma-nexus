@@ -24,6 +24,7 @@ import {
   PhoneCall, 
   MessageCircle
 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
@@ -32,10 +33,28 @@ import { SocialLinks } from '@/shared/ui/SocialLinks';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const { t, i18n } = useTranslation();
+  const searchParams = useSearchParams();
   const lang = (['en', 'te', 'hi'].includes(i18n.language) ? i18n.language : 'en') as 'en' | 'te' | 'hi';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState<'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron'>('yatra');
   const [scrolled, setScrolled] = useState(false);
+
+  // Auto-open Yatra / Join modal if URL has ?ref=chalo-delhi or ?join=...
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    const join = searchParams.get('join');
+    if (ref === 'chalo-delhi' || ref === 'yatra' || join === 'yatra') {
+      setSelectedTrack('yatra');
+      setIsJoinModalOpen(true);
+    } else if (join === 'artisan' || join === 'membership') {
+      setSelectedTrack('artisan');
+      setIsJoinModalOpen(true);
+    } else if (join === 'matrimony') {
+      setSelectedTrack('matrimony');
+      setIsJoinModalOpen(true);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,7 +86,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen font-sans selection:bg-saffron-200 bg-white flex flex-col">
       {/* Top Activity / Announcement Bar */}
-      <AnnouncementTicker />
+      <AnnouncementTicker onOpenJoinModal={(track) => { setSelectedTrack(track || 'yatra'); setIsJoinModalOpen(true); }} />
 
       {/* Main Navigation Header */}
       <nav className={`sticky top-0 w-full z-50 transition-all duration-300 border-b ${
@@ -557,7 +576,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </footer>
 
       {/* Global Onboarding & Signup Modal */}
-      <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)} />
+      <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)} defaultTrack={selectedTrack} />
     </div>
   );
 };
