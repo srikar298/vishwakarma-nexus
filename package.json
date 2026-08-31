@@ -11,8 +11,7 @@
     "db:generate": "nx run @vishwakarma-k-c/db:generate",
     "db:push": "nx run @vishwakarma-k-c/db:push",
     "db:studio": "nx run @vishwakarma-k-c/db:studio",
-    "test": "dotenv -e .env -- vitest",
-    "prepare": "husky"
+    "test": "dotenv -e .env -- vitest"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
