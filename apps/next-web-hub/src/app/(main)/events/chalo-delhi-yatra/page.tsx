@@ -3,27 +3,27 @@ import { ChaloDelhiYatraPage } from "@/features/events/pages/ChaloDelhiYatraPage
 import { generateBreadcrumbsSchema, generateWebPageSchema } from "@/shared/lib/seo-helpers";
 
 export const metadata: Metadata = {
-  title: "Pushpagiri Chalo Delhi Ekta Paadha Yathra (1,700 KM) | VKC",
-  description: "Historic 1,700 KM Vishwakarma Ekta Paadha Yathra from Hyderabad to New Delhi along NH-44. Organized by Vishwakarma Knowledge Centre (VKC) from Sep 17 to Nov 29, 2026. Register your mobile number for a Digital Pass.",
+  title: "Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM) | VKC",
+  description: "Historic 1,700 KM Vishwakarma Vanshaj Ekta Maha Padayatra from Hyderabad to New Delhi along NH-44 across 68+ waypoint stations. Organized jointly by VKC and Ekta Manch Bharat from Sep 17 to Nov 29, 2026. Register your mobile number for a Digital Pass.",
   keywords: [
-    "Pushpagiri Chalo Delhi Yatra",
-    "Vishwakarma Padayatra 2026",
+    "Vishwakarma Vanshaj Ekta Maha Padayatra",
+    "Vishwakarma Ekta Yatra 2026",
     "Hyderabad to Delhi 1700 KM",
-    "Vishwakarma Ekta Yatra",
+    "VKC Ekta Padayatra",
     "VKC",
     "Vishwanadhula Pushpagiri",
-    "NH-44 Padayatra",
+    "Mukesh Kumar Jangid",
+    "NH-44 Padayatra Route Map",
     "Vishwakarma 15 Demands",
     "Caste Census Vishwakarma",
-    "Telangana Vishwakarma",
-    "National Highway 44 Yatra"
+    "Maru Parikrama Ekta Yatra"
   ],
   alternates: {
     canonical: 'https://vishwakarmaknowledgecentre.org/events/chalo-delhi-yatra',
   },
   openGraph: {
-    title: "Pushpagiri Chalo Delhi Ekta Paadha Yathra (1,700 KM) | VKC",
-    description: "Historic 1,700 KM Vishwakarma Ekta Paadha Yathra from Hyderabad to New Delhi along NH-44. Sep 17 to Nov 29, 2026. Register your mobile number.",
+    title: "Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM) | VKC",
+    description: "Historic 1,700 KM Vishwakarma Vanshaj Ekta Maha Padayatra from Hyderabad to New Delhi along NH-44 across 68+ waypoint stations. Sep 17 to Nov 29, 2026.",
     url: "https://vishwakarmaknowledgecentre.org/events/chalo-delhi-yatra",
     siteName: "Vishwakarma Knowledge Centre",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "https://vishwakarmaknowledgecentre.org/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Pushpagiri Chalo Delhi Ekta Paadha Yathra 2026",
+        alt: "Vishwakarma Vanshaj Ekta Maha Padayatra 2026",
       },
     ],
   },
@@ -40,12 +40,12 @@ export const metadata: Metadata = {
 export default function Page() {
   const breadcrumbsSchema = generateBreadcrumbsSchema([
     { name: "Events & Summits", url: "/events" },
-    { name: "Pushpagiri Chalo Delhi Paadha Yathra", url: "/events/chalo-delhi-yatra" }
+    { name: "Vishwakarma Vanshaj Ekta Maha Padayatra", url: "/events/chalo-delhi-yatra" }
   ]);
 
   const webPageSchema = generateWebPageSchema({
-    title: "Pushpagiri Chalo Delhi Ekta Paadha Yathra (1,700 KM)",
-    description: "Historic 1,700 KM foot march from Hyderabad to Delhi along NH-44 for Vishwakarma community rights and recognition.",
+    title: "Vishwakarma Vanshaj Ekta Maha Padayatra (1,700 KM)",
+    description: "Historic 1,700 KM foot march from Hyderabad to Delhi along NH-44 traversing 68+ waypoint stations across 6 states for Vishwakarma community rights and recognition.",
     url: "/events/chalo-delhi-yatra"
   });
 
@@ -53,14 +53,14 @@ export default function Page() {
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "Pushpagiri Chalo Delhi Vishwakarma Ekta Paadha Yathra",
+    "name": "Vishwakarma Vanshaj Ekta Maha Padayatra (Hyderabad to New Delhi)",
     "startDate": "2026-09-17T08:00:00+05:30",
     "endDate": "2026-11-29T18:00:00+05:30",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "eventStatus": "https://schema.org/EventScheduled",
     "location": {
       "@type": "Place",
-      "name": "NH-44 National Highway Corridor (Hyderabad to New Delhi)",
+      "name": "NH-44 National Highway Corridor (Hyderabad to New Delhi Parliament)",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Hyderabad",
@@ -68,11 +68,11 @@ export default function Page() {
         "addressCountry": "IN"
       }
     },
-    "description": "Historic 1,700 KM Vishwakarma Ekta Paadha Yathra traversing Telangana, Maharashtra, Madhya Pradesh, Uttar Pradesh, Rajasthan, and Haryana to New Delhi for community constitutional rights and a 15-point national charter of demands.",
+    "description": "Historic 1,700 KM Vishwakarma Vanshaj Ekta Maha Padayatra traversing 68+ waypoint stations across Telangana, Maharashtra, Madhya Pradesh, Uttar Pradesh, Rajasthan, and Haryana to New Delhi for community constitutional rights and a 15-point national charter of demands.",
     "organizer": {
       "@type": "Organization",
       "@id": "https://vishwakarmaknowledgecentre.org/#organization",
-      "name": "Vishwakarma Knowledge Centre",
+      "name": "Vishwakarma Knowledge Centre & Vishwakarma Vanshaj Ekta Manch Bharat",
       "url": "https://vishwakarmaknowledgecentre.org"
     },
     "offers": {
