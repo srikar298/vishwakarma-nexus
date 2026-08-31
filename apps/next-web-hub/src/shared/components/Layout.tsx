@@ -13,19 +13,21 @@ import {
   Award, 
   Users, 
   Flag, 
-  Calendar,
-  ShieldCheck,
-  BookOpen,
-  ScrollText,
-  Heart,
-  Image as ImageIcon,
-  LogIn,
-  UserPlus,
-  Briefcase
+  Calendar, 
+  ShieldCheck, 
+  BookOpen, 
+  ScrollText, 
+  Heart, 
+  Image as ImageIcon, 
+  LogIn, 
+  UserPlus, 
+  PhoneCall, 
+  MessageCircle
 } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
+import { MobileBottomNav } from './MobileBottomNav';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -57,6 +59,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       document.body.style.overflow = 'unset';
     };
   }, [isMenuOpen]);
+
+  const changeLanguage = (newLang: string) => {
+    i18n.changeLanguage(newLang);
+  };
 
   return (
     <div className="min-h-screen font-sans selection:bg-saffron-200 bg-white flex flex-col">
@@ -180,13 +186,29 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   <ChevronDown size={14} className="group-hover:rotate-180 transition-transform text-stone-400 group-hover:text-vermilion" />
                 </button>
                 <div className="absolute top-full right-0 w-72 bg-white border border-stone-100 shadow-2xl rounded-3xl p-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0 z-50">
-                  <Link href="/network" className="flex items-center gap-3.5 p-3 hover:bg-stone-50 rounded-2xl transition-all group/item">
-                    <div className="p-2 bg-blue-50 rounded-xl text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors">
-                      <Users size={17} />
+                  <Link href="/network?tab=matrimony" className="flex items-center gap-3.5 p-3 hover:bg-rose-50/50 rounded-2xl transition-all group/item">
+                    <div className="p-2 bg-rose-100/70 rounded-xl text-rose-600 group-hover/item:bg-rose-600 group-hover/item:text-white transition-colors">
+                      <Heart size={17} />
                     </div>
                     <div>
-                      <p className="text-xs font-black text-stone-900 leading-none mb-1">Network Hub</p>
-                      <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Mentorship & Collaborations</p>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <p className="text-xs font-black text-stone-900 leading-none">Parinaya Matrimony</p>
+                        <span className="text-[8px] bg-rose-100 text-rose-700 px-1.5 py-0.5 rounded-full font-black uppercase tracking-wider">Verified</span>
+                      </div>
+                      <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">100% ID Checks & Gotra</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/membership" className="flex items-center gap-3.5 p-3 hover:bg-amber-50/50 rounded-2xl transition-all group/item">
+                    <div className="p-2 bg-amber-100/70 rounded-xl text-amber-700 group-hover/item:bg-amber-600 group-hover/item:text-white transition-colors">
+                      <Hammer size={17} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <p className="text-xs font-black text-stone-900 leading-none">Digital Artisan ID</p>
+                        <span className="text-[8px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full font-black uppercase tracking-wider">Card</span>
+                      </div>
+                      <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Economic Identity & Registry</p>
                     </div>
                   </Link>
 
@@ -197,6 +219,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     <div>
                       <p className="text-xs font-black text-stone-900 leading-none mb-1">Community Donors</p>
                       <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Sponsors & Leaderboard</p>
+                    </div>
+                  </Link>
+
+                  <Link href="/network" className="flex items-center gap-3.5 p-3 hover:bg-stone-50 rounded-2xl transition-all group/item">
+                    <div className="p-2 bg-blue-50 rounded-xl text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white transition-colors">
+                      <Users size={17} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-black text-stone-900 leading-none mb-1">Network Hub</p>
+                      <p className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Mentorship & Enterprise</p>
                     </div>
                   </Link>
 
@@ -256,35 +288,56 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               </button>
             </div>
 
-            {/* Mobile Nav Trigger */}
-            <div className="flex items-center gap-3 lg:hidden">
+            {/* Mobile Header Right: Hamburger & Lang */}
+            <div className="flex items-center gap-2 lg:hidden">
               <LanguageSwitcher />
               <button 
                 aria-label="Toggle menu" 
                 aria-expanded={isMenuOpen} 
                 onClick={() => setIsMenuOpen(!isMenuOpen)} 
-                className="p-2 text-stone-900 hover:text-vermilion transition-colors rounded-xl hover:bg-stone-50"
+                className="p-2.5 text-stone-900 hover:text-vermilion transition-colors rounded-2xl bg-stone-50 border border-stone-200/60 active:scale-95 touch-manipulation"
               >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu Drawer */}
+        {/* Mobile Fullscreen Menu Drawer */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div 
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white/98 backdrop-blur-2xl border-t border-stone-100 p-5 flex flex-col max-h-[calc(100vh-80px)] shadow-2xl rounded-b-[2rem]"
+              className="lg:hidden bg-white/98 backdrop-blur-2xl border-t border-stone-100 p-4 sm:p-6 flex flex-col max-h-[calc(100vh-80px)] shadow-2xl rounded-b-[2rem]"
             >
+              {/* 1-Tap Language Quick Switcher */}
+              <div className="flex items-center justify-between bg-stone-100/80 p-1.5 rounded-2xl mb-4">
+                {[
+                  { code: 'en', label: 'English' },
+                  { code: 'te', label: 'తెలుగు' },
+                  { code: 'hi', label: 'हिंदी' }
+                ].map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => changeLanguage(item.code)}
+                    className={`flex-1 py-2 text-xs font-black rounded-xl transition-all ${
+                      i18n.language === item.code 
+                        ? 'bg-white text-stone-900 shadow-sm' 
+                        : 'text-stone-500 hover:text-stone-900'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
               {/* Primary Mobile CTA at top */}
-              <div className="pb-4 mb-4 border-b border-stone-100">
+              <div className="pb-3 mb-4 border-b border-stone-100">
                 <button 
                   onClick={() => { setIsJoinModalOpen(true); setIsMenuOpen(false); }}
-                  className="w-full bg-vermilion text-white py-3.5 rounded-2xl font-black shadow-xl shadow-vermilion/20 active:scale-95 transition-all uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full bg-gradient-to-r from-vermilion to-vermilion-600 text-white py-3.5 rounded-2xl font-black shadow-xl shadow-vermilion/20 active:scale-95 transition-all uppercase tracking-[0.18em] text-xs flex items-center justify-center gap-2 cursor-pointer touch-manipulation"
                 >
                   <UserPlus size={16} />
                   <span>{t("nav.join", "Join VKC / Sign Up")}</span>
@@ -292,7 +345,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               </div>
 
               {/* Scrollable links grouped by Pillar */}
-              <div className="flex-1 overflow-y-auto space-y-6 pr-1">
+              <div className="flex-1 overflow-y-auto space-y-5 pr-1">
                 {/* 1. About Section */}
                 <div>
                   <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest px-3 mb-2 flex items-center gap-1.5">
@@ -300,16 +353,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     <span>{lang === 'te' ? 'సంస్థ పరిచయం' : lang === 'hi' ? 'संस्था परिचय' : 'About VKC'}</span>
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
-                    <Link href="/vision" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all">
+                    <Link href="/vision" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all active:scale-95">
                       {t('nav.vision_path', 'Vision & Roadmap')}
                     </Link>
-                    <Link href="/leadership" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all text-emerald-700">
+                    <Link href="/leadership" onClick={() => setIsMenuOpen(false)} className="p-3 text-emerald-800 bg-emerald-50/70 hover:bg-emerald-100 rounded-xl font-black text-xs transition-all active:scale-95 border border-emerald-100/60">
                       Leadership Council
                     </Link>
-                    <Link href="/founder" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all">
+                    <Link href="/founder" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all active:scale-95">
                       The Founder
                     </Link>
-                    <Link href="/heritage" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all">
+                    <Link href="/heritage" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all active:scale-95">
                       {t('nav.heritage', 'Sacred Heritage')}
                     </Link>
                   </div>
@@ -322,10 +375,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     <span>{lang === 'te' ? 'జ్ఞాన భాండాగారం' : lang === 'hi' ? 'ज्ञान भंडार' : 'Knowledge'}</span>
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
-                    <Link href="/knowledge" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all">
+                    <Link href="/knowledge" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all active:scale-95">
                       Shastra Vault
                     </Link>
-                    <Link href="/legends" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all">
+                    <Link href="/legends" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all active:scale-95">
                       Hall of Legends
                     </Link>
                   </div>
@@ -336,36 +389,66 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   <Link 
                     href="/directory" 
                     onClick={() => setIsMenuOpen(false)} 
-                    className="flex items-center justify-between p-3.5 bg-stone-900 text-white hover:bg-vermilion rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md"
+                    className="flex items-center justify-between p-3.5 bg-stone-900 text-white hover:bg-vermilion rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md active:scale-98"
                   >
                     <span>{t('nav.directory', 'Artisans Directory')}</span>
                     <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-bold">Search Master Artisans →</span>
                   </Link>
                 </div>
 
-                {/* 4. Community Section */}
+                {/* 4. Community & Monetization Section */}
                 <div>
                   <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest px-3 mb-2 flex items-center gap-1.5">
                     <Users size={12} className="text-blue-600" />
-                    <span>{lang === 'te' ? 'కమ్యూనిటీ' : lang === 'hi' ? 'समुदाय' : 'Community & Welfare'}</span>
+                    <span>{lang === 'te' ? 'కమ్యూనిటీ & సేవలు' : lang === 'hi' ? 'समुदाय एवं सेवाएँ' : 'Community & Services'}</span>
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
-                    <Link href="/network" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all">
-                      Network Hub
+                    <Link href="/network?tab=matrimony" onClick={() => setIsMenuOpen(false)} className="p-3 text-rose-700 bg-rose-50/90 hover:bg-rose-100 rounded-xl font-black text-xs transition-all border border-rose-200/80 flex items-center justify-between active:scale-95">
+                      <span>💍 Matrimony</span>
+                      <span className="text-[8px] bg-rose-200 text-rose-800 px-1.5 py-0.5 rounded-full font-bold">100% ID</span>
                     </Link>
-                    <Link href="/donors" onClick={() => setIsMenuOpen(false)} className="p-3 text-vermilion bg-rose-50/60 hover:bg-rose-100 rounded-xl font-black text-xs transition-all">
+                    <Link href="/membership" onClick={() => setIsMenuOpen(false)} className="p-3 text-amber-900 bg-amber-50/90 hover:bg-amber-100 rounded-xl font-black text-xs transition-all border border-amber-200/80 flex items-center justify-between active:scale-95">
+                      <span>🛠️ Artisan ID</span>
+                      <span className="text-[8px] bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded-full font-bold">Card</span>
+                    </Link>
+                    <Link href="/donors" onClick={() => setIsMenuOpen(false)} className="p-3 text-vermilion bg-rose-50/40 hover:bg-rose-100 rounded-xl font-black text-xs transition-all active:scale-95">
                       Community Donors
                     </Link>
-                    <Link href="/empowerment" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all">
+                    <Link href="/network" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all active:scale-95">
+                      Network Hub
+                    </Link>
+                    <Link href="/empowerment" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all active:scale-95">
                       Empowerment
                     </Link>
-                    <Link href="/events" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all">
+                    <Link href="/events" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all active:scale-95">
                       Events & Meets
                     </Link>
-                    <Link href="/gallery" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all col-span-2">
+                    <Link href="/gallery" onClick={() => setIsMenuOpen(false)} className="p-3 text-stone-700 bg-stone-50 hover:bg-stone-100 rounded-xl font-bold text-xs transition-all col-span-2 active:scale-95">
                       Media Gallery & Photo Archive
                     </Link>
                   </div>
+                </div>
+
+                {/* Helpline / WhatsApp direct assist */}
+                <div className="bg-stone-50 border border-stone-200/70 p-3 rounded-2xl flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                      <PhoneCall size={14} />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-black text-stone-900 leading-tight">VKC Helpline Desk</p>
+                      <p className="text-[10px] text-stone-500 font-medium">+91 96664 35426</p>
+                    </div>
+                  </div>
+                  <a 
+                    href="https://wa.me/919666435426?text=Jai%20Vishwakarma,%20I%20want%20to%20know%20more%20about%20VKC" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black uppercase tracking-wider px-3 py-2 rounded-xl flex items-center gap-1 active:scale-95"
+                  >
+                    <MessageCircle size={12} />
+                    <span>WhatsApp</span>
+                  </a>
                 </div>
               </div>
 
@@ -386,13 +469,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         </AnimatePresence>
       </nav>
 
-      {/* Main Content Area */}
-      <main className="flex-1 overflow-x-hidden">
+      {/* Main Content Area (With bottom padding on mobile to clear bottom nav) */}
+      <main className="flex-1 overflow-x-hidden pb-20 lg:pb-0">
         {children}
       </main>
 
-      {/* Footer Matrix */}
-      <footer className="bg-stone-950 text-white py-20 relative overflow-hidden">
+      {/* Native App-Like Mobile Bottom Navigation Bar */}
+      <MobileBottomNav onOpenJoinModal={() => setIsJoinModalOpen(true)} />
+
+      {/* Footer Matrix (With bottom padding on mobile) */}
+      <footer className="bg-stone-950 text-white py-20 pb-28 lg:pb-20 relative overflow-hidden">
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-saffron-900/10 blur-[150px] rounded-full -z-0" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
@@ -429,7 +515,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 <ul className="space-y-4 text-sm font-medium">
                   <li><Link href="/directory" className="text-stone-400 hover:text-white transition-colors">Artisan Directory</Link></li>
                   <li><Link href="/membership" className="text-stone-400 hover:text-white transition-colors">Claim Digital ID</Link></li>
-                  <li><Link href="/network" className="text-stone-400 hover:text-white transition-colors">Network Hub</Link></li>
+                  <li><Link href="/network?tab=matrimony" className="text-stone-400 hover:text-white transition-colors">Parinaya Matrimony</Link></li>
                   <li><Link href="/donors" className="text-stone-400 hover:text-white transition-colors">Community Donors</Link></li>
                   <li><Link href="/empowerment" className="text-stone-400 hover:text-white transition-colors">Empowerment & Rights</Link></li>
                   <li><Link href="/events" className="text-stone-400 hover:text-white transition-colors">Events & Calendar</Link></li>
