@@ -1,26 +1,16 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import { 
   Calendar, 
-  MapPin, 
-  ArrowRight, 
-  Flag, 
-  Sparkles, 
-  Users, 
-  Award, 
-  CheckCircle2, 
-  Clock, 
-  Share2 
+  ArrowRight
 } from 'lucide-react';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 
 export const EventsPage = () => {
-  const { i18n } = useTranslation();
-  const lang = (['en', 'te', 'hi'].includes(i18n.language) ? i18n.language : 'en') as 'en' | 'te' | 'hi';
+  const { t } = useTranslation();
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
 
   return (
@@ -31,15 +21,13 @@ export const EventsPage = () => {
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-vermilion/10 text-vermilion text-xs font-black uppercase tracking-widest border border-vermilion/20">
             <Calendar size={14} />
-            <span>{lang === 'te' ? 'కార్యక్రమాలు & సదస్సులు' : 'Community Summits & Events'}</span>
+            <span>{t('eventsPage.badge', 'Community Summits & Events')}</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black text-stone-900 font-display tracking-tight">
-            {lang === 'te' ? 'విశ్వకర్మ వేదిక: చారిత్రక కార్యక్రమాలు' : 'VKC Events & National Movements'}
+            {t('eventsPage.title', 'VKC Events & National Movements')}
           </h1>
           <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-            {lang === 'te'
-              ? 'మన సాంప్రదాయ కళాకారుల హక్కులు, ఐక్యత మరియు సాంస్కృతిక వైభవానికి వేదికగా నిలిచే రాష్ట్ర, జాతీయ స్థాయి కార్యక్రమాలు.'
-              : 'Discover national movements, artisan summits, decennial meets, and community gatherings empowering traditional artisans.'}
+            {t('eventsPage.desc', 'Discover national movements, artisan summits, decennial meets, and community gatherings empowering traditional artisans.')}
           </p>
         </div>
 
@@ -52,25 +40,19 @@ export const EventsPage = () => {
             <div className="lg:col-span-2 space-y-6">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="bg-gradient-to-r from-vermilion to-amber-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-sm">
-                  🚩 Flagship National Movement
+                  {t('eventsPage.flagshipTag', 'Flagship National Movement')}
                 </span>
                 <span className="text-[10px] text-stone-400 font-bold bg-white/10 px-3 py-1 rounded-full">
-                  1,700 KM • 74 Days • 6 States
+                  {t('eventsPage.flagshipSub', '1,700 KM • 74 Days • 6 States')}
                 </span>
               </div>
 
               <div className="space-y-3">
                 <h2 className="text-2xl sm:text-4xl font-black text-white font-display leading-tight">
-                  {lang === 'te' 
-                    ? 'పుష్పగిరి చలో ఢిల్లీ పాదయాత్ర (హైదరాబాద్ నుండి ఢిల్లీ)' 
-                    : lang === 'hi'
-                      ? 'पुष्पगिरि चलो दिल्ली पदयात्रा (हैदराबाद से दिल्ली)'
-                      : 'Pushpagiri Chalo Delhi Ekta Paadha Yathra (1,700 KM)'}
+                  {t('eventsPage.flagshipTitle', 'Pushpagiri Chalo Delhi Ekta Paadha Yathra (1,700 KM)')}
                 </h2>
                 <p className="text-stone-300 text-sm leading-relaxed max-w-2xl">
-                  {lang === 'te'
-                    ? 'సెప్టెంబర్ 17 విశ్వకర్మ పూజా దినోత్సవం నుండి నవంబర్ 29 వరకు NH-44 కారిడార్ మీదుగా సాగే దేశంలోనే అతిపెద్ద విశ్వకర్మ ఐక్యతా పాదయాత్ర. 15 సూత్రాల డిమాండ్లతో కేంద్ర ప్రభుత్వానికి వినతి.'
-                    : 'A 74-day historic march from Hyderabad to Parliament in New Delhi via NH-44 traversing Telangana, Maharashtra, MP, UP, Rajasthan, and Haryana.'}
+                  {t('eventsPage.flagshipDesc', 'A 74-day historic march from Hyderabad to Parliament in New Delhi via NH-44 traversing Telangana, Maharashtra, MP, UP, Rajasthan, and Haryana.')}
                 </p>
               </div>
 
@@ -79,37 +61,39 @@ export const EventsPage = () => {
                   href="/events/chalo-delhi-yatra"
                   className="bg-vermilion hover:bg-vermilion-600 text-white px-7 py-3.5 rounded-2xl font-black text-xs uppercase tracking-wider shadow-lg shadow-vermilion/20 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
                 >
-                  <span>Explore Route & 15 Demands</span>
+                  <span>{t('eventsPage.exploreRoute', 'Explore Route & 15 Demands')}</span>
                   <ArrowRight size={14} />
                 </Link>
                 <button
                   onClick={() => setIsJoinModalOpen(true)}
                   className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider active:scale-95 transition-all cursor-pointer"
                 >
-                  Register Mobile for Pass
+                  {t('eventsPage.registerMobile', 'Register Mobile for Pass')}
                 </button>
               </div>
             </div>
 
             {/* Quick Milestone Card */}
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-3xl space-y-4">
-              <p className="text-xs font-black uppercase tracking-widest text-amber-400">Expedition Route</p>
+              <p className="text-xs font-black uppercase tracking-widest text-amber-400">
+                {t('eventsPage.routeOverview', 'Expedition Route')}
+              </p>
               <div className="space-y-3 text-xs">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="font-bold text-white">Sep 17: Flag Off from Hyderabad (TS)</span>
+                  <span className="font-bold text-white">{t('eventsPage.routeStart', 'Sep 17: Flag Off from Hyderabad (TS)')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-amber-400" />
-                  <span className="text-stone-300">Traversing MH, MP, UP, RJ, HR</span>
+                  <span className="text-stone-300">{t('eventsPage.routeTraverse', 'Traversing MH, MP, UP, RJ, HR')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-vermilion" />
-                  <span className="font-bold text-white">Nov 29: Culmination in New Delhi</span>
+                  <span className="font-bold text-white">{t('eventsPage.routeEnd', 'Nov 29: Culmination in New Delhi')}</span>
                 </div>
               </div>
               <div className="pt-2 border-t border-white/10 text-[10px] text-stone-400 font-bold uppercase tracking-wider">
-                15-Point Charter Memorandum
+                {t('chaloDelhiYatra.stats.demandsLabel', '15-Point Charter Memorandum')}
               </div>
             </div>
           </div>
@@ -118,8 +102,12 @@ export const EventsPage = () => {
         {/* OTHER RECENT & UPCOMING SUMMITS */}
         <div className="space-y-8">
           <div className="flex items-center justify-between border-b border-stone-200 pb-4">
-            <h2 className="text-2xl font-black text-stone-900 font-display">Recent & Upcoming Summits</h2>
-            <span className="text-xs font-black text-stone-400 uppercase tracking-widest">Archive</span>
+            <h2 className="text-2xl font-black text-stone-900 font-display">
+              {t('eventsPage.recentTitle', 'Recent & Upcoming Summits')}
+            </h2>
+            <span className="text-xs font-black text-stone-400 uppercase tracking-widest">
+              {t('eventsPage.archiveTag', 'Archive')}
+            </span>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -128,20 +116,20 @@ export const EventsPage = () => {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="bg-emerald-50 text-emerald-700 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full border border-emerald-100">
-                    Successfully Concluded
+                    {t('eventsPage.anniversaryTag', 'Successfully Concluded')}
                   </span>
-                  <span className="text-xs font-bold text-stone-400">Hyderabad</span>
+                  <span className="text-xs font-bold text-stone-400">{t('eventsPage.anniversaryLocation', 'Hyderabad')}</span>
                 </div>
                 <h3 className="text-xl font-black text-stone-900 font-display">
-                  🎉 VKC 10th Anniversary Decennial Celebration
+                  {t('eventsPage.anniversaryTitle', '🎉 VKC 10th Anniversary Decennial Celebration')}
                 </h3>
                 <p className="text-stone-600 text-xs leading-relaxed">
-                  Honored with the august presence of Hon&apos;ble Minister Smt. Seethakka garu, ACP Brahmasri K.M. Kiran Kumar Sir, and esteemed community patrons celebrating 10 years of service.
+                  {t('eventsPage.anniversaryDesc', 'Honored with the august presence of Hon\'ble Minister Smt. Seethakka garu, ACP Brahmasri K.M. Kiran Kumar Sir, and esteemed community patrons celebrating 10 years of service.')}
                 </p>
               </div>
               <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
-                <span className="text-xs font-black text-stone-400">Sundarayya Vignana Kendram</span>
-                <span className="text-xs font-black text-vermilion flex items-center gap-1">Decennial Milestone</span>
+                <span className="text-xs font-black text-stone-400">{t('eventsPage.anniversaryVenue', 'Sundarayya Vignana Kendram')}</span>
+                <span className="text-xs font-black text-vermilion flex items-center gap-1">{t('eventsPage.anniversaryMilestone', 'Decennial Milestone')}</span>
               </div>
             </div>
 
@@ -150,23 +138,23 @@ export const EventsPage = () => {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="bg-rose-50 text-rose-700 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full border border-rose-100">
-                    💍 Matrimony Portal
+                    {t('eventsPage.matrimonyTag', '💍 Matrimony Portal')}
                   </span>
-                  <span className="text-xs font-bold text-stone-400">Active Service</span>
+                  <span className="text-xs font-bold text-stone-400">{t('eventsPage.matrimonyStatus', 'Active Service')}</span>
                 </div>
                 <h3 className="text-xl font-black text-stone-900 font-display">
-                  Parinaya: Community Matrimony & Gotra Registry
+                  {t('eventsPage.matrimonyTitle', 'Parinaya: Community Matrimony & Gotra Registry')}
                 </h3>
                 <p className="text-stone-600 text-xs leading-relaxed">
-                  100% ID-verified matchmaking platform exclusively for the Vishwakarma community to preserve sacred lineage values across Gotras.
+                  {t('eventsPage.matrimonyDesc', '100% ID-verified matchmaking platform exclusively for the Vishwakarma community to preserve sacred lineage values across Gotras.')}
                 </p>
               </div>
               <div className="pt-4 border-t border-stone-100 flex items-center justify-between">
                 <Link href="/network?tab=matrimony" className="text-xs font-black text-rose-600 hover:text-rose-700 flex items-center gap-1">
-                  <span>Explore Matches</span>
+                  <span>{t('eventsPage.exploreMatches', 'Explore Matches')}</span>
                   <ArrowRight size={12} />
                 </Link>
-                <span className="text-xs font-bold text-stone-400">Verified Profiles</span>
+                <span className="text-xs font-bold text-stone-400">{t('eventsPage.verifiedProfiles', 'Verified Profiles')}</span>
               </div>
             </div>
           </div>

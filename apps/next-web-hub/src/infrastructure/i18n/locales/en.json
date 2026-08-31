@@ -606,5 +606,142 @@
     "continue": "Continue",
     "back": "Back",
     "pay_submit": "Pay & Issue ID"
+  },
+  "chaloDelhiYatra": {
+    "badge": "Historic National Ekta Yatra",
+    "subBadge": "NH-44 Corridor • 1,700 KM",
+    "title": "Hyderabad to Delhi 1,700 KM Foot March: Vishwakarma Community Rallies for Rights & Existence",
+    "subtitle": "Organized under the auspices of Vishwakarma Knowledge Centre (VKC), Hyderabad. A monumental 74-day foot march along NH-44 traversing 6 states to submit a 15-point charter of demands to the Central Government.",
+    "stats": {
+      "distance": "1,700 KM",
+      "distanceLabel": "Total Route Distance",
+      "duration": "74 Days",
+      "durationLabel": "Sep 17 — Nov 29, 2026",
+      "states": "6 States",
+      "statesLabel": "Traversing NH-44",
+      "demands": "15 Points",
+      "demandsLabel": "National Charter of Demands"
+    },
+    "cta": {
+      "register": "Register with Mobile Number",
+      "shareWhatsApp": "Share on WhatsApp",
+      "shareMandal": "Share with Local Mandal",
+      "freeRegister": "Register Free in 10 Seconds"
+    },
+    "delegation": {
+      "tag": "Central Government Engagement",
+      "title": "VKC Delegation Meets Union MoS Shri Ajay Tamta",
+      "desc": "The VKC delegation led by Vishwanadhula Pushpagiri, alongside Ramyachari, Naresh Chary, and Ravi Chary, formally briefed Union Minister of State for Road Transport and Highways, Shri Ajay Tamta, on the logistics of the 1,700 KM foot march and submitted the charter of socio-economic demands.",
+      "leadershipTag": "Yatra Leadership",
+      "leader1": "Vishwanadhula Pushpagiri (Leadership)",
+      "leader2": "Mukesh Kumar Jangid (National Coordinator)",
+      "leader3": "Ramyachari & Naresh Chary (State Delegations)",
+      "leader4": "Ravi Chary & Regional Yatris (Logistics Coordination)"
+    },
+    "route": {
+      "tag": "Corridor Traversal Map",
+      "title": "Route Roadmap Across 6 States on NH-44",
+      "desc": "Traversing 23+ industrial, agricultural, and craft districts from Hyderabad to Parliament in New Delhi.",
+      "stage": "Stage",
+      "of": "of",
+      "majorStations": "Major Stations",
+      "nh44": "NH-44 Highway Route",
+      "states": {
+        "telangana": {
+          "name": "Telangana",
+          "badge": "Start Point (Sep 17)",
+          "districts": ["Hyderabad (Flag Off)", "Rangareddy", "Medchal-Malkajgiri", "Kamareddy", "Nizamabad", "Adilabad"]
+        },
+        "maharashtra": {
+          "name": "Maharashtra",
+          "badge": "Central Sector",
+          "districts": ["Yavatmal", "Wardha", "Nagpur"]
+        },
+        "madhyaPradesh": {
+          "name": "Madhya Pradesh",
+          "badge": "Heartland Sector",
+          "districts": ["Seoni", "Narsinghpur", "Sagar", "Datia", "Gwalior", "Morena"]
+        },
+        "uttarPradesh": {
+          "name": "Uttar Pradesh",
+          "badge": "Heritage Corridor",
+          "districts": ["Lalitpur", "Jhansi", "Agra", "Mathura"]
+        },
+        "rajasthan": {
+          "name": "Rajasthan",
+          "badge": "Artisan Sector",
+          "districts": ["Dholpur"]
+        },
+        "haryanaDelhi": {
+          "name": "Haryana & Delhi",
+          "badge": "Grand Finale (Nov 29)",
+          "districts": ["Palwal", "Faridabad", "New Delhi (Parliament Culmination)"]
+        }
+      }
+    },
+    "demands": {
+      "tag": "National Memorandum",
+      "title": "15-Point Charter of National Demands",
+      "desc": "Key constitutional, social, and economic rights presented for the upliftment of traditional artisan clans.",
+      "items": [
+        {
+          "title": "1. Accurate Caste Census & Data Representation",
+          "desc": "Collection of authentic socio-economic and demographic data of the Vishwakarma community across all states."
+        },
+        {
+          "title": "2. Equal Opportunities in Education & Government Jobs",
+          "desc": "Targeted reservations, advanced technical polytechnics, and skill development universities for Vishwakarma youth."
+        },
+        {
+          "title": "3. Comprehensive Protection for 18 Traditional Trades",
+          "desc": "Subsidized raw materials, modernized toolkits, zero-interest loans, and market linkage for craftsmen."
+        },
+        {
+          "title": "4. Women Artisan Welfare & Entrepreneurship Fund",
+          "desc": "Dedicated financial support, micro-credit loans, and digital marketing tools for rural women artisans."
+        },
+        {
+          "title": "5. Constitutional, Political & Administrative Representation",
+          "desc": "Fair political nomination in state assemblies, parliament, boards, and national heritage commissions."
+        },
+        {
+          "title": "6. Artisan Health Insurance & Pension Security",
+          "desc": "Comprehensive social security, monthly artisan pension, and specialized healthcare for traditional guild workers."
+        }
+      ]
+    },
+    "joinSection": {
+      "title": "Join the Pushpagiri Chalo Delhi Yatra Network",
+      "desc": "Enter your mobile number to generate your instant Digital Yatra Member Pass and receive real-time location updates."
+    }
+  },
+  "eventsPage": {
+    "badge": "Community Summits & Events",
+    "title": "VKC Events & National Movements",
+    "desc": "Discover national movements, artisan summits, decennial meets, and community gatherings empowering traditional artisans.",
+    "flagshipTag": "Flagship National Movement",
+    "flagshipSub": "1,700 KM • 74 Days • 6 States",
+    "flagshipTitle": "Pushpagiri Chalo Delhi Ekta Paadha Yathra (1,700 KM)",
+    "flagshipDesc": "A 74-day historic march from Hyderabad to Parliament in New Delhi via NH-44 traversing Telangana, Maharashtra, MP, UP, Rajasthan, and Haryana.",
+    "exploreRoute": "Explore Route & 15 Demands",
+    "registerMobile": "Register Mobile for Pass",
+    "routeOverview": "Expedition Route",
+    "routeStart": "Sep 17: Flag Off from Hyderabad (TS)",
+    "routeTraverse": "Traversing MH, MP, UP, RJ, HR",
+    "routeEnd": "Nov 29: Culmination in New Delhi",
+    "recentTitle": "Recent & Upcoming Summits",
+    "archiveTag": "Archive",
+    "anniversaryTag": "Successfully Concluded",
+    "anniversaryLocation": "Hyderabad",
+    "anniversaryTitle": "VKC 10th Anniversary Decennial Celebration",
+    "anniversaryDesc": "Honored with the august presence of Hon'ble Minister Smt. Seethakka garu, ACP Brahmasri K.M. Kiran Kumar Sir, and esteemed community patrons celebrating 10 years of service.",
+    "anniversaryVenue": "Sundarayya Vignana Kendram",
+    "anniversaryMilestone": "Decennial Milestone",
+    "matrimonyTag": "Matrimony Portal",
+    "matrimonyStatus": "Active Service",
+    "matrimonyTitle": "Parinaya: Community Matrimony & Gotra Registry",
+    "matrimonyDesc": "100% ID-verified matchmaking platform exclusively for the Vishwakarma community to preserve sacred lineage values across Gotras.",
+    "exploreMatches": "Explore Matches",
+    "verifiedProfiles": "Verified Profiles"
   }
 }
