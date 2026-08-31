@@ -17,6 +17,7 @@ import {
 import Link from 'next/link';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 import { PageHero } from '@/shared/ui/PageHero';
+import { LeadershipRoster } from '@/features/home/components/LeadershipRoster';
 
 const TIMELINE_EVENTS = [
   { year: '2026', date: 'May 31', category: 'milestone', te: 'పదేళ్ళ దశాబ్ది ఉత్సవాల వేడుక - సుందరయ్య విజ్ఞాన కేంద్రం.', hi: '10वीं वर्षगांठ का भव्य उत्सव - सुंदरय्या विज्ञान केंद्र।', en: '10th Anniversary Decennial Celebration at Sundarayya Vignana Kendram.' },
@@ -336,6 +337,9 @@ export const FounderPage = () => {
             </div>
         </div>
       </section>
+
+      {/* Governing Council & Leadership Section */}
+      <LeadershipRoster showAll={true} showHeader={true} />
 
       {/* Call to Action */}
       <section className="py-24 bg-white overflow-hidden">

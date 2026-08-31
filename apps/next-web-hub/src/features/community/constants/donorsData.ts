@@ -82,6 +82,23 @@ export const mockDonors: Donor[] = [
     }
   },
   {
+    id: 'brahmasri-omprakash-kothuru',
+    name: 'Brahmasri Omprakash Garu (బ్రహ్మశ్రీ ఓంప్రకాష్ గారు)',
+    avatar: '/images/donors/omprakash-kothuru-donor.jpg',
+    tier: 'silver',
+    amount: 50000,
+    formattedAmount: '₹50,000',
+    location: 'Kothur, Telangana (కొత్తూరు)',
+    role: 'Community Sponsor & Patron, Kothur',
+    joinDate: 'October 2026',
+    description: 'Contributed ₹50,000 to support traditional artisans, skill development, and community welfare initiatives.',
+    quote: {
+      en: 'Supporting our Vishwakarma community and preserving our sacred artisan legacy is our duty. VKC is building a powerful future for all of us.',
+      te: 'మన విశ్వకర్మ సమాజాన్ని ఆదుకోవడం మరియు మన సాంప్రదాయ కళా వారసత్వాన్ని ప్రోత్సహించడం మన కర్తవ్యం. వికెసి మన సంఘానికి గొప్ప భవిష్యత్తును నిర్మిస్తోంది.',
+      hi: 'हमारे विश्वकर्मा समाज का सहयोग करना और हमारी पारंपरिक शिल्प विरासत को बढ़ावा देना हमारा परम कर्तव्य है। वीकेसी हमारे लिए उज्ज्वल भविष्य का निर्माण कर रहा है।'
+    }
+  },
+  {
     id: 'sirikonda-madhusudhana',
     name: 'Brahmasri Sirikonda Madhusudhana Chary',
     avatar: '/images/donors/sirikonda-madhusudhana-supporter.jpg',

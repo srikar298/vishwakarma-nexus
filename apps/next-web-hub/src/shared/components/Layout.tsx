@@ -13,7 +13,8 @@ import {
   Award,
   Users,
   Flag,
-  Calendar
+  Calendar,
+  ShieldCheck
 } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
@@ -106,6 +107,15 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                         <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">{t('nav.legends_icons')}</p>
                       </div>
                     </Link>
+                    <Link href="/leadership" className="flex items-center gap-4 p-4 hover:bg-stone-50 rounded-2xl transition-all group/item">
+                      <div className="p-2 bg-emerald-50 rounded-xl text-emerald-600 group-hover/item:bg-emerald-600 group-hover/item:text-white transition-colors">
+                        <ShieldCheck size={18} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-black text-stone-900 leading-none mb-1">Leadership</p>
+                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Advisory Council</p>
+                      </div>
+                    </Link>
                   </div>
                 </div>
 
@@ -183,11 +193,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               <div className="flex-1 overflow-y-auto space-y-6 pr-2 mb-4">
                  <div>
                     <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest px-4 mb-2">{t('nav.vision')}</h4>
-                    <div className="grid gap-2">
-                       <Link href="/vision" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.vision_path')}</Link>
-                       <Link href="/heritage" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.heritage')}</Link>
-                       <Link href="/legends" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.legends')}</Link>
-                    </div>
+                     <div className="grid gap-2">
+                        <Link href="/vision" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.vision_path')}</Link>
+                        <Link href="/heritage" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.heritage')}</Link>
+                        <Link href="/leadership" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">Leadership Council</Link>
+                        <Link href="/legends" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.legends')}</Link>
+                     </div>
                  </div>
 
                  <Link href="/knowledge" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.knowledge')}</Link>
@@ -249,6 +260,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 <h4 className="text-xs font-black mb-6 text-turmeric uppercase tracking-widest">Knowledge</h4>
                 <ul className="space-y-4 text-sm font-medium">
                   <li><Link href="/vision" className="text-stone-500 hover:text-white transition-colors">Our Vision</Link></li>
+                  <li><Link href="/leadership" className="text-stone-500 hover:text-white transition-colors">Leadership & Advisory Council</Link></li>
                   <li><Link href="/heritage" className="text-stone-500 hover:text-white transition-colors">Heritage Archive</Link></li>
                   <li><Link href="/legends" className="text-stone-500 hover:text-white transition-colors">Hall of Legends</Link></li>
                   <li><Link href="/knowledge" className="text-stone-500 hover:text-white transition-colors">Shastra Vault</Link></li>

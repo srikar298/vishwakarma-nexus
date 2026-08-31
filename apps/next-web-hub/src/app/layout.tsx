@@ -44,10 +44,33 @@ const anekTelugu = Anek_Telugu({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://vishwakarmaknowledgecentre.org'),
-  title: "Vishwakarma Knowledge Centre | Preserving Heritage, Powering Futures",
+  title: {
+    default: "Vishwakarma Knowledge Centre | Preserving Heritage, Powering Futures",
+    template: "%s | Vishwakarma Knowledge Centre",
+  },
   description: "Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana. Join the mission to empower the Vishwakarma community.",
-  keywords: ["Vishwakarma", "PM Vishwakarma", "Artisans", "Andhra Pradesh", "Telangana", "Traditional Crafts", "Heritage", "Skill Development", "Knowledge Centre", "Vishwakarma Nexus"],
-  authors: [{ name: "Vishwakarma Knowledge Centre" }],
+  keywords: [
+    "Vishwakarma Knowledge Centre",
+    "VKC",
+    "Vishwakarma",
+    "PM Vishwakarma",
+    "Traditional Artisans",
+    "Andhra Pradesh",
+    "Telangana",
+    "Hyderabad",
+    "Traditional Crafts",
+    "Heritage",
+    "Skill Development",
+    "Pancha Kula",
+    "Shastras",
+    "Artisan Registry"
+  ],
+  authors: [{ name: "Vishwakarma Knowledge Centre", url: "https://vishwakarmaknowledgecentre.org" }],
+  creator: "Vishwakarma Knowledge Centre",
+  publisher: "Vishwakarma Knowledge Centre",
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
@@ -66,13 +89,14 @@ export const metadata: Metadata = {
         alt: "Vishwakarma Knowledge Centre Banner",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Vishwakarma Knowledge Centre | Preserving Heritage, Powering Futures",
     description: "Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans in Andhra Pradesh and Telangana. Join the mission to empower the Vishwakarma community.",
+    creator: "@VishwakarmaKno1",
     images: ["/og-image.jpg"],
   },
   verification: {

@@ -10,8 +10,10 @@ import {
   Award, 
   ScrollText,
   ChevronRight,
-  BookOpen
+  BookOpen,
+  Users
 } from 'lucide-react';
+import { LeadershipRoster } from '@/features/home/components/LeadershipRoster';
 
 export const VisionPage = () => {
   const { i18n } = useTranslation();
@@ -105,6 +107,10 @@ export const VisionPage = () => {
                    {isTelugu ? s.title_te : isHindi ? s.title_hi : s.title_en}
                 </a>
              ))}
+             <a href="#leadership" className="flex items-center gap-3 text-stone-500 hover:text-vermilion font-bold transition-all text-sm group">
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                {isTelugu ? 'కార్యవర్గం & నాయకత్వం' : isHindi ? 'कार्यकारिणी और नेतृत्व' : 'Governing Leadership'}
+             </a>
            </div>
            
            <div className="pt-12">
@@ -156,6 +162,11 @@ export const VisionPage = () => {
                {index < sections.length - 1 && <div className="h-[2px] w-full bg-stone-50 mt-12" />}
              </motion.section>
            ))}
+
+            {/* Organizational Leadership Roster */}
+            <div id="leadership" className="pt-8">
+              <LeadershipRoster showAll={true} showHeader={true} compact={true} />
+            </div>
 
            {/* Call to Action */}
            <motion.div 
