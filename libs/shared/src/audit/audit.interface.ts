@@ -16,6 +16,28 @@ export interface AuditEventDTO {
   timestamp?: string;
 }
 
+export interface AuditRecord {
+  id: string;
+  sequenceNumber: number;
+  action: string;
+  userId?: string;
+  targetId?: string;
+  resourceType: string;
+  severity: AuditSeverity;
+  payload: Record<string, any>;
+  previousHash: string;
+  currentHash: string;
+  timestamp: string;
+}
+
+export interface IAuditStore {
+  append(record: AuditRecord): Promise<void>;
+  getRecords(filter?: { resourceType?: string; userId?: string; limit?: number }): Promise<AuditRecord[]>;
+  getLatestRecord(): Promise<AuditRecord | null>;
+  clear?(): Promise<void>;
+}
+
 export interface IAuditLogger {
-  log(event: AuditEventDTO): Promise<void>;
+  log(event: AuditEventDTO): Promise<AuditRecord>;
+  getStore(): IAuditStore;
 }

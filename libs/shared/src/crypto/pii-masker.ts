@@ -116,9 +116,12 @@ export class PiiMasker {
     for (const [key, val] of Object.entries(obj)) {
       const lowerKey = key.toLowerCase().replace(/[^a-z]/g, '');
 
+      const isSensitive = sensitiveSet.has(lowerKey) ||
+        Array.from(sensitiveSet).some((s) => lowerKey.includes(s));
+
       if (val === null || val === undefined) {
         result[key] = val;
-      } else if (sensitiveSet.has(lowerKey)) {
+      } else if (isSensitive) {
         if (typeof val === 'string') {
           if (lowerKey.includes('email')) {
             result[key] = this.maskEmail(val);

@@ -8,6 +8,7 @@ declare module "fastify" {
 
 // 1. Core Observability & Config
 export * from './logger';
+export * from './metrics';
 export * from './config';
 export * from './constants';
 
