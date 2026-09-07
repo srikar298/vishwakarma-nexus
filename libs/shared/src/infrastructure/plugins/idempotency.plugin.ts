@@ -1,8 +1,16 @@
-import { FastifyInstance, FastifyPluginAsync, FastifyRequest, FastifyReply } from "fastify";
-import fp from "fastify-plugin";
+import type { FastifyInstance, FastifyPluginAsync, FastifyRequest, FastifyReply } from "fastify";
 import { defaultIdempotencyEngine, IdempotencyEngine } from "../idempotency/idempotency-engine";
 import { errorResponse } from "../../contracts/api-response.dto";
 import { logger } from "../../logger";
+
+function definePlugin<T>(fn: T, options?: { name?: string; fastify?: string }): T {
+  (fn as any)[Symbol.for('skip-override')] = true;
+  if (options?.name) {
+    (fn as any)[Symbol.for('fastify.display-name')] = options.name;
+    (fn as any)[Symbol.for('plugin-meta')] = options;
+  }
+  return fn;
+}
 
 /**
  * Enterprise Fastify Idempotency Plugin
@@ -126,7 +134,7 @@ const idempotencyPlugin: FastifyPluginAsync = async (fastify: FastifyInstance) =
   });
 };
 
-export default fp(idempotencyPlugin, {
+export default definePlugin(idempotencyPlugin, {
   name: "fastify-idempotency",
   fastify: "5.x",
 });

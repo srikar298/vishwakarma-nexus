@@ -1,4 +1,4 @@
-import { pgSchema, integer, varchar, timestamp, jsonb, text } from "drizzle-orm/pg-core";
+import { pgSchema, integer, varchar, timestamp, jsonb, text, index } from "drizzle-orm/pg-core";
 
 export const sharedSchema = pgSchema("shared_mod");
 
@@ -6,12 +6,20 @@ export const sharedSchema = pgSchema("shared_mod");
  * Transactional Outbox for Cross-Module Events
  */
 export const outboxEvents = sharedSchema.table("outboxEvents", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  eventType: varchar("eventType", { length: 100 }).notNull(),
+  id: varchar("id", { length: 36 }).primaryKey(),
+  eventName: varchar("eventName", { length: 100 }).notNull(),
+  aggregateId: varchar("aggregateId", { length: 100 }).notNull(),
   payload: jsonb("payload").notNull(),
+  version: integer("version").default(1).notNull(),
+  metadata: jsonb("metadata"),
   status: varchar("status", { length: 20 }).default("PENDING").notNull(),
+  attemptsMade: integer("attemptsMade").default(0).notNull(),
+  lastError: text("lastError"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-});
+  publishedAt: timestamp("publishedAt"),
+}, (table) => [
+  index("idx_outbox_status_created").on(table.status, table.createdAt),
+]);
 
 /**
  * Centralized Audit Logging for Mutations

@@ -40,4 +40,5 @@ export interface IAuditStore {
 export interface IAuditLogger {
   log(event: AuditEventDTO): Promise<AuditRecord>;
   getStore(): IAuditStore;
+  flush?(): Promise<void>;
 }

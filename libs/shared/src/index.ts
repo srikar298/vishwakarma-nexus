@@ -1,4 +1,4 @@
-import "fastify";
+import type {} from "fastify";
 
 declare module "fastify" {
   interface FastifyContextConfig {

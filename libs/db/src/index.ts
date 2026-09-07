@@ -28,17 +28,29 @@ export const schema = {
 };
 
 // Database connection
-const queryClient = postgres(config.db.url, {
+export const queryClient = postgres(config.db.url, {
   onnotice: () => {},
 });
 
 export const db = drizzle(queryClient, { schema });
+
+/**
+ * Closes the underlying PostgreSQL connection pool.
+ * Used by GracefulShutdownManager (Phase 4) for zero-downtime teardown.
+ */
+export async function closeDatabaseConnection(): Promise<void> {
+  await queryClient.end();
+}
 
 // Global Enums & Constants
 export * from "./schema/enums/iam";
 export * from "./schema/enums/experts";
 export * from "./schema/enums/common";
 export * from "./schema/enums/finance";
+
+// Repositories & Outbox Store
+export * from "./repositories/drizzle-outbox.store";
+export * from "./repositories/base.repository";
 
 // NOTE: Domain tables are now exported via modular paths:
 // @vishwakarma-k-c/db/iam

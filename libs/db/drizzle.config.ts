@@ -7,8 +7,16 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.DATABASE_URL!,
   },
-  // This is the key for supporting multiple PostgreSQL schemas (auth_mod, etc.)
-  schemaFilter: ["public", "auth_mod", "member_mod"],
+  // Whitelist of modular schemas across all business domains
+  schemaFilter: [
+    "public",
+    "auth_mod",
+    "member_mod",
+    "finance_mod",
+    "matrimony_mod",
+    "professionals_mod",
+    "shared_mod",
+  ],
   strict: true,
   verbose: true,
 });

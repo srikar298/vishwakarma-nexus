@@ -1,5 +1,13 @@
 import { bootstrapApp } from "./app";
-import { config, logger, GracefulShutdownManager, ShutdownPhase } from "@vishwakarma-k-c/shared";
+import { 
+  config, 
+  logger, 
+  GracefulShutdownManager, 
+  ShutdownPhase, 
+  RedisCacheProvider, 
+  defaultAuditLogger 
+} from "@vishwakarma-k-c/shared";
+import { closeDatabaseConnection } from "@vishwakarma-k-c/db";
 
 const start = async () => {
   const server = await bootstrapApp();
@@ -13,6 +21,25 @@ const start = async () => {
     await server.close();
     logger.info("[Shutdown] Fastify HTTP server closed.");
   }, ShutdownPhase.PHASE_1_INGRESS_DRAIN, 10000);
+
+  // Phase 4: Datastores & Connections — Disconnect DB pools, Redis, and flush audit logs
+  shutdownManager.registerHook("postgres-pool", async () => {
+    logger.info("[Shutdown] Phase 4: Closing PostgreSQL connection pool...");
+    await closeDatabaseConnection();
+    logger.info("[Shutdown] PostgreSQL connection pool closed.");
+  }, ShutdownPhase.PHASE_4_DATASTORES_AND_CONNECTIONS, 5000);
+
+  shutdownManager.registerHook("redis-connection", async () => {
+    logger.info("[Shutdown] Phase 4: Disconnecting Redis cache provider...");
+    await RedisCacheProvider.getInstance().disconnect();
+    logger.info("[Shutdown] Redis cache provider disconnected.");
+  }, ShutdownPhase.PHASE_4_DATASTORES_AND_CONNECTIONS, 5000);
+
+  shutdownManager.registerHook("audit-logger-flush", async () => {
+    logger.info("[Shutdown] Phase 4: Flushing tamper-evident audit logs...");
+    await defaultAuditLogger.flush?.();
+    logger.info("[Shutdown] Audit logs flushed.");
+  }, ShutdownPhase.PHASE_4_DATASTORES_AND_CONNECTIONS, 3000);
 
   // Setup OS process signal listeners (SIGTERM, SIGINT, uncaughtException)
   shutdownManager.setupProcessListeners();

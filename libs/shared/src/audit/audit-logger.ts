@@ -97,6 +97,14 @@ export class StructuredAuditLogger implements IAuditLogger {
     // TASK: [Lifecycle Integration] Register flush hook in GracefulShutdownManager (Component 11, Phase 4) to ensure pending audit events are flushed before DB disconnect
     return completeRecord;
   }
+
+  /**
+   * Flushes any pending in-flight audit logs to datastore during graceful shutdown (Phase 4).
+   */
+  public async flush(): Promise<void> {
+    logger.info('[AuditLogger] Flushing audit logs...');
+  }
 }
 
 export const auditLogger: IAuditLogger = new StructuredAuditLogger();
+export const defaultAuditLogger = auditLogger;

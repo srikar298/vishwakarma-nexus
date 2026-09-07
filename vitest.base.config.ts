@@ -23,7 +23,7 @@ export default defineConfig({
     // Force Vitest to process our internal workspace packages instead of treating them as external
     server: {
       deps: {
-        inline: [/@vishwakarma-k-c\/.*/],
+        inline: [/@vishwakarma-k-c\/.*/, 'avvio', 'fastify', 'fastify-plugin'],
         fallbackCJS: true,
       },
     },

@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import { sql, eq, and, isNull } from "drizzle-orm";
 import type { PgTableWithColumns } from "drizzle-orm/pg-core";
 import { auditLogs, outboxEvents } from "../schema/modules/shared/infrastructure";
@@ -19,9 +20,11 @@ export abstract class BaseRepository<T extends PgTableWithColumns<any>> {
   /**
    * Helper to record a cross-module event (Outbox Pattern)
    */
-  async trackEvent(type: string, payload: any) {
+  async trackEvent(type: string, payload: any, aggregateId?: string) {
     return this.db.insert(outboxEvents).values({
-      eventType: type,
+      id: randomUUID(),
+      eventName: type,
+      aggregateId: aggregateId || String((payload as any)?.id || (payload as any)?.userId || "unknown"),
       payload,
     });
   }
