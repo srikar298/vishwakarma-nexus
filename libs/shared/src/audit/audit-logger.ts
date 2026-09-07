@@ -94,6 +94,7 @@ export class StructuredAuditLogger implements IAuditLogger {
       hash: completeRecord.currentHash,
     }, `[AUDIT] ${completeRecord.action} on ${completeRecord.resourceType}`);
 
+    // TASK: [Lifecycle Integration] Register flush hook in GracefulShutdownManager (Component 11, Phase 4) to ensure pending audit events are flushed before DB disconnect
     return completeRecord;
   }
 }

@@ -46,6 +46,12 @@ export class GracefulShutdownManager {
 
   /**
    * Registers a shutdown hook assigned to a specific topological lifecycle phase.
+   * 
+   * Cross-Subsystem Lifecycle Mappings:
+   * // TASK: [Phase 1 Ingress] Register Fastify HTTP server.close() to reject new ingress traffic
+   * // TASK: [Phase 2 Workers] Register JobQueue.pause() (Component 6), OutboxPoller.stop() (Component 5), and Bulkhead.clearQueue() (Component 1)
+   * // TASK: [Phase 3 Locks] Register RedisLockProvider.releaseAllLeases() (Component 2) to cleanly release active distributed mutexes
+   * // TASK: [Phase 4 Datastores] Register PostgreSQL pool.end(), RedisCacheProvider.quit() (Component 3), and AuditLogger flush (Component 10)
    */
   public registerHook(
     name: string,

@@ -17,6 +17,7 @@ export interface ResponseMetaOptions {
   errors?: Record<string, string[]>;
 }
 
+// TASK: [Observability Integration] Bind requestId & correlationId from Fastify request headers (x-request-id / x-correlation-id) and ContextualLogger child context
 export function successResponse<T>(
   data: T,
   message?: string,

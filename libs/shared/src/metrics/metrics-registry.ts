@@ -213,3 +213,24 @@ export class MetricsRegistry implements IMetricsRegistry {
 }
 
 export const defaultMetricsRegistry: IMetricsRegistry = new MetricsRegistry();
+
+/**
+ * Standard Platform Metric Names Catalog
+ * Referenced across Components 1, 2, 3, 4, 5, 6, 8, 9, 10
+ */
+export const PLATFORM_METRICS = {
+  CIRCUIT_BREAKER_REJECTED: 'circuit_breaker_rejected_total',
+  BULKHEAD_REJECTED: 'bulkhead_rejected_total',
+  LOCK_TIMEOUT: 'lock_acquisition_timeout_total',
+  SINGLE_FLIGHT_DEDUPLICATED: 'single_flight_deduplicated_total',
+  CACHE_L1_HIT: 'hybrid_cache_l1_hit_total',
+  CACHE_L2_HIT: 'hybrid_cache_l2_hit_total',
+  CACHE_STAMPEDE_GUARDED: 'cache_stampede_guarded_total',
+  IDEMPOTENCY_MISMATCH: 'idempotency_fingerprint_mismatch_total',
+  RATE_LIMIT_EXCEEDED: 'business_rate_limit_exceeded_total',
+  DOMAIN_EVENT_PUBLISHED: 'domain_event_published_total',
+  OUTBOX_PENDING_BATCH: 'outbox_pending_batch_size',
+  EVENT_DLQ: 'event_dlq_total',
+  JOB_DURATION_SECONDS: 'job_execution_duration_seconds',
+  NOTIFICATION_DELIVERED: 'notification_delivered_total',
+} as const;
