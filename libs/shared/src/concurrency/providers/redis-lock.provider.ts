@@ -132,9 +132,11 @@ export class RedisLockProvider implements IDistributedLockProvider {
   ): Promise<T> {
     const lock = await this.acquire(key, options);
     if (!lock) {
-      // TASK: [Telemetry Integration] Record distributed lock timeout metric
+      // TASK: [Telemetry Integration] Record distributed lock timeout metric in Prometheus (Component 10)
       throw new Error(`Failed to acquire distributed lock for key [${key}] within timeout (${options?.timeoutMs ?? 3000}ms).`);
     }
+
+    // TASK: [Lifecycle Integration] Register active distributed lease in GracefulShutdownManager (Component 11) for clean release on SIGTERM
 
     const autoExtend = options?.autoExtend ?? true;
     const ttlMs = options?.ttlMs ?? 10000;

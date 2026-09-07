@@ -191,7 +191,9 @@ export class CircuitBreaker implements ICircuitBreaker {
 
     logger.info({ circuit: this.name, from: fromState, to: newState }, 'CircuitBreaker: State transition occurred');
 
-    // TASK: [Telemetry Integration] Emit OpenTelemetry span event and Prometheus gauge update for circuit state
+    // TASK: [Telemetry Integration] Emit OpenTelemetry span event and Prometheus gauge update for circuit state (Component 10)
+    // TASK: [EventBus Integration] Emit CircuitStateChangedEvent onto EventBus (Component 5) for cluster-wide awareness
+    // TASK: [Lifecycle Integration] Register circuit breaker reset/drain hook in GracefulShutdownManager (Component 11)
     const metrics = this.getMetrics();
     for (const listener of this.stateChangeListeners) {
       try {

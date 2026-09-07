@@ -87,9 +87,11 @@ export class MemoryLockProvider implements IDistributedLockProvider {
   ): Promise<T> {
     const lock = await this.acquire(key, options);
     if (!lock) {
-      // TASK: [Telemetry Integration] Increment lock_acquisition_timeout_total counter
+      // TASK: [Telemetry Integration] Increment lock_acquisition_timeout_total counter (Component 10)
       throw new Error(`Failed to acquire lock for key [${key}] within timeout (${options?.timeoutMs ?? 3000}ms).`);
     }
+
+    // TASK: [Lifecycle Integration] Register active lock instance in GracefulShutdownManager (Component 11) to prevent orphaned leases on process termination
 
     const autoExtend = options?.autoExtend ?? true;
     const ttlMs = options?.ttlMs ?? 10000;

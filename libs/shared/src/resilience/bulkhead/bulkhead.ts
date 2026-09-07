@@ -122,6 +122,7 @@ export class Bulkhead implements IBulkhead {
   }
 
   public clearQueue(): void {
+    // TASK: [Lifecycle Integration] Register clearQueue() in GracefulShutdownManager (Component 11) to drain pending promises on SIGTERM
     while (this.queue.length > 0) {
       const item = this.queue.shift();
       if (item) {

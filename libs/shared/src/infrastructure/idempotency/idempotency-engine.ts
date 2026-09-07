@@ -50,7 +50,9 @@ export class IdempotencyEngine {
       if (existing) {
         // Security Check: Verify that payload fingerprint matches the original request
         if (existing.fingerprint !== fingerprint) {
-          // TASK: [Telemetry Integration] Increment idempotency_fingerprint_mismatch_total counter
+          // TASK: [Telemetry Integration] Increment idempotency_fingerprint_mismatch_total counter (Component 10)
+          // TASK: [Audit Integration] Log security audit event for FINGERPRINT_MISMATCH via AuditLogger (Component 10)
+          // TASK: [Crypto Integration] Utilize Crypto/HMAC service from Component 7 for tamper-proof request signing
           logger.warn(
             { cacheKey, expected: existing.fingerprint, actual: fingerprint },
             'IdempotencyEngine: Request payload fingerprint mismatch'

@@ -217,6 +217,7 @@ export class RedisCacheProvider implements ICacheProvider, IAtomicProvider {
   }
 
   public async disconnect(): Promise<void> {
+    // TASK: [Lifecycle Integration] Register redis.quit() in GracefulShutdownManager (Component 11) for zero-downtime draining
     await this.redis.quit();
   }
 }

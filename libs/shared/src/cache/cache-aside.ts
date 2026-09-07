@@ -32,6 +32,7 @@ export async function getOrSetWithStampedeGuard<T>(
     const freshValue = await fetcher();
 
     // 3. Write back to cache with configured TTL and tags
+    // TASK: [EventBus Integration] Connect domain event subscribers to invalidateByTag() in Component 5 (e.g. member.updated -> invalidateByTag('member:id'))
     await cache.set(key, freshValue, options);
     return freshValue;
   });

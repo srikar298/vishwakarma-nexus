@@ -78,7 +78,8 @@ export class TokenBucketLimiter {
     }
 
     const retryAfterSeconds = Math.max(1, Math.ceil((resetTimeMs - now) / 1000));
-    // TASK: [Telemetry Integration] Increment business_rate_limit_exceeded_total counter
+    // TASK: [Telemetry Integration] Increment business_rate_limit_exceeded_total counter (Component 10)
+    // TASK: [Audit Integration] Log RATE_LIMIT_EXCEEDED security warning to AuditLogger (Component 10) on severe abuse
     logger.warn({ key, retryAfterSeconds }, 'TokenBucketLimiter: Limit exceeded');
 
     return {
