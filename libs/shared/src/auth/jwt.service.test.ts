@@ -1,13 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { JWTService } from './jwt.service';
 
 describe('JWTService Integration Tests', () => {
   const testPayload = {
     userId: 'user-123',
-    role: 'SUPER_ADMIN'
+    role: 'SUPER_ADMIN',
   };
 
-  it('should sign and verify a valid token', async () => {
+  it('should sign and verify a valid access token using signToken alias', async () => {
     const token = await JWTService.signToken(testPayload);
     expect(token).toBeDefined();
     expect(typeof token).toBe('string');
@@ -16,17 +16,37 @@ describe('JWTService Integration Tests', () => {
     expect(verifiedPayload).toBeDefined();
     expect(verifiedPayload?.userId).toBe(testPayload.userId);
     expect(verifiedPayload?.role).toBe(testPayload.role);
+    expect(verifiedPayload?.id).toBe(testPayload.userId);
   });
 
-  it('should return null for an invalid token', async () => {
+  it('should sign and verify refresh tokens', async () => {
+    const refreshToken = await JWTService.signRefreshToken({ id: 'user-456' });
+    expect(refreshToken).toBeDefined();
+
+    const verified = await JWTService.verifyToken(refreshToken);
+    expect(verified).toBeDefined();
+    expect(verified?.id).toBe('user-456');
+    expect(verified?.type).toBe('refresh');
+    expect(verified?.jti).toBeDefined();
+  });
+
+  it('should return null for a malformed token', async () => {
     const invalidToken = 'this.is.not.a.token';
     const payload = await JWTService.verifyToken(invalidToken);
     expect(payload).toBeNull();
   });
 
-  it('should return null for an expired token', async () => {
-    // This requires a mock or a token signed with 0 expiration (short delay)
-    // jose doesn't make it easy to sign expired tokens without complicated time manipulation
-    // for now, trust the 'jose' library's internal expiration check.
+  it('should reject a token that has been explicitly revoked via jti', async () => {
+    const token = await JWTService.signAccessToken({ id: 'user-789', role: 'ADMIN' });
+    const verifiedFirst = await JWTService.verifyToken(token);
+    expect(verifiedFirst).toBeDefined();
+    expect(verifiedFirst?.jti).toBeDefined();
+
+    // Revoke the token using its jti
+    await JWTService.revokeToken(verifiedFirst!.jti!, 60);
+
+    // Verification after revocation must return null
+    const verifiedAfterRevocation = await JWTService.verifyToken(token);
+    expect(verifiedAfterRevocation).toBeNull();
   });
 });
