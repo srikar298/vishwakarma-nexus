@@ -1,40 +1,19 @@
-import { 
-  INotificationChannel, 
-  NotificationChannelType, 
-  NotificationPayload, 
-  NotificationResult 
-} from '../interfaces/notification-channel.interface';
-import { logger } from '../../logger';
-import { nanoid } from 'nanoid';
+import { BaseNotificationChannel } from './base.channel';
+import { NotificationChannelType } from '../interfaces/notification-channel.interface';
+import { Msg91SmsAdapter } from '../adapters/sms/msg91.adapter';
+import { TwilioSmsAdapter } from '../adapters/sms/twilio.adapter';
 
-export class SMSNotificationChannel implements INotificationChannel {
+/**
+ * Low-Level Design (LLD): Enterprise SMS Notification Channel
+ * Chain of Responsibility: Msg91 SMS (Primary DLT) -> Twilio SMS (Secondary Fallback).
+ */
+export class SMSNotificationChannel extends BaseNotificationChannel {
   public readonly channelType: NotificationChannelType = 'SMS';
 
-  public isAvailable(): boolean {
-    return true;
-  }
-
-  public async send(payload: NotificationPayload): Promise<NotificationResult> {
-    try {
-      logger.info(
-        { channel: this.channelType, to: payload.recipient },
-        `[SMS Gateway] Dispatching SMS to ${payload.recipient}`
-      );
-
-      return {
-        success: true,
-        channel: this.channelType,
-        messageId: `sms_${nanoid()}`,
-        timestamp: new Date().toISOString(),
-      };
-    } catch (err: any) {
-      logger.error({ channel: this.channelType, error: err.message }, 'SMS dispatch failed');
-      return {
-        success: false,
-        channel: this.channelType,
-        error: err.message,
-        timestamp: new Date().toISOString(),
-      };
-    }
+  constructor() {
+    super();
+    // Default Chain of Responsibility
+    this.registerAdapter(new Msg91SmsAdapter());
+    this.registerAdapter(new TwilioSmsAdapter());
   }
 }

@@ -1,41 +1,19 @@
-import { 
-  INotificationChannel, 
-  NotificationChannelType, 
-  NotificationPayload, 
-  NotificationResult 
-} from '../interfaces/notification-channel.interface';
-import { logger } from '../../logger';
-import { nanoid } from 'nanoid';
+import { BaseNotificationChannel } from './base.channel';
+import { NotificationChannelType } from '../interfaces/notification-channel.interface';
+import { GupshupWhatsAppAdapter } from '../adapters/whatsapp/gupshup.adapter';
+import { MetaCloudWhatsAppAdapter } from '../adapters/whatsapp/meta-cloud.adapter';
 
-export class WhatsAppNotificationChannel implements INotificationChannel {
+/**
+ * Low-Level Design (LLD): Enterprise WhatsApp Notification Channel
+ * Chain of Responsibility: Gupshup WhatsApp (Primary) -> Meta Cloud API WhatsApp (Secondary).
+ */
+export class WhatsAppNotificationChannel extends BaseNotificationChannel {
   public readonly channelType: NotificationChannelType = 'WHATSAPP';
 
-  public isAvailable(): boolean {
-    return true; // Configurable via environment variables
-  }
-
-  public async send(payload: NotificationPayload): Promise<NotificationResult> {
-    try {
-      logger.info(
-        { channel: this.channelType, to: payload.recipient, template: payload.templateId },
-        `[WhatsApp Gateway] Dispatching message to ${payload.recipient}`
-      );
-
-      // In production, invoke WhatsApp Cloud API / Gupshup / Infobip
-      return {
-        success: true,
-        channel: this.channelType,
-        messageId: `wa_${nanoid()}`,
-        timestamp: new Date().toISOString(),
-      };
-    } catch (err: any) {
-      logger.error({ channel: this.channelType, error: err.message }, 'WhatsApp dispatch failed');
-      return {
-        success: false,
-        channel: this.channelType,
-        error: err.message,
-        timestamp: new Date().toISOString(),
-      };
-    }
+  constructor() {
+    super();
+    // Default Chain of Responsibility
+    this.registerAdapter(new GupshupWhatsAppAdapter());
+    this.registerAdapter(new MetaCloudWhatsAppAdapter());
   }
 }
