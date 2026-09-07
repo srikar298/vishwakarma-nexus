@@ -24,6 +24,7 @@ export default defineConfig({
     server: {
       deps: {
         inline: [/@vishwakarma-k-c\/.*/],
+        fallbackCJS: true,
       },
     },
   },

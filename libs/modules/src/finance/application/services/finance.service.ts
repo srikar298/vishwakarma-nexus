@@ -60,7 +60,7 @@ export class FinanceService {
             { maxRetries: 2, initialDelayMs: 300 }
           );
         },
-        { failureThreshold: 5, resetTimeoutMs: 30000 }
+        { failureRateThreshold: 50, minimumNumberOfCalls: 5, resetTimeoutMs: 30000 }
       );
 
       const capturedAt = new Date();
