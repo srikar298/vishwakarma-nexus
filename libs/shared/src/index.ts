@@ -41,7 +41,11 @@ export * from './messaging/firebase.service';
 // 9. Storage Strategy
 export * from './storage';
 
-// 10. Contracts, Response Envelopes & Lifecycle
+// 10. Event-Driven Architecture & Worker Queues
+export * from './events';
+export * from './queue';
+
+// 11. Contracts, Response Envelopes & Lifecycle
 export * from './contracts';
 export * from './lifecycle';
 

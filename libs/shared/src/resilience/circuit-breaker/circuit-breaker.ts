@@ -122,3 +122,22 @@ export class CircuitBreaker implements ICircuitBreaker {
     this.transitionTo('CLOSED');
   }
 }
+
+const circuitBreakers = new Map<string, CircuitBreaker>();
+
+export function getCircuitBreaker(name: string, options?: Partial<CircuitBreakerOptions>): CircuitBreaker {
+  if (!circuitBreakers.has(name)) {
+    circuitBreakers.set(name, new CircuitBreaker(name, options));
+  }
+  return circuitBreakers.get(name)!;
+}
+
+export async function withCircuitBreaker<T>(
+  name: string,
+  action: () => Promise<T>,
+  options?: Partial<CircuitBreakerOptions>
+): Promise<T> {
+  const breaker = getCircuitBreaker(name, options);
+  return breaker.execute(action);
+}
+

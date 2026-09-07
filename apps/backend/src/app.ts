@@ -4,8 +4,20 @@ import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import compress from "@fastify/compress";
 import rateLimit from "@fastify/rate-limit";
-import { config, logger, StandardRateLimit, idempotencyPlugin, defaultHealthAggregator } from "@vishwakarma-k-c/shared";
+import { 
+  config, 
+  logger, 
+  StandardRateLimit, 
+  idempotencyPlugin, 
+  defaultHealthAggregator,
+  DatabaseHealthIndicator,
+  RedisHealthIndicator,
+  cacheProvider,
+} from "@vishwakarma-k-c/shared";
+import { db } from "@vishwakarma-k-c/db";
+import { sql } from "drizzle-orm";
 import securityPlugin from "./guards/permission.guard";
+import errorHandlerPlugin from "./plugins/error-handler.plugin";
 import {
   bootstrapAuthModule,
   bootstrapMembersModule,
@@ -31,31 +43,42 @@ export async function bootstrapApp() {
     disableRequestLogging: true, // Using custom observability hooks
   }).withTypeProvider<ZodTypeProvider>();
 
+  // 0. Register Health Diagnostics Indicators
+  const dbHealthIndicator = new DatabaseHealthIndicator(async () => {
+    await db.execute(sql`SELECT 1`);
+  });
+  const redisHealthIndicator = new RedisHealthIndicator(cacheProvider);
+  defaultHealthAggregator.registerIndicator(dbHealthIndicator);
+  defaultHealthAggregator.registerIndicator(redisHealthIndicator);
+
   // 1. Set Zod Compiler for Type-Safe Routes
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
 
-  // 2. Global Traffic Control (DDoS Protection)
+  // 2. Global Exception & Contract Envelope Normalizer
+  await app.register(errorHandlerPlugin);
+
+  // 3. Global Traffic Control (DDoS Protection)
   // Higher threshold to prevent massive botnets while allowing normal flow
   await app.register(rateLimit, {
     ...StandardRateLimit,
     global: true,
   });
 
-  // 3. Security Foundations
+  // 4. Security Foundations
   await app.register(helmet, { global: true });
   await app.register(cors, {
     origin: config.app.allowedOrigins,
     credentials: true,
   });
 
-  // 4. Performance Optimization
+  // 5. Performance Optimization
   await app.register(compress);
 
-  // 5. Enterprise Reliability: Idempotency
+  // 6. Enterprise Reliability: Idempotency
   await app.register(idempotencyPlugin);
 
-  // 6. Security Layer: Authentication & Authorization Guards
+  // 7. Security Layer: Authentication & Authorization Guards
   await app.register(securityPlugin);
 
   // 6. Observability Hooks (Tracing & Auditing)
