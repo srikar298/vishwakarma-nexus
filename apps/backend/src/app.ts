@@ -6,18 +6,20 @@ import compress from "@fastify/compress";
 import rateLimit from "@fastify/rate-limit";
 import { config, logger, StandardRateLimit, idempotencyPlugin } from "@vishwakarma-k-c/shared";
 import securityPlugin from "./guards/permission.guard";
-import { bootstrapAuthModule } from "./modules/auth/bootstrap";
-import { bootstrapMembersModule } from "./modules/members/bootstrap";
-import { bootstrapFinanceModule } from "./modules/finance/bootstrap";
-import { bootstrapMatrimonyModule } from "./modules/matrimony/bootstrap";
-import { bootstrapProfessionalsModule } from "./modules/professionals/bootstrap";
-import { bootstrapCommunityModule } from "./modules/community/bootstrap";
-import { bootstrapHeritageModule } from "./modules/heritage/bootstrap";
-import { bootstrapEducationModule } from "./modules/education/bootstrap";
-import { bootstrapGovernanceModule } from "./modules/governance/bootstrap";
-import { bootstrapEmpowermentModule } from "./modules/empowerment/bootstrap";
-import { bootstrapMessagingModule } from "./modules/messaging/bootstrap";
-import { bootstrapSupportModule } from "./modules/support/bootstrap";
+import {
+  bootstrapAuthModule,
+  bootstrapMembersModule,
+  bootstrapFinanceModule,
+  bootstrapMatrimonyModule,
+  bootstrapProfessionalsModule,
+  bootstrapCommunityModule,
+  bootstrapHeritageModule,
+  bootstrapEducationModule,
+  bootstrapGovernanceModule,
+  bootstrapEmpowermentModule,
+  bootstrapMessagingModule,
+  bootstrapSupportModule,
+} from "@vishwakarma-k-c/modules";
 
 /**
  * Modular App Composition Root

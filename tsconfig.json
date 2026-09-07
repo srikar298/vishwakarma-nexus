@@ -11,7 +11,9 @@
     "baseUrl": ".",
     "paths": {
       "@vishwakarma-k-c/shared": ["libs/shared/src/index.ts"],
-      "@vishwakarma-k-c/db": ["libs/db/src/index.ts"]
+      "@vishwakarma-k-c/db": ["libs/db/src/index.ts"],
+      "@vishwakarma-k-c/modules": ["libs/modules/src/index.ts"],
+      "@vishwakarma-k-c/modules/*": ["libs/modules/src/*"]
     }
   },
   "exclude": ["node_modules", "dist"]
