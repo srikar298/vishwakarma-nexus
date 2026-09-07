@@ -13,6 +13,7 @@ import {
   DatabaseHealthIndicator,
   RedisHealthIndicator,
   cacheProvider,
+  defaultMetricsRegistry,
 } from "@vishwakarma-k-c/shared";
 import { db } from "@vishwakarma-k-c/db";
 import { sql } from "drizzle-orm";
@@ -139,6 +140,12 @@ export async function bootstrapApp() {
   // Root-level Fast Liveness Probe
   app.get("/health", async () => {
     return { status: "ok", timestamp: new Date().toISOString() };
+  });
+
+  // Root-level Prometheus Metrics Scraping Endpoint
+  app.get("/metrics", async (request, reply) => {
+    reply.header("Content-Type", "text/plain; version=0.0.4");
+    return reply.send(defaultMetricsRegistry.exportPrometheus());
   });
 
   return app;
