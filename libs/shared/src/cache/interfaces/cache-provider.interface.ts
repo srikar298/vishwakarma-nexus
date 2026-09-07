@@ -1,32 +1,42 @@
+export interface CacheOptions {
+  /** TTL in seconds */
+  ttlSeconds?: number;
+  /** Associated cache tags for bulk invalidation */
+  tags?: string[];
+  /** Enable XFetch probabilistic early refresh (beta parameter) */
+  earlyRefreshBeta?: number;
+}
+
 /**
- * LLD: Generic Interface for Cache Providers
- * Follows the Dependency Inversion Principle (DIP).
+ * Low-Level Design (LLD): Generic Cache Provider Interface
+ * Follows Dependency Inversion Principle (DIP) and supports tag-based invalidation.
  */
 export interface ICacheProvider {
-  /**
-   * Retrieves a value from the cache.
-   */
+  /** Retrieves a value from the cache */
   get<T>(key: string): Promise<T | null>;
 
-  /**
-   * Sets a value in the cache with an optional TTL (Time To Live).
-   * @param ttlSeconds TTL in seconds. Recommended to add jitter in implementation.
-   */
-  set(key: string, value: any, ttlSeconds?: number): Promise<void>;
+  /** Sets a value in the cache with optional TTL and tags */
+  set(key: string, value: any, options?: CacheOptions | number): Promise<void>;
 
-  /**
-   * Deletes a value from the cache.
-   */
+  /** Deletes a single key from the cache */
   delete(key: string): Promise<void>;
 
-  /**
-   * Checks if a key exists.
-   */
+  /** Checks if a key exists */
   exists(key: string): Promise<boolean>;
 
-  /**
-   * Set operations and TTL expiration.
-   */
+  /** Atomically gets or fetches a value, preventing Cache Stampedes / Dogpiling */
+  getOrSet<T>(key: string, fetcher: () => Promise<T>, options?: CacheOptions | number): Promise<T>;
+
+  /** Invalidates all keys associated with a specific tag */
+  invalidateByTag(tag: string): Promise<number>;
+
+  /** Invalidates all keys associated with any of the provided tags */
+  invalidateByTags(tags: string[]): Promise<number>;
+
+  /** Invalidates keys matching a glob pattern (e.g. "matrimony:user:*") */
+  invalidateByPattern(pattern: string): Promise<number>;
+
+  /** Set operations */
   addToSet(key: string, member: string): Promise<void>;
   removeFromSet(key: string, member: string): Promise<void>;
   getSet(key: string): Promise<string[]>;
@@ -37,14 +47,9 @@ export interface ICacheProvider {
  * Interface for Atomic Operations using Lua scripts or Redis native atomicity.
  */
 export interface IAtomicProvider {
-  /**
-   * Increments a counter and returns the new value.
-   * Useful for rate limiting or attempt counting.
-   */
+  /** Increments a counter atomically with TTL */
   increment(key: string, ttlSeconds: number): Promise<number>;
 
-  /**
-   * Executes a custom Lua script.
-   */
+  /** Executes a custom Lua script */
   executeLua<T>(script: string, keys: string[], args: any[]): Promise<T>;
 }
