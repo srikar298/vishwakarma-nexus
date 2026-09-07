@@ -1,34 +1,76 @@
-import { DomainEvent, EventHandler, IEventBus } from './event-bus.interface';
+import { 
+  DomainEvent, 
+  EventHandler, 
+  IEventBus, 
+  SubscriptionOptions 
+} from './event-bus.interface';
+import { defaultEventDLQ, EventDeadLetterQueue } from './dlq/event-dlq';
+import { retryWithBackoff } from '../resilience/retry/retry';
 import { logger } from '../logger';
 
+interface SubscriptionConfig {
+  handler: EventHandler;
+  options: SubscriptionOptions;
+}
+
 /**
- * In-Memory Asynchronous Event Bus Implementation.
- * Runs event handlers asynchronously without blocking the publishing domain transaction.
+ * Low-Level Design (LLD): Production-Grade Asynchronous Event Bus
+ * Features:
+ * - Asynchronous handler dispatching.
+ * - Exponential backoff retries on subscriber failure (via Component 1).
+ * - Poison event isolation and DLQ routing.
  */
 export class InMemoryEventBus implements IEventBus {
-  private handlers = new Map<string, Set<EventHandler>>();
+  private handlers = new Map<string, Set<SubscriptionConfig>>();
+  private dlq: EventDeadLetterQueue;
+
+  constructor(dlq: EventDeadLetterQueue = defaultEventDLQ) {
+    this.dlq = dlq;
+  }
 
   public async publish<T>(event: DomainEvent<T>): Promise<void> {
-    const eventHandlers = this.handlers.get(event.eventName);
-    if (!eventHandlers || eventHandlers.size === 0) {
+    const subscriptions = this.handlers.get(event.eventName);
+    if (!subscriptions || subscriptions.size === 0) {
       return;
     }
 
-    // Execute handlers concurrently in the background (fire-and-forget or awaited depending on design)
-    const executions = Array.from(eventHandlers).map(async (handler) => {
+    // TASK: [Telemetry Integration] Increment domain_event_published_total counter (Component 10)
+    logger.debug({ eventName: event.eventName, eventId: event.id }, 'EventBus: Publishing domain event');
+
+    const executions = Array.from(subscriptions).map(async ({ handler, options }) => {
+      const maxRetries = options.retryAttempts ?? 3;
+      const enableDlq = options.enableDlq ?? true;
+
       try {
-        await handler(event);
+        await retryWithBackoff(
+          async (attempt) => {
+            await handler(event);
+          },
+          {
+            maxRetries,
+            initialDelayMs: 50,
+            maxDelayMs: 1000,
+            backoffFactor: 2,
+          }
+        );
       } catch (err: any) {
         logger.error({
-          msg: `[EventBus] Unhandled exception in handler for event: ${event.eventName}`,
+          msg: `[EventBus] Handler execution failed after ${maxRetries} retries for event: ${event.eventName}`,
           eventId: event.id,
           error: err?.message,
-          stack: err?.stack,
         });
+
+        if (enableDlq) {
+          await this.dlq.push(
+            event,
+            handler.name || 'anonymous_handler',
+            err,
+            maxRetries + 1
+          );
+        }
       }
     });
 
-    // We do not reject the publish call if one listener fails
     await Promise.allSettled(executions);
   }
 
@@ -38,18 +80,30 @@ export class InMemoryEventBus implements IEventBus {
     }
   }
 
-  public subscribe<T>(eventName: string, handler: EventHandler<T>): void {
+  public subscribe<T>(
+    eventName: string, 
+    handler: EventHandler<T>, 
+    options: SubscriptionOptions = {}
+  ): void {
     if (!this.handlers.has(eventName)) {
       this.handlers.set(eventName, new Set());
     }
-    this.handlers.get(eventName)!.add(handler as EventHandler);
+
+    this.handlers.get(eventName)!.add({
+      handler: handler as EventHandler,
+      options,
+    });
   }
 
   public unsubscribe<T>(eventName: string, handler: EventHandler<T>): void {
-    const eventHandlers = this.handlers.get(eventName);
-    if (eventHandlers) {
-      eventHandlers.delete(handler as EventHandler);
-      if (eventHandlers.size === 0) {
+    const subscriptions = this.handlers.get(eventName);
+    if (subscriptions) {
+      for (const config of subscriptions) {
+        if (config.handler === handler) {
+          subscriptions.delete(config);
+        }
+      }
+      if (subscriptions.size === 0) {
         this.handlers.delete(eventName);
       }
     }
