@@ -4,7 +4,7 @@ import helmet from "@fastify/helmet";
 import cors from "@fastify/cors";
 import compress from "@fastify/compress";
 import rateLimit from "@fastify/rate-limit";
-import { config, logger, StandardRateLimit, idempotencyPlugin } from "@vishwakarma-k-c/shared";
+import { config, logger, StandardRateLimit, idempotencyPlugin, defaultHealthAggregator } from "@vishwakarma-k-c/shared";
 import securityPlugin from "./guards/permission.guard";
 import {
   bootstrapAuthModule,
@@ -90,9 +90,11 @@ export async function bootstrapApp() {
 
   // 7. Versioned API Modules
   await app.register(async (v1) => {
-    // Health Check inside V1
-    v1.get("/health", async () => {
-      return { status: "ok", version: "v1", timestamp: new Date().toISOString() };
+    // Deep Subsystem Health Check inside V1
+    v1.get("/health", async (request, reply) => {
+      const report = await defaultHealthAggregator.checkHealth();
+      const statusCode = report.status === 'unhealthy' ? 503 : 200;
+      return reply.code(statusCode).send(report);
     });
 
     // Modules
@@ -111,7 +113,7 @@ export async function bootstrapApp() {
     
   }, { prefix: "/api/v1" });
 
-  // Root-level Health Check
+  // Root-level Fast Liveness Probe
   app.get("/health", async () => {
     return { status: "ok", timestamp: new Date().toISOString() };
   });

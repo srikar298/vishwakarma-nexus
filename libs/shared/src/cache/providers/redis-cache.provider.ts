@@ -145,4 +145,4 @@ export class RedisCacheProvider implements ICacheProvider, IAtomicProvider {
 }
 
 // Export a singleton instance by default
-export const cacheProvider = RedisCacheProvider.getInstance();
+export const redisCacheProvider = RedisCacheProvider.getInstance;

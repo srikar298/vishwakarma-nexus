@@ -23,6 +23,14 @@ export interface ICacheProvider {
    * Checks if a key exists.
    */
   exists(key: string): Promise<boolean>;
+
+  /**
+   * Set operations and TTL expiration.
+   */
+  addToSet(key: string, member: string): Promise<void>;
+  removeFromSet(key: string, member: string): Promise<void>;
+  getSet(key: string): Promise<string[]>;
+  expire(key: string, ttlSeconds: number): Promise<boolean | void>;
 }
 
 /**
