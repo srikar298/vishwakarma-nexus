@@ -26,6 +26,8 @@ export * from './concurrency';
 export * from './cache';
 export * from './rate-limit';
 export * from './rate-limit/profiles';
+export * from './infrastructure/idempotency/idempotency.interface';
+export * from './infrastructure/idempotency/idempotency-engine';
 export { default as idempotencyPlugin } from './infrastructure/plugins/idempotency.plugin';
 
 // 6. Deep Health & Readiness
