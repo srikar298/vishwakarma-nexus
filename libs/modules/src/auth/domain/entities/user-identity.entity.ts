@@ -52,7 +52,8 @@ export class Identity {
     public isVerified: boolean = false,
     public lastLoginAt?: Date | null,
     public readonly createdAt: Date = new Date(),
-    public updatedAt: Date = new Date()
+    public updatedAt: Date = new Date(),
+    public credentialHash?: string | null
   ) {}
 
   public verify(): void {

@@ -6,6 +6,9 @@ import { VerifyOtpUseCase } from "./application/use-cases/verify-otp.use-case";
 import { RefreshTokenUseCase } from "./application/use-cases/refresh-token.use-case";
 import { RegisterUserUseCase } from "./application/use-cases/register-user.use-case";
 import { GetMeUseCase } from "./application/use-cases/get-me.use-case";
+import { RegisterUseCase } from "./application/use-cases/register.use-case";
+import { LoginUseCase } from "./application/use-cases/login.use-case";
+import { ResetMpinChallengeUseCase } from "./application/use-cases/reset-mpin-challenge.use-case";
 import { logger } from "@vishwakarma-k-c/shared";
 import { AuthController } from "./auth.controller";
 
@@ -25,6 +28,9 @@ export const bootstrapAuthModule = fp(async (fastify: FastifyInstance) => {
   const refreshTokenUseCase = new RefreshTokenUseCase(authRepo);
   const registerUserUseCase = new RegisterUserUseCase(authRepo);
   const getMeUseCase = new GetMeUseCase(authRepo);
+  const registerUseCase = new RegisterUseCase(authRepo);
+  const loginUseCase = new LoginUseCase(authRepo);
+  const resetMpinChallengeUseCase = new ResetMpinChallengeUseCase(authRepo);
 
   // 3. Register Controller / Routes
   const controller = new AuthController(
@@ -32,7 +38,10 @@ export const bootstrapAuthModule = fp(async (fastify: FastifyInstance) => {
     verifyOtpUseCase, 
     refreshTokenUseCase, 
     registerUserUseCase,
-    getMeUseCase
+    getMeUseCase,
+    registerUseCase,
+    loginUseCase,
+    resetMpinChallengeUseCase
   );
 
   // Note: Prefixing is handled by the parent caller (e.g. app.ts)

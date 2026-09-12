@@ -35,7 +35,8 @@ export class DrizzleAuthRepository implements IAuthRepository {
       row.isVerified,
       row.lastLoginAt,
       row.createdAt,
-      row.updatedAt
+      row.updatedAt,
+      row.credentialHash
     );
   }
 

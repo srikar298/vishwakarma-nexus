@@ -4,6 +4,9 @@ import {
   verifyOtpSchema, 
   refreshTokenSchema, 
   registerUserSchema,
+  registerSchema,
+  loginSchema,
+  resetMpinChallengeSchema,
   AuthRateLimit,
   BaseDomainError,
   DynamicDomainError,
@@ -14,6 +17,9 @@ import { VerifyOtpUseCase } from "./application/use-cases/verify-otp.use-case";
 import { RefreshTokenUseCase } from "./application/use-cases/refresh-token.use-case";
 import { RegisterUserUseCase } from "./application/use-cases/register-user.use-case";
 import { GetMeUseCase } from "./application/use-cases/get-me.use-case";
+import { RegisterUseCase } from "./application/use-cases/register.use-case";
+import { LoginUseCase } from "./application/use-cases/login.use-case";
+import { ResetMpinChallengeUseCase } from "./application/use-cases/reset-mpin-challenge.use-case";
 import { AuthPresentationMapper } from "./presentation/mappers/auth-presentation.mapper";
 import { db } from "@vishwakarma-k-c/db";
 import { permissions as permissionsTable } from "@vishwakarma-k-c/db/iam";
@@ -28,7 +34,10 @@ export class AuthController {
     private readonly verifyOtpUseCase: VerifyOtpUseCase,
     private readonly refreshTokenUseCase: RefreshTokenUseCase,
     private readonly registerUserUseCase: RegisterUserUseCase,
-    private readonly getMeUseCase: GetMeUseCase
+    private readonly getMeUseCase: GetMeUseCase,
+    private readonly registerUseCase?: RegisterUseCase,
+    private readonly loginUseCase?: LoginUseCase,
+    private readonly resetMpinChallengeUseCase?: ResetMpinChallengeUseCase
   ) {}
 
   /**
@@ -36,6 +45,21 @@ export class AuthController {
    * Implements Granular Rate Limiting & Enterprise Idempotency
    */
   public async routes(fastify: FastifyInstance) {
+    // Core General Platform Onboarding & Login
+    fastify.post("/register", {
+      config: { rateLimit: AuthRateLimit, idempotency: true }
+    }, this.register.bind(this));
+
+    fastify.post("/login", {
+      config: { rateLimit: AuthRateLimit }
+    }, this.login.bind(this));
+
+    // Zero-SMS Demographic Challenge MPIN Reset (Self-Service)
+    fastify.post("/mpin/reset-challenge", {
+      config: { rateLimit: AuthRateLimit, idempotency: true }
+    }, this.resetMpinChallenge.bind(this));
+
+    // OTP-based flows (available when DLT/SMS is active)
     fastify.post("/otp/request", {
       config: { rateLimit: AuthRateLimit, idempotency: true }
     }, this.requestOtp.bind(this));
@@ -46,7 +70,7 @@ export class AuthController {
 
     fastify.post("/refresh", this.refreshToken.bind(this));
 
-    fastify.post("/register", {
+    fastify.post("/register-legacy", {
       config: { rateLimit: AuthRateLimit, idempotency: true }
     }, this.registerUser.bind(this));
 
@@ -59,6 +83,60 @@ export class AuthController {
     fastify.get("/permissions", {
       preHandler: [fastify.authenticate, fastify.authorize("iam:read_all")]
     }, this.getAllPermissions.bind(this));
+  }
+
+  private async register(request: FastifyRequest, reply: FastifyReply) {
+    const input = registerSchema.parse(request.body);
+    if (!this.registerUseCase) {
+      return reply.status(500).send({ success: false, error: "RegisterUseCase not configured" });
+    }
+    const result = await this.registerUseCase.execute(input);
+
+    if (result.isFailure) {
+      return this.handleError(reply, result.getError());
+    }
+
+    return reply.status(201).send({
+      success: true,
+      message: "Registration successful. Digital ID issued.",
+      data: result.getValue(),
+    });
+  }
+
+  private async login(request: FastifyRequest, reply: FastifyReply) {
+    const input = loginSchema.parse(request.body);
+    if (!this.loginUseCase) {
+      return reply.status(500).send({ success: false, error: "LoginUseCase not configured" });
+    }
+    const result = await this.loginUseCase.execute(input);
+
+    if (result.isFailure) {
+      return this.handleError(reply, result.getError());
+    }
+
+    return reply.status(200).send({
+      success: true,
+      message: "Login successful.",
+      data: result.getValue(),
+    });
+  }
+
+  private async resetMpinChallenge(request: FastifyRequest, reply: FastifyReply) {
+    const input = resetMpinChallengeSchema.parse(request.body);
+    if (!this.resetMpinChallengeUseCase) {
+      return reply.status(500).send({ success: false, error: "ResetMpinChallengeUseCase not configured" });
+    }
+    const result = await this.resetMpinChallengeUseCase.execute(input);
+
+    if (result.isFailure) {
+      return this.handleError(reply, result.getError());
+    }
+
+    return reply.status(200).send({
+      success: true,
+      message: result.getValue().message,
+      data: result.getValue(),
+    });
   }
 
   private async requestOtp(request: FastifyRequest, reply: FastifyReply) {
@@ -174,6 +252,8 @@ export class AuthController {
         "EXPIRED_OTP": 400,
         "TOO_MANY_ATTEMPTS": 429,
         "TOO_MANY_REQUESTS": 429,
+        "ACCOUNT_LOCKED": 423,
+        "INVALID_DEMOGRAPHIC_CHALLENGE": 400,
         "USER_NOT_FOUND": 404
       };
 

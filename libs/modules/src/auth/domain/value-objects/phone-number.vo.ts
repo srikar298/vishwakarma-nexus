@@ -24,7 +24,8 @@ export class PhoneNumber {
 
   private validate(): void {
     const phoneRegex = /^\+?[1-9]\d{1,14}$/; // E.164 standard
-    if (!phoneRegex.test(this.value)) {
+    const digitsOnly = this.value.replace(/\D/g, "");
+    if (!phoneRegex.test(this.value) || digitsOnly.length < 10 || digitsOnly.length > 15) {
       throw new Error(`Invalid phone number format: ${this.value}`);
     }
   }
