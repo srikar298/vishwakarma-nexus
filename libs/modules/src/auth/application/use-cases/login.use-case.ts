@@ -1,7 +1,7 @@
 import { db } from "@vishwakarma-k-c/db";
 import { users, identities } from "@vishwakarma-k-c/db/iam";
 import { profiles } from "@vishwakarma-k-c/db/members";
-import { eq, and } from "drizzle-orm";
+import { eq, and, isNull } from "drizzle-orm";
 import { 
   HashingService, 
   Result, 
@@ -114,7 +114,12 @@ export class LoginUseCase {
             eq(identities.provider, "PHONE")
           )
         )
-        .where(eq(profiles.digitalId, rateLimitKey))
+        .where(
+          and(
+            eq(profiles.digitalId, rateLimitKey),
+            isNull(users.deletedAt)
+          )
+        )
         .limit(1);
     } else {
       rows = await db
@@ -141,7 +146,8 @@ export class LoginUseCase {
         .where(
           and(
             eq(identities.provider, "PHONE"),
-            eq(identities.identifier, rateLimitKey)
+            eq(identities.identifier, rateLimitKey),
+            isNull(users.deletedAt)
           )
         )
         .limit(1);

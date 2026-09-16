@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { RegisterUseCase } from './register.use-case';
 import { LoginUseCase } from './login.use-case';
 import { ResetMpinChallengeUseCase } from './reset-mpin-challenge.use-case';
+import { LogoutUseCase } from './logout.use-case';
+import { ChangeMpinUseCase } from './change-mpin.use-case';
 import { cacheProvider } from '@vishwakarma-k-c/shared';
 
 // Mock DB
@@ -129,6 +131,8 @@ describe('Core General Registration & Login Flow', () => {
   let registerUseCase: RegisterUseCase;
   let loginUseCase: LoginUseCase;
   let resetMpinChallengeUseCase: ResetMpinChallengeUseCase;
+  let logoutUseCase: LogoutUseCase;
+  let changeMpinUseCase: ChangeMpinUseCase;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -144,6 +148,8 @@ describe('Core General Registration & Login Flow', () => {
     registerUseCase = new RegisterUseCase(mockAuthRepo);
     loginUseCase = new LoginUseCase(mockAuthRepo);
     resetMpinChallengeUseCase = new ResetMpinChallengeUseCase(mockAuthRepo);
+    logoutUseCase = new LogoutUseCase(mockAuthRepo);
+    changeMpinUseCase = new ChangeMpinUseCase(mockAuthRepo);
   });
 
   describe('RegisterUseCase', () => {
@@ -318,6 +324,54 @@ describe('Core General Registration & Login Flow', () => {
         'LOCKED',
         900
       );
+    });
+  });
+
+  describe('LogoutUseCase', () => {
+    it('should successfully log out and invalidate user sessions across pods', async () => {
+      const result = await logoutUseCase.execute({ userPublicId: 'usr_test_123' });
+      expect(result.isSuccess).toBe(true);
+      expect(result.getValue().message).toContain('Logged out successfully');
+      expect(cacheProvider.set).toHaveBeenCalledWith(
+        'auth:min_valid_iat:usr_test_123',
+        expect.any(Number),
+        3600
+      );
+    });
+  });
+
+  describe('ChangeMpinUseCase', () => {
+    it('should successfully update MPIN when current MPIN is correct', async () => {
+      const result = await changeMpinUseCase.execute({
+        userPublicId: 'usr_test_123',
+        currentMpin: '1234',
+        newMpin: '9876',
+      });
+
+      expect(result.isSuccess).toBe(true);
+      expect(result.getValue().message).toContain('MPIN changed successfully');
+    });
+
+    it('should reject when new MPIN is identical to current MPIN', async () => {
+      const result = await changeMpinUseCase.execute({
+        userPublicId: 'usr_test_123',
+        currentMpin: '1234',
+        newMpin: '1234',
+      });
+
+      expect(result.isFailure).toBe(true);
+      expect((result.getError() as any).code).toBe('VALIDATION_ERROR');
+    });
+
+    it('should reject when current MPIN is incorrect', async () => {
+      const result = await changeMpinUseCase.execute({
+        userPublicId: 'usr_test_123',
+        currentMpin: '0000',
+        newMpin: '9876',
+      });
+
+      expect(result.isFailure).toBe(true);
+      expect((result.getError() as any).code).toBe('INVALID_CREDENTIALS');
     });
   });
 });

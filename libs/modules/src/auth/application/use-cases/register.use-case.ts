@@ -13,6 +13,7 @@ import {
 } from "@vishwakarma-k-c/shared";
 import { TokenService, AuthTokens } from "../services/token.service";
 import { DigitalIdService } from "../services/digital-id.service";
+import { GeoConstituencyService } from "../../../members/application/services/geo-constituency.service";
 import { PhoneNumber } from "../../domain/value-objects/phone-number.vo";
 import { IAuthRepository } from "../../domain/repositories/auth.repository.interface";
 
@@ -28,6 +29,9 @@ export interface RegisterCommand {
   state?: string;
   mpin: string;
   source?: "ORGANIC" | "EKTHA_YATRA" | "WEB" | "REFERRAL";
+  campaignTag?: string;
+  latitude?: number;
+  longitude?: number;
   interests?: string[];
   intents?: {
     matrimony?: boolean;
@@ -167,7 +171,14 @@ export class RegisterUseCase {
           });
         }
 
-        // D. Create Member Profile
+        // D. Auto-Resolve Assembly & Parliamentary Constituency (Frictionless Grassroots Mapping)
+        const baseGeo = GeoConstituencyService.resolveFromMandal(district, mandal, state);
+        const refinedGeo = (command.latitude && command.longitude)
+          ? GeoConstituencyService.refineFromCoordinates(command.latitude, command.longitude)
+          : null;
+        const effectiveGeo = refinedGeo || baseGeo;
+
+        // E. Create Member Profile
         const [profileRow] = await tx.insert(profiles).values({
           userId: userRow.id,
           digitalId,
@@ -178,6 +189,12 @@ export class RegisterUseCase {
           district,
           mandal: mandal?.trim() || null,
           state,
+          assemblyConstituency: effectiveGeo.assemblyConstituency,
+          parliamentaryConstituency: effectiveGeo.parliamentaryConstituency,
+          geoConfidence: effectiveGeo.geoConfidence,
+          latitude: command.latitude ? String(command.latitude) : null,
+          longitude: command.longitude ? String(command.longitude) : null,
+          campaignTag: command.campaignTag || null,
           source,
           intents: effectiveIntents,
           isVerified: false,

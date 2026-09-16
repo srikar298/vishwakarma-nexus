@@ -69,6 +69,9 @@ export const registerSchema = z.object({
   state: z.string().default("Telangana"),
   mpin: z.string().regex(/^\d{4,6}$/, "MPIN must be 4 to 6 digits"),
   source: z.enum(["ORGANIC", "EKTHA_YATRA", "WEB", "REFERRAL"]).default("ORGANIC"),
+  campaignTag: z.string().max(50).optional(),
+  latitude: z.number().min(-90).max(90).optional(),
+  longitude: z.number().min(-180).max(180).optional(),
   interests: z.array(z.string()).optional().default([]),
   intents: z.object({
     matrimony: z.boolean().optional(),
@@ -126,4 +129,42 @@ export const coordinatorResetMpinSchema = z.object({
 });
 
 export type CoordinatorResetMpinInput = z.infer<typeof coordinatorResetMpinSchema>;
+
+/**
+ * Authenticated Change MPIN Schema
+ */
+export const changeMpinSchema = z.object({
+  currentMpin: z.string().regex(/^\d{4,6}$/, "Current MPIN must be 4 to 6 digits"),
+  newMpin: z.string().regex(/^\d{4,6}$/, "New MPIN must be 4 to 6 digits"),
+});
+
+export type ChangeMpinInput = z.infer<typeof changeMpinSchema>;
+
+/**
+ * Progressive Location & Ward Update Schema
+ */
+export const updateLocationSchema = z.object({
+  latitude: z.number().min(-90).max(90).optional(),
+  longitude: z.number().min(-180).max(180).optional(),
+  wardOrVillage: z.string().max(100).optional(),
+});
+
+export type UpdateLocationInput = z.infer<typeof updateLocationSchema>;
+
+/**
+ * Community Announcement Broadcast Schema
+ */
+export const createAnnouncementSchema = z.object({
+  title: z.string().min(3).max(255),
+  content: z.string().min(5),
+  category: z.enum(["GENERAL", "EKTHA_YATRA", "GOVERNMENT_SCHEME", "COMMUNITY_EVENT"]).default("GENERAL"),
+  priority: z.enum(["NORMAL", "HIGH", "URGENT"]).default("NORMAL"),
+  targetDistrict: z.string().optional(),
+  targetKula: z.string().optional(),
+  actionUrl: z.string().url().optional(),
+  expiresAt: z.string().datetime().optional(),
+});
+
+export type CreateAnnouncementInput = z.infer<typeof createAnnouncementSchema>;
+
 

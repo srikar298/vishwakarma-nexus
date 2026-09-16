@@ -3,14 +3,15 @@ import {
   requestOtpSchema, 
   verifyOtpSchema, 
   refreshTokenSchema, 
-  registerUserSchema,
-  registerSchema,
-  loginSchema,
-  resetMpinChallengeSchema,
-  AuthRateLimit,
-  BaseDomainError,
-  DynamicDomainError,
-  logger
+  registerUserSchema, 
+  registerSchema, 
+  loginSchema, 
+  resetMpinChallengeSchema, 
+  changeMpinSchema,
+  AuthRateLimit, 
+  BaseDomainError, 
+  DynamicDomainError, 
+  logger 
 } from "@vishwakarma-k-c/shared";
 import { RequestOtpUseCase } from "./application/use-cases/request-otp.use-case";
 import { VerifyOtpUseCase } from "./application/use-cases/verify-otp.use-case";
@@ -20,6 +21,8 @@ import { GetMeUseCase } from "./application/use-cases/get-me.use-case";
 import { RegisterUseCase } from "./application/use-cases/register.use-case";
 import { LoginUseCase } from "./application/use-cases/login.use-case";
 import { ResetMpinChallengeUseCase } from "./application/use-cases/reset-mpin-challenge.use-case";
+import { LogoutUseCase } from "./application/use-cases/logout.use-case";
+import { ChangeMpinUseCase } from "./application/use-cases/change-mpin.use-case";
 import { AuthPresentationMapper } from "./presentation/mappers/auth-presentation.mapper";
 import { db } from "@vishwakarma-k-c/db";
 import { permissions as permissionsTable } from "@vishwakarma-k-c/db/iam";
@@ -37,7 +40,9 @@ export class AuthController {
     private readonly getMeUseCase: GetMeUseCase,
     private readonly registerUseCase?: RegisterUseCase,
     private readonly loginUseCase?: LoginUseCase,
-    private readonly resetMpinChallengeUseCase?: ResetMpinChallengeUseCase
+    private readonly resetMpinChallengeUseCase?: ResetMpinChallengeUseCase,
+    private readonly logoutUseCase?: LogoutUseCase,
+    private readonly changeMpinUseCase?: ChangeMpinUseCase
   ) {}
 
   /**
@@ -75,6 +80,14 @@ export class AuthController {
     }, this.registerUser.bind(this));
 
     // --- PROTECTED ROUTES ---
+
+    fastify.post("/logout", {
+      preHandler: [fastify.authenticate]
+    }, this.logout.bind(this));
+
+    fastify.post("/mpin/change", {
+      preHandler: [fastify.authenticate]
+    }, this.changeMpin.bind(this));
 
     fastify.get("/me", {
       preHandler: [fastify.authenticate]
@@ -233,7 +246,53 @@ export class AuthController {
     
     return reply.status(200).send({
       success: true,
-      permissions: all
+      permissions: all,
+    });
+  }
+
+  private async logout(request: FastifyRequest, reply: FastifyReply) {
+    const userPublicId = request.user?.id;
+    if (!userPublicId) {
+      return reply.status(401).send({ success: false, error: "Unauthorized" });
+    }
+    if (!this.logoutUseCase) {
+      return reply.status(500).send({ success: false, error: "LogoutUseCase not configured" });
+    }
+
+    const result = await this.logoutUseCase.execute({ userPublicId });
+    if (result.isFailure) {
+      return this.handleError(reply, result.getError());
+    }
+
+    return reply.status(200).send({
+      success: true,
+      message: result.getValue().message,
+    });
+  }
+
+  private async changeMpin(request: FastifyRequest, reply: FastifyReply) {
+    const userPublicId = request.user?.id;
+    if (!userPublicId) {
+      return reply.status(401).send({ success: false, error: "Unauthorized" });
+    }
+    if (!this.changeMpinUseCase) {
+      return reply.status(500).send({ success: false, error: "ChangeMpinUseCase not configured" });
+    }
+
+    const input = changeMpinSchema.parse(request.body);
+    const result = await this.changeMpinUseCase.execute({
+      userPublicId,
+      currentMpin: input.currentMpin,
+      newMpin: input.newMpin,
+    });
+
+    if (result.isFailure) {
+      return this.handleError(reply, result.getError());
+    }
+
+    return reply.status(200).send({
+      success: true,
+      message: result.getValue().message,
     });
   }
 
