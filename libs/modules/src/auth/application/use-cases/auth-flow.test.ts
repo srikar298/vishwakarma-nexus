@@ -30,39 +30,54 @@ vi.mock('@vishwakarma-k-c/db', () => {
     }),
   };
 
+  const mockMemberRecord = {
+    id: 101,
+    userId: 101,
+    userPublicId: 'usr_test_123',
+    publicId: 'usr_test_123',
+    firstName: 'Ramesh',
+    lastName: 'Chary',
+    role: 'MEMBER_BASIC',
+    digitalId: 'VKC-2026-104820',
+    identityId: 101,
+    identifier: '+919876543210',
+    phone: '+919876543210',
+    email: 'ramesh@example.com',
+    kula: 'Vishvajna',
+    trade: 'Goldsmith',
+    district: 'Warangal',
+    mandal: 'Hanamkonda',
+    source: 'EKTHA_YATRA',
+    credentialHash: 'salt123:hash123',
+  };
+
+  const createQueryChain = () => {
+    const chain: any = {
+      innerJoin: vi.fn(() => chain),
+      leftJoin: vi.fn(() => chain),
+      where: vi.fn(() => chain),
+      limit: vi.fn().mockResolvedValue([mockMemberRecord]),
+    };
+    return chain;
+  };
+
+  const mockUpdateChain: any = {
+    where: vi.fn(() => ({
+      ...mockUpdateChain,
+      catch: vi.fn().mockResolvedValue([]),
+      then: (resolve: any) => Promise.resolve([]).then(resolve),
+    })),
+    catch: vi.fn().mockResolvedValue([]),
+  };
+
   return {
     db: {
       transaction: vi.fn((callback) => callback(mockTx)),
-      select: vi.fn().mockReturnValue({
-        from: vi.fn().mockReturnValue({
-          where: vi.fn().mockReturnValue({
-            limit: vi.fn().mockResolvedValue([
-              {
-                id: 101,
-                userId: 101,
-                publicId: 'usr_test_123',
-                firstName: 'Ramesh',
-                lastName: 'Chary',
-                role: 'MEMBER_BASIC',
-                digitalId: 'VKC-2026-104820',
-                identifier: '+919876543210',
-                phone: '+919876543210',
-                email: 'ramesh@example.com',
-                kula: 'Vishvajna',
-                trade: 'Goldsmith',
-                district: 'Warangal',
-                mandal: 'Hanamkonda',
-                source: 'EKTHA_YATRA',
-                credentialHash: 'salt123:hash123',
-              },
-            ]),
-          }),
-        }),
-      }),
+      select: vi.fn(() => ({
+        from: vi.fn(() => createQueryChain()),
+      })),
       update: vi.fn().mockReturnValue({
-        set: vi.fn().mockReturnValue({
-          where: vi.fn().mockResolvedValue([]),
-        }),
+        set: vi.fn().mockReturnValue(mockUpdateChain),
       }),
       insert: vi.fn().mockReturnValue({
         values: vi.fn().mockReturnValue({
@@ -104,6 +119,7 @@ vi.mock('@vishwakarma-k-c/shared', async (importOriginal) => {
       delete: vi.fn().mockResolvedValue(undefined),
       get: vi.fn().mockResolvedValue(null),
       set: vi.fn().mockResolvedValue(undefined),
+      increment: vi.fn().mockResolvedValue(4820),
     },
   };
 });

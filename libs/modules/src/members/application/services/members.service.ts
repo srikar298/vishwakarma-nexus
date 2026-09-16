@@ -10,6 +10,7 @@ import {
   logger,
   DomainEvent,
 } from '@vishwakarma-k-c/shared';
+import { DigitalIdService } from '../../../auth/application/services/digital-id.service';
 
 export interface RegisterMemberInput {
   userId: string;
@@ -27,7 +28,7 @@ export interface MemberRegistrationResult {
 
 /**
  * Low-Level Design (LLD): Members Service
- * Handles membership registration, digital ID allocation with distributed mutex locking,
+ * Handles membership registration, atomic monotonic digital ID allocation,
  * event publishing, and background worker queue dispatching.
  */
 export class MembersService {
@@ -39,14 +40,8 @@ export class MembersService {
   ) {}
 
   public async registerMember(input: RegisterMemberInput): Promise<MemberRegistrationResult> {
-    const lockKey = `lock:members:digital_id_allocator`;
-
-    // 1. Concurrency Guard: Mutex Lock ensures strictly sequential unique Digital ID allocation
-    const digitalIdNumber = await this.lockProvider.withLock(lockKey, async () => {
-      // Sequence generation (e.g. VKC-2026-XXXX)
-      const randomSuffix = Math.floor(100000 + Math.random() * 900000);
-      return `VKC-${new Date().getFullYear()}-${randomSuffix}`;
-    });
+    // 1. Monotonic Cluster Sequencing: O(1) atomic generation without distributed mutex bottleneck
+    const digitalIdNumber = await DigitalIdService.nextId(new Date().getFullYear());
 
     const memberId = `mem_${Date.now()}`;
     const result: MemberRegistrationResult = {

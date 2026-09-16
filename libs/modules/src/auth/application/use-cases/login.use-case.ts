@@ -51,58 +51,25 @@ export class LoginUseCase {
     const { identifier, mpin } = command;
     const trimmedId = identifier.trim();
 
-    let targetUserId: number | null = null;
     let rateLimitKey: string;
 
     // 1. Dual-Identifier Resolution: Digital ID vs Phone Number
     if (trimmedId.toUpperCase().startsWith("VKC-") || trimmedId.toUpperCase().startsWith("VKC")) {
       rateLimitKey = trimmedId.toUpperCase();
-      // Resolution via Digital ID (resilient against phone typos)
-      const profileRows = await db
-        .select()
-        .from(profiles)
-        .where(eq(profiles.digitalId, rateLimitKey))
-        .limit(1);
-
-      if (profileRows.length === 0) {
-        return Result.fail(new DynamicDomainError("INVALID_CREDENTIALS", "Invalid Digital ID or MPIN."));
-      }
-
-      targetUserId = profileRows[0].userId;
     } else {
       // Resolution via Mobile Number
-      let normalizedPhone: string;
       try {
-        normalizedPhone = new PhoneNumber(trimmedId).toString();
+        rateLimitKey = new PhoneNumber(trimmedId).toString();
       } catch {
         const cleaned = trimmedId.replace(/\D/g, "");
         if (cleaned.length === 10) {
-          normalizedPhone = `+91${cleaned}`;
+          rateLimitKey = `+91${cleaned}`;
         } else if (cleaned.length === 12 && cleaned.startsWith("91")) {
-          normalizedPhone = `+${cleaned}`;
+          rateLimitKey = `+${cleaned}`;
         } else {
-          return Result.fail(new DynamicDomainError("INVALID_CREDENTIALS", "Invalid phone number or Digital ID."));
+          return Result.fail(new DynamicDomainError("INVALID_CREDENTIALS", "Invalid credentials. Please verify and try again."));
         }
       }
-
-      rateLimitKey = normalizedPhone;
-
-      const identityRows = await db
-        .select()
-        .from(identities)
-        .where(
-          and(
-            eq(identities.provider, "PHONE"),
-            eq(identities.identifier, normalizedPhone)
-          )
-        )
-        .limit(1);
-
-      if (identityRows.length === 0) {
-        return Result.fail(new DynamicDomainError("INVALID_CREDENTIALS", "Invalid phone number or MPIN."));
-      }
-
-      targetUserId = identityRows[0].userId;
     }
 
     // 2. Lockout Defense Check (Prevents Brute-Force Attacks)
@@ -117,37 +84,96 @@ export class LoginUseCase {
       );
     }
 
-    // 3. Fetch User & Primary Phone Identity for Credential Verification
-    const [userRow] = await db
-      .select()
-      .from(users)
-      .where(eq(users.id, targetUserId))
-      .limit(1);
-
-    if (!userRow) {
-      return Result.fail(new DynamicDomainError("INVALID_CREDENTIALS", "Account not found."));
+    // 3. Hot-Path Single Composite JOIN Query (1 DB Round-Trip for User + Identity + Profile)
+    let rows: any[];
+    if (rateLimitKey.startsWith("VKC")) {
+      rows = await db
+        .select({
+          userId: users.id,
+          userPublicId: users.publicId,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          role: users.role,
+          identityId: identities.id,
+          identifier: identities.identifier,
+          credentialHash: identities.credentialHash,
+          digitalId: profiles.digitalId,
+          phone: profiles.phone,
+          email: profiles.email,
+          kula: profiles.kula,
+          trade: profiles.trade,
+          district: profiles.district,
+          mandal: profiles.mandal,
+        })
+        .from(profiles)
+        .innerJoin(users, eq(users.id, profiles.userId))
+        .innerJoin(
+          identities,
+          and(
+            eq(identities.userId, users.id),
+            eq(identities.provider, "PHONE")
+          )
+        )
+        .where(eq(profiles.digitalId, rateLimitKey))
+        .limit(1);
+    } else {
+      rows = await db
+        .select({
+          userId: users.id,
+          userPublicId: users.publicId,
+          firstName: users.firstName,
+          lastName: users.lastName,
+          role: users.role,
+          identityId: identities.id,
+          identifier: identities.identifier,
+          credentialHash: identities.credentialHash,
+          digitalId: profiles.digitalId,
+          phone: profiles.phone,
+          email: profiles.email,
+          kula: profiles.kula,
+          trade: profiles.trade,
+          district: profiles.district,
+          mandal: profiles.mandal,
+        })
+        .from(identities)
+        .innerJoin(users, eq(users.id, identities.userId))
+        .leftJoin(profiles, eq(profiles.userId, users.id))
+        .where(
+          and(
+            eq(identities.provider, "PHONE"),
+            eq(identities.identifier, rateLimitKey)
+          )
+        )
+        .limit(1);
     }
 
-    const [identityRow] = await db
-      .select()
-      .from(identities)
-      .where(
-        and(
-          eq(identities.userId, targetUserId),
-          eq(identities.provider, "PHONE")
-        )
-      )
-      .limit(1);
+    const memberRow = rows[0];
 
-    if (!identityRow || !identityRow.credentialHash) {
-      return Result.fail(
-        new DynamicDomainError("CREDENTIALS_NOT_SET", "MPIN not configured for this account. Please register or reset MPIN.")
-      );
+    // Anti-Enumeration & Constant-Time Timing Oracle Defense:
+    // If account does not exist or credential not set, execute dummy scrypt verification to equalize timing
+    if (!memberRow || !memberRow.credentialHash) {
+      HashingService.verifyCredential(mpin, "dummysalt12345678:dummyhash12345678");
+
+      const attemptsKey = `auth:failed_attempts:${rateLimitKey}`;
+      const currentAttempts = ((await cacheProvider.get<number>(attemptsKey)) || 0) + 1;
+      await cacheProvider.set(attemptsKey, currentAttempts, LoginUseCase.LOCKOUT_TTL_SECONDS);
+
+      if (currentAttempts >= LoginUseCase.MAX_FAILED_ATTEMPTS) {
+        await cacheProvider.set(lockoutKey, "LOCKED", LoginUseCase.LOCKOUT_TTL_SECONDS);
+        return Result.fail(
+          new DynamicDomainError(
+            "ACCOUNT_LOCKED", 
+            "Account is temporarily locked due to 5 consecutive failed MPIN attempts. Please wait 15 minutes or reset your MPIN."
+          )
+        );
+      }
+
+      return Result.fail(new DynamicDomainError("INVALID_CREDENTIALS", "Invalid phone number, Digital ID, or MPIN."));
     }
 
     // 4. Constant-Time MPIN Verification & Lockout Counter Management
     const attemptsKey = `auth:failed_attempts:${rateLimitKey}`;
-    const isMpinValid = HashingService.verifyCredential(mpin, identityRow.credentialHash);
+    const isMpinValid = HashingService.verifyCredential(mpin, memberRow.credentialHash);
     if (!isMpinValid) {
       const currentAttempts = ((await cacheProvider.get<number>(attemptsKey)) || 0) + 1;
       await cacheProvider.set(attemptsKey, currentAttempts, LoginUseCase.LOCKOUT_TTL_SECONDS);
@@ -159,7 +185,7 @@ export class LoginUseCase {
           action: "LOGIN_BRUTE_FORCE_LOCKOUT",
           resourceType: "MEMBER",
           targetId: rateLimitKey,
-          userId: userRow.publicId,
+          userId: memberRow.userPublicId,
           severity: "WARNING",
           metadata: {
             attempts: currentAttempts,
@@ -190,46 +216,41 @@ export class LoginUseCase {
       cacheProvider.delete(lockoutKey),
     ]);
 
-    // 5. Fetch Associated Profile
-    const [profileRow] = await db
-      .select()
-      .from(profiles)
-      .where(eq(profiles.userId, targetUserId))
-      .limit(1);
-
     // 5. Issue JWT Session Tokens
     const tokens = await this.tokenService.issueAuthTokens({
-      publicId: userRow.publicId,
-      role: userRow.role,
+      publicId: memberRow.userPublicId,
+      role: memberRow.role,
     });
 
-    // 6. Update Last Login Timestamp
-    await db
-      .update(identities)
+    // 6. Asynchronous Non-Blocking lastLoginAt Update (Fire-and-forget to eliminate HTTP blocking)
+    db.update(identities)
       .set({ lastLoginAt: new Date() })
-      .where(eq(identities.id, identityRow.id));
+      .where(eq(identities.id, memberRow.identityId))
+      .catch((err: any) => {
+        logger.warn({ err: err?.message }, "Non-critical: Failed to record lastLoginAt");
+      });
 
     logger.info({
       msg: "Member Logged In Successfully",
-      publicId: userRow.publicId,
-      digitalId: profileRow?.digitalId,
+      publicId: memberRow.userPublicId,
+      digitalId: memberRow.digitalId,
     });
 
     return Result.ok({
       user: {
-        publicId: userRow.publicId,
-        firstName: userRow.firstName || "",
-        lastName: userRow.lastName || "",
-        role: userRow.role,
+        publicId: memberRow.userPublicId,
+        firstName: memberRow.firstName || "",
+        lastName: memberRow.lastName || "",
+        role: memberRow.role,
       },
       profile: {
-        digitalId: profileRow?.digitalId || "N/A",
-        phone: profileRow?.phone || identityRow.identifier,
-        email: profileRow?.email,
-        kula: profileRow?.kula || "General",
-        trade: profileRow?.trade || "General",
-        district: profileRow?.district || "General",
-        mandal: profileRow?.mandal,
+        digitalId: memberRow.digitalId || "N/A",
+        phone: memberRow.phone || memberRow.identifier,
+        email: memberRow.email,
+        kula: memberRow.kula || "General",
+        trade: memberRow.trade || "General",
+        district: memberRow.district || "General",
+        mandal: memberRow.mandal,
       },
       tokens,
     });

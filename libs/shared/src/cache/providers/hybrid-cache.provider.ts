@@ -1,4 +1,4 @@
-import { ICacheProvider, CacheOptions } from '../interfaces/cache-provider.interface';
+import { ICacheProvider, IAtomicProvider, CacheOptions } from '../interfaces/cache-provider.interface';
 import { MemoryCacheProvider } from './memory-cache.provider';
 import { getOrSetWithStampedeGuard } from '../cache-aside';
 import { logger } from '../../logger';
@@ -7,7 +7,7 @@ import { logger } from '../../logger';
  * Low-Level Design (LLD): Two-Tier Hybrid Cache Provider (L1 Memory + L2 Redis)
  * Delivers sub-microsecond in-memory reads while maintaining cluster-wide consistency via Redis L2.
  */
-export class HybridCacheProvider implements ICacheProvider {
+export class HybridCacheProvider implements ICacheProvider, IAtomicProvider {
   private l1: MemoryCacheProvider; // Local In-Memory LRU
   private l2: ICacheProvider;       // Distributed Redis
 
@@ -106,5 +106,21 @@ export class HybridCacheProvider implements ICacheProvider {
       this.l1.expire(key, ttlSeconds),
       this.l2.expire(key, ttlSeconds),
     ]);
+  }
+
+  public async increment(key: string, ttlSeconds: number): Promise<number> {
+    if ('increment' in this.l2) {
+      const res = await (this.l2 as any).increment(key, ttlSeconds);
+      await this.l1.set(key, res, ttlSeconds > 0 ? { ttlSeconds } : undefined);
+      return res;
+    }
+    return this.l1.increment(key, ttlSeconds);
+  }
+
+  public async executeLua<T>(script: string, keys: string[], args: any[]): Promise<T> {
+    if ('executeLua' in this.l2) {
+      return (this.l2 as any).executeLua(script, keys, args);
+    }
+    return null as any;
   }
 }

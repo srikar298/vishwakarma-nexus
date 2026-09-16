@@ -1,4 +1,4 @@
-import { pgEnum, integer, varchar, timestamp, jsonb, boolean, index } from "drizzle-orm/pg-core";
+import { pgEnum, integer, varchar, timestamp, jsonb, boolean, index, uniqueIndex } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import { authSchema } from "./users";
 import { users } from "./users";
@@ -29,7 +29,10 @@ export const identities = authSchema.table("identities", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 }, (table) => [
-  index("idx_identities_identifier_provider").on(table.identifier, table.provider),
+  // Unique Constraint: Enforces one identity per provider/identifier at the database level (ACID race condition guard)
+  uniqueIndex("uq_identities_provider_identifier").on(table.provider, table.identifier),
+  // Foreign Key Index: Eliminates sequential table scans on user cascade deletes and user-identity joins
+  index("idx_identities_user_id").on(table.userId),
   // Partial Index: Only indexes verified identities, making login queries extremely fast and the index lean.
   index("idx_identities_verified_search")
     .on(table.identifier, table.provider)

@@ -1,4 +1,4 @@
-import { ICacheProvider } from './interfaces/cache-provider.interface';
+import { ICacheProvider, IAtomicProvider } from './interfaces/cache-provider.interface';
 import { RedisCacheProvider } from './providers/redis-cache.provider';
 import { MemoryCacheProvider } from './providers/memory-cache.provider';
 import { HybridCacheProvider } from './providers/hybrid-cache.provider';
@@ -10,9 +10,9 @@ import { logger } from '../logger';
  * Provides production HybridCache (L1 Memory + L2 Redis) or MemoryCache dynamically based on configuration.
  */
 export class CacheFactory {
-  private static provider: ICacheProvider;
+  private static provider: ICacheProvider & IAtomicProvider;
 
-  public static getProvider(useHybrid = true): ICacheProvider {
+  public static getProvider(useHybrid = true): ICacheProvider & IAtomicProvider {
     if (!this.provider) {
       if (config.redis?.url && !process.env.USE_MEMORY_CACHE && process.env.NODE_ENV !== 'test') {
         try {
@@ -36,7 +36,7 @@ export class CacheFactory {
     return this.provider;
   }
 
-  public static setProvider(provider: ICacheProvider): void {
+  public static setProvider(provider: ICacheProvider & IAtomicProvider): void {
     this.provider = provider;
   }
 }

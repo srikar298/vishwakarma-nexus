@@ -1,8 +1,10 @@
 import type { FastifyRequest, FastifyReply } from 'fastify';
 import { JWTService, JWTPayload } from './jwt.service';
+import { cacheProvider } from '../cache';
 
 /**
  * Fastify Hook: Authenticates a request via JWT from the Authorization header
+ * Enforces Distributed Instant Revocation via cluster-wide min_valid_iat checks.
  */
 export const authenticate = async (request: FastifyRequest, reply: FastifyReply) => {
   try {
@@ -16,6 +18,14 @@ export const authenticate = async (request: FastifyRequest, reply: FastifyReply)
 
     if (!payload) {
       return reply.code(401).send({ error: 'Unauthorized: Token expired or invalid' });
+    }
+
+    // Distributed Instant Revocation Check: min_valid_iat epoch guard
+    if (payload.id) {
+      const minValidIat = await cacheProvider.get<number>(`auth:min_valid_iat:${payload.id}`);
+      if (minValidIat && payload.iat && payload.iat < minValidIat) {
+        return reply.code(401).send({ error: 'Unauthorized: Session has been revoked' });
+      }
     }
 
     // Attach user payload to the request for downstream guards

@@ -8,11 +8,11 @@ import {
   UserRole, 
   Result, 
   DynamicDomainError, 
-  defaultLockProvider, 
   auditLogger, 
   logger 
 } from "@vishwakarma-k-c/shared";
 import { TokenService, AuthTokens } from "../services/token.service";
+import { DigitalIdService } from "../services/digital-id.service";
 import { PhoneNumber } from "../../domain/value-objects/phone-number.vo";
 import { IAuthRepository } from "../../domain/repositories/auth.repository.interface";
 
@@ -131,12 +131,9 @@ export class RegisterUseCase {
     // 3. Cryptographically Secure MPIN Hashing
     const credentialHash = HashingService.hashCredential(mpin);
 
-    // 4. Sequential Unique Digital ID Allocation with Distributed Mutex Lock
+    // 4. Atomic Monotonic Digital ID Allocation (O(1) cluster sequencing, zero lock contention)
     const currentYear = new Date().getFullYear();
-    const digitalId = await defaultLockProvider.withLock("lock:members:digital_id_allocator", async () => {
-      const randomSuffix = Math.floor(100000 + Math.random() * 900000);
-      return `VKC-${currentYear}-${randomSuffix}`;
-    });
+    const digitalId = await DigitalIdService.nextId(currentYear);
 
     try {
       // 5. Atomic Persistence Across auth_mod and member_mod
@@ -257,6 +254,14 @@ export class RegisterUseCase {
         tokens,
       });
     } catch (err: any) {
+      if (err?.code === "23505" || err?.message?.includes("uq_identities_provider_identifier") || err?.message?.includes("unique")) {
+        return Result.fail(
+          new DynamicDomainError(
+            "PHONE_ALREADY_REGISTERED", 
+            "This mobile number is already registered. Please log in with your MPIN."
+          )
+        );
+      }
       logger.error({ error: err.message, stack: err.stack }, "Registration transaction failed");
       return Result.fail(new DynamicDomainError("REGISTRATION_FAILED", "Failed to register member. Please try again."));
     }

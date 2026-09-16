@@ -1,16 +1,19 @@
 import { db } from "@vishwakarma-k-c/db";
 import { users, identities, roles, rolePermissions, permissions, userRoles } from "@vishwakarma-k-c/db/iam";
-import { eq, and } from "drizzle-orm";
+import { eq, and, type InferSelectModel } from "drizzle-orm";
 import { IAuthRepository } from "../../domain/repositories/auth.repository.interface";
-import { User, Identity, UserId, IdentityProvider } from "../../domain/entities/user-identity.entity";
+import { User, Identity, UserId, IdentityProvider, IdentityId } from "../../domain/entities/user-identity.entity";
 import { UserRole } from "@vishwakarma-k-c/shared";
 import { nanoid } from "nanoid";
+
+type UserRow = InferSelectModel<typeof users>;
+type IdentityRow = InferSelectModel<typeof identities>;
 
 export class DrizzleAuthRepository implements IAuthRepository {
   /**
    * Domain Mapper: Database Row to User Entity
    */
-  private mapToUser(row: any): User {
+  private mapToUser(row: UserRow): User {
     return new User(
       row.id as UserId,
       row.publicId,
@@ -26,9 +29,9 @@ export class DrizzleAuthRepository implements IAuthRepository {
   /**
    * Domain Mapper: Database Row to Identity Entity
    */
-  private mapToIdentity(row: any): Identity {
+  private mapToIdentity(row: IdentityRow): Identity {
     return new Identity(
-      row.id as any,
+      row.id as IdentityId,
       row.userId as UserId,
       row.provider as IdentityProvider,
       row.identifier,
@@ -47,7 +50,7 @@ export class DrizzleAuthRepository implements IAuthRepository {
       .where(
         and(
           eq(identities.identifier, identifier),
-          eq(identities.provider, provider as any)
+          eq(identities.provider, provider as IdentityProvider)
         )
       )
       .limit(1);
@@ -92,7 +95,7 @@ export class DrizzleAuthRepository implements IAuthRepository {
       .insert(identities)
       .values({
         userId,
-        provider: provider as any,
+        provider: provider as IdentityProvider,
         identifier,
         isVerified: true, // For OTP signups, we assume verified once created through that flow
       })
@@ -109,7 +112,7 @@ export class DrizzleAuthRepository implements IAuthRepository {
         lastLoginAt: identity.lastLoginAt,
         updatedAt: new Date(),
       })
-      .where(eq(identities.id, identity.id as any));
+      .where(eq(identities.id, identity.id));
   }
 
   async updateUser(user: User): Promise<void> {
@@ -127,7 +130,7 @@ export class DrizzleAuthRepository implements IAuthRepository {
 
   async mergeAccounts(sourceUserId: UserId, targetUserId: UserId): Promise<void> {
     // Logic to move identities from source to target and delete source user
-    await db.transaction(async (tx: any) => {
+    await db.transaction(async (tx) => {
       await tx
         .update(identities)
         .set({ userId: targetUserId })
@@ -152,6 +155,6 @@ export class DrizzleAuthRepository implements IAuthRepository {
       .innerJoin(permissions, eq(rolePermissions.permissionId, permissions.id))
       .where(eq(userRoles.userId, userId));
 
-    return results.map((r: any) => r.slug);
+    return results.map((r) => r.slug);
   }
 }

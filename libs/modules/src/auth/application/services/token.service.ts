@@ -77,8 +77,14 @@ export class TokenService {
     });
   }
 
+  public static readonly REVOCATION_EPOCH_TTL = 3600; // 1 hour (exceeds access token max lifetime)
+
   public async revokeAllSessions(userId: string): Promise<void> {
-    await cacheProvider.delete(`user_sessions:${userId}`);
-    logger.info({ userId }, "All sessions revoked.");
+    const currentEpoch = Math.floor(Date.now() / 1000);
+    await Promise.all([
+      cacheProvider.delete(`user_sessions:${userId}`),
+      cacheProvider.set(`auth:min_valid_iat:${userId}`, currentEpoch, TokenService.REVOCATION_EPOCH_TTL),
+    ]);
+    logger.info({ userId, minValidIat: currentEpoch }, "All sessions revoked and min_valid_iat epoch updated.");
   }
 }

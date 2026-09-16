@@ -39,60 +39,27 @@ export class ResetMpinChallengeUseCase {
     const { identifier, kula, district, newMpin } = command;
     const trimmedId = identifier.trim();
 
-    let targetUserId: number | null = null;
     let normalizedPhoneKey: string | null = null;
 
-    // 1. Dual-Identifier Resolution: Digital ID vs Phone Number
+    // 1. Domain Validation & Normalization
     if (trimmedId.toUpperCase().startsWith("VKC-") || trimmedId.toUpperCase().startsWith("VKC")) {
-      const upperDigitalId = trimmedId.toUpperCase();
-      const profileRows = await db
-        .select()
-        .from(profiles)
-        .where(eq(profiles.digitalId, upperDigitalId))
-        .limit(1);
-
-      if (profileRows.length === 0) {
-        return Result.fail(new DynamicDomainError("USER_NOT_FOUND", "Account not found for the provided Digital ID."));
-      }
-
-      targetUserId = profileRows[0].userId;
-      normalizedPhoneKey = upperDigitalId;
+      normalizedPhoneKey = trimmedId.toUpperCase();
     } else {
-      let normalizedPhone: string;
       try {
-        normalizedPhone = new PhoneNumber(trimmedId).toString();
+        normalizedPhoneKey = new PhoneNumber(trimmedId).toString();
       } catch {
         const cleaned = trimmedId.replace(/\D/g, "");
         if (cleaned.length === 10) {
-          normalizedPhone = `+91${cleaned}`;
+          normalizedPhoneKey = `+91${cleaned}`;
         } else if (cleaned.length === 12 && cleaned.startsWith("91")) {
-          normalizedPhone = `+${cleaned}`;
+          normalizedPhoneKey = `+${cleaned}`;
         } else {
-          return Result.fail(new DynamicDomainError("INVALID_IDENTIFIER", "Invalid phone number or Digital ID format."));
+          return Result.fail(new DynamicDomainError("INVALID_DEMOGRAPHIC_CHALLENGE", "Invalid identifier format."));
         }
       }
-
-      normalizedPhoneKey = normalizedPhone;
-
-      const identityRows = await db
-        .select()
-        .from(identities)
-        .where(
-          and(
-            eq(identities.provider, "PHONE"),
-            eq(identities.identifier, normalizedPhone)
-          )
-        )
-        .limit(1);
-
-      if (identityRows.length === 0) {
-        return Result.fail(new DynamicDomainError("USER_NOT_FOUND", "Account not found for the provided phone number."));
-      }
-
-      targetUserId = identityRows[0].userId;
     }
 
-    // 2. Brute-force lockout defense on challenge verification
+    // 2. Brute-Force Lockout Defense (Enforced before DB resolution to block enumeration scanners)
     const lockoutKey = `auth:reset_challenge:lockout:${normalizedPhoneKey}`;
     const isLocked = await cacheProvider.get(lockoutKey);
     if (isLocked) {
@@ -104,21 +71,76 @@ export class ResetMpinChallengeUseCase {
       );
     }
 
-    // 3. Fetch User & Profile for Demographic Challenge
-    const [userRow] = await db
-      .select()
-      .from(users)
-      .where(eq(users.id, targetUserId))
-      .limit(1);
+    // 3. Resolve Target User & Profile
+    let targetUserId: number | null = null;
+    let userRow: any = null;
+    let profileRow: any = null;
 
-    const [profileRow] = await db
-      .select()
-      .from(profiles)
-      .where(eq(profiles.userId, targetUserId))
-      .limit(1);
+    if (normalizedPhoneKey.startsWith("VKC")) {
+      const profileRows = await db
+        .select()
+        .from(profiles)
+        .where(eq(profiles.digitalId, normalizedPhoneKey))
+        .limit(1);
 
+      if (profileRows.length > 0) {
+        targetUserId = profileRows[0].userId;
+        profileRow = profileRows[0];
+      }
+    } else {
+      const identityRows = await db
+        .select()
+        .from(identities)
+        .where(
+          and(
+            eq(identities.provider, "PHONE"),
+            eq(identities.identifier, normalizedPhoneKey)
+          )
+        )
+        .limit(1);
+
+      if (identityRows.length > 0) {
+        targetUserId = identityRows[0].userId;
+      }
+    }
+
+    if (targetUserId) {
+      const [uRow] = await db.select().from(users).where(eq(users.id, targetUserId)).limit(1);
+      userRow = uRow;
+      if (!profileRow) {
+        const [pRow] = await db.select().from(profiles).where(eq(profiles.userId, targetUserId)).limit(1);
+        profileRow = pRow;
+      }
+    }
+
+    const attemptsKey = `auth:reset_challenge:attempts:${normalizedPhoneKey}`;
+
+    // Anti-Enumeration & Constant-Time Timing Oracle Defense:
+    // If account does not exist or profile is missing, simulate verification failure identically
     if (!userRow || !profileRow) {
-      return Result.fail(new DynamicDomainError("USER_NOT_FOUND", "Member profile could not be located."));
+      // Dummy constant-time verification to equalize response timing
+      HashingService.verifyCredential("0000", "dummysalt12345678:dummyhash12345678");
+
+      const currentAttempts = ((await cacheProvider.get<number>(attemptsKey)) || 0) + 1;
+      await cacheProvider.set(attemptsKey, currentAttempts, ResetMpinChallengeUseCase.LOCKOUT_TTL_SECONDS);
+
+      if (currentAttempts >= ResetMpinChallengeUseCase.MAX_CHALLENGE_ATTEMPTS) {
+        await cacheProvider.set(lockoutKey, "LOCKED", ResetMpinChallengeUseCase.LOCKOUT_TTL_SECONDS);
+        return Result.fail(
+          new DynamicDomainError(
+            "TOO_MANY_ATTEMPTS",
+            "Demographic verification failed 3 times. Account locked for 15 minutes to protect identity."
+          )
+        );
+      }
+
+      const remaining = ResetMpinChallengeUseCase.MAX_CHALLENGE_ATTEMPTS - currentAttempts;
+      return Result.fail(
+        new DynamicDomainError(
+          "INVALID_DEMOGRAPHIC_CHALLENGE",
+          `Demographic details (Kula or District) do not match our records. ${remaining} attempt(s) remaining.`
+        )
+      );
     }
 
     // 4. Verify Demographic Challenge (Kula + District match)
@@ -126,8 +148,6 @@ export class ResetMpinChallengeUseCase {
     const providedKula = kula.trim().toLowerCase();
     const expectedDistrict = (profileRow.district || "").trim().toLowerCase();
     const providedDistrict = district.trim().toLowerCase();
-
-    const attemptsKey = `auth:reset_challenge:attempts:${normalizedPhoneKey}`;
 
     if (expectedKula !== providedKula || expectedDistrict !== providedDistrict) {
       const currentAttempts = ((await cacheProvider.get<number>(attemptsKey)) || 0) + 1;
@@ -176,7 +196,7 @@ export class ResetMpinChallengeUseCase {
       })
       .where(
         and(
-          eq(identities.userId, targetUserId),
+          eq(identities.userId, targetUserId!),
           eq(identities.provider, "PHONE")
         )
       );

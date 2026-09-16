@@ -10,6 +10,8 @@ export interface JWTPayload {
   email?: string;
   type?: string;
   jti?: string;
+  iat?: number;
+  exp?: number;
   [key: string]: any;
 }
 
