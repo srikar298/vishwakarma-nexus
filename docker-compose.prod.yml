@@ -3,6 +3,14 @@ services:
     image: postgres:16-alpine
     container_name: vkc-postgres-prod
     restart: always
+    command: >
+      postgres
+      -c shared_buffers=128MB
+      -c work_mem=8MB
+      -c maintenance_work_mem=64MB
+      -c effective_cache_size=256MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Database password is required}
@@ -16,12 +24,22 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   redis:
     image: redis:7-alpine
     container_name: vkc-redis-prod
     restart: always
-    command: ["redis-server", "--appendonly", "yes"]
+    command: [
+      "redis-server", 
+      "--appendonly", "yes",
+      "--maxmemory", "256mb",
+      "--maxmemory-policy", "volatile-lru"
+    ]
     volumes:
       - vkc_prod_redis_data:/data
     networks:
@@ -31,6 +49,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   backend:
     build:
@@ -38,6 +61,7 @@ services:
       dockerfile: apps/backend/Dockerfile
     container_name: vkc-backend-prod
     restart: always
+    stop_grace_period: 30s
     ports:
       - "${PORT:-3000}:3000"
     env_file:
@@ -49,6 +73,11 @@ services:
         condition: service_healthy
     networks:
       - vkc-internal-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
   vkc-internal-net:

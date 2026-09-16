@@ -187,6 +187,7 @@ export class MembersController {
       return this.handleError(reply, result.getError());
     }
 
+    reply.header("Cache-Control", "private, max-age=3600, stale-while-revalidate=86400");
     return reply.status(200).send({
       success: true,
       data: result.getValue(),
@@ -210,6 +211,7 @@ export class MembersController {
     const card = result.getValue();
     reply.header("Content-Type", "image/svg+xml; charset=utf-8");
     reply.header("Content-Disposition", `attachment; filename="${card.digitalId}.svg"`);
+    reply.header("Cache-Control", "private, max-age=86400");
     return reply.status(200).send(card.svg);
   }
 
@@ -224,6 +226,8 @@ export class MembersController {
       return this.handleError(reply, result.getError());
     }
 
+    // Edge CDN / Cloudflare and browser cacheable for 60-300 seconds
+    reply.header("Cache-Control", "public, max-age=60, s-maxage=300, stale-while-revalidate=600");
     return reply.status(200).send({
       success: true,
       data: result.getValue(),

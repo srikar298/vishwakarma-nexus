@@ -27,8 +27,12 @@ export const schema = {
   ...shared,
 };
 
-// Database connection
+// Database connection pool with production lifecycle management
 export const queryClient = postgres(config.db.url, {
+  max: config.app.isProduction ? 25 : 10,
+  idle_timeout: 20,
+  connect_timeout: 10,
+  max_lifetime: 60 * 30, // Recycle connections after 30 minutes to prevent socket leaks
   onnotice: () => {},
 });
 

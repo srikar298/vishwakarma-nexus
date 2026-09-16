@@ -42,6 +42,9 @@ export async function bootstrapApp() {
   const app = Fastify({
     logger: true,
     disableRequestLogging: true, // Using custom observability hooks
+    trustProxy: true, // Read real client IP from X-Forwarded-For behind Nginx/Cloudflare
+    keepAliveTimeout: 65000, // 65s prevents keep-alive race 502s from 60s upstream reverse proxy timeouts
+    connectionTimeout: 10000,
   }).withTypeProvider<ZodTypeProvider>();
 
   // 0. Register Health Diagnostics Indicators
@@ -67,7 +70,10 @@ export async function bootstrapApp() {
   });
 
   // 4. Security Foundations
-  await app.register(helmet, { global: true });
+  await app.register(helmet, { 
+    global: true,
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+  });
   await app.register(cors, {
     origin: config.app.allowedOrigins,
     credentials: true,

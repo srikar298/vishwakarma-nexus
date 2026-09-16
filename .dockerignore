@@ -1,0 +1,48 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build & Runtime
+dist
+dist-ssr
+build
+out
+coverage
+.cache
+.next
+.nx/cache
+.nx/workspace-data
+.vercel
+
+# Environment & Credentials
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+*.pem
+*.key
+*.cert
+*.crt
+credentials.json
+client_secret.json
+id_rsa
+id_rsa.pub
+
+# Git & Logs
+.git
+.gitignore
+*.log
+logs
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+CLAUDE.md
+GEMINI.md
+README.md
+docs
