@@ -58,7 +58,25 @@ export class DigitalIdCardService {
     const badgeLabel = isVerified ? "OFFICIAL MEMBER" : "PROVISIONAL COMMUNITY PASS";
     const badgeColor = isVerified ? "#10b981" : "#f59e0b"; // Green vs Amber/Gold
 
+function escapeXml(unsafe: string): string {
+  return (unsafe || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
     const constituencyDisplay = assemblyConstituency ? `AC: ${assemblyConstituency}` : `${district} Region`;
+
+    // Sanitize all user-controlled text fields to prevent SVG Stored XSS / XML Injection
+    const safeDigitalId = escapeXml(digitalId);
+    const safeFullName = escapeXml(fullName);
+    const safeKula = escapeXml(kula);
+    const safeTrade = escapeXml(trade);
+    const safeDistrict = escapeXml(district);
+    const safeState = escapeXml(state);
+    const safeConstituency = escapeXml(constituencyDisplay);
 
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 856 540" width="856" height="540" style="background:#090d16; border-radius:24px; font-family:'Segoe UI',Roboto,Helvetica,sans-serif; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,0.6);">
   <defs>
@@ -119,37 +137,37 @@ export class DigitalIdCardService {
   <!-- Member Primary Details (Left Column) -->
   <g transform="translate(48, 140)">
     <!-- Member Name -->
-    <text x="0" y="32" font-size="32" font-weight="800" fill="#ffffff" letter-spacing="0.5">${fullName}</text>
+    <text x="0" y="32" font-size="32" font-weight="800" fill="#ffffff" letter-spacing="0.5">${safeFullName}</text>
 
     <!-- Digital ID Badge -->
     <g transform="translate(0, 52)">
       <rect x="0" y="0" width="280" height="42" rx="8" fill="#1e293b" stroke="#d4af37" stroke-width="1.5"/>
-      <text x="16" y="27" font-size="18" font-family="'Courier New', monospace" font-weight="800" fill="#f3e5ab" letter-spacing="1">${digitalId}</text>
+      <text x="16" y="27" font-size="18" font-family="'Courier New', monospace" font-weight="800" fill="#f3e5ab" letter-spacing="1">${safeDigitalId}</text>
     </g>
 
     <!-- Community Details Grid -->
     <!-- Kula (Branch) -->
     <g transform="translate(0, 130)">
       <text x="0" y="0" font-size="12" font-weight="700" fill="#94a3b8" letter-spacing="1">KULA / SUB-CASTE</text>
-      <text x="0" y="24" font-size="18" font-weight="700" fill="#e2e8f0">${kula}</text>
+      <text x="0" y="24" font-size="18" font-weight="700" fill="#e2e8f0">${safeKula}</text>
     </g>
 
     <!-- Craft / Trade -->
     <g transform="translate(190, 130)">
       <text x="0" y="0" font-size="12" font-weight="700" fill="#94a3b8" letter-spacing="1">CRAFT / PROFESSION</text>
-      <text x="0" y="24" font-size="18" font-weight="700" fill="#e2e8f0">${trade}</text>
+      <text x="0" y="24" font-size="18" font-weight="700" fill="#e2e8f0">${safeTrade}</text>
     </g>
 
     <!-- District & State -->
     <g transform="translate(0, 195)">
       <text x="0" y="0" font-size="12" font-weight="700" fill="#94a3b8" letter-spacing="1">DISTRICT &amp; STATE</text>
-      <text x="0" y="24" font-size="16" font-weight="600" fill="#cbd5e1">${district}, ${state}</text>
+      <text x="0" y="24" font-size="16" font-weight="600" fill="#cbd5e1">${safeDistrict}, ${safeState}</text>
     </g>
 
     <!-- Constituency -->
     <g transform="translate(190, 195)">
       <text x="0" y="0" font-size="12" font-weight="700" fill="#94a3b8" letter-spacing="1">CONSTITUENCY</text>
-      <text x="0" y="24" font-size="16" font-weight="600" fill="#cbd5e1">${constituencyDisplay}</text>
+      <text x="0" y="24" font-size="16" font-weight="600" fill="#cbd5e1">${safeConstituency}</text>
     </g>
   </g>
 

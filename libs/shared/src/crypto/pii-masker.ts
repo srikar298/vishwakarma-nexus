@@ -23,6 +23,12 @@ export class PiiMasker {
     'accountnumber',
     'creditcard',
     'cvv',
+    'mpin',
+    'newmpin',
+    'oldmpin',
+    'otp',
+    'passcode',
+    'pin',
   ]);
 
   /**

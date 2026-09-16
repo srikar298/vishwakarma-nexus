@@ -5,7 +5,10 @@ import {
   updateLocationSchema,
   createAnnouncementSchema,
   BaseDomainError, 
-  logger 
+  logger,
+  requireRole,
+  UserRole,
+  SearchRateLimit,
 } from "@vishwakarma-k-c/shared";
 import { GetMemberProfileUseCase } from "./application/use-cases/get-member-profile.use-case";
 import { UpdateContactUseCase } from "./application/use-cases/update-contact.use-case";
@@ -61,7 +64,9 @@ export class MembersController {
 
     // --- PUBLIC QR VERIFICATION (SANITIZED PII) ---
 
-    fastify.get("/verify/:digitalId", this.publicVerifyDigitalId.bind(this));
+    fastify.get("/verify/:digitalId", {
+      config: { rateLimit: SearchRateLimit }
+    }, this.publicVerifyDigitalId.bind(this));
 
     // --- COMMUNITY ANNOUNCEMENTS ---
 
@@ -70,7 +75,7 @@ export class MembersController {
     }, this.getAnnouncements.bind(this));
 
     fastify.post("/admin/announcements", {
-      preHandler: [fastify.authenticate],
+      preHandler: [fastify.authenticate, requireRole(UserRole.ADMIN, UserRole.SUPER_ADMIN)],
     }, this.createAnnouncement.bind(this));
 
     // --- DIRECTORY & ADMIN ROSTER ---
@@ -80,27 +85,27 @@ export class MembersController {
     }, this.search.bind(this));
 
     fastify.get("/admin/registrations", {
-      preHandler: [fastify.authenticate],
+      preHandler: [fastify.authenticate, requireRole(UserRole.ADMIN, UserRole.SUPER_ADMIN)],
     }, this.getAdminRegistrations.bind(this));
 
     // --- CONFIDENTIAL VOTE BANK & ELECTORAL INTELLIGENCE ---
 
     fastify.get("/admin/vote-bank-analytics", {
-      preHandler: [fastify.authenticate],
+      preHandler: [fastify.authenticate, requireRole(UserRole.ADMIN, UserRole.SUPER_ADMIN)],
     }, this.getVoteBankAnalytics.bind(this));
 
     fastify.patch("/admin/:userPublicId/suspend", {
-      preHandler: [fastify.authenticate],
+      preHandler: [fastify.authenticate, requireRole(UserRole.ADMIN, UserRole.SUPER_ADMIN)],
     }, this.suspendMember.bind(this));
 
     // --- ON-GROUND COORDINATOR HELPDESK TOOLS ---
 
     fastify.patch("/:userPublicId/contact", {
-      preHandler: [fastify.authenticate],
+      preHandler: [fastify.authenticate, requireRole(UserRole.MODERATOR, UserRole.ADMIN, UserRole.SUPER_ADMIN)],
     }, this.coordinatorUpdateContact.bind(this));
 
     fastify.post("/:userPublicId/reset-mpin", {
-      preHandler: [fastify.authenticate],
+      preHandler: [fastify.authenticate, requireRole(UserRole.MODERATOR, UserRole.ADMIN, UserRole.SUPER_ADMIN)],
     }, this.coordinatorResetMpin.bind(this));
   }
 

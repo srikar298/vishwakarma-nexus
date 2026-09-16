@@ -6,6 +6,7 @@ import { eq, and } from 'drizzle-orm';
 import { 
   authenticate, 
   createPermissionGuard, 
+  requireRole,
   JWTPayload,
   PermissionChecker 
 } from '@vishwakarma-k-c/shared';
@@ -36,6 +37,7 @@ export default fp(async (fastify: FastifyInstance) => {
   // 3. Decorate the fastify instance
   fastify.decorate('authenticate', authenticate);
   fastify.decorate('authorize', authorize);
+  fastify.decorate('requireRole', requireRole);
 });
 
 // Type declaration for Fastify decorators
@@ -43,6 +45,7 @@ declare module 'fastify' {
   interface FastifyInstance {
     authenticate: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
     authorize: (slug: string) => (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
+    requireRole: (...allowedRoles: string[]) => (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
   }
   interface FastifyRequest {
     user?: JWTPayload;

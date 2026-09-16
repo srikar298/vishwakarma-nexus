@@ -86,6 +86,7 @@ export class AuthController {
     }, this.logout.bind(this));
 
     fastify.post("/mpin/change", {
+      config: { rateLimit: AuthRateLimit },
       preHandler: [fastify.authenticate]
     }, this.changeMpin.bind(this));
 

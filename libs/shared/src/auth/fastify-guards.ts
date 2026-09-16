@@ -63,3 +63,23 @@ export const createPermissionGuard = (checkPermission: PermissionChecker) => {
     };
   };
 };
+
+/**
+ * Fastify Hook Factory: Checks if the authenticated user has one of the allowed roles.
+ * High-performance O(1) in-memory check without database overhead.
+ */
+export const requireRole = (...allowedRoles: string[]) => {
+  return async (request: FastifyRequest, reply: FastifyReply) => {
+    const user = (request as any).user as JWTPayload;
+    if (!user) {
+      return reply.code(401).send({ error: 'Unauthorized', message: 'Authentication required' });
+    }
+
+    if (!allowedRoles.includes(user.role)) {
+      return reply.code(403).send({
+        error: 'Forbidden',
+        message: `Insufficient permissions. Requires one of: ${allowedRoles.join(', ')}`,
+      });
+    }
+  };
+};

@@ -43,6 +43,8 @@ export async function bootstrapApp() {
     logger: true,
     disableRequestLogging: true, // Using custom observability hooks
     trustProxy: true, // Read real client IP from X-Forwarded-For behind Nginx/Cloudflare
+    bodyLimit: 1048576, // 1MB payload limit prevents memory exhaustion DoS
+    maxParamLength: 100, // Limit route param length against buffer overflow/DoS
     keepAliveTimeout: 65000, // 65s prevents keep-alive race 502s from 60s upstream reverse proxy timeouts
     connectionTimeout: 10000,
   }).withTypeProvider<ZodTypeProvider>();
