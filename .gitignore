@@ -48,7 +48,6 @@ id_rsa.pub
 *.pub
 
 # Database
-libs/db/drizzle
 *.sqlite
 *.sqlite3
 *.db

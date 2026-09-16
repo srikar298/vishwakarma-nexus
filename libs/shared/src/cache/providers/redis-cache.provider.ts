@@ -37,7 +37,12 @@ export class RedisCacheProvider implements ICacheProvider, IAtomicProvider {
       const options: RedisOptions = {
         password: config.redis?.password,
         db: config.redis?.db,
-        retryStrategy: (times: number) => Math.min(times * 50, 2000),
+        retryStrategy: (times: number) => {
+          if (times > 5 && process.env.NODE_ENV !== 'production') {
+            return null; // Stop retrying in local dev/CLI if Redis is unreachable
+          }
+          return Math.min(times * 50, 2000);
+        },
         keepAlive: 10000,
       };
 

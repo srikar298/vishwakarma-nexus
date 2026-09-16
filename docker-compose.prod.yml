@@ -1,0 +1,61 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: vkc-postgres-prod
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Database password is required}
+      POSTGRES_DB: ${POSTGRES_DB:-vishwakarma_prod}
+    volumes:
+      - vkc_prod_db_data:/var/lib/postgresql/data
+    networks:
+      - vkc-internal-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: vkc-redis-prod
+    restart: always
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - vkc_prod_redis_data:/data
+    networks:
+      - vkc-internal-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: vkc-backend-prod
+    restart: always
+    ports:
+      - "${PORT:-3000}:3000"
+    env_file:
+      - .env.production
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - vkc-internal-net
+
+networks:
+  vkc-internal-net:
+    driver: bridge
+
+volumes:
+  vkc_prod_db_data:
+    driver: local
+  vkc_prod_redis_data:
+    driver: local

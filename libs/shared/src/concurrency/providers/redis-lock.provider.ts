@@ -43,10 +43,24 @@ export class RedisLockProvider implements IDistributedLockProvider {
       const options: RedisOptions = {
         password: config.redis?.password,
         db: config.redis?.db,
-        retryStrategy: (times) => Math.min(times * 50, 2000),
+        retryStrategy: (times) => {
+          if (times > 5 && process.env.NODE_ENV !== 'production') {
+            return null; // Stop retrying in local dev/CLI if Redis is unreachable
+          }
+          return Math.min(times * 50, 2000);
+        },
         keepAlive: 10000,
+        enableOfflineQueue: true,
       };
       this.redis = new Redis(config.redis?.url || 'redis://localhost:6379', options);
+
+      this.redis.on('error', (err) => {
+        logger.warn({ error: err.message }, '[RedisLockProvider] Redis Connection Warning');
+      });
+
+      this.redis.on('connect', () => {
+        logger.info('[RedisLockProvider] Connected to Redis');
+      });
     }
   }
 

@@ -69,18 +69,7 @@ const configSchema = rawSchema.transform((values) => ({
     db: values.REDIS_DB,
     prefix: values.REDIS_PREFIX,
   },
-})).refine(
-  (config) => {
-    if (config.app.isProduction) {
-      return !!config.auth.firebase.privateKey && !!config.auth.firebase.clientEmail;
-    }
-    return true;
-  },
-  {
-    message: "Firebase credentials are mandatory in production environment",
-    path: ["auth", "firebase"],
-  }
-);
+}));
 
 /**
  * Deep Freeze Utility

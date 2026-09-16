@@ -16,6 +16,7 @@ const EmpowermentPage = lazy(() => import('@/features/empowerment/pages/Empowerm
 const Admin = lazy(() => import('@/features/admin/components/Admin').then(m => ({ default: m.Admin })));
 const FounderPage = lazy(() => import('@/features/home/pages/FounderPage').then(m => ({ default: m.FounderPage })));
 const DonorsPage = lazy(() => import('@/features/community/pages/DonorsPage').then(m => ({ default: m.DonorsPage })));
+const VerifyIdPage = lazy(() => import('@/features/onboarding/pages/VerifyIdPage').then(m => ({ default: m.VerifyIdPage })));
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="events" element={<HomePage />} /> {/* Map to home sections for now */}
           <Route path="gallery" element={<HomePage />} />
         </Route>
+        <Route path="/verify/:digitalId" element={<VerifyIdPage />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </Suspense>
