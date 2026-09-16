@@ -11,6 +11,7 @@
     "db:generate": "nx run @vishwakarma-k-c/db:generate",
     "db:push": "nx run @vishwakarma-k-c/db:push",
     "db:studio": "nx run @vishwakarma-k-c/db:studio",
+    "start:prod": "pnpm db:push && pnpm exec tsx apps/backend/src/main.ts",
     "test": "dotenv -e .env -- vitest"
   },
   "devDependencies": {

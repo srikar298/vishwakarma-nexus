@@ -51,5 +51,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD curl -f http://localhost:3000/health || exit 1
 
-# Execute backend with tsx directly (handles monorepo ts paths natively)
-CMD ["pnpm", "exec", "tsx", "apps/backend/src/main.ts"]
+# Execute auto-migrations and launch Fastify server
+CMD ["pnpm", "run", "start:prod"]
