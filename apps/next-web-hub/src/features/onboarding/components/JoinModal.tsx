@@ -9,7 +9,6 @@ import {
   Briefcase, 
   MapPin, 
   ChevronRight, 
-  ChevronDown,
   ArrowLeft, 
   CheckCircle2, 
   Hammer, 
@@ -49,17 +48,21 @@ const STATES_AND_DISTRICTS = [
 
 const MODAL_TEXTS = {
   en: {
-    badge: '10-Second Express Registration',
+    badge: 'Express Registration',
     subtitle: 'Vishwakarma Ekta Maha Padayatra & VKC Network',
+    step1Title: 'Contact Info',
+    step2Title: 'Verification & Pass',
+    selectedCategory: 'Selected Category',
+    changeCategory: 'Change',
     stepIndicator: (current: number, total: number) => `Step ${current} of ${total}`,
-    purposeLabel: 'Select Registration Purpose / Category',
+    purposeLabel: 'Select Category',
     phoneLabel: 'Mobile Number (WhatsApp)',
     phonePlaceholder: '98765 43210',
-    phoneNote: 'Used for official updates, digital pass SMS, and coordination.',
+    phoneNote: 'Digital pass & updates will be sent via WhatsApp.',
     nameLabel: 'Full Name',
     namePlaceholder: 'e.g. Brahmasri Ramesh Chary',
-    nextBtn: 'Next: District & Category Details',
-    locationLabel: 'District / Parliamentary Constituency',
+    nextBtn: 'Continue to Details',
+    locationLabel: 'District / Region',
     locationPlaceholder: 'Select your District / Area',
     craftLabelArtisan: 'Traditional Craft Specialization',
     craftPlaceholderArtisan: 'Select your traditional craft',
@@ -76,11 +79,11 @@ const MODAL_TEXTS = {
     lookingForLabel: 'Looking For Alliance',
     lookingForGroom: 'Looking for Groom',
     lookingForBride: 'Looking for Bride',
-    pmSchemeTitle: 'PM Vishwakarma Scheme Assistance',
-    pmSchemeDesc: 'Assistance for free ₹15,000 modern toolkit e-voucher & low-interest credit.',
-    backBtn: 'Go back',
+    pmSchemeTitle: 'Free PM Vishwakarma Scheme Assistance',
+    pmSchemeDesc: 'Assistance for free ₹15,000 modern toolkit e-voucher & subsidized credit.',
+    backBtn: 'Back',
     submitBtn: 'Complete & Generate Digital Pass',
-    submitting: 'Registering...',
+    submitting: 'Generating Pass...',
     confirmedTitle: 'Registration Confirmed!',
     confirmedSub: 'Welcome to Vishwakarma Knowledge Centre & Community Network.',
     passTitle: 'VISHWAKARMA NEXUS',
@@ -101,20 +104,40 @@ const MODAL_TEXTS = {
       artisan: 'Master Artisan & Digital ID',
       yatra: 'Vishwakarma Ekta Maha Padayatra',
       patron: 'Community Member / Patron'
+    },
+    trackPills: {
+      yatra: 'Ekta Yatra',
+      matrimony: 'Matrimony',
+      artisan: 'Artisan ID',
+      professional: 'Professional',
+      mentor: 'Mentor',
+      patron: 'Patron'
+    },
+    trackSubtitles: {
+      yatra: 'Official Digital Yatri Pass & Coordination Registry',
+      matrimony: '100% Verified Community Matchmaking Registry',
+      artisan: 'Digital ID Card & Free PM Vishwakarma Scheme Assistance',
+      professional: 'Business Networking, Job Referrals & Directory',
+      mentor: 'Guide Vishwakarma Youth & Students',
+      patron: 'Community Development & Heritage Support'
     }
   },
   te: {
-    badge: '10-సెకన్ల ఎక్స్‌ప్రెస్ రిజిస్ట్రేషన్',
+    badge: 'ఎక్స్‌ప్రెస్ రిజిస్ట్రేషన్',
     subtitle: 'విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర & VKC నెట్‌వర్క్',
+    step1Title: 'మీ వివరాలు',
+    step2Title: 'ధృవీకరణ & పాస్',
+    selectedCategory: 'ఎంచుకున్న విభాగం',
+    changeCategory: 'మార్చండి',
     stepIndicator: (current: number, total: number) => `దశ ${current} / ${total}`,
-    purposeLabel: 'నమోదు విభాగం / ప్రయోజనం ఎంచుకోండి',
+    purposeLabel: 'నమోదు విభాగం ఎంచుకోండి',
     phoneLabel: 'మొబైల్ నంబర్ (వాట్సాప్)',
     phonePlaceholder: '98765 43210',
-    phoneNote: 'అధికారిక అప్‌డేట్స్, డిజిటల్ పాస్ మరియు సమన్వయం కోసం ఉపయోగించబడుతుంది.',
+    phoneNote: 'డిజిటల్ పాస్ మరియు సమాచారం వాట్సాప్ ద్వారా పంపబడుతుంది.',
     nameLabel: 'పూర్తి పేరు',
     namePlaceholder: 'ఉదా: బ్రహ్మశ్రీ రమేష్ చారి',
-    nextBtn: 'తరువాత: జిల్లా & వివరాలు',
-    locationLabel: 'జిల్లా / నియోజకవర్గం',
+    nextBtn: 'వివరాలకు కొనసాగండి',
+    locationLabel: 'జిల్లా / ప్రాంతం',
     locationPlaceholder: 'మీ జిల్లా లేదా ప్రాంతాన్ని ఎంచుకోండి',
     craftLabelArtisan: 'సాంప్రదాయ వృత్తి నైపుణ్యం',
     craftPlaceholderArtisan: 'మీ సాంప్రదాయ వృత్తిని ఎంచుకోండి',
@@ -131,11 +154,11 @@ const MODAL_TEXTS = {
     lookingForLabel: 'సంబంధం ఎవరి కోసం?',
     lookingForGroom: 'అబ్బాయి కావాలి (Groom)',
     lookingForBride: 'అమ్మాయి కావాలి (Bride)',
-    pmSchemeTitle: 'PM విశ్వకర్మ పథకం సహాయం',
+    pmSchemeTitle: 'PM విశ్వకర్మ పథకం ఉచిత సహాయం',
     pmSchemeDesc: 'ఉచిత ₹15,000 టూల్‌కిట్ ఈ-వోచర్ & తక్కువ వడ్డీ రుణం కొరకు దరఖాస్తు సహాయం.',
     backBtn: 'వెనుకకు',
     submitBtn: 'పూర్తి చేసి డిజిటల్ పాస్ పొందండి',
-    submitting: 'నమోదు అవుతోంది...',
+    submitting: 'పాస్ జారీ అవుతోంది...',
     confirmedTitle: 'నమోదు విజయవంతంగా పూర్తయింది!',
     confirmedSub: 'విశ్వకర్మ నాలెడ్జ్ సెంటర్ & సంఘ నెట్‌వర్క్‌కు స్వాగతం.',
     passTitle: 'విశ్వకర్మ నెక్సస్',
@@ -156,19 +179,39 @@ const MODAL_TEXTS = {
       artisan: 'కళాకారుల డిజిటల్ ఐడీ కార్డ్',
       yatra: 'విశ్వకర్మ ఏకతా మహా పాదయాత్ర',
       patron: 'సంఘ పోషకులు / సభ్యులు'
+    },
+    trackPills: {
+      yatra: 'ఏకతా యాత్ర',
+      matrimony: 'మ్యాట్రిమోనీ',
+      artisan: 'కళాకారుల ID',
+      professional: 'వృత్తి నిపుణులు',
+      mentor: 'మెంటార్',
+      patron: 'పోషకులు'
+    },
+    trackSubtitles: {
+      yatra: 'అధికారిక డిజిటల్ యాత్రి పాస్ మరియు రిజిస్ట్రీ',
+      matrimony: '100% ధృవీకరించబడిన విశ్వకర్మ మ్యాట్రిమోనీ',
+      artisan: 'కళాకారుల డిజిటల్ ID & PM విశ్వకర్మ ఉచిత సహాయం',
+      professional: 'వ్యాపార, ఉద్యోగ నెట్‌వర్కింగ్ మరియు డైరెక్టరీ',
+      mentor: 'యువతకు మరియు విద్యార్థులకు మార్గదర్శకత్వం',
+      patron: 'సంఘాభివృద్ధి మరియు సాంస్కృతిక సహకారం'
     }
   },
   hi: {
-    badge: '10-सेकंड त्वरित पंजीकरण',
+    badge: 'त्वरित एक्सप्रेस पंजीकरण',
     subtitle: 'विश्वकर्मा एकता महा पदयात्रा एवं VKC नेटवर्क',
+    step1Title: 'आपका विवरण',
+    step2Title: 'सत्यापन एवं पास',
+    selectedCategory: 'चयनित श्रेणी',
+    changeCategory: 'बदलें',
     stepIndicator: (current: number, total: number) => `चरण ${current} / ${total}`,
-    purposeLabel: 'पंजीकरण का उद्देश्य / श्रेणी चुनें',
+    purposeLabel: 'पंजीकरण श्रेणी चुनें',
     phoneLabel: 'मोबाइल नंबर (व्हाट्सएप)',
     phonePlaceholder: '98765 43210',
-    phoneNote: 'आधिकारिक अपडेट, डिजिटल पास और समन्वय के लिए उपयोग किया जाएगा।',
+    phoneNote: 'डिजिटल पास और अपडेट व्हाट्सएप द्वारा भेजे जाएंगे।',
     nameLabel: 'पूरा नाम',
     namePlaceholder: 'उदा. ब्रह्मश्री रमेश चारी',
-    nextBtn: 'अगला: जिला एवं विवरण',
+    nextBtn: 'विवरण पर आगे बढ़ें',
     locationLabel: 'जिला / क्षेत्र',
     locationPlaceholder: 'अपना जिला या क्षेत्र चुनें',
     craftLabelArtisan: 'पारंपरिक शिल्प विशेषता',
@@ -186,11 +229,11 @@ const MODAL_TEXTS = {
     lookingForLabel: 'रिश्ता किसके लिए है?',
     lookingForGroom: 'वर चाहिए (Groom)',
     lookingForBride: 'वधू चाहिए (Bride)',
-    pmSchemeTitle: 'PM विश्वकर्मा योजना सहायता',
+    pmSchemeTitle: 'PM विश्वकर्मा योजना मुफ्त सहायता',
     pmSchemeDesc: 'मुफ्त ₹15,000 टूलकिट ई-वाउचर और कम ब्याज पर ऋण के लिए मार्गदर्शन।',
     backBtn: 'वापस जाएं',
     submitBtn: 'पंजीकरण पूर्ण करें और डिजिटल पास प्राप्त करें',
-    submitting: 'पंजीकरण हो रहा है...',
+    submitting: 'पास जारी हो रहा है...',
     confirmedTitle: 'पंजीकरण सफलतापूर्वक पूर्ण हुआ!',
     confirmedSub: 'विश्वकर्मा नॉलेज सेंटर नेटवर्क में आपका स्वागत है।',
     passTitle: 'विश्वकर्मा नेक्सस',
@@ -211,6 +254,22 @@ const MODAL_TEXTS = {
       artisan: 'शिल्पकार डिजिटल आईडी कार्ड',
       yatra: 'विश्वकर्मा एकता महा पदयात्रा',
       patron: 'समुदाय संरक्षक / सदस्य'
+    },
+    trackPills: {
+      yatra: 'एकता पदयात्रा',
+      matrimony: 'मैट्रिमोनी',
+      artisan: 'शिल्पकार ID',
+      professional: 'व्यावसायिक',
+      mentor: 'मेंटर',
+      patron: 'संरक्षक'
+    },
+    trackSubtitles: {
+      yatra: 'आधिकारिक डिजिटल यात्री पास एवं समन्वय रजिस्ट्री',
+      matrimony: '100% सत्यापित विश्वकर्मा मैट्रिमोनी नेटवर्क',
+      artisan: 'डिजिटल आईडी कार्ड एवं PM विश्वकर्मा योजना सहायता',
+      professional: 'व्यवसाय, रोजगार नेटवर्किंग एवं डायरेक्टरी',
+      mentor: 'विश्वकर्मा युवाओं एवं छात्रों का मार्गदर्शन',
+      patron: 'सामुदायिक विकास एवं सांस्कृतिक सहयोग'
     }
   }
 };
@@ -219,15 +278,14 @@ const TRACK_CONFIGS: Array<{
   id: TrackType;
   icon: typeof Briefcase;
   color: string;
-  bg: string;
   badge: string;
 }> = [
-  { id: 'professional', icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-100/70', badge: '💼 B2B & Jobs' },
-  { id: 'mentor', icon: Award, color: 'text-purple-600', bg: 'bg-purple-100/70', badge: '🎓 Mentor' },
-  { id: 'matrimony', icon: Heart, color: 'text-rose-600', bg: 'bg-rose-100/70', badge: '💍 100% Verified' },
-  { id: 'artisan', icon: Hammer, color: 'text-vermilion', bg: 'bg-vermilion/10', badge: '🛠️ Economic ID' },
-  { id: 'yatra', icon: Flag, color: 'text-amber-600', bg: 'bg-amber-100/70', badge: '🚩 Ekta Yatra' },
-  { id: 'patron', icon: Sparkles, color: 'text-emerald-600', bg: 'bg-emerald-100/70', badge: '🌟 Community' },
+  { id: 'yatra', icon: Flag, color: 'text-amber-600', badge: '🚩 Ekta Yatra' },
+  { id: 'matrimony', icon: Heart, color: 'text-rose-600', badge: '💍 Matrimony' },
+  { id: 'artisan', icon: Hammer, color: 'text-vermilion', badge: '🛠️ Artisan ID' },
+  { id: 'professional', icon: Briefcase, color: 'text-blue-600', badge: '💼 Professional' },
+  { id: 'mentor', icon: Award, color: 'text-purple-600', badge: '🎓 Mentor' },
+  { id: 'patron', icon: Sparkles, color: 'text-emerald-600', badge: '🌟 Patron' },
 ];
 
 interface JoinModalProps {
@@ -446,31 +504,66 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
           </button>
         </div>
       ) : (
-        <div className="p-5 md:p-7">
-          {/* Header Banner with Language Switcher */}
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-stone-100 pr-12">
-            <div className="flex items-center gap-2">
-              <div className="bg-gradient-to-r from-vermilion to-amber-500 p-1.5 rounded-lg text-white">
-                <Flag className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="font-black text-stone-900 uppercase tracking-tight text-xs block">
+        <div className="p-5 md:p-6">
+          {/* Header Bar with Language Switcher */}
+          <div className="flex items-center justify-between mb-3.5 pb-2.5 border-b border-stone-100 pr-12">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="bg-gradient-to-r from-vermilion to-amber-500 p-1.5 rounded-lg text-white shrink-0">
+                <Flag className="w-3.5 h-3.5" />
+              </span>
+              <div className="min-w-0">
+                <span className="font-black text-stone-900 uppercase tracking-tight text-xs block truncate">
                   {tModal.badge}
                 </span>
-                <span className="text-[10px] text-amber-700 font-bold block">
+                <span className="text-[10px] text-amber-700 font-semibold block truncate">
                   {tModal.subtitle}
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="shrink-0">
               <LanguageSwitcher />
             </div>
           </div>
 
-          <div className="flex items-center justify-between mb-3 px-1">
-            <span className="text-[10px] font-black uppercase tracking-widest text-stone-400 bg-stone-100 px-2 py-1 rounded-lg">
-              {tModal.stepIndicator(step, 2)}
-            </span>
+          {/* Progressive 2-Step Stepper */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-wider mb-2">
+              <button
+                type="button"
+                onClick={() => step === 2 && setStep(1)}
+                className={`flex items-center gap-1.5 transition-colors ${
+                  step === 1 ? 'text-vermilion font-black' : 'text-stone-600 hover:text-stone-900 cursor-pointer'
+                }`}
+              >
+                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
+                  step === 1 ? 'bg-vermilion text-white shadow-sm' : 'bg-emerald-600 text-white'
+                }`}>
+                  {step === 2 ? '✓' : '1'}
+                </span>
+                <span>{tModal.step1Title}</span>
+              </button>
+
+              <div className="flex items-center gap-1.5 text-stone-400">
+                <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
+                  step === 2 ? 'bg-vermilion text-white shadow-sm' : 'bg-stone-200 text-stone-600'
+                }`}>
+                  2
+                </span>
+                <span className={step === 2 ? 'text-vermilion font-black' : 'text-stone-400 font-bold'}>
+                  {tModal.step2Title}
+                </span>
+              </div>
+            </div>
+
+            {/* Stepper Progress Bar */}
+            <div className="w-full bg-stone-100 h-1.5 rounded-full overflow-hidden">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-vermilion to-amber-500 rounded-full"
+                initial={false}
+                animate={{ width: step === 1 ? '50%' : '100%' }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+              />
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -481,67 +574,74 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  className="space-y-4"
+                  transition={{ duration: 0.2 }}
+                  className="space-y-3.5"
                 >
-                  {/* Category Dropdown (Automated selection & user switchable) */}
+                  {/* Category Pill Selector (Horizontal Scrollable Chips) */}
                   <div className="space-y-1.5">
-                    <label htmlFor="reg-purpose-select" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center justify-between">
+                    <label className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center justify-between">
                       <span>{tModal.purposeLabel}</span>
+                      <span className="text-[10px] text-amber-700 font-bold hidden sm:inline truncate max-w-[200px]">
+                        {tModal.tracks[formData.track]}
+                      </span>
                     </label>
-                    <div className="relative">
-                      <select
-                        id="reg-purpose-select"
-                        value={formData.track}
-                        onChange={(e) => setFormData({ ...formData, track: e.target.value as TrackType })}
-                        className="w-full h-11 pl-4 pr-10 rounded-xl border-2 border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/20 outline-none transition-all text-xs font-bold bg-white cursor-pointer appearance-none text-stone-800"
-                      >
-                        <option value="professional">{tModal.tracks.professional}</option>
-                        <option value="mentor">{tModal.tracks.mentor}</option>
-                        <option value="matrimony">{tModal.tracks.matrimony}</option>
-                        <option value="artisan">{tModal.tracks.artisan}</option>
-                        <option value="yatra">{tModal.tracks.yatra}</option>
-                        <option value="patron">{tModal.tracks.patron}</option>
-                      </select>
-                      <ChevronDown size={16} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" />
+
+                    <div className="flex items-center gap-1.5 overflow-x-auto pb-1 pt-0.5 no-scrollbar -mx-1 px-1 touch-pan-x">
+                      {TRACK_CONFIGS.map((t) => {
+                        const Icon = t.icon;
+                        const isSelected = formData.track === t.id;
+                        return (
+                          <button
+                            type="button"
+                            key={t.id}
+                            onClick={() => setFormData(prev => ({ ...prev, track: t.id }))}
+                            className={`shrink-0 h-9 px-3 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                              isSelected
+                                ? 'bg-gradient-to-r from-vermilion to-amber-600 text-white shadow-md shadow-vermilion/25 ring-2 ring-vermilion/20 scale-[1.02]'
+                                : 'bg-stone-100 hover:bg-stone-200/80 text-stone-700 border border-stone-200/70'
+                            }`}
+                          >
+                            <Icon size={14} className={isSelected ? 'text-white' : t.color} />
+                            <span>{tModal.trackPills[t.id] || tModal.tracks[t.id]}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {/* Active Track Subtitle Hint */}
+                    <div className="bg-amber-50/70 border border-amber-200/60 rounded-lg px-2.5 py-1.5 flex items-center justify-between text-[11px] text-amber-950 font-medium">
+                      <span className="truncate">{tModal.trackSubtitles[formData.track]}</span>
+                      <span className="shrink-0 text-[9px] uppercase font-black tracking-wider text-amber-800 bg-amber-200/60 px-1.5 py-0.5 rounded ml-2">
+                        Active
+                      </span>
                     </div>
                   </div>
 
-                  {/* Quick Category Selector Grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 pt-0.5">
-                    {TRACK_CONFIGS.map((t) => {
-                      const Icon = t.icon;
-                      const isSelected = formData.track === t.id;
-                      return (
-                        <button
-                          type="button"
-                          key={t.id}
-                          onClick={() => setFormData({ ...formData, track: t.id })}
-                          className={`p-2 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
-                            isSelected 
-                              ? 'border-vermilion bg-vermilion/5 ring-2 ring-vermilion/20 shadow-sm' 
-                              : 'border-stone-200 hover:border-stone-300 bg-stone-50/50'
-                          }`}
-                        >
-                          <div className="flex items-center justify-between mb-1">
-                            <div className={`p-1 rounded-md ${t.bg} ${t.color}`}>
-                              <Icon size={12} />
-                            </div>
-                            <span className={`text-[8px] font-black uppercase px-1 py-0.5 rounded ${
-                              isSelected ? 'bg-vermilion text-white' : 'bg-stone-200 text-stone-600'
-                            }`}>
-                              {t.badge}
-                            </span>
-                          </div>
-                          <span className="text-[10px] font-black text-stone-900 block leading-tight truncate">
-                            {tModal.tracks[t.id]}
-                          </span>
-                        </button>
-                      );
-                    })}
+                  {/* Full Name */}
+                  <div className="space-y-1">
+                    <label htmlFor="full-name" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
+                      <User size={12} className="text-vermilion" /> 
+                      {tModal.nameLabel}
+                    </label>
+                    <input 
+                      id="full-name"
+                      type="text" 
+                      required
+                      autoComplete="name"
+                      autoCapitalize="words"
+                      enterKeyHint="next"
+                      placeholder={tModal.namePlaceholder}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-sm font-semibold"
+                      value={formData.name}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setFormData(prev => ({ ...prev, name: val }));
+                      }}
+                    />
                   </div>
 
-                  {/* Mobile Number - Stable input without autoFocus */}
-                  <div className="space-y-1.5">
+                  {/* WhatsApp Mobile Number */}
+                  <div className="space-y-1">
                     <label htmlFor="mobile-phone" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                       <Phone size={12} className="text-vermilion" /> 
                       {tModal.phoneLabel}
@@ -555,11 +655,11 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                         type="tel" 
                         inputMode="numeric"
                         autoComplete="tel"
-                        enterKeyHint="next"
+                        enterKeyHint="done"
                         pattern="[0-9]{10}"
                         required
                         placeholder={tModal.phonePlaceholder}
-                        className="w-full pl-16 pr-4 py-3 rounded-xl border-2 border-stone-200 focus:border-vermilion focus:ring-4 focus:ring-vermilion/10 outline-none transition-all text-base md:text-sm font-bold tracking-wider"
+                        className="w-full pl-16 pr-4 py-2.5 rounded-xl border-2 border-stone-200 focus:border-vermilion focus:ring-4 focus:ring-vermilion/10 outline-none transition-all text-sm font-bold tracking-wider"
                         value={formData.phone}
                         onChange={(e) => {
                           const val = e.target.value.replace(/\D/g, '').slice(0, 10);
@@ -570,36 +670,15 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                     <p className="text-[10px] text-stone-400">{tModal.phoneNote}</p>
                   </div>
 
-                  {/* Full Name */}
-                  <div className="space-y-1.5">
-                    <label htmlFor="full-name" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
-                      <User size={12} className="text-vermilion" /> 
-                      {tModal.nameLabel}
-                    </label>
-                    <input 
-                      id="full-name"
-                      type="text" 
-                      required
-                      autoComplete="name"
-                      autoCapitalize="words"
-                      enterKeyHint="next"
-                      placeholder={tModal.namePlaceholder}
-                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-base md:text-sm font-semibold"
-                      value={formData.name}
-                      onChange={(e) => {
-                        const val = e.target.value;
-                        setFormData(prev => ({ ...prev, name: val }));
-                      }}
-                    />
-                  </div>
-
+                  {/* Continue CTA */}
                   <button 
                     type="button"
                     disabled={!formData.name.trim() || formData.phone.length < 10}
                     onClick={() => setStep(2)}
-                    className="w-full bg-gradient-to-r from-[#E34234] via-[#D33326] to-[#C92A1C] hover:from-[#C92A1C] hover:to-[#A51D10] text-white py-3.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 hover:opacity-95 disabled:opacity-50 transition-all active:scale-[0.98] shadow-lg shadow-red-500/25 touch-manipulation cursor-pointer"
+                    className="w-full bg-gradient-to-r from-[#E34234] via-[#D33326] to-[#C92A1C] hover:from-[#C92A1C] hover:to-[#A51D10] text-white py-3 rounded-xl font-black text-xs flex items-center justify-center gap-2 hover:opacity-95 disabled:opacity-50 transition-all active:scale-[0.98] shadow-lg shadow-red-500/25 touch-manipulation cursor-pointer mt-1"
                   >
-                    {tModal.nextBtn} <ChevronRight size={14} />
+                    <span>{tModal.nextBtn}</span>
+                    <ChevronRight size={14} />
                   </button>
                 </motion.div>
               ) : (
@@ -608,10 +687,30 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
-                  className="space-y-4"
+                  transition={{ duration: 0.2 }}
+                  className="space-y-3.5"
                 >
+                  {/* Selected Track Pill with Change Option */}
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-stone-50 border border-stone-200/80">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="text-[10px] uppercase font-black text-stone-400 tracking-wider shrink-0">
+                        {tModal.selectedCategory}:
+                      </span>
+                      <span className="text-xs font-black text-stone-800 truncate">
+                        {tModal.tracks[formData.track]}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setStep(1)}
+                      className="text-xs font-bold text-vermilion hover:underline ml-2 shrink-0 cursor-pointer"
+                    >
+                      {tModal.changeCategory}
+                    </button>
+                  </div>
+
                   {/* District / Location */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <label htmlFor="location-select" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                       <MapPin size={12} className="text-vermilion" /> 
                       {tModal.locationLabel}
@@ -619,7 +718,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                     <select 
                       id="location-select"
                       required
-                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-base md:text-xs font-bold appearance-none bg-white cursor-pointer"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-bold appearance-none bg-white cursor-pointer"
                       value={formData.location}
                       onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
                     >
@@ -630,7 +729,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
 
                   {/* Matrimony Looking For Alliance Selector */}
                   {formData.track === 'matrimony' && (
-                    <div className="space-y-1.5">
+                    <div className="space-y-1">
                       <label className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                         <Heart size={12} className="text-rose-500" />
                         {tModal.lookingForLabel}
@@ -639,7 +738,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                         <button
                           type="button"
                           onClick={() => setFormData(prev => ({ ...prev, matrimonyLookingFor: 'groom' }))}
-                          className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                          className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                             formData.matrimonyLookingFor === 'groom'
                               ? 'border-rose-500 bg-rose-50 text-rose-700 ring-2 ring-rose-500/20 shadow-sm'
                               : 'border-stone-200 text-stone-600 bg-white hover:bg-stone-50'
@@ -650,7 +749,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                         <button
                           type="button"
                           onClick={() => setFormData(prev => ({ ...prev, matrimonyLookingFor: 'bride' }))}
-                          className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                          className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                             formData.matrimonyLookingFor === 'bride'
                               ? 'border-rose-500 bg-rose-50 text-rose-700 ring-2 ring-rose-500/20 shadow-sm'
                               : 'border-stone-200 text-stone-600 bg-white hover:bg-stone-50'
@@ -663,7 +762,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                   )}
 
                   {/* Dynamic detail input based on track */}
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     <label htmlFor="detail-input" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                       <Briefcase size={12} className="text-vermilion" /> 
                       {formData.track === 'artisan'
@@ -683,7 +782,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                       <select 
                         id="detail-input"
                         required
-                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-base md:text-xs font-bold appearance-none bg-white cursor-pointer"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-bold appearance-none bg-white cursor-pointer"
                         value={formData.tradeOrDetail}
                         onChange={(e) => setFormData(prev => ({ ...prev, tradeOrDetail: e.target.value }))}
                       >
@@ -708,7 +807,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                                   ? tModal.craftPlaceholderYatra
                                   : tModal.craftLabelPatron
                         }
-                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-base md:text-xs font-semibold"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-sm font-medium"
                         value={formData.tradeOrDetail}
                         onChange={(e) => setFormData(prev => ({ ...prev, tradeOrDetail: e.target.value }))}
                       />
@@ -717,7 +816,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
 
                   {/* PM Vishwakarma Scheme Assistance for Artisans */}
                   {formData.track === 'artisan' && (
-                    <label className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50/80 border border-amber-200/80 cursor-pointer hover:bg-amber-100/60 transition-colors">
+                    <label className="flex items-start gap-2.5 p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/80 cursor-pointer hover:bg-amber-100/60 transition-colors">
                       <input
                         type="checkbox"
                         checked={formData.pmVishwakarmaInterest}
@@ -735,19 +834,21 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                     </label>
                   )}
 
-                  <div className="flex gap-3 pt-2">
+                  {/* Action Buttons */}
+                  <div className="flex gap-2.5 pt-1">
                     <button 
                       type="button"
                       onClick={() => setStep(1)}
-                      className="bg-stone-100 text-stone-600 p-3.5 rounded-xl font-black hover:bg-stone-200 transition-all active:scale-90 touch-manipulation cursor-pointer"
+                      className="bg-stone-100 hover:bg-stone-200 text-stone-700 px-3.5 py-3 rounded-xl font-bold text-xs transition-all active:scale-95 touch-manipulation cursor-pointer flex items-center gap-1"
                       aria-label={tModal.backBtn}
                     >
-                      <ArrowLeft size={18} />
+                      <ArrowLeft size={16} />
+                      <span>{tModal.backBtn}</span>
                     </button>
                     <button 
                       type="submit"
                       disabled={loading || !formData.location || !formData.tradeOrDetail.trim()}
-                      className="flex-1 bg-gradient-to-r from-vermilion to-amber-600 text-white py-3.5 rounded-xl font-black text-xs hover:opacity-95 transition-all shadow-lg shadow-vermilion/20 active:scale-[0.98] touch-manipulation disabled:opacity-50 cursor-pointer"
+                      className="flex-1 bg-gradient-to-r from-vermilion via-amber-600 to-amber-700 text-white py-3 rounded-xl font-black text-xs hover:opacity-95 transition-all shadow-lg shadow-vermilion/20 active:scale-[0.98] touch-manipulation disabled:opacity-50 cursor-pointer"
                     >
                       {loading ? tModal.submitting : tModal.submitBtn}
                     </button>
