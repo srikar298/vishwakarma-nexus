@@ -2,7 +2,7 @@
 
 import { useTranslation } from 'react-i18next';
 
-type Language = 'en' | 'hi' | 'te';
+type Language = 'en' | 'te' | 'hi';
 
 export const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
@@ -18,7 +18,7 @@ export const LanguageSwitcher = () => {
       role="group"
       aria-label="Language Selector"
     >
-      {(['en', 'hi', 'te'] as Language[]).map((l) => (
+      {(['en', 'te', 'hi'] as Language[]).map((l) => (
         <button
           key={l}
           onClick={() => setLang(l)}

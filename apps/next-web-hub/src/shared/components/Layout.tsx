@@ -89,10 +89,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     };
   }, [isMenuOpen]);
 
-  const changeLanguage = (newLang: string) => {
-    i18n.changeLanguage(newLang);
-  };
-
   return (
     <div className="min-h-screen font-sans selection:bg-saffron-200 bg-white flex flex-col">
       {/* Search Param Listener wrapped in Suspense to prevent SSG deopt */}
@@ -346,27 +342,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               exit={{ opacity: 0, height: 0 }}
               className="lg:hidden bg-white/98 backdrop-blur-2xl border-t border-stone-100 p-4 sm:p-6 flex flex-col max-h-[calc(100vh-80px)] shadow-2xl rounded-b-[2rem]"
             >
-              {/* 1-Tap Language Quick Switcher */}
-              <div className="flex items-center justify-between bg-stone-100/80 p-1.5 rounded-2xl mb-4">
-                {[
-                  { code: 'en', label: 'English' },
-                  { code: 'te', label: 'తెలుగు' },
-                  { code: 'hi', label: 'हिंदी' }
-                ].map((item) => (
-                  <button
-                    key={item.code}
-                    onClick={() => changeLanguage(item.code)}
-                    className={`flex-1 py-2 text-xs font-black rounded-xl transition-all ${
-                      i18n.language === item.code 
-                        ? 'bg-white text-stone-900 shadow-sm' 
-                        : 'text-stone-500 hover:text-stone-900'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-
               {/* Primary Mobile CTA at top */}
               <div className="pb-3 mb-4 border-b border-stone-100">
                 <button 
