@@ -71,6 +71,11 @@ const MODAL_TEXTS = {
     craftPlaceholderYatra: 'e.g. Yatri / District Coordinator / Youth Leader',
     craftLabelPatron: 'Community Contribution / Support Interest',
     craftPlaceholderPatron: 'e.g. Cultural Patron, Philanthropy, Education Sponsor',
+    lookingForLabel: 'Looking For Alliance',
+    lookingForGroom: 'Looking for Groom',
+    lookingForBride: 'Looking for Bride',
+    pmSchemeTitle: 'PM Vishwakarma Scheme Assistance',
+    pmSchemeDesc: 'Assistance for free ₹15,000 modern toolkit e-voucher & low-interest credit.',
     backBtn: 'Go back',
     submitBtn: 'Complete & Generate Digital Pass',
     submitting: 'Registering...',
@@ -121,6 +126,11 @@ const MODAL_TEXTS = {
     craftPlaceholderYatra: 'ఉదా: యాత్రికుడు / జిల్లా సమన్వయకర్త / యువజన నాయకుడు',
     craftLabelPatron: 'సంఘ సహకారం / పోషక రంగం',
     craftPlaceholderPatron: 'ఉదా: సాంస్కృతిక పోషకులు, విద్యా ప్రోత్సాహకం',
+    lookingForLabel: 'సంబంధం ఎవరి కోసం?',
+    lookingForGroom: 'అబ్బాయి కావాలి (Groom)',
+    lookingForBride: 'అమ్మాయి కావాలి (Bride)',
+    pmSchemeTitle: 'PM విశ్వకర్మ పథకం సహాయం',
+    pmSchemeDesc: 'ఉచిత ₹15,000 టూల్‌కిట్ ఈ-వోచర్ & తక్కువ వడ్డీ రుణం కొరకు దరఖాస్తు సహాయం.',
     backBtn: 'వెనుకకు',
     submitBtn: 'పూర్తి చేసి డిజిటల్ పాస్ పొందండి',
     submitting: 'నమోదు అవుతోంది...',
@@ -171,6 +181,11 @@ const MODAL_TEXTS = {
     craftPlaceholderYatra: 'उदा. यात्री / जिला समन्वयक / युवा नेता',
     craftLabelPatron: 'सामुदायिक सहयोग / संरक्षक क्षेत्र',
     craftPlaceholderPatron: 'उदा. सांस्कृतिक संरक्षक, शिक्षा सहयोग',
+    lookingForLabel: 'रिश्ता किसके लिए है?',
+    lookingForGroom: 'वर चाहिए (Groom)',
+    lookingForBride: 'वधू चाहिए (Bride)',
+    pmSchemeTitle: 'PM विश्वकर्मा योजना सहायता',
+    pmSchemeDesc: 'मुफ्त ₹15,000 टूलकिट ई-वाउचर और कम ब्याज पर ऋण के लिए मार्गदर्शन।',
     backBtn: 'वापस जाएं',
     submitBtn: 'पंजीकरण पूर्ण करें और डिजिटल पास प्राप्त करें',
     submitting: 'पंजीकरण हो रहा है...',
@@ -236,6 +251,8 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
     phone: '',
     location: '',
     tradeOrDetail: '',
+    matrimonyLookingFor: 'groom' as 'groom' | 'bride',
+    pmVishwakarmaInterest: true,
   });
 
   useEffect(() => {
@@ -248,7 +265,15 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
     setStep(1);
     setSuccess(false);
     setCopied(false);
-    setFormData({ track: defaultTrack, name: '', phone: '', location: '', tradeOrDetail: '' });
+    setFormData({
+      track: defaultTrack,
+      name: '',
+      phone: '',
+      location: '',
+      tradeOrDetail: '',
+      matrimonyLookingFor: 'groom',
+      pmVishwakarmaInterest: true,
+    });
     onClose();
   }, [defaultTrack, onClose]);
 
@@ -269,7 +294,13 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
       trade: formData.track === 'yatra' ? `Ekta Padayatra - ${formData.tradeOrDetail || 'Yatri'}` : (formData.tradeOrDetail || 'Member'),
       location: formData.location || 'India',
       state: formData.location || 'India',
-      notes: `Track: ${formData.track} | Ref: Direct-Registration | GeneratedID: ${generatedId}`
+      matrimonyLookingFor: formData.track === 'matrimony' ? formData.matrimonyLookingFor : undefined,
+      pmVishwakarmaInterest: formData.track === 'artisan' ? (formData.pmVishwakarmaInterest ? 'Yes' : 'No') : undefined,
+      notes: `Track: ${formData.track} | Ref: Direct-Registration | GeneratedID: ${generatedId}${
+        formData.track === 'matrimony' ? ` | LookingFor: ${formData.matrimonyLookingFor}` : ''
+      }${
+        formData.track === 'artisan' ? ` | PMVishwakarma: ${formData.pmVishwakarmaInterest ? 'Interested' : 'No'}` : ''
+      }`
     };
 
     await submitToGoogleSheets(payload);
@@ -366,6 +397,24 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                 <p className="font-bold text-emerald-400 uppercase text-[10px] truncate">{getCategoryBadgeLabel()}</p>
               </div>
             </div>
+
+            {formData.track === 'matrimony' && (
+              <div className="mt-3 pt-2.5 border-t border-stone-800/80 flex items-center justify-between">
+                <span className="text-[9px] font-black uppercase text-stone-400 tracking-wider">Alliance Preference</span>
+                <span className="text-[10px] font-bold text-rose-300 bg-rose-500/10 px-2 py-0.5 rounded border border-rose-500/20">
+                  {formData.matrimonyLookingFor === 'groom' ? `🤵 ${tModal.lookingForGroom}` : `👰 ${tModal.lookingForBride}`}
+                </span>
+              </div>
+            )}
+
+            {formData.track === 'artisan' && formData.pmVishwakarmaInterest && (
+              <div className="mt-3 pt-2.5 border-t border-stone-800/80 flex items-center justify-between">
+                <span className="text-[9px] font-black uppercase text-stone-400 tracking-wider">Govt Scheme Assistance</span>
+                <span className="text-[10px] font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+                  🏛️ PM Vishwakarma Enrolled
+                </span>
+              </div>
+            )}
           </div>
 
           {/* WhatsApp Share Action */}
@@ -577,6 +626,40 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                     </select>
                   </div>
 
+                  {/* Matrimony Looking For Alliance Selector */}
+                  {formData.track === 'matrimony' && (
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
+                        <Heart size={12} className="text-rose-500" />
+                        {tModal.lookingForLabel}
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setFormData(prev => ({ ...prev, matrimonyLookingFor: 'groom' }))}
+                          className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                            formData.matrimonyLookingFor === 'groom'
+                              ? 'border-rose-500 bg-rose-50 text-rose-700 ring-2 ring-rose-500/20 shadow-sm'
+                              : 'border-stone-200 text-stone-600 bg-white hover:bg-stone-50'
+                          }`}
+                        >
+                          🤵 {tModal.lookingForGroom}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setFormData(prev => ({ ...prev, matrimonyLookingFor: 'bride' }))}
+                          className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                            formData.matrimonyLookingFor === 'bride'
+                              ? 'border-rose-500 bg-rose-50 text-rose-700 ring-2 ring-rose-500/20 shadow-sm'
+                              : 'border-stone-200 text-stone-600 bg-white hover:bg-stone-50'
+                          }`}
+                        >
+                          👰 {tModal.lookingForBride}
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Dynamic detail input based on track */}
                   <div className="space-y-1.5">
                     <label htmlFor="detail-input" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
@@ -629,6 +712,26 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                       />
                     )}
                   </div>
+
+                  {/* PM Vishwakarma Scheme Assistance for Artisans */}
+                  {formData.track === 'artisan' && (
+                    <label className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50/80 border border-amber-200/80 cursor-pointer hover:bg-amber-100/60 transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={formData.pmVishwakarmaInterest}
+                        onChange={(e) => setFormData(prev => ({ ...prev, pmVishwakarmaInterest: e.target.checked }))}
+                        className="mt-0.5 w-4 h-4 text-vermilion rounded border-stone-300 focus:ring-vermilion cursor-pointer"
+                      />
+                      <div className="text-left">
+                        <p className="text-[11px] font-black text-amber-950 leading-tight">
+                          {tModal.pmSchemeTitle}
+                        </p>
+                        <p className="text-[9px] text-amber-800 leading-snug mt-0.5">
+                          {tModal.pmSchemeDesc}
+                        </p>
+                      </div>
+                    </label>
+                  )}
 
                   <div className="flex gap-3 pt-2">
                     <button 
