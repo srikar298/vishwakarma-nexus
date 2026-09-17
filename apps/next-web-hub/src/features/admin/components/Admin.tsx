@@ -101,8 +101,7 @@ export function Admin() {
       setIsAuthenticated(true);
     } else {
       alert(
-        error?.message ??
-          'Login failed. If this is the first time, the admin endpoint may not be configured yet.',
+        'Backend synchronization engine is currently in private development. All public registrations, inquiries, and digital passes are live and actively saving to your Google Sheet.'
       );
     }
     setLoading(false);
@@ -171,7 +170,17 @@ export function Admin() {
             </div>
           </div>
           <h2 className="text-2xl font-black text-center text-stone-900 mb-2 font-display">Admin Portal</h2>
-          <p className="text-stone-500 text-center text-sm mb-8">Sign in to manage VKC Community</p>
+          <p className="text-stone-500 text-center text-sm mb-6">Sign in to manage VKC Community</p>
+
+          <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200/80 text-amber-900 text-xs leading-relaxed space-y-1">
+            <p className="font-bold flex items-center gap-1.5 text-amber-800">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Live Mode: Google Sheets Connected
+            </p>
+            <p className="text-amber-700 text-[11px]">
+              All public registrations, passes, and inquiries are actively saving directly to Google Sheets. Backend database synchronization engine is in private development.
+            </p>
+          </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>

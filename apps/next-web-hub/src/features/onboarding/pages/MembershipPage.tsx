@@ -6,6 +6,7 @@ import { Shield, Download, Share2, Sparkles, ArrowRight, Globe } from 'lucide-re
 import { MembershipCard } from '../components/MembershipCard';
 import { RegistrationForm } from '../components/RegistrationForm';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
+import { submitToGoogleSheets } from '@/infrastructure/api/googleSheets.api';
 
 export const MembershipPage = () => {
   const [isRegistered, setIsRegistered] = useState(false);
@@ -24,29 +25,32 @@ export const MembershipPage = () => {
     setLiveData(prev => ({ ...prev, ...data }));
   }, []);
 
-  const handleRegistrationComplete = () => {
+  const handleRegistrationComplete = async () => {
     const generatedUid = `VKC-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     const finalRecord = {
       ...liveData,
-      uid: generatedUid
+      uid: generatedUid,
+      memberId: generatedUid,
+      track: 'artisan',
+      category: 'Master Artisan Digital ID',
+      notes: `Ref: Membership-Page-Registration | UID: ${generatedUid}`
     };
 
     setLiveData(finalRecord);
     setIsRegistered(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // Seed data to Google Sheets via Apps Script Web App
-    const appsScriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
-    if (appsScriptUrl) {
-      fetch(appsScriptUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(finalRecord),
-      }).catch(err => console.error("Error sending data to Google Sheets:", err));
-    }
+    // Save data directly to Google Sheets via Apps Script Web App
+    await submitToGoogleSheets(finalRecord);
+  };
+
+  const handlePrintDownload = () => {
+    window.print();
+  };
+
+  const handleWhatsAppShare = () => {
+    const shareText = `*|| జై విశ్వకర్మ ||*\n*VKC అధికారిక ఆర్టిసాన్ డిజిటల్ గుర్తింపు కార్డు*\n\n*సభ్యుని పేరు:* ${liveData.name}\n*డిజిటల్ ఐడీ:* ${liveData.uid}\n*వృత్తి విభాగం:* ${liveData.kula || liveData.profession}\n*ప్రాంతం:* ${liveData.location}\n\n*విశ్వకర్మ నాలెడ్జ్ సెంటర్ పోర్టల్‌లో మీ డిజిటల్ ఐడీని ఇప్పుడే నమోదు చేసుకోండి:*\nhttps://vishwakarmaknowledgecentre.org/membership`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
   };
 
   return (
@@ -97,18 +101,24 @@ export const MembershipPage = () => {
                )}
             </div>
 
-            {isRegistered && (
-               <div className="flex flex-wrap gap-6 w-full max-w-md pt-4">
-                  <button className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-stone-900 text-white font-black py-4 rounded-2xl shadow-2xl hover:bg-vermilion transition-all active:scale-95 text-[10px] uppercase tracking-widest cursor-pointer">
-                    <Download size={18} />
-                    Download ID
-                  </button>
-                  <button className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-white text-stone-900 font-black py-4 rounded-2xl border border-stone-200 shadow-sm hover:bg-stone-50 transition-all active:scale-95 text-[10px] uppercase tracking-widest cursor-pointer">
-                    <Share2 size={18} />
-                    Verify Link
-                  </button>
-               </div>
-            )}
+             {isRegistered && (
+                <div className="flex flex-wrap gap-6 w-full max-w-md pt-4">
+                   <button 
+                     onClick={handlePrintDownload}
+                     className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-stone-900 text-white font-black py-4 rounded-2xl shadow-2xl hover:bg-vermilion transition-all active:scale-95 text-[10px] uppercase tracking-widest cursor-pointer"
+                   >
+                     <Download size={18} />
+                     Download ID (Print)
+                   </button>
+                   <button 
+                     onClick={handleWhatsAppShare}
+                     className="flex-1 min-w-[180px] flex items-center justify-center gap-3 bg-white text-stone-900 font-black py-4 rounded-2xl border border-stone-200 shadow-sm hover:bg-stone-50 transition-all active:scale-95 text-[10px] uppercase tracking-widest cursor-pointer"
+                   >
+                     <Share2 size={18} />
+                     Share on WhatsApp
+                   </button>
+                </div>
+             )}
           </div>
 
           {/* Right Side: Step-by-Step Portal */}

@@ -21,7 +21,7 @@ import {
   Copy,
   Check
 } from 'lucide-react';
-import { api } from '@/infrastructure/http/apiClient';
+import { submitToGoogleSheets } from '@/infrastructure/api/googleSheets.api';
 import { BaseModal } from '@/shared/ui/BaseModal';
 import { LanguageSwitcher } from '@/shared/components/LanguageSwitcher';
 
@@ -263,21 +263,19 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
     setMemberId(generatedId);
 
     const payload = {
-      name: formData.name,
-      phone: formData.phone,
-      trade: formData.track === 'yatra' ? `Ekta Padayatra - ${formData.tradeOrDetail || 'Yatri'}` : formData.tradeOrDetail,
-      state: formData.location,
+      uid: generatedId,
+      memberId: generatedId,
+      name: formData.name.trim(),
+      phone: formData.phone.trim(),
+      track: formData.track,
+      trade: formData.track === 'yatra' ? `Ekta Padayatra - ${formData.tradeOrDetail || 'Yatri'}` : (formData.tradeOrDetail || 'Member'),
+      location: formData.location || 'India',
+      state: formData.location || 'India',
       notes: `Track: ${formData.track} | Ref: Direct-Registration | GeneratedID: ${generatedId}`
     };
 
-    const { error } = await api.post('members/inquiries', payload);
-
-    if (error) {
-      // Still show success to visitor on local network
-      setSuccess(true);
-    } else {
-      setSuccess(true);
-    }
+    await submitToGoogleSheets(payload);
+    setSuccess(true);
     setLoading(false);
   };
 

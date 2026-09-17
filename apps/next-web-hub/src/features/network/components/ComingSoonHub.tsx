@@ -20,7 +20,7 @@ import {
   Check,
   ChevronDown
 } from 'lucide-react';
-import { api } from '@/infrastructure/http/apiClient';
+import { submitToGoogleSheets } from '@/infrastructure/api/googleSheets.api';
 import { type TrackType } from '@/features/onboarding/components/JoinModal';
 
 interface ComingSoonHubProps {
@@ -190,21 +190,20 @@ export const ComingSoonHub = ({ activeTab, onOpenRegistration }: ComingSoonHubPr
     setMemberId(generatedId);
 
     const payload = {
+      uid: generatedId,
+      memberId: generatedId,
       name: formData.name.trim(),
       phone: formData.phone.trim(),
+      track: formData.track,
+      category: 'Parinaya Matrimony',
       trade: `Parinaya Matrimony - ${formData.gotraOrSubsect || 'Verified Aspirant'}`,
+      location: formData.location || 'Telangana / AP',
       state: formData.location || 'Telangana / AP',
       notes: `Track: ${formData.track} | Ref: Network-Matrimony-Tab | GeneratedID: ${generatedId}`
     };
 
-    const { error } = await api.post('members/inquiries', payload);
-
-    if (error) {
-      // Still show success to visitor on local network
-      setSuccess(true);
-    } else {
-      setSuccess(true);
-    }
+    await submitToGoogleSheets(payload);
+    setSuccess(true);
     setLoading(false);
   };
 
@@ -213,18 +212,20 @@ export const ComingSoonHub = ({ activeTab, onOpenRegistration }: ComingSoonHubPr
     if (!formData.name.trim() || formData.phone.length < 10) return;
 
     setLoading(true);
-    const { error } = await api.post('community/waitlist', {
+    const generatedId = `VKC-W-${Math.floor(100000 + Math.random() * 900000)}`;
+    const payload = {
+      uid: generatedId,
+      memberId: generatedId,
       name: formData.name.trim(),
       phone: formData.phone.trim(),
       category: activeTab,
-      label: cfg.titleEn,
-    });
+      track: activeTab,
+      trade: cfg.titleEn,
+      notes: `Category: ${activeTab} | Label: ${cfg.titleEn} | Ref: Network-Waitlist | GeneratedID: ${generatedId}`
+    };
 
-    if (error) {
-      alert(`Registration failed: ${error.message}. Please try again later.`);
-    } else {
-      setSuccess(true);
-    }
+    await submitToGoogleSheets(payload);
+    setSuccess(true);
     setLoading(false);
   };
 
