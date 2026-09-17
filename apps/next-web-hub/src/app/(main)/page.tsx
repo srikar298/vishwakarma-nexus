@@ -174,8 +174,23 @@ export default function Page() {
           "price": "0",
           "priceCurrency": "INR",
           "availability": "https://schema.org/InStock",
+          "validFrom": "2026-05-01T00:00:00+05:30",
           "url": "https://vishwakarmaknowledgecentre.org"
         },
+        "performer": [
+          {
+            "@type": "Person",
+            "name": "ACP Brahmasri K.M. Kiran Kumar"
+          },
+          {
+            "@type": "Person",
+            "name": "Brahmasri Vishwanadhula Pushpagiri"
+          },
+          {
+            "@type": "Person",
+            "name": "E. Venkata Chary"
+          }
+        ],
         "organizer": {
           "@id": "https://vishwakarmaknowledgecentre.org/#organization"
         }

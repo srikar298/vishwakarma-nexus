@@ -409,53 +409,69 @@ hi: "स्थानीय चुनावों में विजयी व�
 hi: "विधानसभा में विश्वकर्मा समाज की आवाज उठाने के लिए रामगुंडम विधायक श्री मखन सिंह राज ठाकुर से मिलकर धन्यवाद ज्ञापन।",
       category: "organization"
     },
-{
+    {
       date: "01.01.2026",
       year: "2026",
       te: "మారోజు వీరన్న జయంతి సభ; త్వరలోనే వారి విగ్రహాన్ని ఏర్పాటు చేస్తామని వికెసి ప్రకటన.",
       en: "Maroju Veeranna Birth Anniversary meeting; VKC announced plans to install his memorial statue.",
-hi: "मारोजू वीरन्ना की जयंती पर सभा; VKC द्वारा जल्द ही उनकी प्रतिमा स्थापित करने की घोषणा।",
+      hi: "मारोजू वीरन्ना की जयंती पर सभा; VKC द्वारा जल्द ही उनकी प्रतिमा स्थापित करने की घोषणा।",
       category: "organization"
     },
-{
+    {
+      date: "15.01.2026",
+      year: "2026",
+      te: "కేంద్ర మంత్రివర్గంతో బ్రహ్మశ్రీ విశ్వనాథుల పుష్పగిరి గారి బృందం సమావేశం — చలో ఢిల్లీ 1,700 కి.మీ. ఏకతా పాదయాత్ర రూట్ మ్యాప్ & విశ్వకర్మ సంక్షేమ హక్కుల డిమాండ్ పత్రం సమర్పణ.",
+      en: "VKC national leadership delegation led by Brahmasri Vishwanadhula Pushpagiri met Union Ministry officials, presenting the route roadmap and charter of demands for the 1,700 KM Pushpagiri Chalo Delhi Ekta Paadha Yathra.",
+      hi: "ब्रह्मश्री विश्वनाथुला पुष्पगिरि जी के नेतृत्व में केंद्रीय मंत्रियों से भेंट कर 1,700 किमी 'पुष्पगिरि चलो दिल्ली एकता पादयात्रा' का रूट मैप व विश्वकर्मा सामाजिक-आर्थिक मांगपत्र सौंपा।",
+      category: "organization"
+    },
+    {
       date: "26.01.2026",
       year: "2026",
       te: "జడ్చర్ల గంగాపూర్ లో జడ్చర్ల నియోజకవర్గ VKC కన్వీనర్ బ్రహ్మశ్రీ దేవోజు మహేష్ ఆచారి ఆధ్వర్యంలో విశ్వబ్రాహ్మణ నాయకులతో సమావేశం.",
       en: "Convened a leadership meet of Vishwabrahmana leaders in Gangapur, Jadcherla under VKC Coordinator Brahmasri Devoju Mahesh Achari.",
-hi: "जदचर्ला के गंगापुर में संयोजक ब्रह्माश्री देवोजू महेश आचारी के नेतृत्व में विश्वकर्मा नेताओं की महत्वपूर्ण बैठक।",
+      hi: "जदचर्ला के गंगापुर में संयोजक ब्रह्माश्री देवोजू महेश आचारी के नेतृत्व में विश्वकर्मा नेताओं की महत्वपूर्ण बैठक।",
       category: "organization"
     },
-{
+    {
       date: "09.02.2026",
       year: "2026",
       te: "విశ్వకర్మ ప్రీమియర్ లీగ్ (VPL) క్రికెట్ టోర్నమెంట్ పోస్టర్ ను ACP కిరణ్ కుమార్ సర్ చేతుల మీదుగా ఆవిష్కరణ.",
       en: "Unveiled the Vishwakarma Premier League (VPL) cricket poster through ACP Sri Kiran Kumar Sir.",
-hi: "विश्वकर्मा प्रीमियर लीग (VPL) क्रिकेट का पोस्टर एसीपी ब्रह्माश्री किरण कुमार सर के कर-कमलों द्वारा जारी।",
+      hi: "विश्वकर्मा प्रीमियर लीग (VPL) क्रिकेट का पोस्टर एसीपी ब्रह्माश्री किरण कुमार सर के कर-कमलों द्वारा जारी।",
       category: "campaign"
     },
-{
+    {
       date: "25.02.2026",
       year: "2026",
       te: "భూత్పూర్ లో విశ్వబ్రాహ్మణ సంఘాల ప్రతినిధులతో సమావేశం.",
       en: "Convened a strategic coordination meeting with community leaders at Bhutpur.",
-hi: "भूतपुर में विश्वकर्मा संगठनों के प्रतिनिधियों के साथ समन्वय बैठक।",
+      hi: "भूतपुर में विश्वकर्मा संगठनों के प्रतिनिधियों के साथ समन्वय बैठक।",
       category: "organization"
     },
-{
+    {
       date: "08.03.2026",
       year: "2026",
       te: "కీసర లెగసీ అరీనా లో విశ్వకర్మ ప్రీమియర్ లీగ్ ను ప్రారంభించిన ACP కిరణ్ కుమార్ సర్.",
       en: "VPL cricket tournament launched by ACP Sri Kiran Kumar Sir at Legacy Cricket Arena, Keesara.",
-hi: "कीसरा के लेगेसी क्रिकेट एरिना में एसीपी किरण कुमार सर द्वारा विश्वकर्मा प्रीमियर लीग का भव्य उद्घाटन।",
+      hi: "कीसरा के लेगेसी क्रिकेट एरिना में एसीपी किरण कुमार सर द्वारा विश्वकर्मा प्रीमियर लीग का भव्य उद्घाटन।",
       category: "campaign"
     },
-{
+    {
       date: "31.03.2026",
       year: "2026",
       te: "ఎల్బీ స్టేడియం లో విశ్వకర్మ ప్రీమియర్ లీగ్ ఫైనల్ మరియు విజేతలకు బహుమతుల ప్రధానోత్సవం.",
       en: "Grand finals and prize distribution of the Vishwakarma Premier League at LB Stadium.",
-hi: "एलबी स्टेडियम में विश्वकर्मा प्रीमियर लीग का फाइनल मैच और पुरस्कार वितरण समारोह।",
+      hi: "एलबी स्टेडियम में विश्वकर्मा प्रीमियर लीग का फाइनल मैच और पुरस्कार वितरण समारोह।",
       category: "campaign"
+    },
+    {
+      date: "14.04.2026",
+      year: "2026",
+      te: "బ్రహ్మశ్రీ విశ్వనాథుల పుష్పగిరి గారి నాయకత్వంలో 6 రాష్ట్రాల మీదుగా సాగే 1,700 కి.మీ. చలో ఢిల్లీ 'పుష్పగిరి విశ్వకర్మ ఏకతా మహా పాదయాత్ర' సమన్వయ సన్నాహక ప్రారంభం.",
+      en: "Official proclamation and grassroots state-level mobilization for the historic 1,700 KM 'Pushpagiri Chalo Delhi Ekta Maha Padayatra' traversing 6 states and 75 districts.",
+      hi: "ब्रह्मश्री विश्वनाथुला पुष्पगिरि जी के नेतृत्व में 6 राज्यों व 75 जिलों में पारंपरिक शिल्पकारों को जोड़ने वाली ऐतिहासिक 1,700 किमी 'पुष्पगिरि चलो दिल्ली एकता महा पदयात्रा' का महा-अभियान प्रारंभ।",
+      category: "movement"
     }
   ];
 

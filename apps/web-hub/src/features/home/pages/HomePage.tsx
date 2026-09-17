@@ -104,6 +104,10 @@ export const HomePage = () => {
       },
       {
         "@type": "Person",
+        "name": "Brahmasri Vishwanadhula Pushpagiri"
+      },
+      {
+        "@type": "Person",
         "name": "E. Venkata Chary"
       }
     ],

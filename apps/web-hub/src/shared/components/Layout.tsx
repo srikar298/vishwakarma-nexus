@@ -11,7 +11,8 @@ import {
   Award,
   Users,
   Flag,
-  Calendar
+  Calendar,
+  UserPlus
 } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal, type TrackType } from '@/features/onboarding/components/JoinModal';
@@ -153,9 +154,10 @@ export const Layout = () => {
                 <Link to="/donors" className="hidden lg:block text-stone-500 hover:text-vermilion transition-colors font-black uppercase tracking-widest text-xs px-2">{t('donors.page_title' as never, 'Community Donors')}</Link>
                 <button 
                   onClick={() => setIsJoinModalOpen(true)}
-                  className="bg-vermilion text-white px-8 py-2.5 rounded-full font-black hover:bg-vermilion/90 transition-all shadow-xl shadow-vermilion/20 active:scale-95 text-xs uppercase tracking-[0.2em]"
+                  className="bg-gradient-to-r from-[#E34234] via-[#D33326] to-[#C92A1C] hover:from-[#C92A1C] hover:to-[#A51D10] text-white px-8 py-2.5 rounded-full font-black transition-all shadow-xl shadow-red-500/25 active:scale-95 text-xs uppercase tracking-[0.2em] flex items-center gap-2 cursor-pointer"
                 >
-                  {t('nav.join')}
+                  <UserPlus size={14} />
+                  <span>{t('nav.join')}</span>
                 </button>
               </div>
             </div>
@@ -179,8 +181,8 @@ export const Layout = () => {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden bg-white/95 backdrop-blur-2xl border-t border-stone-100 p-6 flex flex-col max-h-[calc(100vh-80px)] shadow-2xl rounded-b-[2.5rem]"
             >
-              {/* Scrollable links */}
-              <div className="flex-1 overflow-y-auto space-y-6 pr-2 mb-4">
+              {/* Scrollable links with bottom clearance */}
+              <div className="flex-1 overflow-y-auto space-y-6 pr-2 pb-32">
                  <div>
                     <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest px-4 mb-2">{t('nav.vision')}</h4>
                     <div className="grid gap-2">
@@ -201,19 +203,20 @@ export const Layout = () => {
                        <Link to="/donors" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all text-vermilion">{t('donors.page_title' as never, 'Community Donors')}</Link>
                      </div>
                   </div>
-              </div>
 
-              {/* Static Footer CTA */}
-              <div className="pt-4 border-t border-stone-100 bg-white/95 space-y-4 shrink-0">
-                <button 
-                  onClick={() => { setIsJoinModalOpen(true); setIsMenuOpen(false); }}
-                  className="w-full bg-vermilion text-white py-4 rounded-2xl font-black shadow-xl shadow-vermilion/20 active:scale-95 transition-all uppercase tracking-[0.2em] text-xs cursor-pointer"
-                >
-                  {t("nav.join")}
-                </button>
-                <div className="flex justify-center gap-6 pb-2">
-                   <SocialLinks size={32} />
-                </div>
+                 {/* Drawer CTA & Socials */}
+                 <div className="pt-4 border-t border-stone-100 space-y-4">
+                   <button 
+                     onClick={() => { setIsJoinModalOpen(true); setIsMenuOpen(false); }}
+                     className="w-full bg-gradient-to-r from-[#E34234] via-[#D33326] to-[#C92A1C] hover:from-[#C92A1C] hover:to-[#A51D10] text-white py-4 rounded-2xl font-black shadow-xl shadow-red-500/25 active:scale-95 transition-all uppercase tracking-[0.2em] text-xs cursor-pointer flex items-center justify-center gap-2"
+                   >
+                     <UserPlus size={16} />
+                     <span>{t("nav.join")}</span>
+                   </button>
+                   <div className="flex justify-center gap-6 pb-2">
+                      <SocialLinks size={32} />
+                   </div>
+                 </div>
               </div>
             </motion.div>
           )}

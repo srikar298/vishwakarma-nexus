@@ -549,7 +549,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                     type="button"
                     disabled={!formData.name.trim() || formData.phone.length < 10}
                     onClick={() => setStep(2)}
-                    className="w-full bg-gradient-to-r from-vermilion to-vermilion-600 text-white py-3.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 hover:opacity-95 disabled:opacity-50 transition-all active:scale-[0.98] shadow-lg shadow-vermilion/20 touch-manipulation cursor-pointer"
+                    className="w-full bg-gradient-to-r from-[#E34234] via-[#D33326] to-[#C92A1C] hover:from-[#C92A1C] hover:to-[#A51D10] text-white py-3.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 hover:opacity-95 disabled:opacity-50 transition-all active:scale-[0.98] shadow-lg shadow-red-500/25 touch-manipulation cursor-pointer"
                   >
                     {tModal.nextBtn} <ChevronRight size={14} />
                   </button>

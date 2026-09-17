@@ -77,11 +77,25 @@ export default function Page() {
     },
     "offers": {
       "@type": "Offer",
+      "name": "Free Community Yatra Registration & Pass",
       "price": "0",
       "priceCurrency": "INR",
       "availability": "https://schema.org/InStock",
+      "validFrom": "2026-01-15T00:00:00+05:30",
       "url": "https://vishwakarmaknowledgecentre.org/events/ekta-yatra"
     },
+    "performer": [
+      {
+        "@type": "Person",
+        "name": "Brahmasri Vishwanadhula Pushpagiri",
+        "jobTitle": "Ekta Yatra Leader & Spiritual Guide"
+      },
+      {
+        "@type": "Organization",
+        "name": "Vishwakarma Vanshaj Ekta Manch Bharat",
+        "url": "https://vishwakarmaknowledgecentre.org"
+      }
+    ],
     "image": [
       "https://vishwakarmaknowledgecentre.org/og-image.jpg"
     ]

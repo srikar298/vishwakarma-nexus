@@ -317,7 +317,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               {/* Join VKC / Sign Up Button */}
               <button 
                 onClick={() => setIsJoinModalOpen(true)}
-                className="bg-gradient-to-r from-vermilion to-vermilion-600 hover:from-vermilion-600 hover:to-vermilion text-white px-6 py-2.5 rounded-full font-black text-xs uppercase tracking-[0.18em] shadow-lg shadow-vermilion/25 hover:shadow-xl hover:shadow-vermilion/30 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+                className="bg-gradient-to-r from-[#E34234] via-[#D33326] to-[#C92A1C] hover:from-[#C92A1C] hover:to-[#A51D10] text-white px-6 py-2.5 rounded-full font-black text-xs uppercase tracking-[0.18em] shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-600/35 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
               >
                 <UserPlus size={14} />
                 <span>{t('nav.join', 'Join VKC')}</span>
@@ -352,15 +352,15 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               <div className="pb-3 mb-4 border-b border-stone-100">
                 <button 
                   onClick={() => { setIsJoinModalOpen(true); setIsMenuOpen(false); }}
-                  className="w-full bg-gradient-to-r from-vermilion to-vermilion-600 text-white py-3.5 rounded-2xl font-black shadow-xl shadow-vermilion/20 active:scale-95 transition-all uppercase tracking-[0.18em] text-xs flex items-center justify-center gap-2 cursor-pointer touch-manipulation"
+                  className="w-full bg-gradient-to-r from-[#E34234] via-[#D33326] to-[#C92A1C] hover:from-[#C92A1C] hover:to-[#A51D10] text-white py-3.5 rounded-2xl font-black shadow-xl shadow-red-500/25 active:scale-95 transition-all uppercase tracking-[0.18em] text-xs flex items-center justify-center gap-2 cursor-pointer touch-manipulation"
                 >
                   <UserPlus size={16} />
                   <span>{t("nav.join", "Join VKC / Sign Up")}</span>
                 </button>
               </div>
 
-              {/* Scrollable links grouped by Pillar */}
-              <div className="flex-1 overflow-y-auto space-y-5 pr-1">
+              {/* Scrollable links grouped by Pillar with bottom clearance for mobile bottom nav */}
+              <div className="flex-1 overflow-y-auto space-y-5 pr-1 pb-32">
                 {/* 1. About Section */}
                 <div>
                   <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest px-3 mb-2 flex items-center gap-1.5">
@@ -465,19 +465,19 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     <span>WhatsApp</span>
                   </a>
                 </div>
-              </div>
 
-              {/* Mobile Drawer Footer */}
-              <div className="pt-4 mt-2 border-t border-stone-100 flex items-center justify-between">
-                <Link 
-                  href="/admin" 
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-stone-500 hover:text-stone-900 font-bold text-xs flex items-center gap-1.5"
-                >
-                  <LogIn size={14} />
-                  <span>Already a member? Sign In</span>
-                </Link>
-                <SocialLinks size={26} />
+                {/* Mobile Drawer Footer with Sign In & Social Links */}
+                <div className="pt-4 border-t border-stone-200/80 flex items-center justify-between">
+                  <Link 
+                    href="/admin" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-stone-600 hover:text-stone-900 font-bold text-xs flex items-center gap-1.5"
+                  >
+                    <LogIn size={14} />
+                    <span>Already a member? Sign In</span>
+                  </Link>
+                  <SocialLinks size={26} />
+                </div>
               </div>
             </motion.div>
           )}
