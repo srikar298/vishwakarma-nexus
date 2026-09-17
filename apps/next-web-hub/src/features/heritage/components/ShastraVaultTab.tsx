@@ -30,7 +30,7 @@ export const ShastraVaultTab = () => {
             exit={{ opacity: 0, y: -15 }}
             className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
           >
-            <div className="lg:w-1/2 space-y-6">
+            <div className="lg:w-5/12 space-y-6">
               <div className="space-y-3">
                 <h4 className="text-xs font-black text-vermilion uppercase tracking-[0.4em]">
                   {lang === 'te' ? 'కళా నైపుణ్యాల పరిణామం' : 'Evolution of Craft'}
@@ -64,16 +64,19 @@ export const ShastraVaultTab = () => {
               </div>
             </div>
 
-            <div className="lg:w-1/2 relative aspect-video bg-stone-100 rounded-[2.5rem] overflow-hidden border border-stone-200 shadow-lg">
+            <div className="lg:w-7/12 w-full relative aspect-[16/11] md:aspect-[4/3] lg:aspect-[16/10] min-h-[340px] sm:min-h-[380px] bg-stone-100 rounded-[2.5rem] overflow-hidden border border-stone-200 shadow-xl group">
               <img 
                 src="/images/features/heritage/hampi-monolith.jpg" 
                 alt="Hampi Monolithic Architectural Heritage" 
-                className="w-full h-full object-cover"
-                onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600'; }}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800'; }}
               />
-              <div className="absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur-md p-6 border-t border-stone-100">
-                <p className="text-[9px] font-black text-vermilion uppercase tracking-widest">Featured Insight</p>
-                <p className="text-stone-900 font-bold text-lg">The Monolithic Engineering of Hampi</p>
+              <div className="absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur-md px-5 py-3 sm:px-6 sm:py-3.5 border-t border-stone-200/80 flex items-center justify-between">
+                <div>
+                  <p className="text-[9px] font-black text-vermilion uppercase tracking-widest">Featured Insight</p>
+                  <p className="text-stone-900 font-bold text-sm sm:text-base leading-snug">The Monolithic Engineering of Hampi</p>
+                </div>
+                <span className="text-[10px] font-bold text-stone-500 bg-stone-100 px-2.5 py-1 rounded-full hidden sm:inline-block">Karnataka • 15th C.</span>
               </div>
             </div>
           </motion.div>
@@ -88,7 +91,7 @@ export const ShastraVaultTab = () => {
             exit={{ opacity: 0, y: -15 }}
             className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16"
           >
-            <div className="lg:w-1/2 space-y-6">
+            <div className="lg:w-5/12 space-y-6">
               <div className="space-y-3">
                 <div className="flex items-center gap-3 bg-stone-200/50 w-fit px-4 py-1 rounded-full text-stone-600">
                   <BookOpen size={12} />
@@ -127,7 +130,7 @@ export const ShastraVaultTab = () => {
               </div>
             </div>
 
-            <div className="lg:w-1/2 relative aspect-video bg-stone-900 rounded-[2.5rem] overflow-hidden border border-stone-850 p-2 shadow-lg">
+            <div className="lg:w-7/12 w-full relative aspect-[16/11] md:aspect-[4/3] lg:aspect-[16/10] min-h-[340px] sm:min-h-[380px] bg-stone-900 rounded-[2.5rem] overflow-hidden border border-stone-850 p-2 shadow-xl">
               <img 
                 src="https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?auto=format&fit=crop&q=80&w=800" 
                 alt="Ancient Shastra Manuscript" 
@@ -158,7 +161,7 @@ export const ShastraVaultTab = () => {
             exit={{ opacity: 0, y: -15 }}
             className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16"
           >
-            <div className="lg:w-1/2 space-y-6">
+            <div className="lg:w-5/12 space-y-6">
               <div className="space-y-3">
                 <div className="flex items-center gap-3 bg-saffron-50 w-fit px-4 py-1 rounded-full text-saffron-700 border border-saffron-100">
                   <Award size={12} />
@@ -196,7 +199,7 @@ export const ShastraVaultTab = () => {
               </div>
             </div>
 
-            <div className="lg:w-1/2 w-full grid grid-cols-2 gap-4">
+            <div className="lg:w-7/12 w-full grid grid-cols-2 gap-4">
               {legends.slice(0, 2).map((legend, i) => (
                 <div 
                   key={i} 

@@ -26,7 +26,7 @@ export const HeritageTeaser = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="lg:w-1/2 space-y-8"
+            className="lg:w-5/12 space-y-8"
           >
             <div className="space-y-4">
                <h2 className="text-xs font-black text-vermilion uppercase tracking-[0.6em]">
@@ -67,16 +67,19 @@ export const HeritageTeaser = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="lg:w-1/2 relative aspect-video bg-stone-100 rounded-[3rem] overflow-hidden border border-stone-200 group-hover:border-vermilion/30 transition-all duration-700 shadow-xl"
+            className="lg:w-7/12 w-full relative aspect-[16/11] md:aspect-[4/3] lg:aspect-[16/10] min-h-[340px] sm:min-h-[380px] bg-stone-100 rounded-[3rem] overflow-hidden border border-stone-200 group-hover:border-vermilion/30 transition-all duration-700 shadow-xl"
           >
              <img 
                src="/images/heritage/hampi-monolith.jpg" 
                alt="Hampi Monolithic Architectural Heritage" 
-               className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
+               className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000"
              />
-             <div className="absolute bottom-0 left-0 w-full bg-white/90 backdrop-blur-md p-8 border-t border-stone-100 translate-y-2 group-hover:translate-y-0 transition-transform">
-                <p className="text-[10px] font-black text-vermilion uppercase tracking-widest">Featured Insight</p>
-                <p className="text-stone-900 font-bold text-xl">The Monolithic Engineering of Hampi</p>
+             <div className="absolute bottom-0 left-0 w-full bg-white/95 backdrop-blur-md px-5 py-3 sm:px-6 sm:py-3.5 border-t border-stone-200/80 flex items-center justify-between">
+                <div>
+                  <p className="text-[9px] font-black text-vermilion uppercase tracking-widest">Featured Insight</p>
+                  <p className="text-stone-900 font-bold text-sm sm:text-base leading-snug">The Monolithic Engineering of Hampi</p>
+                </div>
+                <span className="text-[10px] font-bold text-stone-500 bg-stone-100 px-2.5 py-1 rounded-full hidden sm:inline-block">Karnataka • 15th C.</span>
              </div>
           </motion.div>
         </div>
