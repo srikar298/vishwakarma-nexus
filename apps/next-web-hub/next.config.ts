@@ -11,7 +11,16 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
     NEXT_PUBLIC_APPS_SCRIPT_URL: process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "",
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: '/donors/brahmasri-kammari-palli-mallikharjuna-kiran-kumar',
+        destination: '/donors/brahmasri-kammaripalli-mallikharjuna-kiran-kumar',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

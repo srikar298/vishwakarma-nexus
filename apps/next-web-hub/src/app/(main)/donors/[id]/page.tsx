@@ -1,8 +1,13 @@
 import { Metadata } from 'next';
 import { mockDonors } from '@/features/community/constants/donorsData';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { DonorProfilePage } from '@/features/community/pages/DonorProfilePage';
 import { generateBreadcrumbsSchema, generateWebPageSchema } from "@/shared/lib/seo-helpers";
+
+// Legacy or alternate slug mappings to prevent 404s and preserve link equity
+const LEGACY_DONOR_SLUGS: Record<string, string> = {
+  'brahmasri-kammari-palli-mallikharjuna-kiran-kumar': 'brahmasri-kammaripalli-mallikharjuna-kiran-kumar',
+};
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -11,7 +16,8 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // Await params as dynamic parameters are promises in Next.js 15+
   const resolvedParams = await params;
-  const donor = mockDonors.find((d) => d.id === resolvedParams.id);
+  const canonicalId = LEGACY_DONOR_SLUGS[resolvedParams.id] || resolvedParams.id;
+  const donor = mockDonors.find((d) => d.id === canonicalId);
   
   if (!donor) {
     return {
@@ -55,6 +61,9 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: Props) {
   const resolvedParams = await params;
+  if (LEGACY_DONOR_SLUGS[resolvedParams.id]) {
+    permanentRedirect(`/donors/${LEGACY_DONOR_SLUGS[resolvedParams.id]}`);
+  }
   const donor = mockDonors.find((d) => d.id === resolvedParams.id);
   
   if (!donor) {
