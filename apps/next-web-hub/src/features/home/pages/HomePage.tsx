@@ -48,10 +48,10 @@ export const HomePage = () => {
     "description": "A dedicated institution for the holistic support, recognition, and skill upgradation of traditional artisans.",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Bagh Lingampally",
+      "streetAddress": "4D, 4th Floor, Samrat Complex, Ambedkar Colony, AG Office Road, Khairathabad",
       "addressLocality": "Hyderabad",
       "addressRegion": "Telangana",
-      "postalCode": "500044",
+      "postalCode": "500004",
       "addressCountry": "IN"
     },
     "sameAs": SOCIAL_LINKS_ARRAY

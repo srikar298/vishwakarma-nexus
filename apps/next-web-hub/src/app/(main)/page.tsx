@@ -62,16 +62,16 @@ export default function Page() {
         "telephone": ["+91 96664 35426", "+91 94400 95412"],
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Shivam Rd, Prashanti Nagar, Bagh Amberpet",
+          "streetAddress": "4D, 4th Floor, Samrat Complex, Ambedkar Colony, AG Office Road, Khairathabad",
           "addressLocality": "Hyderabad",
           "addressRegion": "Telangana",
-          "postalCode": "500013",
+          "postalCode": "500004",
           "addressCountry": "IN"
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": "17.3971",
-          "longitude": "78.5133"
+          "latitude": "17.4116",
+          "longitude": "78.4636"
         },
         "sameAs": SOCIAL_LINKS_ARRAY,
         "member": LEADERSHIP_MEMBERS.map(m => ({

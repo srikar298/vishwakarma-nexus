@@ -83,9 +83,76 @@ export interface VerificationData {
   message: string;
 }
 
+export interface LoginPayload {
+  identifier: string;
+  mpin: string;
+}
+
+export interface LoginResponse {
+  user: {
+    publicId: string;
+    firstName: string;
+    lastName: string;
+    role: string;
+  };
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  profile?: {
+    digitalId?: string;
+    phone?: string;
+    kula?: string;
+    trade?: string;
+    district?: string;
+    mandal?: string;
+    state?: string;
+  };
+}
+
+export interface SearchMembersParams {
+  query?: string;
+  district?: string;
+  kula?: string;
+  source?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export interface MemberSearchItem {
+  userId: string;
+  fullName: string;
+  digitalId: string;
+  phone: string;
+  kula: string;
+  trade: string;
+  district: string;
+  mandal?: string | null;
+  source: string;
+  isVerified: boolean;
+  joinedAt: string;
+}
+
+export interface SearchMembersResponse {
+  items: MemberSearchItem[];
+  count: number;
+}
+
 export const NexusApi = {
   async register(payload: RegisterPayload): Promise<RegisterResponse> {
     const res = await nexusClient.post('/auth/register', payload);
+    const data = res.data?.data || res.data;
+    if (data?.tokens?.accessToken) {
+      localStorage.setItem('vkc_token', data.tokens.accessToken);
+      if (data.tokens.refreshToken) {
+        localStorage.setItem('vkc_refresh_token', data.tokens.refreshToken);
+      }
+    }
+    return data;
+  },
+
+  async login(payload: LoginPayload): Promise<LoginResponse> {
+    const res = await nexusClient.post('/auth/login', payload);
     const data = res.data?.data || res.data;
     if (data?.tokens?.accessToken) {
       localStorage.setItem('vkc_token', data.tokens.accessToken);
@@ -114,4 +181,10 @@ export const NexusApi = {
     const res = await nexusClient.get(`/members/verify/${encodeURIComponent(digitalId)}`);
     return res.data?.data || res.data;
   },
+
+  async searchMembers(params?: SearchMembersParams): Promise<SearchMembersResponse> {
+    const res = await nexusClient.get('/members/search', { params });
+    return res.data?.data || res.data;
+  },
 };
+

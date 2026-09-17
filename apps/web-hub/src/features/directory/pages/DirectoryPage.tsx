@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { 
   Search, 
   MapPin, 
@@ -12,12 +13,17 @@ import {
   X,
   Briefcase,
   MessageSquare,
-  Award
+  Award,
+  ShieldCheck,
+  Sparkles
 } from 'lucide-react';
 import type { Artisan, ArtisanCategory } from '@/features/directory/contracts/ArtisanSchema';
 import { CRAFT_LABELS } from '@/features/directory/contracts/ArtisanSchema';
 import { SEO } from '@/shared/components/SEO';
 import { BaseModal } from '@/shared/ui/BaseModal';
+import { useAuthStore } from '@/infrastructure/state/authStore';
+import { useMemberDirectory } from '@/infrastructure/api/queries';
+
 
 const MOCK_ARTISANS: Artisan[] = [
   {
@@ -203,13 +209,29 @@ const MOCK_ARTISANS: Artisan[] = [
   }
 ];
 
+const mapTradeToCraft = (trade: string): ArtisanCategory => {
+  const t = (trade || '').toLowerCase();
+  if (t.includes('sculpt') || t.includes('shilpi') || t.includes('stone')) return 'sculpture';
+  if (t.includes('gold') || t.includes('jewel') || t.includes('silver') || t.includes('swarnakar')) return 'jewelry';
+  if (t.includes('wood') || t.includes('carpent') || t.includes('vadla')) return 'carpentry';
+  if (t.includes('metal') || t.includes('blacksmith') || t.includes('iron') || t.includes('kammari') || t.includes('kamsali')) return 'metalwork';
+  if (t.includes('architect') || t.includes('vastu') || t.includes('sthapathi')) return 'architecture';
+  return 'carpentry';
+};
+
 import { PageHero } from '@/shared/ui/PageHero';
 
 export const DirectoryPage = () => {
   const { t, i18n } = useTranslation();
+  const { isAuthenticated } = useAuthStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<ArtisanCategory>('all');
   const [selectedArtisan, setSelectedArtisan] = useState<Artisan | null>(null);
+
+  // TanStack Query: Live Member Directory (syncs when authenticated)
+  const { data: liveData, isLoading: isLiveLoading } = useMemberDirectory({
+    query: searchQuery || undefined,
+  });
 
   // Lock scroll & handle Escape key for the details modal
   useEffect(() => {
@@ -228,8 +250,30 @@ export const DirectoryPage = () => {
     }
   }, [selectedArtisan]);
 
+  const combinedArtisans = useMemo(() => {
+    const liveItems: Artisan[] = (liveData?.items || []).map((m) => ({
+      id: m.userId,
+      name: m.fullName,
+      nameRegional: m.fullName,
+      craft: mapTradeToCraft(m.trade),
+      location: `${m.district}${m.mandal ? `, ${m.mandal}` : ''}, Telangana`,
+      phone: m.phone,
+      rating: 5.0,
+      experienceYears: 10,
+      featured: true,
+      image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=82&w=800',
+      portfolio: [],
+      testimonials: [],
+    }));
+
+    const liveIds = new Set(liveItems.map((i) => i.id));
+    const uniqueMocks = MOCK_ARTISANS.filter((m) => !liveIds.has(m.id));
+
+    return [...liveItems, ...uniqueMocks];
+  }, [liveData]);
+
   const filteredArtisans = useMemo(() => {
-    return MOCK_ARTISANS.filter(artisan => {
+    return combinedArtisans.filter((artisan) => {
       const searchTerms = searchQuery.toLowerCase();
       const matchesSearch = 
         artisan.name.toLowerCase().includes(searchTerms) ||
@@ -238,9 +282,10 @@ export const DirectoryPage = () => {
       const matchesCategory = activeCategory === 'all' || artisan.craft === activeCategory;
       return matchesSearch && matchesCategory;
     });
-  }, [searchQuery, activeCategory]);
+  }, [combinedArtisans, searchQuery, activeCategory]);
 
   const categories: ArtisanCategory[] = ['all', 'carpentry', 'metalwork', 'sculpture', 'jewelry', 'architecture'];
+
 
   return (
     <div className="min-h-screen bg-stone-50/30">
@@ -301,10 +346,27 @@ export const DirectoryPage = () => {
 
       {/* Results Grid */}
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="flex items-center justify-between mb-8">
-           <p className="text-stone-500 font-bold text-sm">
-             Showing <span className="text-stone-900">{filteredArtisans.length}</span> results
-           </p>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+           <div className="flex items-center gap-3">
+             <p className="text-stone-500 font-bold text-sm">
+               Showing <span className="text-stone-900 font-black">{filteredArtisans.length}</span> artisans & master craftsmen
+             </p>
+             {isLiveLoading && (
+               <span className="inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-vermilion bg-vermilion/10 px-3 py-1 rounded-full animate-pulse">
+                 <Sparkles size={12} /> Syncing Live Registry...
+               </span>
+             )}
+           </div>
+
+           {!isAuthenticated && (
+             <Link
+               to="/membership"
+               className="inline-flex items-center gap-2 text-xs font-bold text-stone-600 bg-white border border-stone-200 hover:border-vermilion px-4 py-2 rounded-2xl shadow-xs transition-all hover:text-vermilion"
+             >
+               <ShieldCheck size={14} className="text-vermilion" />
+               Registered member? Sign in to unlock full directory
+             </Link>
+           )}
         </div>
 
         <motion.div 
