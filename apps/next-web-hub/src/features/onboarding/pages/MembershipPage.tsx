@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Download, Share2, Sparkles, ArrowRight, Globe } from 'lucide-react';
 import { MembershipCard } from '../components/MembershipCard';
@@ -20,9 +20,9 @@ export const MembershipPage = () => {
     joinDate: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
   });
 
-  const handleLiveUpdate = (data: Record<string, string | number | boolean>) => {
+  const handleLiveUpdate = useCallback((data: Record<string, string | number | boolean>) => {
     setLiveData(prev => ({ ...prev, ...data }));
-  };
+  }, []);
 
   const handleRegistrationComplete = () => {
     const generatedUid = `VKC-2026-${Math.floor(1000 + Math.random() * 9000)}`;

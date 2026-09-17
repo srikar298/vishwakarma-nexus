@@ -35,17 +35,6 @@ export const BaseModal = ({
         if (e.key === 'Escape') onCloseRef.current();
       };
       window.addEventListener('keydown', handleEscape);
-      
-      // Auto-focus only on initial modal open if not already focused inside
-      const isAlreadyFocusedInside = modalRef.current?.contains(document.activeElement);
-      if (!isAlreadyFocusedInside) {
-        const focusable = modalRef.current?.querySelectorAll(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusable && focusable.length > 0) {
-          (focusable[0] as HTMLElement).focus();
-        }
-      }
 
       return () => {
         window.removeEventListener('keydown', handleEscape);
@@ -54,26 +43,25 @@ export const BaseModal = ({
     }
   }, [isOpen]);
 
-  // Focus Trap Logic
+  // Focus Trap Logic for accessibility keyboard users
   const handleTabKey = (e: React.KeyboardEvent) => {
-    if (!modalRef.current) return;
+    if (e.key !== 'Tab' || !modalRef.current) return;
     const focusableElements = modalRef.current.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
+    if (!focusableElements.length) return;
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
-    if (e.key === 'Tab') {
-      if (e.shiftKey) {
-        if (document.activeElement === firstElement) {
-          lastElement.focus();
-          e.preventDefault();
-        }
-      } else {
-        if (document.activeElement === lastElement) {
-          firstElement.focus();
-          e.preventDefault();
-        }
+    if (e.shiftKey) {
+      if (document.activeElement === firstElement) {
+        lastElement.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastElement) {
+        firstElement.focus();
+        e.preventDefault();
       }
     }
   };
@@ -106,11 +94,12 @@ export const BaseModal = ({
           >
             <motion.div 
               ref={modalRef}
+              tabIndex={-1}
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-              className={`relative bg-white w-full ${maxW} rounded-[2.5rem] shadow-2xl overflow-hidden border border-stone-100 z-10 pointer-events-auto ${className}`}
+              className={`relative bg-white w-full ${maxW} rounded-[2.5rem] shadow-2xl overflow-hidden border border-stone-100 z-10 pointer-events-auto outline-none ${className}`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button - Rendered AFTER children to ensure top-level stacking if z-index is equal */}

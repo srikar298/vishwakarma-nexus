@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { SEO } from '@/shared/components/SEO';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
+import { JoinModal, type TrackType } from '@/features/onboarding/components/JoinModal';
 
 // Sub-components
 import { ComingSoonHub } from '../components';
@@ -19,6 +20,14 @@ import { ComingSoonHub } from '../components';
 export const NetworkHub = () => {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState<TrackType>('professional');
+
+  const handleOpenRegistration = useCallback((track: TrackType) => {
+    setSelectedTrack(track);
+    setIsJoinModalOpen(true);
+  }, []);
+
   const tabParam = searchParams.get('tab') as 'professionals' | 'officials' | 'matrimony' | 'education';
   const initialTab = ['professionals', 'officials', 'matrimony', 'education'].includes(tabParam || '')
     ? tabParam
@@ -113,7 +122,7 @@ export const NetworkHub = () => {
                 transition={{ duration: 0.3 }}
                 className="w-full"
              >
-                <ComingSoonHub activeTab={activeTab} />
+                <ComingSoonHub activeTab={activeTab} onOpenRegistration={handleOpenRegistration} />
              </motion.div>
           </AnimatePresence>
         </div>
@@ -133,16 +142,29 @@ export const NetworkHub = () => {
                 {t('network.hub.cta.subtitle')}
               </p>
               <div className="flex flex-wrap justify-center gap-6">
-                <button className="bg-vermilion text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-vermilion/90 transition-all shadow-xl shadow-vermilion/20 active:scale-95">
+                <button 
+                  onClick={() => handleOpenRegistration('professional')}
+                  className="bg-vermilion text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-vermilion/90 transition-all shadow-xl shadow-vermilion/20 active:scale-95 cursor-pointer"
+                >
                    {t('network.hub.cta.list_profile')}
                 </button>
-                <button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95 backdrop-blur-md">
+                <button 
+                  onClick={() => handleOpenRegistration('mentor')}
+                  className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95 backdrop-blur-md cursor-pointer"
+                >
                    {t('network.hub.cta.register_mentor')}
                 </button>
               </div>
            </div>
         </div>
       </div>
+
+      {/* Network Registration Modal */}
+      <JoinModal 
+        isOpen={isJoinModalOpen} 
+        onClose={() => setIsJoinModalOpen(false)} 
+        defaultTrack={selectedTrack} 
+      />
     </div>
   );
 };

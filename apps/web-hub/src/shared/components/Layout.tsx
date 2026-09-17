@@ -14,7 +14,7 @@ import {
   Calendar
 } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { JoinModal } from '@/features/onboarding/components/JoinModal';
+import { JoinModal, type TrackType } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
 import { MobileBottomNav } from './MobileBottomNav';
@@ -23,6 +23,7 @@ export const Layout = () => {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState<TrackType>('yatra');
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -307,7 +308,11 @@ export const Layout = () => {
         </div>
       </footer>
 
-      <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)} />
+      <JoinModal 
+        isOpen={isJoinModalOpen} 
+        onClose={() => setIsJoinModalOpen(false)} 
+        defaultTrack={selectedTrack} 
+      />
     </div>
   );
 };

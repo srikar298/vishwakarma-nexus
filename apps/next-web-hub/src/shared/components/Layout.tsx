@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { JoinModal } from '@/features/onboarding/components/JoinModal';
+import { JoinModal, type TrackType } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
 import { MobileBottomNav } from './MobileBottomNav';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
@@ -34,19 +34,21 @@ import { SocialLinks } from '@/shared/ui/SocialLinks';
 function QueryParamsListener({ 
   onOpenTrack 
 }: { 
-  onOpenTrack: (track: 'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron') => void 
+  onOpenTrack: (track: TrackType) => void 
 }) {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const ref = searchParams.get('ref');
-    const join = searchParams.get('join');
-    if (ref === 'ekta-yatra' || ref === 'chalo-delhi' || ref === 'yatra' || join === 'yatra') {
+    const track = searchParams?.get('track') as TrackType;
+    const join = searchParams?.get('join') as TrackType;
+    const ref = searchParams?.get('ref');
+
+    if (track && ['yatra', 'artisan', 'matrimony', 'professional', 'mentor', 'patron'].includes(track)) {
+      onOpenTrack(track);
+    } else if (join && ['yatra', 'artisan', 'matrimony', 'professional', 'mentor', 'patron'].includes(join)) {
+      onOpenTrack(join);
+    } else if (ref === 'ekta-yatra' || ref === 'chalo-delhi' || ref === 'yatra') {
       onOpenTrack('yatra');
-    } else if (join === 'artisan' || join === 'membership') {
-      onOpenTrack('artisan');
-    } else if (join === 'matrimony') {
-      onOpenTrack('matrimony');
     }
   }, [searchParams, onOpenTrack]);
 
@@ -58,12 +60,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const lang = (['en', 'te', 'hi'].includes(i18n.language) ? i18n.language : 'en') as 'en' | 'te' | 'hi';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
-  const [selectedTrack, setSelectedTrack] = useState<'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron'>('yatra');
+  const [selectedTrack, setSelectedTrack] = useState<TrackType>('yatra');
   const [scrolled, setScrolled] = useState(false);
 
-  const handleOpenTrack = useCallback((track: 'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron') => {
+  const handleOpenTrack = useCallback((track: TrackType) => {
     setSelectedTrack(track);
     setIsJoinModalOpen(true);
+  }, []);
+
+  const handleCloseJoinModal = useCallback(() => {
+    setIsJoinModalOpen(false);
   }, []);
 
   useEffect(() => {
@@ -570,7 +576,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </footer>
 
       {/* Global Onboarding & Signup Modal */}
-      <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)} defaultTrack={selectedTrack} />
+      <JoinModal isOpen={isJoinModalOpen} onClose={handleCloseJoinModal} defaultTrack={selectedTrack} />
     </div>
   );
 };

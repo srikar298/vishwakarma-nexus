@@ -119,7 +119,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
     }
     updateTimerRef.current = setTimeout(() => {
       dispatchLiveUpdate(newData);
-    }, 350);
+    }, 600);
   };
 
   const handleFinalSubmit = () => {
@@ -235,7 +235,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      value={formData.firstName}
                      onChange={handleInputChange}
                      placeholder="e.g. Bhaskar"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -246,7 +246,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      value={formData.lastName}
                      onChange={handleInputChange}
                      placeholder="e.g. Chary"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -257,7 +257,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      value={formData.fatherName}
                      onChange={handleInputChange}
                      placeholder="e.g. Shankara Chary"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -267,7 +267,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      name="dob"
                      value={formData.dob}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -276,7 +276,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      name="bloodGroup"
                      value={formData.bloodGroup}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    >
                       <option value="">Select Blood Group</option>
                       <option value="A+">A+</option>
@@ -298,7 +298,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      onChange={handleInputChange}
                      maxLength={12}
                      placeholder="12-digit Aadhaar Number"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
               </div>
@@ -319,7 +319,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      name="kula"
                      value={formData.kula}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    >
                       <option value="">Select Traditional Kula</option>
                       {KULA_BRANCHES.map(b => (
@@ -335,7 +335,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      value={formData.trade}
                      onChange={handleInputChange}
                      placeholder="e.g. Temple Architecture, Wood Carving, Gold Filigree"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -344,7 +344,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      name="experience"
                      value={formData.experience}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    >
                       <option value="1-3 years">1 - 3 Years</option>
                       <option value="3-5 years">3 - 5 Years</option>
@@ -371,7 +371,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      name="state"
                      value={formData.state}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    >
                       <option value="Telangana">Telangana</option>
                       <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -387,7 +387,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      name="district"
                      value={formData.district}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    >
                       {availableDistricts.map(d => (
                         <option key={d} value={d}>{d}</option>
@@ -402,7 +402,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      value={formData.mandal}
                      onChange={handleInputChange}
                      placeholder="e.g. Hanamkonda, Kukatpally, Secunderabad"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -414,7 +414,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      onChange={handleInputChange}
                      placeholder="e.g. 9876543210"
                      maxLength={14}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2 md:col-span-2">
@@ -425,7 +425,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
                      value={formData.houseStreet}
                      onChange={handleInputChange}
                      placeholder="Street / Colony / Landmark"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
               </div>

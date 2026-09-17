@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { User, MapPin, Briefcase, ArrowRight, ArrowLeft, CheckCircle, CreditCard, ShieldCheck } from 'lucide-react';
@@ -14,6 +14,10 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
   const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [isSimulatingPayment, setIsSimulatingPayment] = useState(false);
+  const updateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onUpdateRef = useRef(onUpdate);
+  onUpdateRef.current = onUpdate;
+
   const [formData, setFormData] = useState({
     name: '',
     fatherName: '',
@@ -33,6 +37,13 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
     transactionId: ''
   });
 
+  // Cleanup debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (updateTimerRef.current) clearTimeout(updateTimerRef.current);
+    };
+  }, []);
+
   // Automatically calculate age when DOB changes
   useEffect(() => {
     if (formData.dob) {
@@ -44,14 +55,10 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
         calculatedAge--;
       }
       if (calculatedAge >= 0) {
-        setFormData(prev => {
-          const updated = { ...prev, age: calculatedAge.toString() };
-          onUpdate(updated);
-          return updated;
-        });
+        setFormData(prev => ({ ...prev, age: calculatedAge.toString() }));
       }
     }
-  }, [formData.dob, onUpdate]);
+  }, [formData.dob]);
 
   const nextStep = () => setStep(s => s + 1);
   const prevStep = () => setStep(s => s - 1);
@@ -65,7 +72,12 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
     const locationString = addressParts.length > 0 ? addressParts.join(', ') : '';
     
     setFormData(newData);
-    onUpdate({ ...newData, location: locationString });
+
+    // Debounce parent live update so virtual keyboard doesn't lose focus on keystroke
+    if (updateTimerRef.current) clearTimeout(updateTimerRef.current);
+    updateTimerRef.current = setTimeout(() => {
+      onUpdateRef.current({ ...newData, location: locationString });
+    }, 600);
   };
 
   const steps = [
@@ -155,7 +167,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.name}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_name')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -166,7 +178,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.fatherName}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_father')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -176,7 +188,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      name="dob"
                      value={formData.dob}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -187,7 +199,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.age}
                      onChange={handleInputChange}
                      placeholder="Age"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -196,7 +208,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      name="bloodGroup"
                      value={formData.bloodGroup}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium appearance-none text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium appearance-none text-base md:text-sm"
                    >
                       <option value="">{t('onboarding.select_blood_group')}</option>
                       <option value="A+">A+</option>
@@ -218,7 +230,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      onChange={handleInputChange}
                      maxLength={12}
                      placeholder={t('onboarding.placeholder_aadhaar')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
               </div>
@@ -238,7 +250,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      name="kula"
                      value={formData.kula}
                      onChange={handleInputChange}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium appearance-none text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium appearance-none text-base md:text-sm"
                    >
                       <option value="">{t('onboarding.select_kula')}</option>
                       <option value="Manus (Blacksmith)">Manus (Blacksmith)</option>
@@ -256,7 +268,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.profession}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_specialization')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
               </div>
@@ -278,7 +290,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.houseStreet}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_house')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -289,7 +301,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.constituency}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_constituency')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -300,7 +312,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.mandalDistrict}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_mandal_district')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -311,7 +323,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.phone}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_phone')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
               </div>
@@ -333,7 +345,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.nomineeName}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_nominee')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -344,7 +356,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.nomineeAge}
                      onChange={handleInputChange}
                      placeholder="Age"
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
                 <div className="space-y-2">
@@ -355,7 +367,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                      value={formData.relation}
                      onChange={handleInputChange}
                      placeholder={t('onboarding.placeholder_relation')}
-                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                    />
                 </div>
               </div>
@@ -417,7 +429,7 @@ export const RegistrationForm = ({ onUpdate, onComplete }: RegistrationFormProps
                    value={formData.transactionId}
                    onChange={handleInputChange}
                    placeholder={t('onboarding.placeholder_transaction')}
-                   className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-xs md:text-sm"
+                   className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium text-base md:text-sm"
                  />
               </div>
 

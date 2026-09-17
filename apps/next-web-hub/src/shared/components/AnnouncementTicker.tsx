@@ -15,8 +15,10 @@ interface Announcement {
   hi: string;
 }
 
+import { type TrackType } from '@/features/onboarding/components/JoinModal';
+
 interface AnnouncementTickerProps {
-  onOpenJoinModal?: (track?: 'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron') => void;
+  onOpenJoinModal?: (track?: TrackType) => void;
 }
 
 export const AnnouncementTicker: React.FC<AnnouncementTickerProps> = ({ onOpenJoinModal }) => {

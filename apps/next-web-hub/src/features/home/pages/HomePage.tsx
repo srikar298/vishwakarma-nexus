@@ -17,14 +17,15 @@ import { AboutSection } from '@/features/home/components/AboutSection';
 import { FounderSection } from '@/features/home/components/FounderSection';
 import { CompactTimeline } from '@/features/home/components/CompactTimeline';
 import { GallerySection } from '@/features/home/components/GallerySection';
-import { MatrimonyModal } from '@/shared/components/MatrimonyModal';
+import { JoinModal, type TrackType } from '@/features/onboarding/components/JoinModal';
 import { SOCIAL_LINKS_ARRAY } from '@/shared/constants/social-links';
 
 
 export const HomePage = () => {
   const { t, i18n } = useTranslation();
   const [events, setEvents] = useState<typeof localEvents>(localEvents);
-  const [isMatrimonyModalOpen, setIsMatrimonyModalOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState<TrackType>('matrimony');
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -152,7 +153,7 @@ export const HomePage = () => {
       <HeroFiveSons />
 
       {/* LAYER 2: TWIN BRANCHES (MATRIMONY & ARTISAN DIRECTORY) */}
-      <EcosystemTwinBranches onOpenMatrimony={() => setIsMatrimonyModalOpen(true)} />
+      <EcosystemTwinBranches onOpenMatrimony={() => { setSelectedTrack('matrimony'); setIsJoinModalOpen(true); }} />
 
       {/* LAYER 3: WISDOM BRIDGE (TABBED SHASTRA ARCHIVES) */}
       <ShastraVaultTab />
@@ -202,10 +203,11 @@ export const HomePage = () => {
         </div>
       </section>
 
-      {/* Matrimony Coming Soon Modal */}
-      <MatrimonyModal 
-        isOpen={isMatrimonyModalOpen}
-        onClose={() => setIsMatrimonyModalOpen(false)}
+      {/* Parinaya Matrimony / Official Community Registration Modal */}
+      <JoinModal 
+        isOpen={isJoinModalOpen}
+        onClose={() => setIsJoinModalOpen(false)}
+        defaultTrack={selectedTrack}
       />
     </>
   );

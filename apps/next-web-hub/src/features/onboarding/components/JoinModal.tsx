@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   User, 
   Phone, 
   Briefcase, 
   MapPin, 
   ChevronRight, 
+  ChevronDown,
   ArrowLeft, 
   CheckCircle2, 
   Hammer, 
@@ -21,7 +23,9 @@ import {
 } from 'lucide-react';
 import { api } from '@/infrastructure/http/apiClient';
 import { BaseModal } from '@/shared/ui/BaseModal';
-import Link from 'next/link';
+import { LanguageSwitcher } from '@/shared/components/LanguageSwitcher';
+
+export type TrackType = 'yatra' | 'artisan' | 'matrimony' | 'professional' | 'mentor' | 'patron';
 
 const TRADES = [
   "Carpenter (Suthar)", "Boat Maker", "Armourer", "Blacksmith (Lohar)", 
@@ -43,20 +47,185 @@ const STATES_AND_DISTRICTS = [
   "Maharashtra", "Delhi / NCR", "Other Region"
 ];
 
-const TRACKS = [
-  { id: 'yatra', label: 'Vishwakarma Ekta Maha Padayatra', sub: 'విశ్వకర్మ ఏకతా మహా పాదయాత్ర', icon: Flag, color: 'text-amber-600', bg: 'bg-amber-100/70', badge: '🚩 Ekta Yatra' },
-  { id: 'artisan', label: 'Master Artisan & Digital ID', sub: 'కళాకారుల డిజిటల్ ఐడీ కార్డ్', icon: Hammer, color: 'text-vermilion', bg: 'bg-vermilion/10', badge: '🛠️ Economic ID' },
-  { id: 'matrimony', label: 'Parinaya Matrimony', sub: 'పరిణయ మ్యాట్రిమోనీ పోర్టల్', icon: Heart, color: 'text-rose-600', bg: 'bg-rose-100/70', badge: '💍 100% Verified' },
-  { id: 'professional', label: 'Professional Network', sub: 'వృత్తి నిపుణుల నెట్‌వర్క్', icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-100/70', badge: '💼 B2B & Jobs' },
+const MODAL_TEXTS = {
+  en: {
+    badge: '10-Second Express Registration',
+    subtitle: 'Vishwakarma Ekta Maha Padayatra & VKC Network',
+    stepIndicator: (current: number, total: number) => `Step ${current} of ${total}`,
+    purposeLabel: 'Select Registration Purpose / Category',
+    phoneLabel: 'Mobile Number (WhatsApp)',
+    phonePlaceholder: '98765 43210',
+    phoneNote: 'Used for official updates, digital pass SMS, and coordination.',
+    nameLabel: 'Full Name',
+    namePlaceholder: 'e.g. Brahmasri Ramesh Chary',
+    nextBtn: 'Next: District & Category Details',
+    locationLabel: 'District / Parliamentary Constituency',
+    locationPlaceholder: 'Select your District / Area',
+    craftLabelArtisan: 'Traditional Craft Specialization',
+    craftPlaceholderArtisan: 'Select your traditional craft',
+    craftLabelMatrimony: 'Gotra / Subsect & Profession',
+    craftPlaceholderMatrimony: 'e.g. Sanaga Gotra / Software Architect',
+    craftLabelMentor: 'Area of Mentorship / Expertise',
+    craftPlaceholderMentor: 'e.g. Civil Services Coaching, Enterprise, Tech',
+    craftLabelProfessional: 'Profession / Designation / Business',
+    craftPlaceholderProfessional: 'e.g. Software Engineer / Architect / Contractor',
+    craftLabelYatra: 'Yatra Participation Role',
+    craftPlaceholderYatra: 'e.g. Yatri / District Coordinator / Youth Leader',
+    craftLabelPatron: 'Community Contribution / Support Interest',
+    craftPlaceholderPatron: 'e.g. Cultural Patron, Philanthropy, Education Sponsor',
+    backBtn: 'Go back',
+    submitBtn: 'Complete & Generate Digital Pass',
+    submitting: 'Registering...',
+    confirmedTitle: 'Registration Confirmed!',
+    confirmedSub: 'Welcome to Vishwakarma Knowledge Centre & Community Network.',
+    passTitle: 'VISHWAKARMA NEXUS',
+    passSub: 'Official Verified Member Registry',
+    memberName: 'Member Name',
+    registeredMobile: 'Registered Mobile',
+    districtRegion: 'District / Region',
+    category: 'Category',
+    verifiedMember: 'Verified Member',
+    shareWhatsApp: 'Share on WhatsApp with Fellow Bandhus',
+    copyPass: 'Copy Member Pass Details',
+    copied: 'Copied to Clipboard!',
+    closeReturn: 'Close & Return to Home',
+    tracks: {
+      professional: 'Professional Network',
+      mentor: 'Register as Mentor',
+      matrimony: 'Parinaya Matrimony',
+      artisan: 'Master Artisan & Digital ID',
+      yatra: 'Vishwakarma Ekta Maha Padayatra',
+      patron: 'Community Member / Patron'
+    }
+  },
+  te: {
+    badge: '10-సెకన్ల ఎక్స్‌ప్రెస్ రిజిస్ట్రేషన్',
+    subtitle: 'విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర & VKC నెట్‌వర్క్',
+    stepIndicator: (current: number, total: number) => `దశ ${current} / ${total}`,
+    purposeLabel: 'నమోదు విభాగం / ప్రయోజనం ఎంచుకోండి',
+    phoneLabel: 'మొబైల్ నంబర్ (వాట్సాప్)',
+    phonePlaceholder: '98765 43210',
+    phoneNote: 'అధికారిక అప్‌డేట్స్, డిజిటల్ పాస్ మరియు సమన్వయం కోసం ఉపయోగించబడుతుంది.',
+    nameLabel: 'పూర్తి పేరు',
+    namePlaceholder: 'ఉదా: బ్రహ్మశ్రీ రమేష్ చారి',
+    nextBtn: 'తరువాత: జిల్లా & వివరాలు',
+    locationLabel: 'జిల్లా / నియోజకవర్గం',
+    locationPlaceholder: 'మీ జిల్లా లేదా ప్రాంతాన్ని ఎంచుకోండి',
+    craftLabelArtisan: 'సాంప్రదాయ వృత్తి నైపుణ్యం',
+    craftPlaceholderArtisan: 'మీ సాంప్రదాయ వృత్తిని ఎంచుకోండి',
+    craftLabelMatrimony: 'గోత్రం / ఉపశాఖ మరియు వృత్తి',
+    craftPlaceholderMatrimony: 'ఉదా: సనగ గోత్రం / సాఫ్ట్‌వేర్ ఆర్కిటెక్ట్',
+    craftLabelMentor: 'మార్గదర్శకత్వం / మెంటార్‌షిప్ రంగం',
+    craftPlaceholderMentor: 'ఉదా: సివిల్ సర్వీసెస్, ఉన్నత విద్య, వ్యాపారం',
+    craftLabelProfessional: 'వృత్తి / ఉద్యోగం / వ్యాపారం',
+    craftPlaceholderProfessional: 'ఉదా: ఇంజనీర్ / ఆర్కిటెక్ట్ / కాంట్రాక్టర్',
+    craftLabelYatra: 'పాదయాత్ర భాగస్వామ్య విభాగం',
+    craftPlaceholderYatra: 'ఉదా: యాత్రికుడు / జిల్లా సమన్వయకర్త / యువజన నాయకుడు',
+    craftLabelPatron: 'సంఘ సహకారం / పోషక రంగం',
+    craftPlaceholderPatron: 'ఉదా: సాంస్కృతిక పోషకులు, విద్యా ప్రోత్సాహకం',
+    backBtn: 'వెనుకకు',
+    submitBtn: 'పూర్తి చేసి డిజిటల్ పాస్ పొందండి',
+    submitting: 'నమోదు అవుతోంది...',
+    confirmedTitle: 'నమోదు విజయవంతంగా పూర్తయింది!',
+    confirmedSub: 'విశ్వకర్మ నాలెడ్జ్ సెంటర్ & సంఘ నెట్‌వర్క్‌కు స్వాగతం.',
+    passTitle: 'విశ్వకర్మ నెక్సస్',
+    passSub: 'అధికారిక ధృవీకరించబడిన సభ్యుల రిజిస్ట్రీ',
+    memberName: 'సభ్యుని పేరు',
+    registeredMobile: 'నమోదైన మొబైల్',
+    districtRegion: 'జిల్లా / ప్రాంతం',
+    category: 'విభాగం',
+    verifiedMember: 'ధృవీకరించబడిన సభ్యుడు',
+    shareWhatsApp: 'తోటి బంధువులతో వాట్సాప్‌లో పంచుకోండి',
+    copyPass: 'సభ్యత్వ పాస్ వివరాలు కాపీ చేయండి',
+    copied: 'క్లిప్‌బోర్డ్‌కు కాపీ చేయబడింది!',
+    closeReturn: 'ముగించి హోమ్‌కు వెళ్లండి',
+    tracks: {
+      professional: 'వృత్తి నిపుణుల నెట్‌వర్క్',
+      mentor: 'గౌరవ మెంటార్‌గా నమోదు',
+      matrimony: 'పరిణయ మ్యాట్రిమోనీ పోర్టల్',
+      artisan: 'కళాకారుల డిజిటల్ ఐడీ కార్డ్',
+      yatra: 'విశ్వకర్మ ఏకతా మహా పాదయాత్ర',
+      patron: 'సంఘ పోషకులు / సభ్యులు'
+    }
+  },
+  hi: {
+    badge: '10-सेकंड त्वरित पंजीकरण',
+    subtitle: 'विश्वकर्मा एकता महा पदयात्रा एवं VKC नेटवर्क',
+    stepIndicator: (current: number, total: number) => `चरण ${current} / ${total}`,
+    purposeLabel: 'पंजीकरण का उद्देश्य / श्रेणी चुनें',
+    phoneLabel: 'मोबाइल नंबर (व्हाट्सएप)',
+    phonePlaceholder: '98765 43210',
+    phoneNote: 'आधिकारिक अपडेट, डिजिटल पास और समन्वय के लिए उपयोग किया जाएगा।',
+    nameLabel: 'पूरा नाम',
+    namePlaceholder: 'उदा. ब्रह्मश्री रमेश चारी',
+    nextBtn: 'अगला: जिला एवं विवरण',
+    locationLabel: 'जिला / क्षेत्र',
+    locationPlaceholder: 'अपना जिला या क्षेत्र चुनें',
+    craftLabelArtisan: 'पारंपरिक शिल्प विशेषता',
+    craftPlaceholderArtisan: 'अपना पारंपरिक शिल्प चुनें',
+    craftLabelMatrimony: 'गोत्र / उपशाखा एवं व्यवसाय',
+    craftPlaceholderMatrimony: 'उदा. सनग गोत्र / सॉफ्टवेयर इंजीनियर',
+    craftLabelMentor: 'मार्गदर्शन / मेंटरशिप क्षेत्र',
+    craftPlaceholderMentor: 'उदा. सिविल सेवा, उच्च शिक्षा, उद्यम',
+    craftLabelProfessional: 'पेशा / पद / व्यवसाय',
+    craftPlaceholderProfessional: 'उदा. इंजीनियर / वास्तुकार / उद्यमी',
+    craftLabelYatra: 'पदयात्रा सहभागिता भूमिका',
+    craftPlaceholderYatra: 'उदा. यात्री / जिला समन्वयक / युवा नेता',
+    craftLabelPatron: 'सामुदायिक सहयोग / संरक्षक क्षेत्र',
+    craftPlaceholderPatron: 'उदा. सांस्कृतिक संरक्षक, शिक्षा सहयोग',
+    backBtn: 'वापस जाएं',
+    submitBtn: 'पंजीकरण पूर्ण करें और डिजिटल पास प्राप्त करें',
+    submitting: 'पंजीकरण हो रहा है...',
+    confirmedTitle: 'पंजीकरण सफलतापूर्वक पूर्ण हुआ!',
+    confirmedSub: 'विश्वकर्मा नॉलेज सेंटर नेटवर्क में आपका स्वागत है।',
+    passTitle: 'विश्वकर्मा नेक्सस',
+    passSub: 'आधिकारिक सत्यापित सदस्य रजिस्ट्री',
+    memberName: 'सदस्य का नाम',
+    registeredMobile: 'पंजीकृत मोबाइल',
+    districtRegion: 'जिला / क्षेत्र',
+    category: 'श्रेणी',
+    verifiedMember: 'सत्यापित सदस्य',
+    shareWhatsApp: 'विश्वकर्मा बंधुओं के साथ व्हाट्सएप पर साझा करें',
+    copyPass: 'पास विवरण कॉपी करें',
+    copied: 'क्लिपबोर्ड पर कॉपी किया गया!',
+    closeReturn: 'बंद करें और वापस जाएं',
+    tracks: {
+      professional: 'व्यावसायिक नेटवर्क',
+      mentor: 'मेंटर के रूप में पंजीकरण',
+      matrimony: 'परिणय मैट्रिमोनी पोर्टल',
+      artisan: 'शिल्पकार डिजिटल आईडी कार्ड',
+      yatra: 'विश्वकर्मा एकता महा पदयात्रा',
+      patron: 'समुदाय संरक्षक / सदस्य'
+    }
+  }
+};
+
+const TRACK_CONFIGS: Array<{
+  id: TrackType;
+  icon: typeof Briefcase;
+  color: string;
+  bg: string;
+  badge: string;
+}> = [
+  { id: 'professional', icon: Briefcase, color: 'text-blue-600', bg: 'bg-blue-100/70', badge: '💼 B2B & Jobs' },
+  { id: 'mentor', icon: Award, color: 'text-purple-600', bg: 'bg-purple-100/70', badge: '🎓 Mentor' },
+  { id: 'matrimony', icon: Heart, color: 'text-rose-600', bg: 'bg-rose-100/70', badge: '💍 100% Verified' },
+  { id: 'artisan', icon: Hammer, color: 'text-vermilion', bg: 'bg-vermilion/10', badge: '🛠️ Economic ID' },
+  { id: 'yatra', icon: Flag, color: 'text-amber-600', bg: 'bg-amber-100/70', badge: '🚩 Ekta Yatra' },
+  { id: 'patron', icon: Sparkles, color: 'text-emerald-600', bg: 'bg-emerald-100/70', badge: '🌟 Community' },
 ];
 
 interface JoinModalProps {
   isOpen: boolean;
   onClose: () => void;
-  defaultTrack?: 'yatra' | 'artisan' | 'matrimony' | 'professional' | 'patron';
+  defaultTrack?: TrackType;
 }
 
 export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModalProps) {
+  const { i18n } = useTranslation();
+  const currentLang = (['en', 'te', 'hi'].includes(i18n.language) ? i18n.language : 'en') as 'en' | 'te' | 'hi';
+  const tModal = MODAL_TEXTS[currentLang] || MODAL_TEXTS.en;
+
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -73,15 +242,24 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
 
   useEffect(() => {
     if (defaultTrack) {
-      setFormData(prev => ({ ...prev, track: defaultTrack }));
+      setFormData(prev => (prev.track === defaultTrack ? prev : { ...prev, track: defaultTrack }));
     }
   }, [defaultTrack]);
+
+  const handleReset = useCallback(() => {
+    setStep(1);
+    setSuccess(false);
+    setCopied(false);
+    setFormData({ track: defaultTrack, name: '', phone: '', location: '', tradeOrDetail: '' });
+    onClose();
+  }, [defaultTrack, onClose]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const generatedId = `VKC-${Math.floor(100000 + Math.random() * 900000)}`;
+    const prefix = formData.track === 'matrimony' ? 'VKC-M' : formData.track === 'mentor' ? 'VKC-L' : formData.track === 'professional' ? 'VKC-P' : 'VKC';
+    const generatedId = `${prefix}-${Math.floor(100000 + Math.random() * 900000)}`;
     setMemberId(generatedId);
 
     const payload = {
@@ -89,13 +267,13 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
       phone: formData.phone,
       trade: formData.track === 'yatra' ? `Ekta Padayatra - ${formData.tradeOrDetail || 'Yatri'}` : formData.tradeOrDetail,
       state: formData.location,
-      notes: `Track: ${formData.track} | Ref: Ekta-Yatra | GeneratedID: ${generatedId}`
+      notes: `Track: ${formData.track} | Ref: Direct-Registration | GeneratedID: ${generatedId}`
     };
 
     const { error } = await api.post('members/inquiries', payload);
 
     if (error) {
-      // Still show success to yatri on field network
+      // Still show success to visitor on local network
       setSuccess(true);
     } else {
       setSuccess(true);
@@ -103,32 +281,37 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
     setLoading(false);
   };
 
-  const handleReset = () => {
-    setStep(1);
-    setSuccess(false);
-    setCopied(false);
-    setFormData({ track: defaultTrack, name: '', phone: '', location: '', tradeOrDetail: '' });
-    onClose();
+  const getShareText = () => {
+    const categoryName = tModal.tracks[formData.track] || 'Vishwakarma Nexus';
+    if (currentLang === 'te') {
+      return `*|| జై విశ్వకర్మ ||*\n*${categoryName} — VKC అధికారిక రిజిస్ట్రీ*\n\nనేను అధికారిక నెట్‌వర్క్‌లో నమోదు చేసుకున్నాను.\n*నా డిజిటల్ ఐడీ:* ${memberId}\n*విభాగం:* ${categoryName}\n\n*మీరూ ఇప్పుడే మొబైల్ నంబర్‌తో నమోదు చేసుకొని డిజిటల్ పాస్ పొందండి:*\nhttps://vishwakarmaknowledgecentre.org/membership`;
+    }
+    if (currentLang === 'hi') {
+      return `*|| जय विश्वकर्मा ||*\n*${categoryName} — VKC आधिकारिक रजिस्ट्री*\n\nमैंने आधिकारिक नेटवर्क पर पंजीकरण कर लिया है।\n*मेरी डिजिटल आईडी:* ${memberId}\n*श्रेणी:* ${categoryName}\n\n*आप भी अपने मोबाइल नंबर से तुरंत पंजीकरण करें और डिजिटल पास पाएं:*\nhttps://vishwakarmaknowledgecentre.org/membership`;
+    }
+    return `*|| Jai Vishwakarma ||*\n*${categoryName} — Official VKC Network*\n\nI have successfully registered with Vishwakarma Nexus.\n*My Digital ID:* ${memberId}\n*Category:* ${categoryName}\n\n*Register your mobile number and claim your Verified Digital Pass:*\nhttps://vishwakarmaknowledgecentre.org/membership`;
   };
 
-  const shareText = `*|| జై విశ్వకర్మ ||*\n*విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర & VKC నెట్‌వర్క్*\n\nనేను అధికారిక నెట్‌వర్క్‌లో నమోదు చేసుకున్నాను.\n*నా డిజిటల్ ఐడీ:* ${memberId}\n\n*మీరూ ఇప్పుడే మొబైల్ నంబర్‌తో నమోదు చేసుకొని డిజిటల్ పాస్ పొందండి:*\nhttps://vishwakarmaknowledgecentre.org/events/ekta-yatra?ref=ekta-yatra`;
-
   const handleWhatsAppShare = () => {
-    const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+    const url = `https://wa.me/?text=${encodeURIComponent(getShareText())}`;
     window.open(url, '_blank');
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(shareText);
+    navigator.clipboard.writeText(getShareText());
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const getCategoryBadgeLabel = () => {
+    return tModal.tracks[formData.track] || tModal.verifiedMember;
   };
 
   return (
     <BaseModal 
       isOpen={isOpen} 
       onClose={handleReset}
-      title="VKC Official Community Registration"
+      title={tModal.badge}
       maxW="max-w-lg"
     >
       {success ? (
@@ -145,14 +328,14 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
 
           <div>
             <h2 id="modal-title" className="text-xl md:text-2xl font-black text-stone-900 font-display">
-              నమోదు పూర్తయింది! (Registration Confirmed)
+              {tModal.confirmedTitle}
             </h2>
             <p className="text-stone-500 text-xs mt-1">
-              Welcome to Vishwakarma Knowledge Centre & Ekta Maha Padayatra Network.
+              {tModal.confirmedSub}
             </p>
           </div>
 
-          {/* Digital Yatra / Community Member Pass Card */}
+          {/* Digital Member Pass Card */}
           <div className="bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 text-white rounded-2xl p-5 text-left border border-amber-500/30 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
             
@@ -160,8 +343,8 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
               <div className="flex items-center gap-2">
                 <img src="/images/shared/emblem.png" alt="VKC" className="w-8 h-8 object-contain" />
                 <div>
-                  <p className="text-xs font-black text-white leading-none">VISHWAKARMA NEXUS</p>
-                  <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest mt-0.5">Ekta Maha Padayatra (1,700 KM)</p>
+                  <p className="text-xs font-black text-white leading-none">{tModal.passTitle}</p>
+                  <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest mt-0.5">{getCategoryBadgeLabel()}</p>
                 </div>
               </div>
               <span className="bg-amber-500/20 text-amber-400 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded border border-amber-500/30">
@@ -171,32 +354,32 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
 
             <div className="grid grid-cols-2 gap-3 text-xs">
               <div>
-                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">Member Name</p>
+                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">{tModal.memberName}</p>
                 <p className="font-bold text-white text-sm truncate">{formData.name || 'Vishwakarma Bandhu'}</p>
               </div>
               <div>
-                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">Registered Mobile</p>
+                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">{tModal.registeredMobile}</p>
                 <p className="font-bold text-white text-sm">{formData.phone}</p>
               </div>
               <div>
-                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">District / Region</p>
+                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">{tModal.districtRegion}</p>
                 <p className="font-bold text-amber-300 truncate">{formData.location || 'Telangana / AP'}</p>
               </div>
               <div>
-                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">Category</p>
-                <p className="font-bold text-emerald-400 uppercase text-[10px]">Verified Member</p>
+                <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">{tModal.category}</p>
+                <p className="font-bold text-emerald-400 uppercase text-[10px] truncate">{getCategoryBadgeLabel()}</p>
               </div>
             </div>
           </div>
 
-          {/* Viral WhatsApp Share Action */}
+          {/* WhatsApp Share Action */}
           <div className="space-y-2.5 pt-1">
             <button 
               onClick={handleWhatsAppShare}
               className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-3.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 active:scale-[0.98] transition-all cursor-pointer"
             >
               <Share2 size={16} />
-              <span>Share on WhatsApp with Fellow Bandhus</span>
+              <span>{tModal.shareWhatsApp}</span>
             </button>
 
             <button 
@@ -204,7 +387,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
               className="w-full bg-stone-100 hover:bg-stone-200 text-stone-700 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 active:scale-98 transition-all cursor-pointer"
             >
               {copied ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
-              <span>{copied ? 'Copied to Clipboard!' : 'Copy Member Pass Details'}</span>
+              <span>{copied ? tModal.copied : tModal.copyPass}</span>
             </button>
           </div>
 
@@ -212,28 +395,34 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
             onClick={handleReset}
             className="text-stone-400 hover:text-stone-700 text-xs font-bold pt-2 cursor-pointer"
           >
-            Close & Return to Home
+            {tModal.closeReturn}
           </button>
         </div>
       ) : (
         <div className="p-5 md:p-7">
-          {/* Header Banner */}
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-stone-100">
+          {/* Header Banner with Language Switcher */}
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-stone-100 pr-12">
             <div className="flex items-center gap-2">
               <div className="bg-gradient-to-r from-vermilion to-amber-500 p-1.5 rounded-lg text-white">
                 <Flag className="w-4 h-4" />
               </div>
               <div>
                 <span className="font-black text-stone-900 uppercase tracking-tight text-xs block">
-                  10-Second Express Registration
+                  {tModal.badge}
                 </span>
                 <span className="text-[10px] text-amber-700 font-bold block">
-                  విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర & VKC నెట్‌వర్క్
+                  {tModal.subtitle}
                 </span>
               </div>
             </div>
+            <div className="flex items-center gap-2">
+              <LanguageSwitcher />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mb-3 px-1">
             <span className="text-[10px] font-black uppercase tracking-widest text-stone-400 bg-stone-100 px-2 py-1 rounded-lg">
-              Step {step} of 2
+              {tModal.stepIndicator(step, 2)}
             </span>
           </div>
 
@@ -247,55 +436,68 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                   exit={{ opacity: 0, x: -20 }}
                   className="space-y-4"
                 >
-                  {/* Select Pathway */}
+                  {/* Category Dropdown (Automated selection & user switchable) */}
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-black text-stone-500 uppercase tracking-widest">
-                      Select Registration Purpose (లక్ష్యం)
+                    <label htmlFor="reg-purpose-select" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center justify-between">
+                      <span>{tModal.purposeLabel}</span>
                     </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {TRACKS.map((t) => {
-                        const Icon = t.icon;
-                        const isSelected = formData.track === t.id;
-                        return (
-                          <button
-                            type="button"
-                            key={t.id}
-                            onClick={() => setFormData({ ...formData, track: t.id as never })}
-                            className={`p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
-                              isSelected 
-                                ? 'border-vermilion bg-vermilion/5 ring-2 ring-vermilion/20 shadow-sm' 
-                                : 'border-stone-200 hover:border-stone-300 bg-stone-50/50'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between mb-1">
-                              <div className={`p-1.5 rounded-lg ${t.bg} ${t.color}`}>
-                                <Icon size={14} />
-                              </div>
-                              <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded ${
-                                isSelected ? 'bg-vermilion text-white' : 'bg-stone-200 text-stone-600'
-                              }`}>
-                                {t.badge}
-                              </span>
-                            </div>
-                            <div>
-                              <span className="text-[11px] font-black text-stone-900 block leading-tight">
-                                {t.label}
-                              </span>
-                              <span className="text-[9px] text-stone-500 font-bold block mt-0.5 truncate">
-                                {t.sub}
-                              </span>
-                            </div>
-                          </button>
-                        );
-                      })}
+                    <div className="relative">
+                      <select
+                        id="reg-purpose-select"
+                        value={formData.track}
+                        onChange={(e) => setFormData({ ...formData, track: e.target.value as TrackType })}
+                        className="w-full h-11 pl-4 pr-10 rounded-xl border-2 border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/20 outline-none transition-all text-xs font-bold bg-white cursor-pointer appearance-none text-stone-800"
+                      >
+                        <option value="professional">{tModal.tracks.professional}</option>
+                        <option value="mentor">{tModal.tracks.mentor}</option>
+                        <option value="matrimony">{tModal.tracks.matrimony}</option>
+                        <option value="artisan">{tModal.tracks.artisan}</option>
+                        <option value="yatra">{tModal.tracks.yatra}</option>
+                        <option value="patron">{tModal.tracks.patron}</option>
+                      </select>
+                      <ChevronDown size={16} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" />
                     </div>
                   </div>
 
-                  {/* Mobile Number - High Priority First */}
+                  {/* Quick Category Selector Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 pt-0.5">
+                    {TRACK_CONFIGS.map((t) => {
+                      const Icon = t.icon;
+                      const isSelected = formData.track === t.id;
+                      return (
+                        <button
+                          type="button"
+                          key={t.id}
+                          onClick={() => setFormData({ ...formData, track: t.id })}
+                          className={`p-2 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
+                            isSelected 
+                              ? 'border-vermilion bg-vermilion/5 ring-2 ring-vermilion/20 shadow-sm' 
+                              : 'border-stone-200 hover:border-stone-300 bg-stone-50/50'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <div className={`p-1 rounded-md ${t.bg} ${t.color}`}>
+                              <Icon size={12} />
+                            </div>
+                            <span className={`text-[8px] font-black uppercase px-1 py-0.5 rounded ${
+                              isSelected ? 'bg-vermilion text-white' : 'bg-stone-200 text-stone-600'
+                            }`}>
+                              {t.badge}
+                            </span>
+                          </div>
+                          <span className="text-[10px] font-black text-stone-900 block leading-tight truncate">
+                            {tModal.tracks[t.id]}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Mobile Number - Stable input without autoFocus */}
                   <div className="space-y-1.5">
                     <label htmlFor="mobile-phone" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                       <Phone size={12} className="text-vermilion" /> 
-                      Mobile Number (మొబైల్ నంబర్ - WhatsApp)
+                      {tModal.phoneLabel}
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-xs font-black text-stone-500">
@@ -305,45 +507,52 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                         id="mobile-phone"
                         type="tel" 
                         inputMode="numeric"
+                        autoComplete="tel"
+                        enterKeyHint="next"
                         pattern="[0-9]{10}"
                         required
-                        autoFocus
-                        placeholder="98765 43210"
-                        className="w-full pl-16 pr-4 py-3 rounded-xl border-2 border-stone-200 focus:border-vermilion focus:ring-4 focus:ring-vermilion/10 outline-none transition-all text-sm font-bold tracking-wider"
+                        placeholder={tModal.phonePlaceholder}
+                        className="w-full pl-16 pr-4 py-3 rounded-xl border-2 border-stone-200 focus:border-vermilion focus:ring-4 focus:ring-vermilion/10 outline-none transition-all text-base md:text-sm font-bold tracking-wider"
                         value={formData.phone}
                         onChange={(e) => {
                           const val = e.target.value.replace(/\D/g, '').slice(0, 10);
-                          setFormData({ ...formData, phone: val });
+                          setFormData(prev => ({ ...prev, phone: val }));
                         }}
                       />
                     </div>
-                    <p className="text-[10px] text-stone-400">Used for official updates, digital ID SMS, and Yatra coordination.</p>
+                    <p className="text-[10px] text-stone-400">{tModal.phoneNote}</p>
                   </div>
 
                   {/* Full Name */}
                   <div className="space-y-1.5">
                     <label htmlFor="full-name" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                       <User size={12} className="text-vermilion" /> 
-                      Full Name (పూర్తి పేరు)
+                      {tModal.nameLabel}
                     </label>
                     <input 
                       id="full-name"
                       type="text" 
                       required
-                      placeholder="e.g. Brahmasri Ramesh Chary"
-                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-semibold"
+                      autoComplete="name"
+                      autoCapitalize="words"
+                      enterKeyHint="next"
+                      placeholder={tModal.namePlaceholder}
+                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-base md:text-sm font-semibold"
                       value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setFormData(prev => ({ ...prev, name: val }));
+                      }}
                     />
                   </div>
 
                   <button 
                     type="button"
-                    disabled={!formData.name || formData.phone.length < 10}
+                    disabled={!formData.name.trim() || formData.phone.length < 10}
                     onClick={() => setStep(2)}
                     className="w-full bg-gradient-to-r from-vermilion to-vermilion-600 text-white py-3.5 rounded-xl font-black text-xs flex items-center justify-center gap-2 hover:opacity-95 disabled:opacity-50 transition-all active:scale-[0.98] shadow-lg shadow-vermilion/20 touch-manipulation cursor-pointer"
                   >
-                    Next: District & Category <ChevronRight size={14} />
+                    {tModal.nextBtn} <ChevronRight size={14} />
                   </button>
                 </motion.div>
               ) : (
@@ -358,55 +567,69 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                   <div className="space-y-1.5">
                     <label htmlFor="location-select" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                       <MapPin size={12} className="text-vermilion" /> 
-                      District / Parliamentary Constituency (జిల్లా / నియోజకవర్గం)
+                      {tModal.locationLabel}
                     </label>
                     <select 
                       id="location-select"
                       required
-                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-bold appearance-none bg-white cursor-pointer"
+                      className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-base md:text-xs font-bold appearance-none bg-white cursor-pointer"
                       value={formData.location}
-                      onChange={(e) => setFormData({...formData, location: e.target.value})}
+                      onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
                     >
-                      <option value="">Select your District / Area</option>
+                      <option value="">{tModal.locationPlaceholder}</option>
                       {STATES_AND_DISTRICTS.map(s => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </div>
 
-                  {/* Detail based on Track */}
+                  {/* Dynamic detail input based on track */}
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <label htmlFor="detail-input" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                       <Briefcase size={12} className="text-vermilion" /> 
-                      {formData.track === 'yatra' 
-                        ? 'Yatra Participation Role (యాత్ర విభాగం)' 
+                      {formData.track === 'artisan'
+                        ? tModal.craftLabelArtisan
                         : formData.track === 'matrimony'
-                          ? 'Gotra / Subsect (గోత్రం / ఉపశాఖ)'
-                          : 'Trade / Craft / Profession (వృత్తి)'}
+                          ? tModal.craftLabelMatrimony
+                          : formData.track === 'mentor'
+                            ? tModal.craftLabelMentor
+                            : formData.track === 'professional'
+                              ? tModal.craftLabelProfessional
+                              : formData.track === 'yatra'
+                                ? tModal.craftLabelYatra
+                                : tModal.craftLabelPatron}
                     </label>
 
                     {formData.track === 'artisan' ? (
                       <select 
+                        id="detail-input"
                         required
-                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-bold appearance-none bg-white cursor-pointer"
+                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-base md:text-xs font-bold appearance-none bg-white cursor-pointer"
                         value={formData.tradeOrDetail}
-                        onChange={(e) => setFormData({...formData, tradeOrDetail: e.target.value})}
+                        onChange={(e) => setFormData(prev => ({ ...prev, tradeOrDetail: e.target.value }))}
                       >
-                        <option value="">Select your traditional craft</option>
+                        <option value="">{tModal.craftPlaceholderArtisan}</option>
                         {TRADES.map(t => <option key={t} value={t}>{t}</option>)}
                       </select>
                     ) : (
                       <input 
-                        type="text"
+                        id="detail-input"
+                        type="text" 
                         required
+                        autoComplete="off"
+                        enterKeyHint="done"
                         placeholder={
-                          formData.track === 'yatra' 
-                            ? 'e.g. Yatri / Local Coordinator / Youth Leader' 
-                            : formData.track === 'matrimony'
-                              ? 'e.g. Sanaga Gotra / Software Engineer / Architect'
-                              : 'e.g. Engineer / Architect / Enterprise Owner'
+                          formData.track === 'matrimony'
+                            ? tModal.craftPlaceholderMatrimony
+                            : formData.track === 'mentor'
+                              ? tModal.craftPlaceholderMentor
+                              : formData.track === 'professional'
+                                ? tModal.craftPlaceholderProfessional
+                                : formData.track === 'yatra'
+                                  ? tModal.craftPlaceholderYatra
+                                  : tModal.craftLabelPatron
                         }
-                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-semibold"
+                        className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-base md:text-xs font-semibold"
                         value={formData.tradeOrDetail}
-                        onChange={(e) => setFormData({...formData, tradeOrDetail: e.target.value})}
+                        onChange={(e) => setFormData(prev => ({ ...prev, tradeOrDetail: e.target.value }))}
                       />
                     )}
                   </div>
@@ -416,16 +639,16 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                       type="button"
                       onClick={() => setStep(1)}
                       className="bg-stone-100 text-stone-600 p-3.5 rounded-xl font-black hover:bg-stone-200 transition-all active:scale-90 touch-manipulation cursor-pointer"
-                      aria-label="Go back"
+                      aria-label={tModal.backBtn}
                     >
                       <ArrowLeft size={18} />
                     </button>
                     <button 
                       type="submit"
-                      disabled={loading || !formData.location || !formData.tradeOrDetail}
+                      disabled={loading || !formData.location || !formData.tradeOrDetail.trim()}
                       className="flex-1 bg-gradient-to-r from-vermilion to-amber-600 text-white py-3.5 rounded-xl font-black text-xs hover:opacity-95 transition-all shadow-lg shadow-vermilion/20 active:scale-[0.98] touch-manipulation disabled:opacity-50 cursor-pointer"
                     >
-                      {loading ? 'Registering...' : 'Complete & Generate Digital Pass'}
+                      {loading ? tModal.submitting : tModal.submitBtn}
                     </button>
                   </div>
                 </motion.div>
