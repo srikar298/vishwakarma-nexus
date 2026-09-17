@@ -20,23 +20,5 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }],
     },
-  },
-  {
-    // REACT SPECIFIC RULES (Web Hub)
-    files: ['apps/web-hub/**/*.{ts,tsx}'],
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-    },
-    languageOptions: {
-      globals: globals.browser,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-    },
   }
 )

@@ -2,7 +2,7 @@
 > **Powered by Vishwakarma Knowledge Centre (VKC)**
 
 ## Current Architecture
-- **Framework**: Fastify (Backend), React (Web Hub), Flutter (Mobile).
+- **Framework**: Fastify (Backend), Next.js (Web Hub - apps/next-web-hub), Flutter (Mobile).
 - **ORM**: Drizzle ORM.
 - **Database**: PostgreSQL with granular modular schemas.
 - **Development Strategy**: Iterative, high-granularity modular monolith.
