@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { User, MapPin, Briefcase, Lock, ArrowRight, ArrowLeft, CheckCircle, ShieldCheck } from 'lucide-react';
@@ -41,6 +41,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
   const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [validationError, setValidationError] = useState('');
+  const updateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -63,6 +64,13 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
     acceptTerms: true,
   });
 
+  // Cleanup debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (updateTimerRef.current) clearTimeout(updateTimerRef.current);
+    };
+  }, []);
+
   // Automatically calculate age when DOB changes
   useEffect(() => {
     if (formData.dob) {
@@ -79,8 +87,20 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
     }
   }, [formData.dob]);
 
+  const dispatchLiveUpdate = (data: typeof formData) => {
+    const fullName = `${data.firstName} ${data.lastName}`.trim();
+    onUpdate({
+      name: fullName || 'Your Name',
+      phone: data.phone,
+      kula: data.kula,
+      profession: data.trade,
+      location: `${data.district}, ${data.state}`,
+    });
+  };
+
   const nextStep = () => {
     setValidationError('');
+    dispatchLiveUpdate(formData);
     setStep(s => s + 1);
   };
   const prevStep = () => {
@@ -93,15 +113,13 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
     const newData = { ...formData, [name]: value };
     setFormData(newData);
     
-    // Live update preview card
-    const fullName = `${newData.firstName} ${newData.lastName}`.trim();
-    onUpdate({
-      name: fullName || 'Your Name',
-      phone: newData.phone,
-      kula: newData.kula,
-      profession: newData.trade,
-      location: `${newData.district}, ${newData.state}`,
-    });
+    // Debounce live update to parent so virtual keyboard doesn't lose focus on keystroke
+    if (updateTimerRef.current) {
+      clearTimeout(updateTimerRef.current);
+    }
+    updateTimerRef.current = setTimeout(() => {
+      dispatchLiveUpdate(newData);
+    }, 350);
   };
 
   const handleFinalSubmit = () => {
@@ -481,7 +499,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
             type="button"
             disabled={isLoading}
             onClick={prevStep}
-            className="flex-1 h-16 rounded-2xl border-2 border-stone-100 text-stone-400 font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-stone-50 transition-all active:scale-95 cursor-pointer disabled:opacity-50"
+            className="flex-1 h-16 rounded-2xl border-2 border-stone-200 text-stone-600 font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-stone-50 transition-all active:scale-95 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
           >
             <ArrowLeft size={16} /> Back
           </button>
@@ -490,7 +508,7 @@ export const RegistrationForm = ({ onUpdate, onComplete, isLoading = false }: Re
           type="button"
           disabled={isContinueDisabled() || isLoading}
           onClick={step === 4 ? handleFinalSubmit : nextStep}
-          className="flex-[2] h-16 rounded-2xl bg-stone-900 text-white font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-vermilion transition-all shadow-xl shadow-stone-900/10 active:scale-95 cursor-pointer disabled:opacity-50"
+          className="flex-[2] h-16 rounded-2xl bg-vermilion text-white font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-vermilion/90 transition-all shadow-xl shadow-vermilion/20 active:scale-95 cursor-pointer disabled:bg-stone-200 disabled:text-stone-400 disabled:shadow-none disabled:hover:bg-stone-200 disabled:cursor-not-allowed"
         >
           {isLoading ? (
             <div className="flex items-center gap-3">

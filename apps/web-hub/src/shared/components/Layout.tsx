@@ -17,6 +17,7 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
+import { MobileBottomNav } from './MobileBottomNav';
 
 export const Layout = () => {
   const { t, i18n } = useTranslation();
@@ -219,12 +220,15 @@ export const Layout = () => {
       </nav>
 
       {/* Main Content Area */}
-      <main className="flex-1 overflow-x-hidden">
+      <main className="flex-1 overflow-x-hidden pb-20 lg:pb-0">
         <Outlet />
       </main>
 
+      {/* Native App-Like Mobile Bottom Navigation Bar */}
+      <MobileBottomNav />
+
       {/* Footer */}
-      <footer className="bg-stone-950 text-white py-20 relative overflow-hidden">
+      <footer className="bg-stone-950 text-white py-20 pb-28 lg:pb-20 relative overflow-hidden">
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-saffron-900/10 blur-[150px] rounded-full -z-0" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
@@ -268,8 +272,12 @@ export const Layout = () => {
           <div className="grid md:grid-cols-2 gap-12 pt-16 border-t border-stone-800/50">
             <div>
               <h4 className="text-xs font-black mb-6 text-turmeric uppercase tracking-widest">Connect</h4>
-              <p className="text-stone-400 mb-2 text-sm font-bold">Vishwa Karma Knowledge Centre</p>
-              <p className="text-stone-500 text-sm leading-relaxed max-w-xs">{t('footer.address')}</p>
+              <p className="text-stone-200 mb-2 text-sm font-bold tracking-tight">Vishwakarma Knowledge Centre</p>
+              <div className="text-stone-400 text-sm leading-relaxed max-w-xs space-y-0.5">
+                <p className="font-semibold text-stone-200">4D, 4th Floor, Samrat Complex</p>
+                <p>Ambedkar Colony, AG Office Road</p>
+                <p>Khairathabad, Hyderabad, Telangana – 500004</p>
+              </div>
               <p className="text-turmeric mt-4 font-black text-sm">info@vkc-community.org</p>
             </div>
             <div className="flex flex-col md:items-end justify-center gap-6">

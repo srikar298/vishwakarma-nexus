@@ -23,22 +23,28 @@ export const BaseModal = ({
 }: BaseModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   // Lock scroll & handle Escape key
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       
       const handleEscape = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') onClose();
+        if (e.key === 'Escape') onCloseRef.current();
       };
       window.addEventListener('keydown', handleEscape);
       
-      // Auto-focus first focusable element or modal itself
-      const focusable = modalRef.current?.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusable && focusable.length > 0) {
-        (focusable[0] as HTMLElement).focus();
+      // Auto-focus only on initial modal open if not already focused inside
+      const isAlreadyFocusedInside = modalRef.current?.contains(document.activeElement);
+      if (!isAlreadyFocusedInside) {
+        const focusable = modalRef.current?.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable && focusable.length > 0) {
+          (focusable[0] as HTMLElement).focus();
+        }
       }
 
       return () => {
@@ -46,7 +52,7 @@ export const BaseModal = ({
         document.body.style.overflow = 'unset';
       };
     }
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   // Focus Trap Logic
   const handleTabKey = (e: React.KeyboardEvent) => {

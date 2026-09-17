@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Download, Share2, Sparkles, ArrowRight, MapPin, CheckCircle2, X, LogIn, LogOut, KeyRound } from 'lucide-react';
 import { MembershipCard } from '../components/MembershipCard';
@@ -49,9 +49,9 @@ export const MembershipPage = () => {
     }
   }, [user]);
 
-  const handleLiveUpdate = (data: Record<string, string | number | boolean>) => {
+  const handleLiveUpdate = useCallback((data: Record<string, string | number | boolean>) => {
     setLiveData(prev => ({ ...prev, ...data }));
-  };
+  }, []);
 
   const handleRegistrationComplete = async (payload: RegisterPayload) => {
     setErrorMessage('');

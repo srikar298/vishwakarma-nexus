@@ -114,7 +114,6 @@ export function JoinModal({ isOpen, onClose }: { isOpen: boolean, onClose: () =>
                      </label>
                      <input 
                        id="full-name"
-                       autoFocus
                        type="text" 
                        required
                        placeholder="e.g. Ramesh Kumar"

@@ -562,8 +562,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="grid md:grid-cols-2 gap-12 pt-16 border-t border-stone-800/50">
             <div>
               <h4 className="text-xs font-black mb-6 text-turmeric uppercase tracking-widest">Connect</h4>
-              <p className="text-stone-400 mb-2 text-sm font-bold">Vishwakarma Knowledge Centre</p>
-              <p className="text-stone-500 text-sm leading-relaxed max-w-xs">{t('footer.address', 'Shivam Rd, Prashanti Nagar, Bagh Amberpet, Hyderabad, Telangana 500013')}</p>
+              <p className="text-stone-200 mb-2 text-sm font-bold tracking-tight">Vishwakarma Knowledge Centre</p>
+              <div className="text-stone-400 text-sm leading-relaxed max-w-xs space-y-0.5">
+                <p className="font-semibold text-stone-200">4D, 4th Floor, Samrat Complex</p>
+                <p>Ambedkar Colony, AG Office Road</p>
+                <p>Khairathabad, Hyderabad, Telangana – 500004</p>
+              </div>
               <p className="text-turmeric mt-4 font-black text-sm">info@vkc-community.org</p>
             </div>
             <div className="flex flex-col md:items-end justify-center gap-6">

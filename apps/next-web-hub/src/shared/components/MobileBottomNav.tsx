@@ -8,7 +8,7 @@ import {
   Home, 
   Search, 
   Heart, 
-  BookOpen, 
+  Footprints, 
   Sparkles 
 } from 'lucide-react';
 
@@ -24,12 +24,12 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenJoinModa
   const isHomeActive = pathname === '/';
   const isDirectoryActive = pathname === '/directory';
   const isMatrimonyActive = pathname === '/network';
-  const isKnowledgeActive = pathname === '/knowledge' || pathname === '/legends' || pathname === '/heritage';
+  const isYatraActive = pathname === '/events/ekta-yatra' || pathname === '/founder' || pathname === '/yatra';
 
   return (
     <nav 
       aria-label="Mobile Navigation Bar"
-      className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-stone-200/80 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] lg:hidden transition-transform duration-300"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-2xl border-t border-stone-200/90 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] lg:hidden transition-transform duration-300"
       style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 8px), 8px)' }}
     >
       <div className="grid grid-cols-5 items-center h-16 max-w-md mx-auto px-2">
@@ -55,7 +55,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenJoinModa
         >
           <Search size={20} className={isDirectoryActive ? 'stroke-[2.5]' : 'stroke-2'} />
           <span className="text-[10px] tracking-tight mt-1">
-            {lang === 'te' ? 'డైరెక్టరీ' : lang === 'hi' ? 'శिल्పకార' : 'Directory'}
+            {lang === 'te' ? 'డైరెక్టరీ' : lang === 'hi' ? 'शिल्पकार' : 'Directory'}
           </span>
         </Link>
 
@@ -73,16 +73,16 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onOpenJoinModa
           </span>
         </Link>
 
-        {/* 4. Knowledge & Shastras */}
+        {/* 4. Ektha Yatra (Replacing Vault) */}
         <Link 
-          href="/knowledge" 
+          href="/events/ekta-yatra" 
           className={`flex flex-col items-center justify-center py-1 rounded-xl transition-all active:scale-95 touch-manipulation ${
-            isKnowledgeActive ? 'text-vermilion font-black' : 'text-stone-500 hover:text-stone-900 font-semibold'
+            isYatraActive ? 'text-saffron-600 font-black' : 'text-stone-500 hover:text-stone-900 font-semibold'
           }`}
         >
-          <BookOpen size={20} className={isKnowledgeActive ? 'stroke-[2.5]' : 'stroke-2'} />
-          <span className="text-[10px] tracking-tight mt-1">
-            {lang === 'te' ? 'జ్ఞానం' : lang === 'hi' ? 'ज्ञान' : 'Vault'}
+          <Footprints size={20} className={isYatraActive ? 'text-saffron-600 stroke-[2.5]' : 'stroke-2 text-saffron-500'} />
+          <span className="text-[10px] tracking-tight mt-1 font-bold text-saffron-700">
+            {lang === 'te' ? 'ఐక్యతా యాత్ర' : lang === 'hi' ? 'एकता यात्रा' : 'Ektha Yatra'}
           </span>
         </Link>
 

@@ -179,24 +179,22 @@ export function HeroFiveSons() {
             {t('hero.description')}
           </motion.p>
           
-          <motion.div 
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             transition={{ delay: 0.5 }}
+          <div 
              className="flex flex-col sm:flex-row gap-4 md:gap-6 mt-8 md:mt-12 justify-center md:justify-start"
           >
-            <Link to="/membership" className="group relative bg-vermilion text-white px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-base md:text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(227,66,52,0.3)] block text-center">
-              <span className="relative z-10">{t('nav.join')}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-saffron to-vermilion opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute -inset-1 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full" />
+            <Link 
+              to="/membership" 
+              className="bg-vermilion hover:bg-vermilion/90 text-white px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-base md:text-lg transition-all hover:scale-105 active:scale-95 shadow-[0_15px_40px_rgba(227,66,52,0.35)] block text-center cursor-pointer"
+            >
+              {t('nav.join')}
             </Link>
             <Link 
               to="/heritage"
-              className="bg-white/40 backdrop-blur-md text-stone-900 px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black text-base md:text-lg border-2 border-white/60 hover:bg-white/60 transition-all shadow-xl block text-center"
+              className="bg-white/90 backdrop-blur-md text-stone-900 px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black text-base md:text-lg border-2 border-stone-200 hover:bg-white transition-all shadow-md block text-center cursor-pointer"
             >
               Explore Legacy
             </Link>
-          </motion.div>
+          </div>
           
           <motion.div 
              initial={{ opacity: 0, y: 20 }}
