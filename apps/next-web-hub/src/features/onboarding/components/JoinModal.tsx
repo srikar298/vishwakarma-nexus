@@ -74,16 +74,82 @@ const TRADES = [
   "Tailor (Darzi)", "Fishing Net Maker"
 ];
 
-const STATES_AND_DISTRICTS = [
-  "Telangana - Mahabubnagar", "Telangana - Hyderabad", "Telangana - Rangareddy", 
-  "Telangana - Medchal", "Telangana - Warangal", "Telangana - Karimnagar", 
-  "Telangana - Nalgonda", "Telangana - Khammam", "Telangana - Nizamabad",
-  "Telangana - Sangareddy", "Telangana - Vikarabad", "Telangana - Adilabad",
-  "Andhra Pradesh - Visakhapatnam", "Andhra Pradesh - Vijayawada / Krishna", 
-  "Andhra Pradesh - Guntur", "Andhra Pradesh - Tirupati", "Andhra Pradesh - Kurnool",
-  "Andhra Pradesh - Anantapur", "Andhra Pradesh - Godavari", "Karnataka - Bengaluru", 
-  "Maharashtra", "Delhi / NCR", "Other Region"
+const ALL_DISTRICT_SUGGESTIONS = [
+  // Telangana (All 33 Districts)
+  "Telangana - Adilabad",
+  "Telangana - Bhadradri Kothagudem",
+  "Telangana - Hanamkonda",
+  "Telangana - Hyderabad",
+  "Telangana - Jagtial",
+  "Telangana - Jangaon",
+  "Telangana - Jayashankar Bhupalpally",
+  "Telangana - Jogulamba Gadwal",
+  "Telangana - Kamareddy",
+  "Telangana - Karimnagar",
+  "Telangana - Khammam",
+  "Telangana - Kumuram Bheem Asifabad",
+  "Telangana - Mahabubabad",
+  "Telangana - Mahabubnagar",
+  "Telangana - Mancherial",
+  "Telangana - Medak",
+  "Telangana - Medchal-Malkajgiri",
+  "Telangana - Mulugu",
+  "Telangana - Nagarkurnool",
+  "Telangana - Nalgonda",
+  "Telangana - Narayanpet",
+  "Telangana - Nirmal",
+  "Telangana - Nizamabad",
+  "Telangana - Peddapalli",
+  "Telangana - Rajanna Sircilla",
+  "Telangana - Rangareddy",
+  "Telangana - Sangareddy",
+  "Telangana - Siddipet",
+  "Telangana - Suryapet",
+  "Telangana - Vikarabad",
+  "Telangana - Wanaparthy",
+  "Telangana - Warangal",
+  "Telangana - Yadadri Bhuvanagiri",
+
+  // Andhra Pradesh (All 26 Districts)
+  "Andhra Pradesh - Alluri Sitharama Raju",
+  "Andhra Pradesh - Anakapalli",
+  "Andhra Pradesh - Ananthapuramu (Anantapur)",
+  "Andhra Pradesh - Annamayya",
+  "Andhra Pradesh - Bapatla",
+  "Andhra Pradesh - Chittoor",
+  "Andhra Pradesh - Dr. B.R. Ambedkar Konaseema",
+  "Andhra Pradesh - East Godavari (Rajahmundry)",
+  "Andhra Pradesh - Eluru",
+  "Andhra Pradesh - Guntur",
+  "Andhra Pradesh - Kakinada",
+  "Andhra Pradesh - Krishna (Machilipatnam)",
+  "Andhra Pradesh - Kurnool",
+  "Andhra Pradesh - Nandyal",
+  "Andhra Pradesh - NTR (Vijayawada)",
+  "Andhra Pradesh - Palnadu",
+  "Andhra Pradesh - Parvathipuram Manyam",
+  "Andhra Pradesh - Prakasam (Ongole)",
+  "Andhra Pradesh - Sri Potti Sriramulu Nellore",
+  "Andhra Pradesh - Sri Sathya Sai (Puttaparthi)",
+  "Andhra Pradesh - Srikakulam",
+  "Andhra Pradesh - Tirupati",
+  "Andhra Pradesh - Visakhapatnam",
+  "Andhra Pradesh - Vizianagaram",
+  "Andhra Pradesh - West Godavari (Bhimavaram)",
+  "Andhra Pradesh - YSR Kadapa",
+
+  // Major Regional Hubs & Metros
+  "Karnataka - Bengaluru",
+  "Karnataka - Bellary / Raichur",
+  "Maharashtra - Mumbai / Thane",
+  "Maharashtra - Pune",
+  "Maharashtra - Nanded / Solapur",
+  "Tamil Nadu - Chennai",
+  "Delhi / NCR",
+  "Odisha",
+  "Other State / NRI"
 ];
+
 
 const MODAL_TEXTS = {
   en: {
@@ -102,7 +168,7 @@ const MODAL_TEXTS = {
     namePlaceholder: 'e.g. Brahmasri Ramesh Chary',
     nextBtn: 'Continue to Details',
     locationLabel: 'District / Region',
-    locationPlaceholder: 'Select your District / Area',
+    locationPlaceholder: 'Type your District (e.g. Siddipet, Warangal, Guntur)',
     mandalLabel: 'Mandal / Town / Area',
     mandalPlaceholder: 'e.g. Shadnagar / Kukatpally',
     lineageLabel: 'Pancha Brahma Lineage / Kula',
@@ -199,7 +265,7 @@ const MODAL_TEXTS = {
     namePlaceholder: 'ఉదా: బ్రహ్మశ్రీ రమేష్ చారి',
     nextBtn: 'వివరాలకు కొనసాగండి',
     locationLabel: 'జిల్లా / ప్రాంతం',
-    locationPlaceholder: 'మీ జిల్లా లేదా ప్రాంతాన్ని ఎంచుకోండి',
+    locationPlaceholder: 'మీ జిల్లాను టైప్ చేయండి (ఉదా: సిద్దిపేట, వరంగల్, గుంటూరు)',
     mandalLabel: 'మండలం / పట్టణం / ప్రాంతం',
     mandalPlaceholder: 'ఉదా: షాద్‌నగర్ / కూకట్‌పల్లి',
     lineageLabel: 'పంచబ్రహ్మ వంశం / శాఖ',
@@ -296,7 +362,7 @@ const MODAL_TEXTS = {
     namePlaceholder: 'उदा. ब्रह्मश्री रमेश चारी',
     nextBtn: 'विवरण पर आगे बढ़ें',
     locationLabel: 'जिला / क्षेत्र',
-    locationPlaceholder: 'अपना जिला या क्षेत्र चुनें',
+    locationPlaceholder: 'अपना जिला टाइप करें (उदा. सिद्दिपेट, वारंगल, गुंटूर)',
     mandalLabel: 'तहसील / शहर / क्षेत्र',
     mandalPlaceholder: 'उदा. शादनगर / कुकटपल्ली',
     lineageLabel: 'पंचब्रह्म वंश / शाखा',
@@ -895,20 +961,24 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {/* District / Location */}
                     <div className="space-y-1">
-                      <label htmlFor="location-select" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
+                      <label htmlFor="location-input" className="text-[10px] font-black text-stone-600 uppercase tracking-widest flex items-center gap-1.5">
                         <MapPin size={12} className="text-vermilion" /> 
                         {tModal.locationLabel}
                       </label>
-                      <select 
-                        id="location-select"
+                      <input 
+                        id="location-input"
+                        type="text"
+                        list="district-suggestions"
                         required
-                        className="w-full px-3 py-2 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-bold appearance-none bg-white cursor-pointer"
+                        autoComplete="off"
+                        placeholder={tModal.locationPlaceholder}
+                        className="w-full px-3 py-2 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-semibold bg-white"
                         value={formData.location}
                         onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
-                      >
-                        <option value="">{tModal.locationPlaceholder}</option>
-                        {STATES_AND_DISTRICTS.map(s => <option key={s} value={s}>{s}</option>)}
-                      </select>
+                      />
+                      <datalist id="district-suggestions">
+                        {ALL_DISTRICT_SUGGESTIONS.map(s => <option key={s} value={s} />)}
+                      </datalist>
                     </div>
 
                     {/* Mandal / Town */}
@@ -1265,7 +1335,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                     </button>
                     <button 
                       type="submit"
-                      disabled={loading || !formData.location || (formData.track === 'artisan' && !formData.tradeOrDetail)}
+                      disabled={loading || !formData.location.trim() || (formData.track === 'artisan' && !formData.tradeOrDetail)}
                       className="flex-1 bg-gradient-to-r from-vermilion via-amber-600 to-amber-700 text-white py-2.5 rounded-xl font-black text-xs hover:opacity-95 transition-all shadow-lg shadow-vermilion/20 active:scale-[0.98] touch-manipulation disabled:opacity-50 cursor-pointer"
                     >
                       {loading ? tModal.submitting : tModal.submitBtn}

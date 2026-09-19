@@ -28,16 +28,82 @@ interface ComingSoonHubProps {
   onOpenRegistration?: (track: TrackType) => void;
 }
 
-const STATES_AND_DISTRICTS = [
-  "Telangana - Mahabubnagar", "Telangana - Hyderabad", "Telangana - Rangareddy", 
-  "Telangana - Medchal", "Telangana - Warangal", "Telangana - Karimnagar", 
-  "Telangana - Nalgonda", "Telangana - Khammam", "Telangana - Nizamabad",
-  "Telangana - Sangareddy", "Telangana - Vikarabad", "Telangana - Adilabad",
-  "Andhra Pradesh - Visakhapatnam", "Andhra Pradesh - Vijayawada / Krishna", 
-  "Andhra Pradesh - Guntur", "Andhra Pradesh - Tirupati", "Andhra Pradesh - Kurnool",
-  "Andhra Pradesh - Anantapur", "Andhra Pradesh - Godavari", "Karnataka - Bengaluru", 
-  "Maharashtra", "Delhi / NCR", "Other Region"
+const ALL_DISTRICT_SUGGESTIONS = [
+  // Telangana (All 33 Districts)
+  "Telangana - Adilabad",
+  "Telangana - Bhadradri Kothagudem",
+  "Telangana - Hanamkonda",
+  "Telangana - Hyderabad",
+  "Telangana - Jagtial",
+  "Telangana - Jangaon",
+  "Telangana - Jayashankar Bhupalpally",
+  "Telangana - Jogulamba Gadwal",
+  "Telangana - Kamareddy",
+  "Telangana - Karimnagar",
+  "Telangana - Khammam",
+  "Telangana - Kumuram Bheem Asifabad",
+  "Telangana - Mahabubabad",
+  "Telangana - Mahabubnagar",
+  "Telangana - Mancherial",
+  "Telangana - Medak",
+  "Telangana - Medchal-Malkajgiri",
+  "Telangana - Mulugu",
+  "Telangana - Nagarkurnool",
+  "Telangana - Nalgonda",
+  "Telangana - Narayanpet",
+  "Telangana - Nirmal",
+  "Telangana - Nizamabad",
+  "Telangana - Peddapalli",
+  "Telangana - Rajanna Sircilla",
+  "Telangana - Rangareddy",
+  "Telangana - Sangareddy",
+  "Telangana - Siddipet",
+  "Telangana - Suryapet",
+  "Telangana - Vikarabad",
+  "Telangana - Wanaparthy",
+  "Telangana - Warangal",
+  "Telangana - Yadadri Bhuvanagiri",
+
+  // Andhra Pradesh (All 26 Districts)
+  "Andhra Pradesh - Alluri Sitharama Raju",
+  "Andhra Pradesh - Anakapalli",
+  "Andhra Pradesh - Ananthapuramu (Anantapur)",
+  "Andhra Pradesh - Annamayya",
+  "Andhra Pradesh - Bapatla",
+  "Andhra Pradesh - Chittoor",
+  "Andhra Pradesh - Dr. B.R. Ambedkar Konaseema",
+  "Andhra Pradesh - East Godavari (Rajahmundry)",
+  "Andhra Pradesh - Eluru",
+  "Andhra Pradesh - Guntur",
+  "Andhra Pradesh - Kakinada",
+  "Andhra Pradesh - Krishna (Machilipatnam)",
+  "Andhra Pradesh - Kurnool",
+  "Andhra Pradesh - Nandyal",
+  "Andhra Pradesh - NTR (Vijayawada)",
+  "Andhra Pradesh - Palnadu",
+  "Andhra Pradesh - Parvathipuram Manyam",
+  "Andhra Pradesh - Prakasam (Ongole)",
+  "Andhra Pradesh - Sri Potti Sriramulu Nellore",
+  "Andhra Pradesh - Sri Sathya Sai (Puttaparthi)",
+  "Andhra Pradesh - Srikakulam",
+  "Andhra Pradesh - Tirupati",
+  "Andhra Pradesh - Visakhapatnam",
+  "Andhra Pradesh - Vizianagaram",
+  "Andhra Pradesh - West Godavari (Bhimavaram)",
+  "Andhra Pradesh - YSR Kadapa",
+
+  // Major Regional Hubs & Metros
+  "Karnataka - Bengaluru",
+  "Karnataka - Bellary / Raichur",
+  "Maharashtra - Mumbai / Thane",
+  "Maharashtra - Pune",
+  "Maharashtra - Nanded / Solapur",
+  "Tamil Nadu - Chennai",
+  "Delhi / NCR",
+  "Odisha",
+  "Other State / NRI"
 ];
+
 
 const CONFIG = {
   professionals: {
@@ -465,15 +531,19 @@ export const ComingSoonHub = ({ activeTab, onOpenRegistration }: ComingSoonHubPr
                           <MapPin size={10} className="text-rose-600" />
                           {lang === 'te' ? 'జిల్లా / నియోజకవర్గం' : lang === 'hi' ? 'जिला / क्षेत्र' : 'District / Area'}
                         </label>
-                        <select 
+                        <input 
                           id="matrimony-location"
-                          className="w-full px-3 py-2 rounded-xl border border-stone-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/10 outline-none transition-all text-base md:text-xs font-semibold appearance-none bg-white cursor-pointer"
+                          type="text"
+                          list="matrimony-district-suggestions"
+                          autoComplete="off"
+                          placeholder={lang === 'te' ? 'మీ జిల్లా టైప్ చేయండి (ఉదా: సిద్దిపేట, గుంటూరు)' : lang === 'hi' ? 'अपना जिला टाइप करें (उदा. सिद्दिपेट, गुंटूर)' : 'Type District (e.g. Siddipet, Warangal, Guntur)'}
+                          className="w-full px-3 py-2 rounded-xl border border-stone-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/10 outline-none transition-all text-base md:text-xs font-semibold bg-white"
                           value={formData.location}
                           onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
-                        >
-                          <option value="">{lang === 'te' ? 'జిల్లా ఎంచుకోండి' : lang === 'hi' ? 'जिला चुनें' : 'Select District / Area'}</option>
-                          {STATES_AND_DISTRICTS.map(s => <option key={s} value={s}>{s}</option>)}
-                        </select>
+                        />
+                        <datalist id="matrimony-district-suggestions">
+                          {ALL_DISTRICT_SUGGESTIONS.map(s => <option key={s} value={s} />)}
+                        </datalist>
                       </div>
 
                       {/* Gotra / Subsect */}
