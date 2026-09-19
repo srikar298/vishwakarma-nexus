@@ -12,22 +12,71 @@ import {
   Calendar, 
   Target, 
   Scale, 
-  ScrollText
+  ScrollText,
+  Flame,
+  ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 import { PageHero } from '@/shared/ui/PageHero';
 import { LeadershipRoster } from '@/features/home/components/LeadershipRoster';
 
-const TIMELINE_EVENTS = [
-  { year: '2026', date: 'May 31', category: 'milestone', te: 'పదేళ్ళ దశాబ్ది ఉత్సవాల వేడుక - సుందరయ్య విజ్ఞాన కేంద్రం.', hi: '10वीं वर्षगांठ का भव्य उत्सव - सुंदरय्या विज्ञान केंद्र।', en: '10th Anniversary Decennial Celebration at Sundarayya Vignana Kendram.' },
-  { year: '2026', date: 'Apr', category: 'movement', te: 'ప్రభుత్వంతో సంప్రదింపులు - విశ్వకర్మలకు ప్రత్యేక కార్పొరేషన్ కోసం పోరాటం.', hi: 'सरकार के साथ संवाद - विश्वकर्मा समुदाय के लिए विशेष निगम की मांग।', en: 'Strategic dialogue with govt for dedicated Vishwakarma Corporation.' },
+interface TimelineEventItem {
+  year: string;
+  date: string;
+  category: string;
+  highlight?: boolean;
+  badge?: { te: string; hi: string; en: string };
+  te: string;
+  hi: string;
+  en: string;
+  link?: string;
+  linkText?: { te: string; hi: string; en: string };
+}
+
+const TIMELINE_EVENTS: TimelineEventItem[] = [
+  { 
+    year: '2026', 
+    date: 'Sep 17 – Nov 29', 
+    category: 'flagship',
+    highlight: true,
+    badge: { 
+      te: '🚩 చారిత్రాత్మక జాతీయ మహా పాదయాత్ర', 
+      hi: '🚩 ऐतिहासिक राष्ट्रीय महा पदयात्रा', 
+      en: '🚩 Flagship National Mega Padayatra' 
+    },
+    te: 'విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర: హైదరాబాద్ నుండి న్యూఢిల్లీ పార్లమెంట్ వరకు 68+ స్టేషన్లు, 6 రాష్ట్రాల మీదుగా 1,700 కి.మీ. చారిత్రాత్మక పాదయాత్ర — రాజ్యాంగ హక్కులు మరియు విశ్వకర్మ కార్పొరేషన్ సాధన కోసం.', 
+    hi: 'विश्वकर्मा वंशज एकता महा पदयात्रा: हैदराबाद से संसद भवन नई दिल्ली तक 68+ स्टेशनों और 6 राज्यों में 1,700 किमी ऐतिहासिक पदयात्रा — संवैधानिक अधिकारों और समर्पित निगम के लिए।', 
+    en: 'Vishwakarma Vanshaj Ekta Maha Padayatra: Historic 1,700 KM national foot march from Hyderabad to Parliament in New Delhi across 68+ waypoint stations and 6 states for constitutional rights and a dedicated Corporation.',
+    link: '/events/ekta-yatra',
+    linkText: { 
+      te: 'పాదయాత్ర వివరాలు & డిజిటల్ పాస్ నమోదు →', 
+      hi: 'पदयात्रा विवरण और डिजिटल पास पंजीकरण →', 
+      en: 'Yatra Details & Digital Pass Registration →' 
+    }
+  },
+  { 
+    year: '2026', 
+    date: 'May 31', 
+    category: 'milestone', 
+    te: 'పదేళ్ళ దశాబ్ది ఉత్సవాల వేడుక - సుందరయ్య విజ్ఞాన కేంద్రం (బాగ్ లింగంపల్లి, హైదరాబాద్).', 
+    hi: '10वीं वर्षगांठ का भव्य उत्सव - सुंदरय्या विज्ञान केंद्र (बाग लिंगमपल्ली, हैदराबाद)।', 
+    en: '10th Anniversary Decennial Celebration at Sundarayya Vignana Kendram, Hyderabad.' 
+  },
+  { 
+    year: '2026', 
+    date: 'Apr', 
+    category: 'movement', 
+    te: 'ప్రభుత్వంతో సంప్రదింపులు - విశ్వకర్మలకు ప్రత్యేక కార్పొరేషన్ కోసం పోరాటం.', 
+    hi: 'सरकार के साथ संवाद - विश्वकर्मा समुदाय के लिए विशेष निगम की मांग।', 
+    en: 'Strategic dialogue with govt for dedicated Vishwakarma Corporation.' 
+  },
   { year: '2025', date: 'Oct', category: 'achievement', te: 'తెలంగాణలోని 26 జిల్లాల్లో 2.8 లక్షల నమోదులు పూర్తి.', hi: 'तेलंगाना के 26 जिलों में 2.8 लाख पंजीकरण पूर्ण।', en: 'Reached 2.8 Lakh registrations across 26 districts in Telangana.' },
   { year: '2025', date: 'Jan', category: 'campaign', te: 'గ్రామస్థాయి చైతన్య యాత్ర - 100 గ్రామాల్లో పర్యటన.', hi: 'ग्राम स्तरीय जागरूकता यात्रा - 100 गांवों का दौरा।', en: 'Village-level awareness padayatra across 100 rural locations.' },
   { year: '2024', date: 'Sep', category: 'milestone', te: 'PM విశ్వకర్మ యోజన అమలులో కీలక పాత్ర - రాష్ట్రస్థాయి అవార్డు.', hi: 'पीएम विश्वकर्मा योजना के कार्यान्वयन में महत्वपूर्ण भूमिका - राज्य स्तरीय पुरस्कार।', en: 'Key role in PM Vishwakarma Yojana implementation - State recognition.' },
   { year: '2024', date: 'Feb', category: 'movement', te: 'చలో ఢిల్లీ - జాతీయ స్థాయిలో కళాకారుల హక్కుల కోసం గళం.', hi: 'चलो दिल्ली - राष्ट्रीय स्तर पर शिल्पकारों के अधिकारों के लिए आवाज उठाई।', en: 'Chalo Delhi - Advocated for artisan rights at the National Capital.' },
   { year: '2021-2023', date: '2022', category: 'charity', te: 'కరోనా కష్టకాలంలో కళాకారుల కుటుంబాలకు ఆహార, ఆర్థిక సాయం.', hi: 'कोरोना काल में शिल्पकार परिवारों को भोजन और आर्थिक सहायता।', en: 'Covid-19 Relief: Food and financial aid to 5,000+ artisan families.' },
-  { year: '2021-2023', date: '2021', category: 'achievement', te: 'VKC ట్రైనింగ్ సెంటర్ల ప్రారంభం - హైదరాబాద్ మరియు ఖమ్మం.', hi: 'वीकेसी प्रशिक्षण केंद्रों की शुरुआत - हैदराबाद और खम्मम।', en: 'Launched VKC Skill Training Centres in Hyderabad & Khammam.' },
+  { year: '2021-2023', date: '2021', category: 'achievement', te: 'VKC ట్రైనింగ్ సెంటర్ల ప్రారంభం - హైదరాబాద్ మరియు ఖమ్మం.', hi: 'వీకేసీ శిక్షణా కేంద్రాల ప్రారంభం - హైదరాబాద్ మరియు ఖమ్మం।', en: 'Launched VKC Skill Training Centres in Hyderabad & Khammam.' },
   { year: '2017-2020', date: '2018', category: 'milestone', te: 'సంస్థ అధికారిక నమోదు (VKC ® 336/2018).', hi: 'संस्था का आधिकारिक पंजीकरण (VKC ® 336/2018)।', en: 'Official Registration of VKC as a legal entity (Reg. 336/2018).' },
   { year: '2017-2020', date: '2017', category: 'origin', te: '25.02.2017న విశ్వకర్మ నాలెడ్జ్ సెంటర్ స్థాపన.', hi: '25.02.2017 को विश्वकर्मा ज्ञान केंद्र की स्थापना।', en: 'Foundation of Vishwakarma Knowledge Centre on Feb 25, 2017.' }
 ];
@@ -36,7 +85,7 @@ export const FounderPage = () => {
   const { t, i18n } = useTranslation();
   const isTelugu = i18n.language === 'te';
   const isHindi = i18n.language === 'hi';
-  const [selectedYear, setSelectedYear] = useState('2024');
+  const [selectedYear, setSelectedYear] = useState('2026');
 
   const yearFilters = ['2017-2020', '2021-2023', '2024', '2025', '2026'];
 
@@ -44,6 +93,7 @@ export const FounderPage = () => {
 
   const getCategoryIcon = (cat: string) => {
     switch(cat) {
+      case 'flagship': return <Flame size={16} className="text-vermilion animate-pulse" />;
       case 'origin': return <ScrollText size={16} />;
       case 'milestone': return <Target size={16} />;
       case 'achievement': return <Award size={16} />;
@@ -55,6 +105,7 @@ export const FounderPage = () => {
 
   const getCategoryStyle = (cat: string) => {
     switch(cat) {
+      case 'flagship': return 'bg-vermilion/20 border-vermilion/40 text-vermilion ring-2 ring-vermilion/20';
       case 'origin': return 'bg-vermilion/10 border-vermilion/20 text-vermilion';
       case 'milestone': return 'bg-turmeric/10 border-turmeric/20 text-turmeric-700';
       case 'achievement': return 'bg-amber-500/10 border-amber-500/20 text-amber-600';
@@ -296,32 +347,64 @@ export const FounderPage = () => {
                       className="relative flex flex-col md:flex-row md:items-start gap-4 md:gap-8 group/event"
                     >
                       {/* Timeline Dot with Category Icon */}
-                      <div className="absolute -left-[39px] w-6 h-6 rounded-full bg-white border-2 border-stone-200 flex items-center justify-center group-hover/event:border-stone-900 transition-colors z-10 shadow-sm">
-                        <div className="w-1.5 h-1.5 rounded-full bg-stone-400 group-hover/event:bg-stone-900 transition-colors" />
+                      <div className={`absolute -left-[39px] w-6 h-6 rounded-full bg-white border-2 flex items-center justify-center transition-colors z-10 shadow-sm ${
+                        event.highlight 
+                          ? 'border-vermilion ring-4 ring-vermilion/20 scale-110' 
+                          : 'border-stone-200 group-hover/event:border-stone-900'
+                      }`}>
+                        <div className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                          event.highlight ? 'bg-vermilion animate-ping' : 'bg-stone-400 group-hover/event:bg-stone-900'
+                        }`} />
                       </div>
 
                       {/* Left: Date Badge */}
-                      <div className="md:w-28 shrink-0 flex items-center gap-2.5">
-                        <div className="text-[10px] font-black text-stone-400 uppercase tracking-widest leading-none bg-stone-50 px-2.5 py-1 rounded border border-stone-100/50 group-hover/event:bg-stone-900 group-hover/event:text-white transition-all">
+                      <div className="md:w-32 shrink-0 flex items-center gap-2.5">
+                        <div className={`text-[10px] font-black uppercase tracking-widest leading-none px-2.5 py-1.5 rounded-lg border transition-all ${
+                          event.highlight
+                            ? 'bg-gradient-to-r from-vermilion to-amber-600 text-white border-vermilion shadow-md shadow-vermilion/20'
+                            : 'text-stone-400 bg-stone-50 border-stone-100/50 group-hover/event:bg-stone-900 group-hover/event:text-white'
+                        }`}>
                           {event.date}
                         </div>
                       </div>
 
                       {/* Right: Content details */}
-                      <div className="flex-1 bg-stone-50 hover:bg-stone-100/30 p-5 rounded-2xl border border-stone-100/80 hover:border-stone-200/50 transition-all flex gap-4 items-start shadow-sm">
+                      <div className={`flex-1 p-5 rounded-2xl border transition-all flex gap-4 items-start shadow-sm ${
+                        event.highlight
+                          ? 'bg-gradient-to-br from-amber-500/10 via-vermilion/5 to-white border-amber-400/60 ring-2 ring-vermilion/20 shadow-lg shadow-vermilion/10'
+                          : 'bg-stone-50 hover:bg-stone-100/30 border-stone-100/80 hover:border-stone-200/50'
+                      }`}>
                         {/* Category Badge & Icon */}
                         <div className={`p-2.5 rounded-xl border shrink-0 ${getCategoryStyle(event.category)}`}>
                           {getCategoryIcon(event.category)}
                         </div>
 
-                        <div className="space-y-1">
-                          <span className={`text-[8px] font-black uppercase tracking-widest inline-block border-b pb-0.5 mb-1 opacity-70`}>
-                            {event.category}
-                          </span>
-                          <p className={`text-stone-700 text-xs md:text-sm font-semibold leading-relaxed 
+                        <div className="space-y-2 flex-1">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-[8px] font-black uppercase tracking-widest inline-block border-b pb-0.5 opacity-70">
+                              {event.category}
+                            </span>
+                            {event.badge && (
+                              <span className="text-[9px] font-black uppercase tracking-wider bg-gradient-to-r from-vermilion to-amber-600 text-white px-2.5 py-0.5 rounded-full shadow-sm">
+                                {isTelugu ? event.badge.te : isHindi ? event.badge.hi : event.badge.en}
+                              </span>
+                            )}
+                          </div>
+                          <p className={`text-stone-800 text-xs md:text-sm font-bold leading-relaxed 
                             ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
                             {isTelugu ? event.te : isHindi ? event.hi : event.en}
                           </p>
+                          {event.link && event.linkText && (
+                            <div className="pt-1.5">
+                              <Link 
+                                href={event.link}
+                                className="inline-flex items-center gap-1.5 text-xs font-black text-vermilion hover:text-amber-700 hover:underline transition-all bg-vermilion/10 hover:bg-vermilion/15 px-3 py-1.5 rounded-xl"
+                              >
+                                <span>{isTelugu ? event.linkText.te : isHindi ? event.linkText.hi : event.linkText.en}</span>
+                                <ArrowRight size={13} />
+                              </Link>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

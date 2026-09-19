@@ -472,6 +472,22 @@ hi: "विधानसभा में विश्वकर्मा समा
       en: "Official proclamation and grassroots state-level mobilization for the historic 1,700 KM 'Pushpagiri Chalo Delhi Ekta Maha Padayatra' traversing 6 states and 75 districts.",
       hi: "ब्रह्मश्री विश्वनाथुला पुष्पगिरि जी के नेतृत्व में 6 राज्यों व 75 जिलों में पारंपरिक शिल्पकारों को जोड़ने वाली ऐतिहासिक 1,700 किमी 'पुष्पगिरि चलो दिल्ली एकता महा पदयात्रा' का महा-अभियान प्रारंभ।",
       category: "movement"
+    },
+    {
+      date: "31.05.2026",
+      year: "2026",
+      te: "సుందరయ్య విజ్ఞాన కేంద్రం (హైదరాబాద్) లో విశ్వకర్మ నాలెడ్జ్ సెంటర్ పదేళ్ళ దశాబ్ది ఉత్సవాల (10th Anniversary Decennial Celebration) మహా వేడుక.",
+      en: "10th Anniversary Decennial Celebration of Vishwakarma Knowledge Centre at Sundarayya Vignana Kendram, Hyderabad.",
+      hi: "सुंदरय्या विज्ञान केंद्र (हैदराबाद) में विश्वकर्मा नॉलेज सेंटर की 10वीं वर्षगांठ का भव्य दीक्षांत समारोह।",
+      category: "organization"
+    },
+    {
+      date: "17.09.2026",
+      year: "2026",
+      te: "విశ్వకర్మ జయంతి శుభవేళ హైదరాబాద్ నుండి న్యూఢిల్లీ పార్లమెంట్ వరకు 6 రాష్ట్రాలు, 68+ స్టేషన్ల మీదుగా 1,700 కి.మీ. 'విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర' మహా ప్రారంభం.",
+      en: "Grand national flag-off of the 1,700 KM 'Vishwakarma Vanshaj Ekta Maha Padayatra' from Hyderabad to Parliament in New Delhi across 6 states on Vishwakarma Jayanti.",
+      hi: "विश्वकर्मा जयंती के पावन अवसर पर हैदराबाद से संसद भवन नई दिल्ली तक 6 राज्यों में 1,700 किमी 'विश्वकर्मा वंशज एकता महा पदयात्रा' का राष्ट्रव्यापी शुभारंभ।",
+      category: "movement"
     }
   ];
 
