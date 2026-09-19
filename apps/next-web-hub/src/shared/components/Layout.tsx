@@ -549,7 +549,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                 <p>Ambedkar Colony, AG Office Road</p>
                 <p>Khairathabad, Hyderabad, Telangana – 500004</p>
               </div>
-              <p className="text-turmeric mt-4 font-black text-sm">info@vkc-community.org</p>
+              <a 
+                href="mailto:vishwakarmaknowledgecentre@gmail.com" 
+                className="text-turmeric hover:underline mt-4 font-black text-xs sm:text-sm block break-all"
+              >
+                vishwakarmaknowledgecentre@gmail.com
+              </a>
             </div>
             <div className="flex flex-col md:items-end justify-center gap-6">
               <div className="flex gap-8 text-xs font-bold text-stone-400 uppercase tracking-widest">

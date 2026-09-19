@@ -190,7 +190,7 @@ export function Admin() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:border-saffron-500 focus:ring-2 focus:ring-saffron-200 transition-all outline-none font-medium"
-                placeholder="admin@vkc-community.org"
+                placeholder="vishwakarmaknowledgecentre@gmail.com"
                 required
               />
             </div>

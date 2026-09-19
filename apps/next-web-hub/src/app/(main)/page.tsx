@@ -60,6 +60,7 @@ export default function Page() {
         "image": "https://vishwakarmaknowledgecentre.org/og-image.jpg",
         "description": "A dedicated non-profit institution and knowledge hub for the holistic support, recognition, digital identity, and skill upgradation of traditional artisans.",
         "telephone": ["+91 96664 35426", "+91 94400 95412"],
+        "email": "vishwakarmaknowledgecentre@gmail.com",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "4D, 4th Floor, Samrat Complex, Ambedkar Colony, AG Office Road, Khairathabad",

@@ -115,7 +115,7 @@ export const MembershipCard: React.FC<MembershipCardProps> = ({ memberData }) =>
                   <QrCode size={120} className="text-stone-900" />
                </div>
                <p className="text-stone-500 text-[8px] font-bold max-w-[200px] mx-auto leading-relaxed">
-                 Scan this code to verify artisan credentials on the official VKC Registry at <span className="text-white">verify.vkc-community.org</span>
+                 Scan this code to verify artisan credentials on the official VKC Registry at <span className="text-white">verify.vishwakarmaknowledgecentre.org</span>
                </p>
             </div>
             <div className="grid grid-cols-2 gap-8 text-left border-t border-stone-800 pt-6">

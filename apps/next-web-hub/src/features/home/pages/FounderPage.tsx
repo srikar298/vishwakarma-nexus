@@ -477,7 +477,7 @@ export const FounderPage = () => {
                    For inquiries regarding the Vision 2030 Mandate.
                  </h3>
                  <div className="flex flex-wrap justify-center gap-6">
-                    <a href="mailto:founder@vkc-community.org" className="bg-vermilion text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-2xl shadow-vermilion/20 active:scale-95">
+                    <a href="mailto:vishwakarmaknowledgecentre@gmail.com" className="bg-vermilion text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-all shadow-2xl shadow-vermilion/20 active:scale-95">
                        Email the Chairman
                     </a>
                     <Link href="/vision" className="bg-white/5 border border-white/10 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-white/10 transition-all backdrop-blur-md">
