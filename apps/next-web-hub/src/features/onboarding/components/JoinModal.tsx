@@ -553,8 +553,8 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
       phone: formData.phone.trim(),
       track: formData.track,
       category: tModal.tracks[formData.track],
-      location: formData.location || 'India',
-      state: formData.location || 'India',
+      location: formData.location.trim() || 'India',
+      state: formData.location.trim() || 'India',
       mandal: formData.mandal.trim() || undefined,
       lineage: lineageText,
       trade: formData.track === 'yatra' 
@@ -594,7 +594,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
   const getShareText = () => {
     const categoryName = tModal.tracks[formData.track] || 'Vishwakarma Nexus';
     const lineageStr = getLineageShort();
-    const locStr = [formData.mandal, formData.location].filter(Boolean).join(', ');
+    const locStr = [formData.mandal?.trim(), formData.location?.trim()].filter(Boolean).join(', ');
 
     if (currentLang === 'te') {
       return `*|| జై విశ్వకర్మ ||*\n*${categoryName} — VKC అధికారిక రిజిస్ట్రీ*\n\nనేను అధికారిక నెట్‌వర్క్‌లో నమోదు చేసుకున్నాను.\n*నా డిజిటల్ ఐడీ:* ${memberId}\n*విభాగం:* ${categoryName}${lineageStr ? `\n*శాఖ/వంశం:* ${lineageStr}` : ''}${locStr ? `\n*ప్రాంతం:* ${locStr}` : ''}\n\n*మీరూ ఇప్పుడే మొబైల్ నంబర్‌తో నమోదు చేసుకొని డిజిటల్ పాస్ పొందండి:*\nhttps://vishwakarmaknowledgecentre.org/membership`;
@@ -677,7 +677,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
               <div>
                 <p className="text-[9px] text-stone-400 uppercase font-black tracking-wider">{tModal.districtRegion}</p>
                 <p className="font-bold text-amber-300 truncate">
-                  {[formData.mandal, formData.location].filter(Boolean).join(', ') || 'Telangana / AP'}
+                  {[formData.mandal?.trim(), formData.location?.trim()].filter(Boolean).join(', ') || 'Telangana / AP'}
                 </p>
               </div>
               <div>
@@ -971,6 +971,13 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                         list="district-suggestions"
                         required
                         autoComplete="off"
+                        enterKeyHint="next"
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            document.getElementById('mandal-input')?.focus();
+                          }
+                        }}
                         placeholder={tModal.locationPlaceholder}
                         className="w-full px-3 py-2 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-semibold bg-white"
                         value={formData.location}
@@ -990,6 +997,7 @@ export function JoinModal({ isOpen, onClose, defaultTrack = 'yatra' }: JoinModal
                       <input 
                         id="mandal-input"
                         type="text"
+                        enterKeyHint="next"
                         placeholder={tModal.mandalPlaceholder}
                         className="w-full px-3 py-2 rounded-xl border border-stone-200 focus:border-vermilion focus:ring-2 focus:ring-vermilion/10 outline-none transition-all text-xs font-semibold"
                         value={formData.mandal}

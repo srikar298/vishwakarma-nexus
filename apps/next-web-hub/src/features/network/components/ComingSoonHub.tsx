@@ -263,8 +263,8 @@ export const ComingSoonHub = ({ activeTab, onOpenRegistration }: ComingSoonHubPr
       track: formData.track,
       category: 'Parinaya Matrimony',
       trade: `Parinaya Matrimony - ${formData.gotraOrSubsect || 'Verified Aspirant'}`,
-      location: formData.location || 'Telangana / AP',
-      state: formData.location || 'Telangana / AP',
+      location: formData.location.trim() || 'Telangana / AP',
+      state: formData.location.trim() || 'Telangana / AP',
       notes: `Track: ${formData.track} | Ref: Network-Matrimony-Tab | GeneratedID: ${generatedId}`
     };
 
@@ -536,6 +536,13 @@ export const ComingSoonHub = ({ activeTab, onOpenRegistration }: ComingSoonHubPr
                           type="text"
                           list="matrimony-district-suggestions"
                           autoComplete="off"
+                          enterKeyHint="next"
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              document.getElementById('matrimony-gotra')?.focus();
+                            }
+                          }}
                           placeholder={lang === 'te' ? 'మీ జిల్లా టైప్ చేయండి (ఉదా: సిద్దిపేట, గుంటూరు)' : lang === 'hi' ? 'अपना जिला टाइप करें (उदा. सिद्दिपेट, गुंटूर)' : 'Type District (e.g. Siddipet, Warangal, Guntur)'}
                           className="w-full px-3 py-2 rounded-xl border border-stone-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/10 outline-none transition-all text-base md:text-xs font-semibold bg-white"
                           value={formData.location}
