@@ -14,7 +14,8 @@ import {
   Scale, 
   ScrollText,
   Flame,
-  ArrowRight
+  ArrowRight,
+  MapPin
 } from 'lucide-react';
 import Link from 'next/link';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
@@ -30,6 +31,12 @@ interface TimelineEventItem {
   te: string;
   hi: string;
   en: string;
+  routeCorridor?: {
+    sectors: Array<{
+      state: string;
+      districts: string;
+    }>;
+  };
   link?: string;
   linkText?: { te: string; hi: string; en: string };
 }
@@ -45,14 +52,24 @@ const TIMELINE_EVENTS: TimelineEventItem[] = [
       hi: '🚩 ऐतिहासिक राष्ट्रीय महा पदयात्रा', 
       en: '🚩 Flagship National Mega Padayatra' 
     },
-    te: 'విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర: హైదరాబాద్ నుండి న్యూఢిల్లీ పార్లమెంట్ వరకు 68+ స్టేషన్లు, 6 రాష్ట్రాల మీదుగా 1,700 కి.మీ. చారిత్రాత్మక పాదయాత్ర — రాజ్యాంగ హక్కులు మరియు విశ్వకర్మ కార్పొరేషన్ సాధన కోసం.', 
-    hi: 'विश्वकर्मा वंशज एकता महा पदयात्रा: हैदराबाद से संसद भवन नई दिल्ली तक 68+ स्टेशनों और 6 राज्यों में 1,700 किमी ऐतिहासिक पदयात्रा — संवैधानिक अधिकारों और समर्पित निगम के लिए।', 
-    en: 'Vishwakarma Vanshaj Ekta Maha Padayatra: Historic 1,700 KM national foot march from Hyderabad to Parliament in New Delhi across 68+ waypoint stations and 6 states for constitutional rights and a dedicated Corporation.',
+    te: 'విశ్వకర్మ వంశస్థుల ఏకతా మహా పాదయాత్ర: హైదరాబాద్ నుండి న్యూఢిల్లీ పార్లమెంట్ వరకు 6 రాష్ట్రాలు, 68+ స్టేషన్ల మీదుగా సాగే 1,700 కి.మీ. చారిత్రాత్మక జాతీయ పాదయాత్ర — రాజ్యాంగ హక్కులు మరియు ప్రత్యేక విశ్వకర్మ కార్పొరేషన్ సాధన కొరకు.', 
+    hi: 'विश्वकर्मा वंशज एकता महा पदयात्रा: हैदराबाद से संसद भवन नई दिल्ली तक 6 राज्यों और 68+ स्टेशनों में 1,700 किमी ऐतिहासिक राष्ट्रीय पदयात्रा — संवैधानिक अधिकारों और समर्पित निगम के लिए।', 
+    en: 'Vishwakarma Vanshaj Ekta Maha Padayatra: Historic 1,700 KM national foot march from Hyderabad to Parliament in New Delhi across 6 states and 68+ waypoint stations along NH-44 for constitutional rights and a dedicated Corporation.',
+    routeCorridor: {
+      sectors: [
+        { state: 'Telangana Sector', districts: 'Hyderabad, Medchal, Kamareddy, Nizamabad, Nirmal, Adilabad' },
+        { state: 'Maharashtra Sector', districts: 'Kelapur, Pandharkawada, Hinganghat, Nagpur, Ramtek, Deolapar' },
+        { state: 'Madhya Pradesh Sector', districts: 'Seoni, Lakhnadon, Jabalpur, Katni, Maihar, Satna, Panna, Chhatarpur' },
+        { state: 'Bundelkhand & UP Sector', districts: 'Mauranipur, Jhansi, Datia, Gwalior, Morena' },
+        { state: 'Rajasthan & Braj Sector', districts: 'Dholpur, Agra, Farah, Mathura, Kosi Kalan' },
+        { state: 'Haryana & Delhi Sector', districts: 'Hodal, Palwal, Ballabhgarh, Faridabad, New Delhi (Parliament)' }
+      ]
+    },
     link: '/events/ekta-yatra',
     linkText: { 
-      te: 'పాదయాత్ర వివరాలు & డిజిటల్ పాస్ నమోదు →', 
-      hi: 'पदयात्रा विवरण और डिजिटल पास पंजीकरण →', 
-      en: 'Yatra Details & Digital Pass Registration →' 
+      te: 'సంపూర్ణ 68+ స్టేషన్ల రూట్ మ్యాప్ & డిజిటల్ పాస్ →', 
+      hi: 'संपूर्ण 68+ स्टेशनों का रूट मैप एवं डिजिटल पास →', 
+      en: 'View 68+ Waypoint Stations & Register Pass →' 
     }
   },
   { 
@@ -394,6 +411,28 @@ export const FounderPage = () => {
                             ${isTelugu ? 'font-telugu' : isHindi ? 'font-hindi' : ''}`}>
                             {isTelugu ? event.te : isHindi ? event.hi : event.en}
                           </p>
+
+                          {event.routeCorridor && (
+                            <div className="mt-2.5 pt-2.5 border-t border-amber-200/60 space-y-1.5">
+                              <p className="text-[10px] font-black text-amber-900 uppercase tracking-wider flex items-center gap-1">
+                                <MapPin size={11} className="text-vermilion shrink-0" />
+                                <span>{isTelugu ? 'యాత్ర మార్గంలోని ప్రధాన ప్రాంతాలు & జిల్లాలు (NH-44):' : isHindi ? 'यात्रा मार्ग के प्रमुख क्षेत्र और जिले (NH-44):' : 'Key Expedition Route Corridor & Districts (NH-44):'}</span>
+                              </p>
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px]">
+                                {event.routeCorridor.sectors.map((s, si) => (
+                                  <div key={si} className="bg-white/90 border border-stone-200/80 rounded-xl p-2 shadow-xs">
+                                    <span className="font-black text-stone-900 block text-[9px] uppercase tracking-wider text-vermilion">
+                                      {s.state}
+                                    </span>
+                                    <span className="text-stone-600 font-medium text-[11px] leading-tight block mt-0.5">
+                                      {s.districts}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
                           {event.link && event.linkText && (
                             <div className="pt-1.5">
                               <Link 

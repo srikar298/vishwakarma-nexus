@@ -138,6 +138,27 @@ const ALL_DISTRICT_SUGGESTIONS = [
   "Andhra Pradesh - West Godavari (Bhimavaram)",
   "Andhra Pradesh - YSR Kadapa",
 
+  // Pushpagiri Ekta Maha Padayatra Corridor Districts (NH-44 Route)
+  "Telangana - Kamareddy (Yatra Route)",
+  "Telangana - Nizamabad (Yatra Route)",
+  "Telangana - Nirmal (Yatra Route)",
+  "Telangana - Adilabad (Yatra Route)",
+  "Maharashtra - Nagpur / Vidarbha (Yatra Route)",
+  "Maharashtra - Hinganghat / Wardha (Yatra Route)",
+  "Maharashtra - Yavatmal / Pandharkawada (Yatra Route)",
+  "Madhya Pradesh - Seoni / Lakhnadon (Yatra Route)",
+  "Madhya Pradesh - Jabalpur (Yatra Route)",
+  "Madhya Pradesh - Katni / Maihar (Yatra Route)",
+  "Madhya Pradesh - Satna / Panna (Yatra Route)",
+  "Madhya Pradesh - Chhatarpur / Nowgong (Yatra Route)",
+  "Uttar Pradesh - Jhansi / Bundelkhand (Yatra Route)",
+  "Madhya Pradesh - Gwalior / Morena (Yatra Route)",
+  "Rajasthan - Dholpur (Yatra Route)",
+  "Uttar Pradesh - Agra / Mathura (Yatra Route)",
+  "Haryana - Palwal / Hodal (Yatra Route)",
+  "Haryana - Faridabad (Yatra Route)",
+  "Delhi / NCR - New Delhi (Yatra Route)",
+
   // Major Regional Hubs & Metros
   "Karnataka - Bengaluru",
   "Karnataka - Bellary / Raichur",
